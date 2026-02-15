@@ -1,2 +1,47 @@
-# Audio-Atlas
-The living map of the world's music — an open-source, community-powered platform for discovering and documenting music genres across cultures.
+# Audio Atlas 🌍🎵
+
+**The living map of the world's music.**
+
+Audio Atlas is an open-source, community-powered platform for discovering and
+documenting music genres across cultures. Explore an interactive map, learn about
+genres from every corner of the world, and contribute your own knowledge.
+
+> This project is being developed as part of the Industrial Software Engineering
+> course at IT University of Copenhagen (ITU), Spring 2025.
+
+## Status
+
+🚧 **Pre-development** — We are currently in the planning and architecture phase.
+Development begins after the team kickoff workshop.
+
+## Prototype
+
+Explore the early prototype: [audio-atlas-global-m-jjc7.bolt.host](https://audio-atlas-global-m-jjc7.bolt.host)
+
+## Licensing
+
+This project uses a dual-licence model:
+
+| What | Licence |
+|------|---------|
+| Source code | [MIT License](LICENSE) |
+| Genre data & content | [CC BY-NC-SA 4.0](LICENSE-CONTENT) |
+
+Code is free to use for any purpose. Genre data is free for non-commercial use.
+For commercial licensing enquiries, contact the maintainers.
+
+## Contributing
+
+We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before
+getting started.
+
+## Maintainers
+
+- **Jed Anang** — Product owner, strategy
+- **Christophe Berbec** — Design, interaction
+- **Team 14** - Development 
+
+## Links
+ 
+- [Product Vision Document](#) *(Link coming soon)*
+- [Project Board](#) *(Link coming soon)*
