@@ -11,8 +11,18 @@ genres from every corner of the world, and contribute your own knowledge.
 
 ## Status
 
-🚧 **Pre-development** — We are currently in the planning and architecture phase.
-Development begins after the team kickoff workshop.
+🚧 **Pre-development** — Kickoff workshop completed. Architecture decisions confirmed.
+Preparing for User Story Mapping and Sprint 1.
+
+## Tech Stack (Confirmed)
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18 + Vite + Leaflet + React-Leaflet |
+| Backend | ASP.NET minimal API + Entity Framework Core |
+| Auth | ASP.NET Identity (GitHub + Google OAuth) |
+| Database | TBD (PostgreSQL likely) |
+| AI | External API (rule-based first) |
+| Deployment | Netlify/Cloudflare (frontend) + Azure/Render (backend) |
 
 ## Prototype
 
