@@ -1,0 +1,6 @@
+@AudioAtlasView_HostAddress = http://localhost:5085
+
+GET {{AudioAtlasView_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
