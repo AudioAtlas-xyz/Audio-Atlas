@@ -49,7 +49,17 @@ getting started.
 
 - **Jed Anang** — Product owner, strategy
 - **Christophe Berbec** — Design, interaction
-- **Team 14** - Development 
+============ Team 14 =========================
+- **Alexander Olsen** - Scrum Master
+- **Camilla Frøkjær Jørgensen** - Developer
+- **Camille Holmskov Larsen** - Developer
+- **Anna Rasmussen** - Developer
+- **Ditte Astof Hansen** - Developer
+- **Alfred Ørsted Damgaard** - Developer
+- **Noah Leerbeck Van Wagenen** - Developer
+- **Andreas John-Holaus** - Developer
+- **Philip Bay Quorning** - Developer
+- **Freja Skakke Jørgensen** - Developer
 
 ## Links
  
