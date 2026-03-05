@@ -31,6 +31,10 @@ launchSettings.json
 node_modules/
 dist/
 .vite/
+.nuxt/
+.output/
+.nitro/
+.cache/
 *.tsbuildinfo
 
 # ── Environment & secrets ──
