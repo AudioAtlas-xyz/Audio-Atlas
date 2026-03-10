@@ -2,7 +2,10 @@ namespace DefaultNamespace;
 
 public class Genre
 {
-    public string? Id { get; set; }
-
-    public string? Name { get; set; }
+    public required string Id { get; set; }
+    public required string Name { get; set; }
+    public string Description { get; set; }
+    public required ICollection<string> Origin { get; set; } = new List<string>();
+    public ICollection<string>? Aliases { get; set; }
+    public ICollection<Genre> RelatedGenres { get; set; } = new List<Genre>();
 }
