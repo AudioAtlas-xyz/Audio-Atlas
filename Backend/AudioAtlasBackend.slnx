@@ -1,2 +1,8 @@
 <Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AudioAtlasApplication/AudioAtlasApplication.csproj" />
+    <Project Path="src/AudioAtlasDomain/AudioAtlasDomain.csproj" />
+    <Project Path="src/AudioAtlasInfrastructure/AudioAtlasInfrastructure.csproj" />
+    <Project Path="src/AudioAtlasView/AudioAtlasView.csproj" />
+  </Folder>
 </Solution>
