@@ -23,22 +23,22 @@ jobs:
           dotnet-version: '10.x'
 
       - name: Restore backend
-        working-directory: ./backend
+        working-directory: ./Backend
         run: dotnet restore
 
       - name: Build backend
-        working-directory: ./backend
+        working-directory: ./Backend
         run: dotnet build --configuration Release
 
       - name: Publish backend
-        working-directory: ./backend
+        working-directory: ./Backend
         run: dotnet publish -c Release -o publish
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: backend
-          path: backend/publish
+          path: Backend/publish
 
 
   test:
@@ -54,7 +54,7 @@ jobs:
           dotnet-version: '10.x'
 
       - name: Run tests
-        working-directory: ./backend
+        working-directory: ./Backend
         run: dotnet test --configuration Release
 
 
