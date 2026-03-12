@@ -1,10 +1,10 @@
 ﻿using AudioAtlasDomain.Genres;
 
+using AudioAtlasDomain.Genres;
 namespace AudioAtlasDomain.Users;
-
 public class FavoriteGenre
 {
-    public Guid UserId { get; set; } = string.Empty;
+    public Guid UserId { get; set; }
 
     public Guid GenreId { get; set; }
 

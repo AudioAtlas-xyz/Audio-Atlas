@@ -1,4 +1,5 @@
-﻿
+﻿using AudioAtlasDomain.Genres;
+
 namespace AudioAtlasDomain.MusicMetadata
 {
     public class Instrument

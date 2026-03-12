@@ -1,4 +1,6 @@
-﻿namespace AudioAtlasDomain.Geography
+﻿using AudioAtlasDomain.Genres;
+
+namespace AudioAtlasDomain.Geography
 {
     public class Country
     {

@@ -1,4 +1,4 @@
-﻿using AudioAtlas.Domain.Genres;
+﻿using AudioAtlasDomain.Genres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

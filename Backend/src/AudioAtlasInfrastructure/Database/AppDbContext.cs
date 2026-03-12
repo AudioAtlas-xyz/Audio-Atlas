@@ -1,8 +1,8 @@
-﻿using AudioAtlas.Domain.Genres;
-using AudioAtlas.Domain.Geography;
-using AudioAtlas.Domain.MusicMetadata;
-using AudioAtlas.Domain.Submissions;
-using AudioAtlas.Domain.Users;
+﻿using AudioAtlasDomain.Genres;
+using AudioAtlasDomain.Geography;
+using AudioAtlasDomain.MusicMetadata;
+using AudioAtlasDomain.Submissions;
+using AudioAtlasDomain.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace AudioAtlasInfrastructure.Database;
