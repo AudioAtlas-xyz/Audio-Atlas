@@ -1,3 +1,7 @@
+using AudioAtlasInfrastructure.Database;
+using Microsoft.EntityFrameworkCore;
+
+
 using AudioAtlasApplication.Repositories;
 using AudioAtlasApplication.Services;
 using AudioAtlasInfrastructure.Repositories;
@@ -17,6 +21,12 @@ builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddControllers();
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
+
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 var app = builder.Build();
 
