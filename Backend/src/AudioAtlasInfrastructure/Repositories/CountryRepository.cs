@@ -9,4 +9,9 @@ public class CountryRepository : ICountryRepository
     {
         throw new NotImplementedException();
     }
+
+    public Dictionary<Country, int> getCountryWithGenreCount()
+    {
+        throw new NotImplementedException();
+    }
 }
