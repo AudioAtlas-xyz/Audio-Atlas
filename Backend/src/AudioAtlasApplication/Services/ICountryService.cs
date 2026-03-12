@@ -1,6 +1,6 @@
 namespace AudioAtlasApplication.Services;
 
-public class ICountryService
+public interface ICountryService
 {
     
 }

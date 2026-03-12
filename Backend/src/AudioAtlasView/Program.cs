@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
-
+    
 //Dependency injection HAS TO be here, or else mapping of controllers will crash.
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();

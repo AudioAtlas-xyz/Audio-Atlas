@@ -1,6 +1,6 @@
 namespace AudioAtlasApplication.Services;
 
-public class IGenreService
+public interface IGenreService
 {
     
 }

@@ -1,4 +1,5 @@
 namespace Domain.Country;
+using Domain.Genre;
 	
 public class Country
 {
