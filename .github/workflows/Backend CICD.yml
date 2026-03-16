@@ -26,6 +26,8 @@ jobs:
         with:
           dotnet-version: '10.x'
           cache: true
+          cache-dependency-path: 'Backend/**/packages.lock.json'
+
 
       - name: Restore dependencies
         working-directory: ./Backend
@@ -58,6 +60,7 @@ jobs:
         with:
           dotnet-version: '10.x'
           cache: true
+          cache-dependency-path: 'Backend/**/packages.lock.json'
 
       - name: Restore dependencies
         working-directory: ./Backend
