@@ -18,4 +18,3 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 var app = builder.Build();
 
 app.Run();
-
