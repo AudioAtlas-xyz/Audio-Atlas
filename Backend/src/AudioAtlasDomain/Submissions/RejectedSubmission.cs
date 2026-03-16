@@ -1,4 +1,6 @@
-﻿namespace AudioAtlasDomain.Submissions
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AudioAtlasDomain.Submissions
 {
     public class RejectedSubmission
     {
