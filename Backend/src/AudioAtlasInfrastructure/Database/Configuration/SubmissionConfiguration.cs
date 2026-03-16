@@ -1,6 +1,8 @@
-﻿using AudioAtlasDomain.Submissions;
+using AudioAtlasDomain.Submissions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace AudioAtlasInfrastructure.Database.Configuration;
 
 public class SubmissionConfiguration : IEntityTypeConfiguration<Submission>
 {
@@ -18,5 +20,17 @@ public class SubmissionConfiguration : IEntityTypeConfiguration<Submission>
         builder.HasMany(x => x.Sources)
             .WithOne(x => x.Submission)
             .HasForeignKey(x => x.SubmissionId);
+
+        builder.HasMany(x => x.SimilarGenres)
+            .WithMany()
+            .UsingEntity("SubmissionSimilarGenres");
+
+        builder.HasMany(x => x.SubGenres)
+            .WithMany()
+            .UsingEntity("SubmissionSubGenres");
+
+        builder.HasMany(x => x.PredecessorGenres)
+            .WithMany()
+            .UsingEntity("SubmissionPredecessorGenres");
     }
 }

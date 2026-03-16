@@ -24,7 +24,6 @@ public class AppDbContext : DbContext
 
     public DbSet<Submission> Submissions => Set<Submission>();
     public DbSet<SubmissionAlias> SubmissionAliases => Set<SubmissionAlias>();
-    public DbSet<SubmissionCountry> SubmissionCountries => Set<SubmissionCountry>();
     public DbSet<SubmissionSource> SubmissionSources => Set<SubmissionSource>();
     public DbSet<RejectedSubmission> RejectedSubmissions => Set<RejectedSubmission>();
 
