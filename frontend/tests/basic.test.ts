@@ -5,3 +5,9 @@ describe('sanity test', () => {
     expect(true).toBe(true)
   })
 })
+
+describe('extremely serious math research', () => {
+  it('2 + 2 still equals 4', () => {
+    expect(2 + 2).toBe(4)
+  })
+})
