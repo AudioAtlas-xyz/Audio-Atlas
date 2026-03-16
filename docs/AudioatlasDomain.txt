@@ -1,0 +1,22 @@
+AudioAtlas.Domain
+│
+├── Genres
+│   ├── Genre.cs
+│   ├── GenreAlias.cs
+│   └── GenreSource.cs
+│
+├── Geography
+│   └── Country.cs
+│
+├── MusicMetadata
+│   └── Instrument.cs
+│
+├── Submissions
+│   ├── Submission.cs
+│   ├── SubmissionAlias.cs
+│   ├── SubmissionCountry.cs
+│   ├── SubmissionSource.cs
+│   └── RejectedSubmission.cs
+│
+└── Users
+    └── FavoriteGenre.cs
