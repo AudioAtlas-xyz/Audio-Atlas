@@ -1,5 +1,5 @@
 namespace AudioAtlasApplication.Repositories;
-using Domain.Genre;
+using AudioAtlasDomain.Genres;
 
 public interface IGenreRepository
 {

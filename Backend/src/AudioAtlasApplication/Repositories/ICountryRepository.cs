@@ -1,9 +1,9 @@
 namespace AudioAtlasApplication.Repositories;
-using Domain.Country;
-using 
+
+using AudioAtlasDomain.Geography;
 
 public interface ICountryRepository
 { //hey errbod'
-    public Country getCountryByID(string id);
+    //public Country getCountryByID(string id);
 
 }

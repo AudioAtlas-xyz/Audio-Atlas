@@ -1,7 +1,5 @@
 using AudioAtlasInfrastructure.Database;
 using Microsoft.EntityFrameworkCore;
-
-
 using AudioAtlasApplication.Repositories;
 using AudioAtlasApplication.Services;
 using AudioAtlasInfrastructure.Repositories;
