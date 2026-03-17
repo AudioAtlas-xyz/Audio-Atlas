@@ -31,6 +31,14 @@
           "Microsoft.Identity.Client.Extensions.Msal": "4.73.1"
         }
       },
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+        "type": "Transitive",
+        "resolved": "10.0.4",
+        "contentHash": "xcuRo8Ubxwf3xay2z7mD3b3TmEnvMhSLzvfx5cqmk3V10oxTDqgIyZ8C5qav+iAc27In/TXteSJ6kS2iZpah7w==",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "10.0.4"
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces": {
         "type": "Transitive",
         "resolved": "8.0.0",
@@ -225,6 +233,7 @@
         "dependencies": {
           "AudioAtlasApplication": "[1.0.0, )",
           "AudioAtlasDomain": "[1.0.0, )",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "[10.0.4, )",
           "Microsoft.EntityFrameworkCore": "[10.0.4, )",
           "Microsoft.EntityFrameworkCore.SqlServer": "[10.0.4, )"
         }

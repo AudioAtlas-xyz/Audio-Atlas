@@ -28,90 +28,61 @@ namespace AudioAtlasInfrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AuthorId")
+                    b.Property<Guid?>("AuthorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
 
                     b.Property<bool>("IsSensitive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("PlaylistLink")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("SensitiveDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
 
                     b.Property<int?>("StartYear")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("SubmissionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("SubmissionId1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("SubmissionId2")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SubmissionId");
+                    b.HasIndex("AuthorId");
 
-                    b.HasIndex("SubmissionId1");
-
-                    b.HasIndex("SubmissionId2");
-
-                    b.ToTable("Genres");
+                    b.ToTable("Genres", (string)null);
                 });
 
             modelBuilder.Entity("AudioAtlasDomain.Genres.GenreAlias", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Alias")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("GenreId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Alias")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasIndex("GenreId");
+                    b.HasKey("GenreId", "Alias");
 
                     b.ToTable("GenreAliases");
                 });
 
             modelBuilder.Entity("AudioAtlasDomain.Genres.GenreSource", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("GenreId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SourceLink")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("GenreId");
+                    b.HasKey("GenreId", "SourceLink");
 
                     b.ToTable("GenreSources");
                 });
@@ -129,12 +100,7 @@ namespace AudioAtlasInfrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("SubmissionId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SubmissionId");
 
                     b.ToTable("Countries");
                 });
@@ -164,7 +130,8 @@ namespace AudioAtlasInfrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.HasKey("SubmissionId");
 
@@ -177,18 +144,14 @@ namespace AudioAtlasInfrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AccountId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly?>("EndDate")
                         .HasColumnType("date");
-
-                    b.Property<Guid?>("ExistingGenreId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsRejected")
                         .HasColumnType("bit");
@@ -207,127 +170,377 @@ namespace AudioAtlasInfrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Submissions");
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("Submissions", (string)null);
                 });
 
             modelBuilder.Entity("AudioAtlasDomain.Submissions.SubmissionAlias", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Alias")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("SubmissionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Alias")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasIndex("SubmissionId");
+                    b.HasKey("SubmissionId", "Alias");
 
                     b.ToTable("SubmissionAliases");
                 });
 
-            modelBuilder.Entity("AudioAtlasDomain.Submissions.SubmissionCountry", b =>
+            modelBuilder.Entity("AudioAtlasDomain.Submissions.SubmissionSource", b =>
                 {
                     b.Property<Guid>("SubmissionId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
+                    b.Property<string>("SourceLink")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("SubmissionId1")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasKey("SubmissionId", "SourceLink");
 
-                    b.HasKey("SubmissionId");
-
-                    b.HasIndex("SubmissionId1");
-
-                    b.ToTable("SubmissionCountries");
+                    b.ToTable("SubmissionSources");
                 });
 
-            modelBuilder.Entity("AudioAtlasDomain.Submissions.SubmissionSource", b =>
+            modelBuilder.Entity("AudioAtlasDomain.Users.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("SourceLink")
-                        .IsRequired()
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SubmissionId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubmissionId");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
 
-                    b.ToTable("SubmissionSources");
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("AudioAtlasDomain.Users.FavoriteGenre", b =>
+            modelBuilder.Entity("FavoriteGenre", b =>
                 {
                     b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("GenreId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("UserId");
+                    b.HasKey("UserId", "GenreId");
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("FavoriteGenres");
+                    b.ToTable("FavoriteGenre");
                 });
 
-            modelBuilder.Entity("CountryGenre", b =>
+            modelBuilder.Entity("GenreCountry", b =>
                 {
-                    b.Property<Guid>("CountriesId")
+                    b.Property<Guid>("GenreId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("GenresId")
+                    b.Property<Guid>("CountryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("CountriesId", "GenresId");
+                    b.HasKey("GenreId", "CountryId");
 
-                    b.HasIndex("GenresId");
+                    b.HasIndex("CountryId");
 
-                    b.ToTable("CountryGenre");
+                    b.ToTable("GenreCountry");
+                });
+
+            modelBuilder.Entity("GenreHierarchy", b =>
+                {
+                    b.Property<Guid>("ParentGenreId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SubGenreId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ParentGenreId", "SubGenreId");
+
+                    b.HasIndex("SubGenreId");
+
+                    b.ToTable("GenreHierarchy");
                 });
 
             modelBuilder.Entity("GenreInstrument", b =>
                 {
-                    b.Property<Guid>("GenresId")
+                    b.Property<Guid>("GenreId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("InstrumentsId")
+                    b.Property<Guid>("InstrumentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("GenresId", "InstrumentsId");
+                    b.HasKey("GenreId", "InstrumentId");
 
-                    b.HasIndex("InstrumentsId");
+                    b.HasIndex("InstrumentId");
 
                     b.ToTable("GenreInstrument");
                 });
 
+            modelBuilder.Entity("GenreSimilarity", b =>
+                {
+                    b.Property<Guid>("GenreId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SimilarGenreId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("GenreId", "SimilarGenreId");
+
+                    b.HasIndex("SimilarGenreId");
+
+                    b.ToTable("GenreSimilarity");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("SubmissionCountry", b =>
+                {
+                    b.Property<Guid>("SubmissionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CountryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("SubmissionId", "CountryId");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("SubmissionCountry");
+                });
+
+            modelBuilder.Entity("SubmissionPredecessorGenre", b =>
+                {
+                    b.Property<Guid>("SubmissionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GenreId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("SubmissionId", "GenreId");
+
+                    b.HasIndex("GenreId");
+
+                    b.ToTable("SubmissionPredecessorGenre");
+                });
+
+            modelBuilder.Entity("SubmissionSimilarGenre", b =>
+                {
+                    b.Property<Guid>("SubmissionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GenreId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("SubmissionId", "GenreId");
+
+                    b.HasIndex("GenreId");
+
+                    b.ToTable("SubmissionSimilarGenre");
+                });
+
+            modelBuilder.Entity("SubmissionSubGenre", b =>
+                {
+                    b.Property<Guid>("SubmissionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GenreId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("SubmissionId", "GenreId");
+
+                    b.HasIndex("GenreId");
+
+                    b.ToTable("SubmissionSubGenre");
+                });
+
             modelBuilder.Entity("AudioAtlasDomain.Genres.Genre", b =>
                 {
-                    b.HasOne("AudioAtlasDomain.Submissions.Submission", null)
-                        .WithMany("PredecessorGenres")
-                        .HasForeignKey("SubmissionId");
+                    b.HasOne("AudioAtlasDomain.Users.ApplicationUser", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("AudioAtlasDomain.Submissions.Submission", null)
-                        .WithMany("SimilarGenres")
-                        .HasForeignKey("SubmissionId1");
-
-                    b.HasOne("AudioAtlasDomain.Submissions.Submission", null)
-                        .WithMany("SubGenres")
-                        .HasForeignKey("SubmissionId2");
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("AudioAtlasDomain.Genres.GenreAlias", b =>
@@ -352,13 +565,6 @@ namespace AudioAtlasInfrastructure.Migrations
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("AudioAtlasDomain.Geography.Country", b =>
-                {
-                    b.HasOne("AudioAtlasDomain.Submissions.Submission", null)
-                        .WithMany("Countries")
-                        .HasForeignKey("SubmissionId");
-                });
-
             modelBuilder.Entity("AudioAtlasDomain.Submissions.RejectedSubmission", b =>
                 {
                     b.HasOne("AudioAtlasDomain.Submissions.Submission", "Submission")
@@ -370,22 +576,22 @@ namespace AudioAtlasInfrastructure.Migrations
                     b.Navigation("Submission");
                 });
 
+            modelBuilder.Entity("AudioAtlasDomain.Submissions.Submission", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.Users.ApplicationUser", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
             modelBuilder.Entity("AudioAtlasDomain.Submissions.SubmissionAlias", b =>
                 {
                     b.HasOne("AudioAtlasDomain.Submissions.Submission", "Submission")
                         .WithMany("Aliases")
                         .HasForeignKey("SubmissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Submission");
-                });
-
-            modelBuilder.Entity("AudioAtlasDomain.Submissions.SubmissionCountry", b =>
-                {
-                    b.HasOne("AudioAtlasDomain.Submissions.Submission", "Submission")
-                        .WithMany()
-                        .HasForeignKey("SubmissionId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -403,29 +609,48 @@ namespace AudioAtlasInfrastructure.Migrations
                     b.Navigation("Submission");
                 });
 
-            modelBuilder.Entity("AudioAtlasDomain.Users.FavoriteGenre", b =>
+            modelBuilder.Entity("FavoriteGenre", b =>
                 {
-                    b.HasOne("AudioAtlasDomain.Genres.Genre", "Genre")
+                    b.HasOne("AudioAtlasDomain.Genres.Genre", null)
                         .WithMany()
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Genre");
+                    b.HasOne("AudioAtlasDomain.Users.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("CountryGenre", b =>
+            modelBuilder.Entity("GenreCountry", b =>
                 {
                     b.HasOne("AudioAtlasDomain.Geography.Country", null)
                         .WithMany()
-                        .HasForeignKey("CountriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("AudioAtlasDomain.Genres.Genre", null)
                         .WithMany()
-                        .HasForeignKey("GenresId")
+                        .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GenreHierarchy", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.Genres.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("ParentGenreId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AudioAtlasDomain.Genres.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("SubGenreId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -433,13 +658,139 @@ namespace AudioAtlasInfrastructure.Migrations
                 {
                     b.HasOne("AudioAtlasDomain.Genres.Genre", null)
                         .WithMany()
-                        .HasForeignKey("GenresId")
+                        .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AudioAtlasDomain.MusicMetadata.Instrument", null)
                         .WithMany()
-                        .HasForeignKey("InstrumentsId")
+                        .HasForeignKey("InstrumentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GenreSimilarity", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.Genres.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AudioAtlasDomain.Genres.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("SimilarGenreId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.Users.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.Users.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AudioAtlasDomain.Users.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.Users.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SubmissionCountry", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.Geography.Country", null)
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AudioAtlasDomain.Submissions.Submission", null)
+                        .WithMany()
+                        .HasForeignKey("SubmissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SubmissionPredecessorGenre", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.Genres.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AudioAtlasDomain.Submissions.Submission", null)
+                        .WithMany()
+                        .HasForeignKey("SubmissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SubmissionSimilarGenre", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.Genres.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AudioAtlasDomain.Submissions.Submission", null)
+                        .WithMany()
+                        .HasForeignKey("SubmissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SubmissionSubGenre", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.Genres.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AudioAtlasDomain.Submissions.Submission", null)
+                        .WithMany()
+                        .HasForeignKey("SubmissionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -455,17 +806,9 @@ namespace AudioAtlasInfrastructure.Migrations
                 {
                     b.Navigation("Aliases");
 
-                    b.Navigation("Countries");
-
-                    b.Navigation("PredecessorGenres");
-
                     b.Navigation("RejectedSubmission");
 
-                    b.Navigation("SimilarGenres");
-
                     b.Navigation("Sources");
-
-                    b.Navigation("SubGenres");
                 });
 #pragma warning restore 612, 618
         }

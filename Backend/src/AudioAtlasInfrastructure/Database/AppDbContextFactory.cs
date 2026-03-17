@@ -9,8 +9,7 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 
-        optionsBuilder.UseSqlServer(
-            "Server=(localdb)\\MSSQLLocalDB;Database=AudioAtlasDev;Trusted_Connection=True;MultipleActiveResultSets=true");
+        optionsBuilder.UseSqlServer(AppDbContextDefaults.DevelopmentConnectionString);
 
         return new AppDbContext(optionsBuilder.Options);
     }

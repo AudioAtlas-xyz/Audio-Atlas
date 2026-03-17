@@ -1,15 +1,14 @@
 ﻿using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Geography;
+using AudioAtlasDomain.Users;
 
 namespace AudioAtlasDomain.Submissions;
 
 public class Submission
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
-    public string AccountId { get; set; } = string.Empty;
-
-    public Guid? ExistingGenreId { get; set; }
+    public Guid AccountId { get; set; }
 
     public string? NewGenreName { get; set; }
 
@@ -24,6 +23,7 @@ public class Submission
     public string? PlaylistLink { get; set; }
 
     public bool IsRejected { get; set; }
+    public ApplicationUser Account { get; set; }
 
     public ICollection<SubmissionAlias> Aliases { get; set; } = new List<SubmissionAlias>();
 
