@@ -153,7 +153,7 @@ Audio Atlas uses two licences:
 
 | What | Licence | File |
 |------|---------|------|
-| Source code (JavaScript, HTML, CSS, config) | MIT License | `LICENSE` |
+| Source code | MIT License | `LICENSE` |
 | Genre data, descriptions, and content | Creative Commons BY-NC-SA 4.0 | `LICENSE-CONTENT` |
 
 **By submitting a contribution to this project, you agree that:**
