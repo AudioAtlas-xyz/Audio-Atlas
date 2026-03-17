@@ -19,7 +19,7 @@ public class CountryRepository : ICountryRepository
     /// </summary>
     /// <param name="id"> Unique identifier for a specific country </param>
     /// <returns> The country corresponding to the ID or null </returns>
-    public Country getCountryByID(string id)
+    public Country getCountryByID(Guid id)
     {
         return _dbcontext.Countries.Find(id);
     }
