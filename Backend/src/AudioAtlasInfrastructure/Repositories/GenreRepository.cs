@@ -77,8 +77,43 @@ public class GenreRepository : IGenreRepository
             .ParentGenres;
     }
     
+    /// <summary>
+    /// Retrieves the subgenre(s) of a specific genre
+    /// </summary>
+    /// <param name="genre"> Specific genre </param>
+    /// <returns> A collection of subgenres corresponding to a specified genre </returns>
+    public ICollection<Genre> getSubGenres(Genre genre)
+    {
+        return _dbcontext.Genres
+            .Where(g => g.Id == genre.Id)
+            .Single()
+            .SubGenres;
+    }
+    
+    /// <summary>
+    /// Retrieves the similar genre(s) of a specific genre
+    /// </summary>
+    /// <param name="genre"> Specific genre </param>
+    /// <returns> A collection of similar genres corresponding to a specified genre </returns>
+    public ICollection<Genre> getSimilarGenres(Genre genre)
+    {
+        return _dbcontext.Genres
+            .Where(g => g.Id == genre.Id)
+            .Single()
+            .SimilarGenres;
+    }
+
+    /// <summary>
+    /// Retrieves the related genre(s) to a specific genre
+    /// </summary>
+    /// <param name="genre"> Specific genre </param>
+    /// <returns> A list with all related genres to a specific genre </returns>
     public ICollection<Genre> getRelated(Genre genre)
     {
-        throw new NotImplementedException();
+        return _dbcontext.Genres
+            .Where(g => g.Id == genre.Id)
+            .Single()
+            .SubGenres.Union(getParents(genre)).Union(getSimilarGenres(genre))
+            .ToList();
     }
 }
