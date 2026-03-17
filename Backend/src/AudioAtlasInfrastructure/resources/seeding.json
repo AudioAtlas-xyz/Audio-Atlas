@@ -1,0 +1,8204 @@
+{
+  "version": "1.8.1",
+  "generated": "2025-09-10T18:43:46.640086Z",
+  "stats": {
+    "genres": 154,
+    "countries": 96,
+    "instruments": 13
+  },
+  "lookups": {
+    "countries": {
+      "gh": {
+        "id": "gh",
+        "name": "Ghana"
+      },
+      "ng": {
+        "id": "ng",
+        "name": "Nigeria"
+      },
+      "br": {
+        "id": "br",
+        "name": "Brazil"
+      },
+      "jm": {
+        "id": "jm",
+        "name": "Jamaica"
+      },
+      "us": {
+        "id": "us",
+        "name": "United States"
+      },
+      "gb": {
+        "id": "gb",
+        "name": "United Kingdom"
+      },
+      "za": {
+        "id": "za",
+        "name": "South Africa"
+      },
+      "jp": {
+        "id": "jp",
+        "name": "Japan"
+      },
+      "in": {
+        "id": "in",
+        "name": "India"
+      },
+      "sl": {
+        "id": "sl",
+        "name": "Sierra Leone"
+      },
+      "lr": {
+        "id": "lr",
+        "name": "Liberia"
+      },
+      "fr": {
+        "id": "fr",
+        "name": "France"
+      },
+      "dz": {
+        "id": "dz",
+        "name": "Algeria"
+      },
+      "ma": {
+        "id": "ma",
+        "name": "Morocco"
+      },
+      "tn": {
+        "id": "tn",
+        "name": "Tunisia"
+      },
+      "ws": {
+        "id": "ws",
+        "name": "Samoa"
+      },
+      "fj": {
+        "id": "fj",
+        "name": "Fiji"
+      },
+      "to": {
+        "id": "to",
+        "name": "Tonga"
+      },
+      "pf": {
+        "id": "pf",
+        "name": "French Polynesia"
+      },
+      "nz": {
+        "id": "nz",
+        "name": "New Zealand"
+      },
+      "ki": {
+        "id": "ki",
+        "name": "Kiribati"
+      },
+      "tt": {
+        "id": "tt",
+        "name": "Trinidad and Tobago"
+      },
+      "bb": {
+        "id": "bb",
+        "name": "Barbados"
+      },
+      "bs": {
+        "id": "bs",
+        "name": "Bahamas"
+      },
+      "pa": {
+        "id": "pa",
+        "name": "Panama"
+      },
+      "ve": {
+        "id": "ve",
+        "name": "Venezuela"
+      },
+      "uy": {
+        "id": "uy",
+        "name": "Uruguay"
+      },
+      "cl": {
+        "id": "cl",
+        "name": "Chile"
+      },
+      "bo": {
+        "id": "bo",
+        "name": "Bolivia"
+      },
+      "ec": {
+        "id": "ec",
+        "name": "Ecuador"
+      },
+      "cm": {
+        "id": "cm",
+        "name": "Cameroon"
+      },
+      "cd": {
+        "id": "cd",
+        "name": "Democratic Republic of the Congo"
+      },
+      "ao": {
+        "id": "ao",
+        "name": "Angola"
+      },
+      "cv": {
+        "id": "cv",
+        "name": "Cabo Verde"
+      },
+      "ci": {
+        "id": "ci",
+        "name": "Côte d’Ivoire"
+      },
+      "ke": {
+        "id": "ke",
+        "name": "Kenya"
+      },
+      "tz": {
+        "id": "tz",
+        "name": "Tanzania"
+      },
+      "sn": {
+        "id": "sn",
+        "name": "Senegal"
+      },
+      "ml": {
+        "id": "ml",
+        "name": "Mali"
+      },
+      "gn": {
+        "id": "gn",
+        "name": "Guinea"
+      },
+      "ga": {
+        "id": "ga",
+        "name": "Gabon"
+      },
+      "cg": {
+        "id": "cg",
+        "name": "Republic of the Congo"
+      },
+      "mz": {
+        "id": "mz",
+        "name": "Mozambique"
+      },
+      "gp": {
+        "id": "gp",
+        "name": "Guadeloupe"
+      },
+      "mq": {
+        "id": "mq",
+        "name": "Martinique"
+      },
+      "eg": {
+        "id": "eg",
+        "name": "Egypt"
+      },
+      "sy": {
+        "id": "sy",
+        "name": "Syria"
+      },
+      "lb": {
+        "id": "lb",
+        "name": "Lebanon"
+      },
+      "jo": {
+        "id": "jo",
+        "name": "Jordan"
+      },
+      "ps": {
+        "id": "ps",
+        "name": "Palestine"
+      },
+      "iq": {
+        "id": "iq",
+        "name": "Iraq"
+      },
+      "sa": {
+        "id": "sa",
+        "name": "Saudi Arabia"
+      },
+      "kw": {
+        "id": "kw",
+        "name": "Kuwait"
+      },
+      "bh": {
+        "id": "bh",
+        "name": "Bahrain"
+      },
+      "qa": {
+        "id": "qa",
+        "name": "Qatar"
+      },
+      "ae": {
+        "id": "ae",
+        "name": "United Arab Emirates"
+      },
+      "om": {
+        "id": "om",
+        "name": "Oman"
+      },
+      "ye": {
+        "id": "ye",
+        "name": "Yemen"
+      },
+      "pk": {
+        "id": "pk",
+        "name": "Pakistan"
+      },
+      "lk": {
+        "id": "lk",
+        "name": "Sri Lanka"
+      },
+      "bd": {
+        "id": "bd",
+        "name": "Bangladesh"
+      },
+      "id": {
+        "id": "id",
+        "name": "Indonesia"
+      },
+      "my": {
+        "id": "my",
+        "name": "Malaysia"
+      },
+      "sg": {
+        "id": "sg",
+        "name": "Singapore"
+      },
+      "th": {
+        "id": "th",
+        "name": "Thailand"
+      },
+      "ph": {
+        "id": "ph",
+        "name": "Philippines"
+      },
+      "np": {
+        "id": "np",
+        "name": "Nepal"
+      },
+      "kr": {
+        "id": "kr",
+        "name": "South Korea"
+      },
+      "cn": {
+        "id": "cn",
+        "name": "China"
+      },
+      "tw": {
+        "id": "tw",
+        "name": "Taiwan"
+      },
+      "vn": {
+        "id": "vn",
+        "name": "Vietnam"
+      },
+      "la": {
+        "id": "la",
+        "name": "Laos"
+      },
+      "pt": {
+        "id": "pt",
+        "name": "Portugal"
+      },
+      "es": {
+        "id": "es",
+        "name": "Spain"
+      },
+      "rs": {
+        "id": "rs",
+        "name": "Serbia"
+      },
+      "ba": {
+        "id": "ba",
+        "name": "Bosnia and Herzegovina"
+      },
+      "bg": {
+        "id": "bg",
+        "name": "Bulgaria"
+      },
+      "mk": {
+        "id": "mk",
+        "name": "North Macedonia"
+      },
+      "al": {
+        "id": "al",
+        "name": "Albania"
+      },
+      "ro": {
+        "id": "ro",
+        "name": "Romania"
+      },
+      "gr": {
+        "id": "gr",
+        "name": "Greece"
+      },
+      "pl": {
+        "id": "pl",
+        "name": "Poland"
+      },
+      "ua": {
+        "id": "ua",
+        "name": "Ukraine"
+      },
+      "by": {
+        "id": "by",
+        "name": "Belarus"
+      },
+      "ru": {
+        "id": "ru",
+        "name": "Russia"
+      },
+      "cz": {
+        "id": "cz",
+        "name": "Czechia"
+      },
+      "sk": {
+        "id": "sk",
+        "name": "Slovakia"
+      },
+      "hu": {
+        "id": "hu",
+        "name": "Hungary"
+      },
+      "ge": {
+        "id": "ge",
+        "name": "Georgia"
+      },
+      "am": {
+        "id": "am",
+        "name": "Armenia"
+      },
+      "az": {
+        "id": "az",
+        "name": "Azerbaijan"
+      },
+      "kz": {
+        "id": "kz",
+        "name": "Kazakhstan"
+      },
+      "kg": {
+        "id": "kg",
+        "name": "Kyrgyzstan"
+      },
+      "uz": {
+        "id": "uz",
+        "name": "Uzbekistan"
+      },
+      "tj": {
+        "id": "tj",
+        "name": "Tajikistan"
+      },
+      "tm": {
+        "id": "tm",
+        "name": "Turkmenistan"
+      },
+      "pe": {
+        "id": "pe",
+        "name": "Peru"
+      },
+      "ar": {
+        "id": "ar",
+        "name": "Argentina"
+      },
+      "mx": {
+        "id": "mx",
+        "name": "Mexico"
+      },
+      "py": {
+        "id": "py",
+        "name": "Paraguay"
+      },
+      "tr": {
+        "id": "tr",
+        "name": "Turkey"
+      },
+      "pr": {
+        "id": "pr",
+        "name": "Puerto Rico"
+      },
+      "co": {
+        "id": "co",
+        "name": "Colombia"
+      },
+      "cu": {
+        "id": "cu",
+        "name": "Cuba"
+      },
+      "it": {
+        "id": "it",
+        "name": "IT"
+      },
+      "do": {
+        "id": "do",
+        "name": "Dominican Republic"
+      }
+    },
+    "instruments": {
+      "guitar": {
+        "id": "guitar",
+        "name": "Guitar",
+        "family": "Chordophone"
+      },
+      "horn-section": {
+        "id": "horn-section",
+        "name": "Horn Section",
+        "family": "Aerophone"
+      },
+      "drum-kit": {
+        "id": "drum-kit",
+        "name": "Drum Kit",
+        "family": "Membranophone"
+      },
+      "surdo": {
+        "id": "surdo",
+        "name": "Surdo",
+        "family": "Membranophone"
+      },
+      "pandeiro": {
+        "id": "pandeiro",
+        "name": "Pandeiro",
+        "family": "Membranophone"
+      },
+      "bass": {
+        "id": "bass",
+        "name": "Bass",
+        "family": "Chordophone"
+      },
+      "turntables": {
+        "id": "turntables",
+        "name": "Turntables",
+        "family": "Electronic"
+      },
+      "samplers": {
+        "id": "samplers",
+        "name": "Samplers",
+        "family": "Electronic"
+      },
+      "log-drum": {
+        "id": "log-drum",
+        "name": "Log Drum",
+        "family": "Membranophone"
+      },
+      "shamisen": {
+        "id": "shamisen",
+        "name": "Shamisen",
+        "family": "Chordophone"
+      },
+      "sitar": {
+        "id": "sitar",
+        "name": "Sitar",
+        "family": "Chordophone"
+      },
+      "tabla": {
+        "id": "tabla",
+        "name": "Tabla",
+        "family": "Membranophone"
+      },
+      "piano": {
+        "id": "piano",
+        "name": "Piano",
+        "family": "Chordophone"
+      }
+    }
+  },
+  "genres": [
+    {
+      "id": "acid-house",
+      "name": "Acid House",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "gb",
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "gb",
+            "name": "United Kingdom"
+          },
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "house"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "house"
+        ]
+      },
+      "period": {
+        "approx_start": 1987,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "DJ mix",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "afrobeat",
+      "name": "Afrobeat",
+      "status": "published",
+      "origin": {
+        "country_ids": [
+          "ng",
+          "gh"
+        ],
+        "countries": [
+          {
+            "id": "ng",
+            "name": "Nigeria"
+          },
+          {
+            "id": "gh",
+            "name": "Ghana"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [
+          "drum-kit",
+          "horn-section"
+        ],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "highlife"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [
+          "highlife"
+        ],
+        "parent_ids": [
+          "highlife"
+        ]
+      },
+      "period": {
+        "approx_start": null,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "al-ala",
+      "name": "Al-ʿĀla (Andalusí-Morocco)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ma"
+        ],
+        "countries": [
+          {
+            "id": "ma",
+            "name": "Morocco"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1500,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "club",
+        "conservatory"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "alternative-hip-hop",
+      "name": "Alternative Hip-Hop",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "hip-hop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "hip-hop"
+        ]
+      },
+      "period": {
+        "approx_start": 1989,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "mixtape",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "amapiano",
+      "name": "Amapiano",
+      "status": "published",
+      "origin": {
+        "country_ids": [
+          "za"
+        ],
+        "countries": [
+          {
+            "id": "za",
+            "name": "South Africa"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [
+          "log-drum",
+          "piano"
+        ],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "kwaito"
+        ],
+        "subgenre_ids": [
+          "private-school-amapiano",
+          "sgija"
+        ],
+        "similar_ids": [
+          "gqom"
+        ],
+        "parent_ids": [
+          "kwaito"
+        ]
+      },
+      "period": {
+        "approx_start": 2012,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "party",
+        "taxi culture",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "South African deep‑house offshoot with log‑drum...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "apala",
+      "name": "Apala",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ng"
+        ],
+        "countries": [
+          {
+            "id": "ng",
+            "name": "Nigeria"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "west-african-pop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "west-african-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 1930,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "arab-art-music",
+      "name": "Arab Art Music",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "eg",
+          "sy",
+          "lb",
+          "iq"
+        ],
+        "countries": [
+          {
+            "id": "eg",
+            "name": "Egypt"
+          },
+          {
+            "id": "sy",
+            "name": "Syria"
+          },
+          {
+            "id": "lb",
+            "name": "Lebanon"
+          },
+          {
+            "id": "iq",
+            "name": "Iraq"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "tarab",
+          "muwashshah",
+          "maqam-iraqi",
+          "khaleeji",
+          "levant-folk"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1200,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "court",
+        "conservatory"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "ashiq",
+      "name": "Ashiq (Aşıq)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "az",
+          "tr"
+        ],
+        "countries": [
+          {
+            "id": "az",
+            "name": "Azerbaijan"
+          },
+          {
+            "id": "tr",
+            "name": "Turkey"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "caucasus-traditions"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "caucasus-traditions"
+        ]
+      },
+      "period": {
+        "approx_start": 1500,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "ceremony",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Azerbaijani/Anatolian bard tradition with saz and epic singing.",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "bachata",
+      "name": "Bachata",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "do"
+        ],
+        "countries": [
+          {
+            "id": "do",
+            "name": "Dominican Republic"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "latin-caribbean"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "latin-caribbean"
+        ]
+      },
+      "period": {
+        "approx_start": 1962,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club",
+        "festival",
+        "studio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "balkan-folk",
+      "name": "Balkan Folk",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "rs",
+          "ba",
+          "bg",
+          "mk",
+          "al",
+          "ro",
+          "gr"
+        ],
+        "countries": [
+          {
+            "id": "rs",
+            "name": "Serbia"
+          },
+          {
+            "id": "ba",
+            "name": "Bosnia and Herzegovina"
+          },
+          {
+            "id": "bg",
+            "name": "Bulgaria"
+          },
+          {
+            "id": "mk",
+            "name": "North Macedonia"
+          },
+          {
+            "id": "al",
+            "name": "Albania"
+          },
+          {
+            "id": "ro",
+            "name": "Romania"
+          },
+          {
+            "id": "gr",
+            "name": "Greece"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "cocek",
+          "turbo-folk"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1800,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "wedding",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "banda",
+      "name": "Banda",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "mx"
+        ],
+        "countries": [
+          {
+            "id": "mx",
+            "name": "Mexico"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "regional-mexicano"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "regional-mexicano"
+        ]
+      },
+      "period": {
+        "approx_start": 1920,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "festival",
+        "concert",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "benga",
+      "name": "Benga",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ke"
+        ],
+        "countries": [
+          {
+            "id": "ke",
+            "name": "Kenya"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "east-african-pop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "east-african-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 1960,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "bolero",
+      "name": "Bolero",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "cu",
+          "mx"
+        ],
+        "countries": [
+          {
+            "id": "cu",
+            "name": "Cuba"
+          },
+          {
+            "id": "mx",
+            "name": "Mexico"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "latin-caribbean"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "latin-caribbean"
+        ]
+      },
+      "period": {
+        "approx_start": 1880,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club",
+        "festival",
+        "studio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "boogaloo",
+      "name": "Boogaloo (Latin Boogaloo)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us",
+          "pr",
+          "cu"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          },
+          {
+            "id": "pr",
+            "name": "Puerto Rico"
+          },
+          {
+            "id": "cu",
+            "name": "Cuba"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "latin-caribbean"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "latin-caribbean"
+        ]
+      },
+      "period": {
+        "approx_start": 1965,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club",
+        "festival",
+        "studio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "boogie-funk",
+      "name": "Boogie (Post-Disco)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "disco"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "disco"
+        ]
+      },
+      "period": {
+        "approx_start": 1981,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "DJ mix"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "boom-bap",
+      "name": "Boom Bap",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "hip-hop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "hip-hop"
+        ]
+      },
+      "period": {
+        "approx_start": 1991,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "mixtape",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "bossa-nova",
+      "name": "Bossa Nova",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "br"
+        ],
+        "countries": [
+          {
+            "id": "br",
+            "name": "Brazil"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1958,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "recording",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Cool, intimate Brazilian style marrying samba rhythms to jazz harmony...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "burger-highlife",
+      "name": "Burger Highlife",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "gh"
+        ],
+        "countries": [
+          {
+            "id": "gh",
+            "name": "Ghana"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "highlife"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "highlife"
+        ]
+      },
+      "period": {
+        "approx_start": 1983,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "recording",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "1980s diaspora highlife...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "c-pop",
+      "name": "C‑Pop (Mandopop/Cantopop)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "cn",
+          "tw",
+          "sg"
+        ],
+        "countries": [
+          {
+            "id": "cn",
+            "name": "China"
+          },
+          {
+            "id": "tw",
+            "name": "Taiwan"
+          },
+          {
+            "id": "sg",
+            "name": "Singapore"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "cantopop",
+          "mandopop"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1970,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "television",
+        "radio",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Chinese‑language pop branches...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "cantopop",
+      "name": "Cantopop",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "cn"
+        ],
+        "countries": [
+          {
+            "id": "cn",
+            "name": "China"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "c-pop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "c-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 1975,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "television",
+        "radio",
+        "concert"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Hong Kong Cantonese pop peak in 1980s‑1990s.",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "carnatic-classical",
+      "name": "Carnatic Classical",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "in"
+        ],
+        "countries": [
+          {
+            "id": "in",
+            "name": "India"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1700,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "temple",
+        "pedagogical"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "South Indian art‑music tradition centred on raga and tala, with kriti repertoire.",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "caucasus-traditions",
+      "name": "Caucasus Traditions",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ge",
+          "am",
+          "az"
+        ],
+        "countries": [
+          {
+            "id": "ge",
+            "name": "Georgia"
+          },
+          {
+            "id": "am",
+            "name": "Armenia"
+          },
+          {
+            "id": "az",
+            "name": "Azerbaijan"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "georgian-polyphony",
+          "mugham",
+          "ashiq"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1700,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "ceremony",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "central-african-pop",
+      "name": "Central African Popular Music",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "cd",
+          "cm"
+        ],
+        "countries": [
+          {
+            "id": "cd",
+            "name": "Democratic Republic of the Congo"
+          },
+          {
+            "id": "cm",
+            "name": "Cameroon"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "rumba-congolaise",
+          "makossa"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1940,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "central-asian-traditions",
+      "name": "Central Asian Traditions",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "kz",
+          "kg",
+          "uz",
+          "tj",
+          "tm"
+        ],
+        "countries": [
+          {
+            "id": "kz",
+            "name": "Kazakhstan"
+          },
+          {
+            "id": "kg",
+            "name": "Kyrgyzstan"
+          },
+          {
+            "id": "uz",
+            "name": "Uzbekistan"
+          },
+          {
+            "id": "tj",
+            "name": "Tajikistan"
+          },
+          {
+            "id": "tm",
+            "name": "Turkmenistan"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "maqom"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1700,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "ceremony",
+        "concert"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "chaabi-algerien",
+      "name": "Chaâbi Algérien",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "dz"
+        ],
+        "countries": [
+          {
+            "id": "dz",
+            "name": "Algeria"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1940,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "club",
+        "conservatory"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "chaabi-marocain",
+      "name": "Chaâbi Marocain",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ma"
+        ],
+        "countries": [
+          {
+            "id": "ma",
+            "name": "Morocco"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1950,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "club",
+        "conservatory"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "chalghi",
+      "name": "Chalghi Baghdad",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "iq"
+        ],
+        "countries": [
+          {
+            "id": "iq",
+            "name": "Iraq"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "maqam-iraqi"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "maqam-iraqi"
+        ]
+      },
+      "period": {
+        "approx_start": 1900,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "wedding",
+        "radio",
+        "television"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "chamame",
+      "name": "Chamamé",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ar",
+          "py"
+        ],
+        "countries": [
+          {
+            "id": "ar",
+            "name": "Argentina"
+          },
+          {
+            "id": "py",
+            "name": "Paraguay"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "latin-caribbean"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "latin-caribbean"
+        ]
+      },
+      "period": {
+        "approx_start": 1930,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club",
+        "festival",
+        "studio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "chicago-house",
+      "name": "Chicago House",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "house"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "house"
+        ]
+      },
+      "period": {
+        "approx_start": 1983,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "DJ mix",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "chicha",
+      "name": "Chicha (Andean Cumbia)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "pe"
+        ],
+        "countries": [
+          {
+            "id": "pe",
+            "name": "Peru"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "cumbia"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "cumbia"
+        ]
+      },
+      "period": {
+        "approx_start": 1968,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "festival",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "cloud-rap",
+      "name": "Cloud Rap",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "hip-hop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "hip-hop"
+        ]
+      },
+      "period": {
+        "approx_start": 2010,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "mixtape",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "cocek",
+      "name": "Čoček",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "rs",
+          "mk",
+          "bg"
+        ],
+        "countries": [
+          {
+            "id": "rs",
+            "name": "Serbia"
+          },
+          {
+            "id": "mk",
+            "name": "North Macedonia"
+          },
+          {
+            "id": "bg",
+            "name": "Bulgaria"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "balkan-folk"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "balkan-folk"
+        ]
+      },
+      "period": {
+        "approx_start": 1870,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "wedding",
+        "street",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Balkan Romani brass dance genre in asymmetrical meters.",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "coladeira",
+      "name": "Coladeira",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "cv"
+        ],
+        "countries": [
+          {
+            "id": "cv",
+            "name": "Cabo Verde"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "morna"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "morna"
+        ]
+      },
+      "period": {
+        "approx_start": 1950,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "corridos-tumbados",
+      "name": "Corridos Tumbados",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "mx"
+        ],
+        "countries": [
+          {
+            "id": "mx",
+            "name": "Mexico"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "regional-mexicano"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "regional-mexicano"
+        ]
+      },
+      "period": {
+        "approx_start": 2018,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "festival",
+        "concert",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "coupé-decalé",
+      "name": "Coupé-Décalé",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ci",
+          "fr"
+        ],
+        "countries": [
+          {
+            "id": "ci",
+            "name": "Côte d’Ivoire"
+          },
+          {
+            "id": "fr",
+            "name": "France"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "west-african-pop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "west-african-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 2002,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "cumbia",
+      "name": "Cumbia",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "co"
+        ],
+        "countries": [
+          {
+            "id": "co",
+            "name": "Colombia"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "cumbia-colombiana",
+          "cumbia-sonidera",
+          "cumbia-villera",
+          "chicha",
+          "nu-cumbia"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1940,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "street",
+        "dance",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Afro‑Indigenous‑Spanish creole music...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "cumbia-colombiana",
+      "name": "Cumbia Colombiana",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "co"
+        ],
+        "countries": [
+          {
+            "id": "co",
+            "name": "Colombia"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "cumbia"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "cumbia"
+        ]
+      },
+      "period": {
+        "approx_start": 1940,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "festival",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "cumbia-sonidera",
+      "name": "Cumbia Sonidera",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "mx"
+        ],
+        "countries": [
+          {
+            "id": "mx",
+            "name": "Mexico"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "cumbia"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "cumbia"
+        ]
+      },
+      "period": {
+        "approx_start": 1970,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "festival",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "cumbia-villera",
+      "name": "Cumbia Villera",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ar"
+        ],
+        "countries": [
+          {
+            "id": "ar",
+            "name": "Argentina"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "cumbia"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "cumbia"
+        ]
+      },
+      "period": {
+        "approx_start": 1997,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "festival",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "dabke",
+      "name": "Dabke",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "lb",
+          "sy",
+          "jo",
+          "ps"
+        ],
+        "countries": [
+          {
+            "id": "lb",
+            "name": "Lebanon"
+          },
+          {
+            "id": "sy",
+            "name": "Syria"
+          },
+          {
+            "id": "jo",
+            "name": "Jordan"
+          },
+          {
+            "id": "ps",
+            "name": "Palestine"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "levant-folk"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "levant-folk"
+        ]
+      },
+      "period": {
+        "approx_start": 1900,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "wedding",
+        "radio",
+        "television"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "dance-band-highlife",
+      "name": "Dance-band Highlife",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "gh",
+          "ng"
+        ],
+        "countries": [
+          {
+            "id": "gh",
+            "name": "Ghana"
+          },
+          {
+            "id": "ng",
+            "name": "Nigeria"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "highlife"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "highlife"
+        ]
+      },
+      "period": {
+        "approx_start": 1940,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance hall",
+        "nightclub",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Big-band oriented highlife...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "dancehall",
+      "name": "Dancehall",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "jm"
+        ],
+        "countries": [
+          {
+            "id": "jm",
+            "name": "Jamaica"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "ragga"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1983,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "sound system",
+        "dancehall",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Digital Jamaican style emerging in the 1980s...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "dangdut",
+      "name": "Dangdut",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "id"
+        ],
+        "countries": [
+          {
+            "id": "id",
+            "name": "Indonesia"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "orkes-melayu"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "orkes-melayu"
+        ]
+      },
+      "period": {
+        "approx_start": 1970,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "television",
+        "dargah"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "deep-house",
+      "name": "Deep House",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us",
+          "gb"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          },
+          {
+            "id": "gb",
+            "name": "United Kingdom"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "house"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "house"
+        ]
+      },
+      "period": {
+        "approx_start": 1987,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "DJ mix",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "disco",
+      "name": "Disco",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "italo-disco",
+          "hi-nrg",
+          "boogie-funk"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1973,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "discotheque",
+        "club",
+        "radio",
+        "DJ mix"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "1970s dance music built on four‑on‑the‑floor...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "drill",
+      "name": "Drill",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "hip-hop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "hip-hop"
+        ]
+      },
+      "period": {
+        "approx_start": 2011,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "mixtape",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "dub",
+      "name": "Dub",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "jm"
+        ],
+        "countries": [
+          {
+            "id": "jm",
+            "name": "Jamaica"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1972,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "studio",
+        "sound system",
+        "dubplate"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Studio art of remixing reggae...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "east-african-pop",
+      "name": "East African Popular Music",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "tz",
+          "ke"
+        ],
+        "countries": [
+          {
+            "id": "tz",
+            "name": "Tanzania"
+          },
+          {
+            "id": "ke",
+            "name": "Kenya"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "benga",
+          "taarab"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1920,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "eastern-european-folk",
+      "name": "Eastern European Folk",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "pl",
+          "ua",
+          "by",
+          "ru",
+          "cz",
+          "sk",
+          "hu",
+          "ro"
+        ],
+        "countries": [
+          {
+            "id": "pl",
+            "name": "Poland"
+          },
+          {
+            "id": "ua",
+            "name": "Ukraine"
+          },
+          {
+            "id": "by",
+            "name": "Belarus"
+          },
+          {
+            "id": "ru",
+            "name": "Russia"
+          },
+          {
+            "id": "cz",
+            "name": "Czechia"
+          },
+          {
+            "id": "sk",
+            "name": "Slovakia"
+          },
+          {
+            "id": "hu",
+            "name": "Hungary"
+          },
+          {
+            "id": "ro",
+            "name": "Romania"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "klezmer"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1800,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "festival",
+        "concert"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "enka",
+      "name": "Enka",
+      "status": "published",
+      "origin": {
+        "country_ids": [
+          "jp"
+        ],
+        "countries": [
+          {
+            "id": "jp",
+            "name": "Japan"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [
+          "shamisen"
+        ],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1950,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert hall",
+        "television",
+        "karaoke",
+        "recording"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Japanese sentimental ballad style...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "fado",
+      "name": "Fado",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "pt"
+        ],
+        "countries": [
+          {
+            "id": "pt",
+            "name": "Portugal"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "iberian-traditions"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "iberian-traditions"
+        ]
+      },
+      "period": {
+        "approx_start": 1850,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "taverna",
+        "concert",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Portuguese urban song marked by saudade and Portuguese guitar.",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "flamenco",
+      "name": "Flamenco",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "es"
+        ],
+        "countries": [
+          {
+            "id": "es",
+            "name": "Spain"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "iberian-traditions"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "iberian-traditions"
+        ]
+      },
+      "period": {
+        "approx_start": 1850,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "tablao",
+        "concert",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Andalusian art of cante, toque, and baile with deep Romani influence.",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "forro",
+      "name": "Forró",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "br"
+        ],
+        "countries": [
+          {
+            "id": "br",
+            "name": "Brazil"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "latin-caribbean"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "latin-caribbean"
+        ]
+      },
+      "period": {
+        "approx_start": 1946,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club",
+        "festival",
+        "studio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "french-house",
+      "name": "French House",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "fr"
+        ],
+        "countries": [
+          {
+            "id": "fr",
+            "name": "France"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "house"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "house"
+        ]
+      },
+      "period": {
+        "approx_start": 1996,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "DJ mix",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "fuji",
+      "name": "Fuji",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ng"
+        ],
+        "countries": [
+          {
+            "id": "ng",
+            "name": "Nigeria"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "west-african-pop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "west-african-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 1970,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "funk",
+      "name": "Funk",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "p-funk",
+          "go-go"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1965,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "band",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "African‑American groove music focusing on interlocking rhythms...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "gangsta-rap",
+      "name": "Gangsta Rap",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "hip-hop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "hip-hop"
+        ]
+      },
+      "period": {
+        "approx_start": 1988,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "mixtape",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "garage-house",
+      "name": "Garage (US Garage)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "house"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "house"
+        ]
+      },
+      "period": {
+        "approx_start": 1984,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "DJ mix",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "georgian-polyphony",
+      "name": "Georgian Polyphony",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ge"
+        ],
+        "countries": [
+          {
+            "id": "ge",
+            "name": "Georgia"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "caucasus-traditions"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "caucasus-traditions"
+        ]
+      },
+      "period": {
+        "approx_start": 1600,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "ceremony",
+        "concert"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Georgian multipart vocal traditions; UNESCO‑listed heritage.",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "gharnati",
+      "name": "Gharnati (Algeria/Morocco)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "dz",
+          "ma"
+        ],
+        "countries": [
+          {
+            "id": "dz",
+            "name": "Algeria"
+          },
+          {
+            "id": "ma",
+            "name": "Morocco"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1500,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "club",
+        "conservatory"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "ghazal",
+      "name": "Ghazal (South Asia)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "in",
+          "pk"
+        ],
+        "countries": [
+          {
+            "id": "in",
+            "name": "India"
+          },
+          {
+            "id": "pk",
+            "name": "Pakistan"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "hindustani-classical"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "hindustani-classical"
+        ]
+      },
+      "period": {
+        "approx_start": 1850,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "television",
+        "dargah"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "go-go",
+      "name": "Go-Go",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "funk"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "funk"
+        ]
+      },
+      "period": {
+        "approx_start": 1977,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "concert",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "golden-age-hip-hop",
+      "name": "Golden Age Hip-Hop",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "hip-hop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "hip-hop"
+        ]
+      },
+      "period": {
+        "approx_start": 1986,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "mixtape",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "gqom",
+      "name": "Gqom",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "za"
+        ],
+        "countries": [
+          {
+            "id": "za",
+            "name": "South Africa"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 2010,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "street dance"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Durban minimal, percussive club music...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "guaracha",
+      "name": "Guaracha",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "cu"
+        ],
+        "countries": [
+          {
+            "id": "cu",
+            "name": "Cuba"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "latin-caribbean"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "latin-caribbean"
+        ]
+      },
+      "period": {
+        "approx_start": 1850,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club",
+        "festival",
+        "studio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "guitar-band-highlife",
+      "name": "Guitar-band Highlife",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "gh",
+          "ng"
+        ],
+        "countries": [
+          {
+            "id": "gh",
+            "name": "Ghana"
+          },
+          {
+            "id": "ng",
+            "name": "Nigeria"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "highlife"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "highlife"
+        ]
+      },
+      "period": {
+        "approx_start": 1930,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance hall",
+        "social function",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Smaller ensembles centered on interlocking guitars...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "haka",
+      "name": "Haka",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "nz"
+        ],
+        "countries": [
+          {
+            "id": "nz",
+            "name": "New Zealand"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1800,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "ceremony",
+        "festival",
+        "performance",
+        "community"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "hi-nrg",
+      "name": "Hi-NRG",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us",
+          "gb"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          },
+          {
+            "id": "gb",
+            "name": "United Kingdom"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "disco"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "disco"
+        ]
+      },
+      "period": {
+        "approx_start": 1979,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "DJ mix"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "highlife",
+      "name": "Highlife",
+      "status": "published",
+      "origin": {
+        "country_ids": [
+          "gh",
+          "ng"
+        ],
+        "countries": [
+          {
+            "id": "gh",
+            "name": "Ghana"
+          },
+          {
+            "id": "ng",
+            "name": "Nigeria"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [
+          "guitar",
+          "horn-section"
+        ],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "palm-wine"
+        ],
+        "subgenre_ids": [
+          "dance-band-highlife",
+          "guitar-band-highlife",
+          "burger-highlife"
+        ],
+        "similar_ids": [
+          "afrobeat"
+        ],
+        "parent_ids": [
+          "palm-wine"
+        ]
+      },
+      "period": {
+        "approx_start": 1920,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance hall",
+        "nightclub",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Urban West African dance-band music...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "hindustani-classical",
+      "name": "Hindustani Classical",
+      "status": "published",
+      "origin": {
+        "country_ids": [
+          "in",
+          "pk"
+        ],
+        "countries": [
+          {
+            "id": "in",
+            "name": "India"
+          },
+          {
+            "id": "pk",
+            "name": "Pakistan"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [
+          "sitar",
+          "tabla"
+        ],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "thumri",
+          "ghazal",
+          "sufi-music"
+        ],
+        "similar_ids": [
+          "carnatic-classical"
+        ],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1700,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "temple",
+        "pedagogical"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "North Indian art‑music tradition based on raga and tala...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "hip-hop",
+      "name": "Hip Hop",
+      "status": "published",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [
+          "turntables",
+          "samplers"
+        ],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "funk",
+          "disco"
+        ],
+        "subgenre_ids": [
+          "golden-age-hip-hop",
+          "gangsta-rap",
+          "alternative-hip-hop",
+          "southern-hip-hop",
+          "boom-bap",
+          "drill",
+          "cloud-rap"
+        ],
+        "similar_ids": [
+          "trap"
+        ],
+        "parent_ids": [
+          "disco",
+          "funk"
+        ]
+      },
+      "period": {
+        "approx_start": 1973,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "block party",
+        "club",
+        "radio",
+        "mixtape",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Culture and music born at Bronx block parties...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "house",
+      "name": "House",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "chicago-house",
+          "deep-house",
+          "acid-house",
+          "garage-house",
+          "french-house"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1983,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "DJ mix",
+        "rave"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Four‑on‑the‑floor electronic dance music rooted in Chicago...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "hula",
+      "name": "Hula (Hawai‘i)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1778,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "ceremony",
+        "festival",
+        "performance",
+        "community"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "iberian-traditions",
+      "name": "Iberian Traditions",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "pt",
+          "es"
+        ],
+        "countries": [
+          {
+            "id": "pt",
+            "name": "Portugal"
+          },
+          {
+            "id": "es",
+            "name": "Spain"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "fado",
+          "flamenco"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1800,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "festival",
+        "concert"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "indian-film-music",
+      "name": "Indian Film Music",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "in"
+        ],
+        "countries": [
+          {
+            "id": "in",
+            "name": "India"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1940,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "television",
+        "dargah"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "italo-disco",
+      "name": "Italo Disco",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "it"
+        ],
+        "countries": [
+          {
+            "id": "it",
+            "name": "IT"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "disco"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "disco"
+        ]
+      },
+      "period": {
+        "approx_start": 1980,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "DJ mix"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "j-pop",
+      "name": "J‑Pop",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "jp"
+        ],
+        "countries": [
+          {
+            "id": "jp",
+            "name": "Japan"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "kayokyoku"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "kayokyoku"
+        ]
+      },
+      "period": {
+        "approx_start": 1990,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "radio",
+        "television",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Contemporary Japanese pop emerging from kayōkyoku and Western influences.",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "juju",
+      "name": "Juju",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ng"
+        ],
+        "countries": [
+          {
+            "id": "ng",
+            "name": "Nigeria"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "west-african-pop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "west-african-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 1940,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "k-pop",
+      "name": "K‑Pop",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "kr"
+        ],
+        "countries": [
+          {
+            "id": "kr",
+            "name": "South Korea"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1996,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "television",
+        "internet",
+        "concert"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "South Korean idol‑based pop industry...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "kayokyoku",
+      "name": "Kayōkyoku",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "jp"
+        ],
+        "countries": [
+          {
+            "id": "jp",
+            "name": "Japan"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "j-pop"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1920,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "radio",
+        "television",
+        "concert"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Pre‑J‑pop Japanese popular song tradition (Shōwa era).",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "khaleeji",
+      "name": "Khaleeji",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "sa",
+          "kw",
+          "bh",
+          "qa",
+          "ae",
+          "om"
+        ],
+        "countries": [
+          {
+            "id": "sa",
+            "name": "Saudi Arabia"
+          },
+          {
+            "id": "kw",
+            "name": "Kuwait"
+          },
+          {
+            "id": "bh",
+            "name": "Bahrain"
+          },
+          {
+            "id": "qa",
+            "name": "Qatar"
+          },
+          {
+            "id": "ae",
+            "name": "United Arab Emirates"
+          },
+          {
+            "id": "om",
+            "name": "Oman"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "arab-art-music"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "arab-art-music"
+        ]
+      },
+      "period": {
+        "approx_start": 1950,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "wedding",
+        "radio",
+        "television"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "kiribati-maneaba",
+      "name": "Kiribati Maneaba Songs",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ki"
+        ],
+        "countries": [
+          {
+            "id": "ki",
+            "name": "Kiribati"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1800,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "ceremony",
+        "festival",
+        "performance",
+        "community"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "kizomba",
+      "name": "Kizomba",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ao",
+          "cv"
+        ],
+        "countries": [
+          {
+            "id": "ao",
+            "name": "Angola"
+          },
+          {
+            "id": "cv",
+            "name": "Cabo Verde"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "zouk"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "zouk"
+        ]
+      },
+      "period": {
+        "approx_start": 1989,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "klezmer",
+      "name": "Klezmer",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "pl",
+          "ua",
+          "by"
+        ],
+        "countries": [
+          {
+            "id": "pl",
+            "name": "Poland"
+          },
+          {
+            "id": "ua",
+            "name": "Ukraine"
+          },
+          {
+            "id": "by",
+            "name": "Belarus"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "eastern-european-folk"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "eastern-european-folk"
+        ]
+      },
+      "period": {
+        "approx_start": 1800,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "wedding",
+        "concert",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Ashkenazi Jewish instrumental tradition for celebration and dance.",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "kwaito",
+      "name": "Kwaito",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "za"
+        ],
+        "countries": [
+          {
+            "id": "za",
+            "name": "South Africa"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1993,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "street party",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "1990s South African township dance music...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "latin-caribbean",
+      "name": "Latin Caribbean",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "cu",
+          "pr",
+          "do",
+          "ve",
+          "pa",
+          "co"
+        ],
+        "countries": [
+          {
+            "id": "cu",
+            "name": "Cuba"
+          },
+          {
+            "id": "pr",
+            "name": "Puerto Rico"
+          },
+          {
+            "id": "do",
+            "name": "Dominican Republic"
+          },
+          {
+            "id": "ve",
+            "name": "Venezuela"
+          },
+          {
+            "id": "pa",
+            "name": "Panama"
+          },
+          {
+            "id": "co",
+            "name": "Colombia"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "son-cubano",
+          "bolero",
+          "guaracha",
+          "boogaloo",
+          "bachata",
+          "merengue",
+          "porro",
+          "mapale",
+          "vallenato",
+          "forro",
+          "chamame"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1900,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "latin-trap",
+      "name": "Latin Trap",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "pr",
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "pr",
+            "name": "Puerto Rico"
+          },
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "trap"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "trap"
+        ]
+      },
+      "period": {
+        "approx_start": 2015,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "internet",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "levant-folk",
+      "name": "Levantine Folk",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "lb",
+          "sy",
+          "jo",
+          "ps"
+        ],
+        "countries": [
+          {
+            "id": "lb",
+            "name": "Lebanon"
+          },
+          {
+            "id": "sy",
+            "name": "Syria"
+          },
+          {
+            "id": "jo",
+            "name": "Jordan"
+          },
+          {
+            "id": "ps",
+            "name": "Palestine"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "arab-art-music"
+        ],
+        "subgenre_ids": [
+          "dabke"
+        ],
+        "similar_ids": [],
+        "parent_ids": [
+          "arab-art-music"
+        ]
+      },
+      "period": {
+        "approx_start": 1800,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "wedding",
+        "radio",
+        "television"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "lovers-rock",
+      "name": "Lovers Rock",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "jm"
+        ],
+        "countries": [
+          {
+            "id": "jm",
+            "name": "Jamaica"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "reggae"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "reggae"
+        ]
+      },
+      "period": {
+        "approx_start": 1975,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "studio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Romantic, melodic reggae in UK diaspora...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "luk-thung",
+      "name": "Luk Thung",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "th"
+        ],
+        "countries": [
+          {
+            "id": "th",
+            "name": "Thailand"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1960,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "television",
+        "dargah"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "makossa",
+      "name": "Makossa",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "cm"
+        ],
+        "countries": [
+          {
+            "id": "cm",
+            "name": "Cameroon"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "central-african-pop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "central-african-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 1960,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "maluf",
+      "name": "Ma'luf (Tunisia)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "tn"
+        ],
+        "countries": [
+          {
+            "id": "tn",
+            "name": "Tunisia"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1500,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "club",
+        "conservatory"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "mandopop",
+      "name": "Mandopop",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "tw",
+          "cn",
+          "sg"
+        ],
+        "countries": [
+          {
+            "id": "tw",
+            "name": "Taiwan"
+          },
+          {
+            "id": "cn",
+            "name": "China"
+          },
+          {
+            "id": "sg",
+            "name": "Singapore"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "c-pop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "c-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 1970,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "television",
+        "radio",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Mandarin pop centred in Taiwan/China...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "manouche-jazz",
+      "name": "Manouche Jazz",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "fr"
+        ],
+        "countries": [
+          {
+            "id": "fr",
+            "name": "France"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "romani-musics"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "romani-musics"
+        ]
+      },
+      "period": {
+        "approx_start": 1934,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "concert"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "French Romani (Gypsy) jazz pioneered by Django Reinhardt.",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "mapale",
+      "name": "Mapalé",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "co"
+        ],
+        "countries": [
+          {
+            "id": "co",
+            "name": "Colombia"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "latin-caribbean"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "latin-caribbean"
+        ]
+      },
+      "period": {
+        "approx_start": 1900,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club",
+        "festival",
+        "studio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "maqam-iraqi",
+      "name": "Maqam ‘Iraqi",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "iq"
+        ],
+        "countries": [
+          {
+            "id": "iq",
+            "name": "Iraq"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "arab-art-music"
+        ],
+        "subgenre_ids": [
+          "chalghi"
+        ],
+        "similar_ids": [],
+        "parent_ids": [
+          "arab-art-music"
+        ]
+      },
+      "period": {
+        "approx_start": 1500,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "wedding",
+        "radio",
+        "television"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "maqom",
+      "name": "Maqom (Central Asia)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "uz",
+          "tj"
+        ],
+        "countries": [
+          {
+            "id": "uz",
+            "name": "Uzbekistan"
+          },
+          {
+            "id": "tj",
+            "name": "Tajikistan"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "central-asian-traditions"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "central-asian-traditions"
+        ]
+      },
+      "period": {
+        "approx_start": 1500,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "court"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Central Asian suite traditions (Shashmaqom, etc.).",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "mariachi",
+      "name": "Mariachi",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "mx"
+        ],
+        "countries": [
+          {
+            "id": "mx",
+            "name": "Mexico"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "regional-mexicano"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "regional-mexicano"
+        ]
+      },
+      "period": {
+        "approx_start": 1900,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "festival",
+        "concert",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "maringa",
+      "name": "Maringa",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "sl"
+        ],
+        "countries": [
+          {
+            "id": "sl",
+            "name": "Sierra Leone"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "palm-wine"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "palm-wine"
+        ]
+      },
+      "period": {
+        "approx_start": 1930,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance hall",
+        "bar",
+        "recording"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Sierra Leonean palm‑wine variant...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "mbaqanga",
+      "name": "Mbaqanga",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "za"
+        ],
+        "countries": [
+          {
+            "id": "za",
+            "name": "South Africa"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "southern-african-pop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "southern-african-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 1963,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "meke",
+      "name": "Meke (Fiji)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "fj"
+        ],
+        "countries": [
+          {
+            "id": "fj",
+            "name": "Fiji"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1800,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "ceremony",
+        "festival",
+        "performance",
+        "community"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "merengue",
+      "name": "Merengue",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "do"
+        ],
+        "countries": [
+          {
+            "id": "do",
+            "name": "Dominican Republic"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "latin-caribbean"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "latin-caribbean"
+        ]
+      },
+      "period": {
+        "approx_start": 1930,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club",
+        "festival",
+        "studio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "mor-lam",
+      "name": "Mor Lam",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "th",
+          "la"
+        ],
+        "countries": [
+          {
+            "id": "th",
+            "name": "Thailand"
+          },
+          {
+            "id": "la",
+            "name": "Laos"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1900,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "television",
+        "dargah"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "morna",
+      "name": "Morna",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "cv"
+        ],
+        "countries": [
+          {
+            "id": "cv",
+            "name": "Cabo Verde"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "west-african-pop"
+        ],
+        "subgenre_ids": [
+          "coladeira"
+        ],
+        "similar_ids": [],
+        "parent_ids": [
+          "west-african-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 1930,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "mugham",
+      "name": "Mugham",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "az"
+        ],
+        "countries": [
+          {
+            "id": "az",
+            "name": "Azerbaijan"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "caucasus-traditions"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "caucasus-traditions"
+        ]
+      },
+      "period": {
+        "approx_start": 1500,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "conservatory"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Azerbaijani modal art music with improvisation within modal cycles.",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "muwashshah",
+      "name": "Muwashshah",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "sy",
+          "lb"
+        ],
+        "countries": [
+          {
+            "id": "sy",
+            "name": "Syria"
+          },
+          {
+            "id": "lb",
+            "name": "Lebanon"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "arab-art-music"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "arab-art-music"
+        ]
+      },
+      "period": {
+        "approx_start": 1200,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "wedding",
+        "radio",
+        "television"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "nhac-vang",
+      "name": "Nhạc Vàng",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "vn"
+        ],
+        "countries": [
+          {
+            "id": "vn",
+            "name": "Vietnam"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1954,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "radio",
+        "concert"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Vietnamese popular ballad tradition (pre‑1975 South Vietnam).",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "norteno",
+      "name": "Norteño",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "mx"
+        ],
+        "countries": [
+          {
+            "id": "mx",
+            "name": "Mexico"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "regional-mexicano"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "regional-mexicano"
+        ]
+      },
+      "period": {
+        "approx_start": 1930,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "festival",
+        "concert",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "nu-cumbia",
+      "name": "Nu Cumbia",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ar",
+          "mx",
+          "co"
+        ],
+        "countries": [
+          {
+            "id": "ar",
+            "name": "Argentina"
+          },
+          {
+            "id": "mx",
+            "name": "Mexico"
+          },
+          {
+            "id": "co",
+            "name": "Colombia"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "cumbia"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "cumbia"
+        ]
+      },
+      "period": {
+        "approx_start": 2005,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "festival",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "orkes-melayu",
+      "name": "Orkes Melayu",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "id",
+          "my",
+          "sg"
+        ],
+        "countries": [
+          {
+            "id": "id",
+            "name": "Indonesia"
+          },
+          {
+            "id": "my",
+            "name": "Malaysia"
+          },
+          {
+            "id": "sg",
+            "name": "Singapore"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "dangdut"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1950,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "television",
+        "dargah"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "p-funk",
+      "name": "P-Funk",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "funk"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "funk"
+        ]
+      },
+      "period": {
+        "approx_start": 1970,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "concert",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "pagode",
+      "name": "Pagode",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "br"
+        ],
+        "countries": [
+          {
+            "id": "br",
+            "name": "Brazil"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "samba"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "samba"
+        ]
+      },
+      "period": {
+        "approx_start": 1984,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "roda",
+        "club",
+        "festival",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "1980s Rio scene emphasizing cavaquinho...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "palm-wine",
+      "name": "Palm-Wine",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "sl",
+          "lr"
+        ],
+        "countries": [
+          {
+            "id": "sl",
+            "name": "Sierra Leone"
+          },
+          {
+            "id": "lr",
+            "name": "Liberia"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "maringa",
+          "highlife"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1920,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "bar",
+        "street",
+        "acoustic session"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "West African guitar music born in seaside bars...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "partido-alto",
+      "name": "Partido Alto",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "br"
+        ],
+        "countries": [
+          {
+            "id": "br",
+            "name": "Brazil"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "samba"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "samba"
+        ]
+      },
+      "period": {
+        "approx_start": 1930,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "roda",
+        "club",
+        "festival",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Improvised verse/response samba...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "pinoy-pop",
+      "name": "OPM / Pinoy Pop",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ph"
+        ],
+        "countries": [
+          {
+            "id": "ph",
+            "name": "Philippines"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1970,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "radio",
+        "television",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Philippine popular music umbrella...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "porro",
+      "name": "Porro",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "co"
+        ],
+        "countries": [
+          {
+            "id": "co",
+            "name": "Colombia"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "latin-caribbean"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "latin-caribbean"
+        ]
+      },
+      "period": {
+        "approx_start": 1940,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club",
+        "festival",
+        "studio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "private-school-amapiano",
+      "name": "Private School Amapiano",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "za"
+        ],
+        "countries": [
+          {
+            "id": "za",
+            "name": "South Africa"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "amapiano"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "amapiano"
+        ]
+      },
+      "period": {
+        "approx_start": 2019,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "qawwali",
+      "name": "Qawwali",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "pk",
+          "in"
+        ],
+        "countries": [
+          {
+            "id": "pk",
+            "name": "Pakistan"
+          },
+          {
+            "id": "in",
+            "name": "India"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "sufi-music"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "sufi-music"
+        ]
+      },
+      "period": {
+        "approx_start": 1300,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "television",
+        "dargah"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "ragga",
+      "name": "Ragga (Digital Dancehall)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "jm"
+        ],
+        "countries": [
+          {
+            "id": "jm",
+            "name": "Jamaica"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "dancehall"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "dancehall"
+        ]
+      },
+      "period": {
+        "approx_start": 1985,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dancehall",
+        "sound system",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Digital dancehall characterized by electronic riddims...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "rai",
+      "name": "Raï",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "dz",
+          "fr"
+        ],
+        "countries": [
+          {
+            "id": "dz",
+            "name": "Algeria"
+          },
+          {
+            "id": "fr",
+            "name": "France"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1977,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "club",
+        "conservatory"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "reggae",
+      "name": "Reggae",
+      "status": "published",
+      "origin": {
+        "country_ids": [
+          "jm"
+        ],
+        "countries": [
+          {
+            "id": "jm",
+            "name": "Jamaica"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [
+          "bass",
+          "drum-kit"
+        ],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "ska"
+        ],
+        "subgenre_ids": [
+          "roots-reggae",
+          "lovers-rock"
+        ],
+        "similar_ids": [
+          "dub",
+          "dancehall"
+        ],
+        "parent_ids": [
+          "ska"
+        ]
+      },
+      "period": {
+        "approx_start": 1968,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "sound system",
+        "stage",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Jamaican popular music characterized by one‑drop rhythm...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "regional-mexicano",
+      "name": "Regional Mexicano",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "mx"
+        ],
+        "countries": [
+          {
+            "id": "mx",
+            "name": "Mexico"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "banda",
+          "norteno",
+          "sirrieno",
+          "corridos-tumbados",
+          "mariachi"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1930,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "concert"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Umbrella for Mexican regional styles including banda, norteño, sierreño, mariachi, corridos.",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "rocksteady",
+      "name": "Rocksteady",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "jm"
+        ],
+        "countries": [
+          {
+            "id": "jm",
+            "name": "Jamaica"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "ska"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "ska"
+        ]
+      },
+      "period": {
+        "approx_start": 1966,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "sound system",
+        "studio",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Mid‑1960s Jamaica slower tempo...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "romani-musics",
+      "name": "Romani Musics",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ro",
+          "bg",
+          "rs",
+          "es",
+          "hu"
+        ],
+        "countries": [
+          {
+            "id": "ro",
+            "name": "Romania"
+          },
+          {
+            "id": "bg",
+            "name": "Bulgaria"
+          },
+          {
+            "id": "rs",
+            "name": "Serbia"
+          },
+          {
+            "id": "es",
+            "name": "Spain"
+          },
+          {
+            "id": "hu",
+            "name": "Hungary"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "manouche-jazz"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1800,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "street",
+        "concert",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "roots-reggae",
+      "name": "Roots Reggae",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "jm"
+        ],
+        "countries": [
+          {
+            "id": "jm",
+            "name": "Jamaica"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "reggae"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "reggae"
+        ]
+      },
+      "period": {
+        "approx_start": 1970,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "studio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Spiritual and socially conscious 1970s reggae...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "rumba-congolaise",
+      "name": "Rumba Congolaise",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "cd"
+        ],
+        "countries": [
+          {
+            "id": "cd",
+            "name": "Democratic Republic of the Congo"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "central-african-pop"
+        ],
+        "subgenre_ids": [
+          "soukous"
+        ],
+        "similar_ids": [],
+        "parent_ids": [
+          "central-african-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 1948,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "salsa",
+      "name": "Salsa",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us",
+          "pr",
+          "cu"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          },
+          {
+            "id": "pr",
+            "name": "Puerto Rico"
+          },
+          {
+            "id": "cu",
+            "name": "Cuba"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "salsa-dura",
+          "salsa-romantica",
+          "timba"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1968,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "dance studio",
+        "radio",
+        "concert"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "NYC‑Caribbean dance music...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "salsa-dura",
+      "name": "Salsa Dura",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us",
+          "pr"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          },
+          {
+            "id": "pr",
+            "name": "Puerto Rico"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "salsa"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "salsa"
+        ]
+      },
+      "period": {
+        "approx_start": 1972,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "concert",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "salsa-romantica",
+      "name": "Salsa Romántica",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "pr",
+          "do"
+        ],
+        "countries": [
+          {
+            "id": "pr",
+            "name": "Puerto Rico"
+          },
+          {
+            "id": "do",
+            "name": "Dominican Republic"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "salsa"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "salsa"
+        ]
+      },
+      "period": {
+        "approx_start": 1985,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "concert",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "samba",
+      "name": "Samba",
+      "status": "published",
+      "origin": {
+        "country_ids": [
+          "br"
+        ],
+        "countries": [
+          {
+            "id": "br",
+            "name": "Brazil"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [
+          "surdo",
+          "pandeiro"
+        ],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "pagode",
+          "samba-enredo",
+          "samba-de-roda",
+          "samba-cancao",
+          "partido-alto"
+        ],
+        "similar_ids": [
+          "bossa-nova"
+        ],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1917,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "carnival",
+        "street parade",
+        "roda",
+        "club",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Brazilian popular music rooted in Afro‑Brazilian traditions...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "samba-cancao",
+      "name": "Samba-Canção",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "br"
+        ],
+        "countries": [
+          {
+            "id": "br",
+            "name": "Brazil"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "samba"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "samba"
+        ]
+      },
+      "period": {
+        "approx_start": 1930,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "roda",
+        "club",
+        "festival",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Mid‑century slower, lyrical samba song style...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "samba-de-roda",
+      "name": "Samba de Roda",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "br"
+        ],
+        "countries": [
+          {
+            "id": "br",
+            "name": "Brazil"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "samba"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "samba"
+        ]
+      },
+      "period": {
+        "approx_start": 1860,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "roda",
+        "club",
+        "festival",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Bahian circle-dance samba with call-and-response...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "samba-enredo",
+      "name": "Samba-enredo",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "br"
+        ],
+        "countries": [
+          {
+            "id": "br",
+            "name": "Brazil"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "samba"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "samba"
+        ]
+      },
+      "period": {
+        "approx_start": 1930,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "roda",
+        "club",
+        "festival",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Carnival parade repertoire composed for samba school competitions...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "sgija",
+      "name": "Sgija",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "za"
+        ],
+        "countries": [
+          {
+            "id": "za",
+            "name": "South Africa"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "amapiano"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "amapiano"
+        ]
+      },
+      "period": {
+        "approx_start": 2020,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "sirrieno",
+      "name": "Sierreño",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "mx"
+        ],
+        "countries": [
+          {
+            "id": "mx",
+            "name": "Mexico"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "regional-mexicano"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "regional-mexicano"
+        ]
+      },
+      "period": {
+        "approx_start": 2000,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "festival",
+        "concert",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "siva-samoa",
+      "name": "Siva Samoa",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ws"
+        ],
+        "countries": [
+          {
+            "id": "ws",
+            "name": "Samoa"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1800,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "ceremony",
+        "festival",
+        "performance",
+        "community"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "ska",
+      "name": "Ska",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "jm"
+        ],
+        "countries": [
+          {
+            "id": "jm",
+            "name": "Jamaica"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "rocksteady"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1959,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "sound system",
+        "dancehall",
+        "club"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Up‑tempo Jamaican style...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "son-cubano",
+      "name": "Son Cubano",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "cu"
+        ],
+        "countries": [
+          {
+            "id": "cu",
+            "name": "Cuba"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "latin-caribbean"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "latin-caribbean"
+        ]
+      },
+      "period": {
+        "approx_start": 1910,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club",
+        "festival",
+        "studio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "soukous",
+      "name": "Soukous",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "cd",
+          "cg"
+        ],
+        "countries": [
+          {
+            "id": "cd",
+            "name": "Democratic Republic of the Congo"
+          },
+          {
+            "id": "cg",
+            "name": "Republic of the Congo"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "rumba-congolaise"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "rumba-congolaise"
+        ]
+      },
+      "period": {
+        "approx_start": 1960,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "soul",
+      "name": "Soul",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1955,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "radio",
+        "concert",
+        "club"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "southern-african-pop",
+      "name": "Southern African Popular Music",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "za",
+          "ao"
+        ],
+        "countries": [
+          {
+            "id": "za",
+            "name": "South Africa"
+          },
+          {
+            "id": "ao",
+            "name": "Angola"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "mbaqanga"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1950,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "southern-hip-hop",
+      "name": "Southern Hip-Hop",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "hip-hop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "hip-hop"
+        ]
+      },
+      "period": {
+        "approx_start": 1994,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "mixtape",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "sufi-music",
+      "name": "Sufi Music (South Asia)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "pk",
+          "in",
+          "bd"
+        ],
+        "countries": [
+          {
+            "id": "pk",
+            "name": "Pakistan"
+          },
+          {
+            "id": "in",
+            "name": "India"
+          },
+          {
+            "id": "bd",
+            "name": "Bangladesh"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "hindustani-classical"
+        ],
+        "subgenre_ids": [
+          "qawwali"
+        ],
+        "similar_ids": [],
+        "parent_ids": [
+          "hindustani-classical"
+        ]
+      },
+      "period": {
+        "approx_start": 1200,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "television",
+        "dargah"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "taarab",
+      "name": "Taarab",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "tz",
+          "ke"
+        ],
+        "countries": [
+          {
+            "id": "tz",
+            "name": "Tanzania"
+          },
+          {
+            "id": "ke",
+            "name": "Kenya"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "east-african-pop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "east-african-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 1890,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "tarab",
+      "name": "Tarab",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "eg",
+          "sy",
+          "lb"
+        ],
+        "countries": [
+          {
+            "id": "eg",
+            "name": "Egypt"
+          },
+          {
+            "id": "sy",
+            "name": "Syria"
+          },
+          {
+            "id": "lb",
+            "name": "Lebanon"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "arab-art-music"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "arab-art-music"
+        ]
+      },
+      "period": {
+        "approx_start": 1900,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "wedding",
+        "radio",
+        "television"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "tauolunga",
+      "name": "Tau'olunga (Tonga)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "to"
+        ],
+        "countries": [
+          {
+            "id": "to",
+            "name": "Tonga"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1800,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "ceremony",
+        "festival",
+        "performance",
+        "community"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "thumri",
+      "name": "Thumri",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "in"
+        ],
+        "countries": [
+          {
+            "id": "in",
+            "name": "India"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "hindustani-classical"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "hindustani-classical"
+        ]
+      },
+      "period": {
+        "approx_start": 1800,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "concert",
+        "festival",
+        "radio",
+        "television",
+        "dargah"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "timba",
+      "name": "Timba",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "cu"
+        ],
+        "countries": [
+          {
+            "id": "cu",
+            "name": "Cuba"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "salsa"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "salsa"
+        ]
+      },
+      "period": {
+        "approx_start": 1989,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "concert",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "trap",
+      "name": "Trap",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "latin-trap",
+          "trap-metal"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 2003,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "mixtape",
+        "radio",
+        "internet"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Southern U.S. hip‑hop subgenre...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "trap-metal",
+      "name": "Trap Metal",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "us"
+        ],
+        "countries": [
+          {
+            "id": "us",
+            "name": "United States"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "trap"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "trap"
+        ]
+      },
+      "period": {
+        "approx_start": 2016,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "internet",
+        "radio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "turbo-folk",
+      "name": "Turbo-Folk",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "rs",
+          "ba"
+        ],
+        "countries": [
+          {
+            "id": "rs",
+            "name": "Serbia"
+          },
+          {
+            "id": "ba",
+            "name": "Bosnia and Herzegovina"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "balkan-folk"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "balkan-folk"
+        ]
+      },
+      "period": {
+        "approx_start": 1990,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "club",
+        "radio",
+        "television"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "Pop-folk fusion from ex‑Yugoslavia blending folk rhythms and modern production.",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "vallenato",
+      "name": "Vallenato",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "co"
+        ],
+        "countries": [
+          {
+            "id": "co",
+            "name": "Colombia"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "latin-caribbean"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "latin-caribbean"
+        ]
+      },
+      "period": {
+        "approx_start": 1950,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club",
+        "festival",
+        "studio"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "were-music",
+      "name": "Wéré (Ajísari)",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "ng"
+        ],
+        "countries": [
+          {
+            "id": "ng",
+            "name": "Nigeria"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "west-african-pop"
+        ],
+        "subgenre_ids": [],
+        "similar_ids": [],
+        "parent_ids": [
+          "west-african-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 1940,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "west-african-pop",
+      "name": "West African Popular Music",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "gh",
+          "ng",
+          "sn",
+          "ci"
+        ],
+        "countries": [
+          {
+            "id": "gh",
+            "name": "Ghana"
+          },
+          {
+            "id": "ng",
+            "name": "Nigeria"
+          },
+          {
+            "id": "sn",
+            "name": "Senegal"
+          },
+          {
+            "id": "ci",
+            "name": "Côte d’Ivoire"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [],
+        "subgenre_ids": [
+          "juju",
+          "fuji",
+          "apala",
+          "were-music",
+          "morna",
+          "zouk",
+          "coupé-decalé"
+        ],
+        "similar_ids": [],
+        "parent_ids": []
+      },
+      "period": {
+        "approx_start": 1930,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "radio",
+        "club"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "",
+      "media": {},
+      "ai": {}
+    },
+    {
+      "id": "zouk",
+      "name": "Zouk",
+      "status": "draft",
+      "origin": {
+        "country_ids": [
+          "gp",
+          "mq"
+        ],
+        "countries": [
+          {
+            "id": "gp",
+            "name": "Guadeloupe"
+          },
+          {
+            "id": "mq",
+            "name": "Martinique"
+          }
+        ]
+      },
+      "instruments": {
+        "instrument_ids": [],
+        "instruments": []
+      },
+      "lineage": {
+        "predecessor_ids": [
+          "west-african-pop"
+        ],
+        "subgenre_ids": [
+          "kizomba"
+        ],
+        "similar_ids": [],
+        "parent_ids": [
+          "west-african-pop"
+        ]
+      },
+      "period": {
+        "approx_start": 1980,
+        "approx_end": null
+      },
+      "timeline": [],
+      "contexts": [
+        "dance",
+        "club",
+        "radio",
+        "festival"
+      ],
+      "forms": [],
+      "pioneers": [],
+      "aliases": [],
+      "notes": "...",
+      "media": {},
+      "ai": {}
+    }
+  ],
+  "integrity": {
+    "missing_references": {
+      "countries": [],
+      "predecessor_ids": [],
+      "subgenre_ids": [],
+      "similar_ids": []
+    }
+  }
+}

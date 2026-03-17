@@ -13,4 +13,8 @@
     <None Remove="Geography\NewFile1.txt" />
   </ItemGroup>
 
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
 </Project>

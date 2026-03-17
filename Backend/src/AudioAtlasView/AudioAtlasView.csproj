@@ -23,9 +23,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AudioAtlasApplication\AudioAtlasApplication.csproj" />
     <ProjectReference Include="..\AudioAtlasDomain\AudioAtlasDomain.csproj" />
     <ProjectReference Include="..\AudioAtlasInfrastructure\AudioAtlasInfrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\AudioAtlasInfrastructure\resources\seeding.json">
+      <Link>seeding.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

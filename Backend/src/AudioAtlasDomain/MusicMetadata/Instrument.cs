@@ -4,9 +4,9 @@ namespace AudioAtlasDomain.MusicMetadata
 {
     public class Instrument
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
-        public string Type { get; set; } = string.Empty;
+        public string Type { get; set; } = null!;
 
         public string? Description { get; set; }
 
