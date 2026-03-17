@@ -7,7 +7,7 @@ namespace AudioAtlasInfrastructure.Repositories;
 
 public class CountryRepository : ICountryRepository
 {
-    AppDbContext _dbcontext;
+    readonly AppDbContext _dbcontext;
     public CountryRepository(AppDbContext appDbContext)
     {
         _dbcontext = appDbContext;
@@ -45,6 +45,6 @@ public class CountryRepository : ICountryRepository
         return _dbcontext.Countries
             .Where(c => c.Name == country.Name)
             .First()
-            .Genres.ToList();
+            .Genres;
     }
 }

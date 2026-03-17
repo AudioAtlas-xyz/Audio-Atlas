@@ -4,7 +4,7 @@ using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.Genres;
 
 public interface ICountryRepository
-{ //hey errbod'
+{
     public Country getCountryByID(Guid id);
     public Dictionary<Country, int> getGenreCounts();
 
