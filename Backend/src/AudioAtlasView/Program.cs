@@ -1,7 +1,8 @@
 using AudioAtlasInfrastructure.Database;
 using AudioAtlasInfrastructure.Database.Seed;
+using AudioAtlasDomain.Users;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
@@ -10,10 +11,9 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 if (string.IsNullOrWhiteSpace(connectionString))
 {
-    connectionString = builder.Environment.IsDevelopment()
-        ? AppDbContextDefaults.DevelopmentConnectionString
-        : throw new InvalidOperationException(
-            "Connection string 'DefaultConnection' is not configured. Set ConnectionStrings:DefaultConnection before starting the app.");
+    connectionString = builder.Environment.IsDevelopment() 
+        ? AppDbContextDefaults.DevelopmentConnectionString 
+        : throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured. Set ConnectionStrings:DefaultConnection before starting the app.");
 }
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -23,6 +23,15 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         {
             sqlOptions.EnableRetryOnFailure();
         }));
+
+builder.Services
+    .AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        options.User.RequireUniqueEmail = true;
+    })
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 
 var app = builder.Build();
