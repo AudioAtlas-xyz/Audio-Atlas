@@ -6,4 +6,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Genres\Genre" />
+    <None Remove="Genres\GenreAlias" />
+    <None Remove="Genres\NewFile1.txt" />
+    <None Remove="Geography\NewFile1.txt" />
+  </ItemGroup>
+
 </Project>
