@@ -1,15 +1,16 @@
 ﻿using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.MusicMetadata;
+using AudioAtlasDomain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 
-namespace AudioAtlasInfrastructure.Database.Configurations;
+namespace AudioAtlasInfrastructure.Database.Configuration.Genre;
 
-public class GenreConfiguration : IEntityTypeConfiguration<Genre>
+public class GenreConfiguration : IEntityTypeConfiguration<AudioAtlasDomain.Genres.Genre>
 {
-    public void Configure(EntityTypeBuilder<Genre> builder)
+    public void Configure(EntityTypeBuilder<AudioAtlasDomain.Genres.Genre> builder)
     {
         builder.ToTable("Genres");
 
@@ -27,6 +28,11 @@ public class GenreConfiguration : IEntityTypeConfiguration<Genre>
 
         builder.Property(x => x.SensitiveDescription)
             .HasMaxLength(4000);
+
+        builder.HasOne(x => x.Author)
+            .WithMany()
+            .HasForeignKey(x => x.AuthorId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(x => x.Aliases)
             .WithOne(x => x.Genre)
@@ -48,13 +54,32 @@ public class GenreConfiguration : IEntityTypeConfiguration<Genre>
                     .HasForeignKey("CountryId")
                     .OnDelete(DeleteBehavior.Restrict),
                 j => j
-                    .HasOne<Genre>()
+                    .HasOne<AudioAtlasDomain.Genres.Genre>()
                     .WithMany()
                     .HasForeignKey("GenreId")
                     .OnDelete(DeleteBehavior.Cascade),
                 j =>
                 {
                     j.HasKey("GenreId", "CountryId");
+                });
+
+        builder.HasMany(x => x.Favoritees)
+            .WithMany(x => x.FavoriteGenres)
+            .UsingEntity<Dictionary<string, object>>(
+                "FavoriteGenre",
+                j => j
+                    .HasOne<ApplicationUser>()
+                    .WithMany()
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade),
+                j => j
+                    .HasOne<AudioAtlasDomain.Genres.Genre>()
+                    .WithMany()
+                    .HasForeignKey("GenreId")
+                    .OnDelete(DeleteBehavior.Cascade),
+                j =>
+                {
+                    j.HasKey("UserId", "GenreId");
                 });
 
         builder.HasMany(x => x.Instruments)
@@ -67,7 +92,7 @@ public class GenreConfiguration : IEntityTypeConfiguration<Genre>
                 .HasForeignKey("InstrumentId")
                 .OnDelete(DeleteBehavior.Restrict),
             j => j
-                .HasOne<Genre>()
+                .HasOne<AudioAtlasDomain.Genres.Genre>()
                 .WithMany()
                 .HasForeignKey("GenreId")
                 .OnDelete(DeleteBehavior.Cascade),
@@ -76,18 +101,18 @@ public class GenreConfiguration : IEntityTypeConfiguration<Genre>
                 j.HasKey("GenreId", "InstrumentId");
             });
 
-        // Hierarchy: ParentGenre -> SubGenre
+
         builder.HasMany(x => x.SubGenres)
             .WithMany(x => x.ParentGenres)
             .UsingEntity<Dictionary<string, object>>(
                 "GenreHierarchy",
                 j => j
-                    .HasOne<Genre>()
+                    .HasOne<AudioAtlasDomain.Genres.Genre>()
                     .WithMany()
                     .HasForeignKey("SubGenreId")
                     .OnDelete(DeleteBehavior.Restrict),
                 j => j
-                    .HasOne<Genre>()
+                    .HasOne<AudioAtlasDomain.Genres.Genre>()
                     .WithMany()
                     .HasForeignKey("ParentGenreId")
                     .OnDelete(DeleteBehavior.Restrict),
@@ -96,18 +121,18 @@ public class GenreConfiguration : IEntityTypeConfiguration<Genre>
                     j.HasKey("ParentGenreId", "SubGenreId");
                 });
 
-        // Similarity: Genre <-> SimilarGenre
+
         builder.HasMany(x => x.SimilarGenres)
             .WithMany()
             .UsingEntity<Dictionary<string, object>>(
                 "GenreSimilarity",
                 j => j
-                    .HasOne<Genre>()
+                    .HasOne<AudioAtlasDomain.Genres.Genre>()
                     .WithMany()
                     .HasForeignKey("SimilarGenreId")
                     .OnDelete(DeleteBehavior.Restrict),
                 j => j
-                    .HasOne<Genre>()
+                    .HasOne<AudioAtlasDomain.Genres.Genre>()
                     .WithMany()
                     .HasForeignKey("GenreId")
                     .OnDelete(DeleteBehavior.Restrict),

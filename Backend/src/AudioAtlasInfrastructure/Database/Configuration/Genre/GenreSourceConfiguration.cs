@@ -1,11 +1,8 @@
 ﻿using AudioAtlasDomain.Genres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace AudioAtlasInfrastructure.Database.Configuration
+namespace AudioAtlasInfrastructure.Database.Configuration.Genre
 {
     public class GenreSourceConfiguration : IEntityTypeConfiguration<GenreSource>
     {

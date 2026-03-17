@@ -2,7 +2,7 @@ using AudioAtlasDomain.Submissions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AudioAtlasInfrastructure.Database.Configuration;
+namespace AudioAtlasInfrastructure.Database.Configuration.Submission;
 
 public class RejectedSubmissionConfiguration : IEntityTypeConfiguration<RejectedSubmission>
 {

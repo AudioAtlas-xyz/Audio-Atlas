@@ -2,8 +2,6 @@
 
 public class GenreAlias
 {
-    public Guid Id { get; set; }
-
     public string Alias { get; set; }
 
     public Guid GenreId { get; set; }

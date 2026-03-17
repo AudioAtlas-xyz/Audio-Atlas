@@ -3,11 +3,13 @@ using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.MusicMetadata;
 using AudioAtlasDomain.Submissions;
 using AudioAtlasDomain.Users;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AudioAtlasInfrastructure.Database;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
@@ -26,8 +28,6 @@ public class AppDbContext : DbContext
     public DbSet<SubmissionAlias> SubmissionAliases => Set<SubmissionAlias>();
     public DbSet<SubmissionSource> SubmissionSources => Set<SubmissionSource>();
     public DbSet<RejectedSubmission> RejectedSubmissions => Set<RejectedSubmission>();
-
-    public DbSet<FavoriteGenre> FavoriteGenres => Set<FavoriteGenre>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

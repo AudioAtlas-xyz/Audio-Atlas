@@ -1,18 +1,17 @@
 using AudioAtlasDomain.Submissions;
-using AudioAtlasDomain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AudioAtlasInfrastructure.Database.Configuration.Submission;
 
-public class SubmissionAliasConfiguration : IEntityTypeConfiguration<SubmissionAlias>
+public class SubmissionSourceConfiguration : IEntityTypeConfiguration<SubmissionSource>
 {
-    public void Configure(EntityTypeBuilder<SubmissionAlias> builder)
+    public void Configure(EntityTypeBuilder<SubmissionSource> builder)
     {
-        builder.HasKey(x => new { x.SubmissionId, x.Alias });
+        builder.HasKey(x => new { x.SubmissionId, x.SourceLink });
 
         builder.HasOne(x => x.Submission)
-            .WithMany(x => x.Aliases)
+            .WithMany(x => x.Sources)
             .HasForeignKey(x => x.SubmissionId);
     }
 }
