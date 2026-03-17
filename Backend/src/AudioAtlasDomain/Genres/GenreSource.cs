@@ -22,7 +22,16 @@ public class GenreSource
     /// </summary>
     public string SourceLink { get; set; }
 
+    /// <summary>
+    /// Foreign key referencing the associated genre.
+    /// </summary>
     public Guid GenreId { get; set; }
-    
+
+    /// <summary>
+    /// Navigation property to the genre this source supports.
+    /// 
+    /// Multiple sources can be associated with a single genre,
+    /// forming a basis for validation and further exploration.
+    /// </summary>
     public Genre Genre { get; set; } = null!;
 }
