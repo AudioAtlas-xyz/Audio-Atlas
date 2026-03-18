@@ -2,7 +2,6 @@ namespace AudioAtlasApplication.Repositories;
 
 using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.Genres;
-using Domain.Country;
 using System.Collections.Generic;
 
 public interface ICountryRepository

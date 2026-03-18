@@ -24,11 +24,11 @@ namespace AudioAtlasView.Controllers
             return _genreRepository.getAllGenres();
         }
         
-        // GET api/<GenresController>/5
+        // GET api/genres/{id}
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Genre Get(Guid id)
         {
-            return "value";
+            return _genreRepository.getGenre(id);
         }
 
         // POST api/<GenresController>

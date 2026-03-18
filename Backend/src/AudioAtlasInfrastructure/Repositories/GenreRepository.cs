@@ -1,6 +1,7 @@
 using AudioAtlasApplication.Repositories;
 using AudioAtlasDomain.Genres;
 using AudioAtlasInfrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace AudioAtlasInfrastructure.Repositories;
 
@@ -46,9 +47,10 @@ public class GenreRepository : IGenreRepository
     /// <returns> The genre corresponding to the ID </returns>
     public Genre getGenre(Guid id)
     {
-        return _dbcontext.Genres 
+        return _dbcontext.Genres
             .Where(g => g.Id == id)
             .First();
+            
     }
 
     /// <summary>
