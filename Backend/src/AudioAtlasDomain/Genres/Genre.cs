@@ -1,4 +1,5 @@
-﻿using AudioAtlasDomain.MusicMetadata;
+﻿using System.Text.Json.Serialization;
+using AudioAtlasDomain.MusicMetadata;
 using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.Users;
 
@@ -27,7 +28,7 @@ public class Genre
 
     public ICollection<GenreAlias> Aliases { get; set; } = new List<GenreAlias>();
 
-    public ICollection<Country> Countries { get; set; } = new List<Country>();
+    [JsonIgnore] public ICollection<Country> Countries { get; set; } = new List<Country>();
 
     public ICollection<Instrument> Instruments { get; set; } = new List<Instrument>();
 

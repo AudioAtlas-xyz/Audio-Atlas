@@ -44,11 +44,10 @@ public class CountryRepository : ICountryRepository
     /// <returns> A list of genres to the corresponding country </returns>
     public ICollection<Genre> getGenres(Guid id)
     {
-        Country country = getCountryByID(id);
         return _dbcontext.Countries
-            .Include(c =>  c.Genres)
-            .Where(c => c.Name == country.Name)
-            .First()
+            .Where(c => c.Id == id)
+            .Include(c => c.Genres)
+            .Single()
             .Genres;
     }
 

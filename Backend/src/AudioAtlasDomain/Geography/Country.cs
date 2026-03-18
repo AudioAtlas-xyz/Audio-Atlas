@@ -1,4 +1,5 @@
-﻿using AudioAtlasDomain.Genres;
+﻿using System.Text.Json.Serialization;
+using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Submissions;
 
 namespace AudioAtlasDomain.Geography
@@ -10,8 +11,8 @@ namespace AudioAtlasDomain.Geography
         public string Name { get; set; } = null!;
 
         public string? Description { get; set; }
-
-        public ICollection<Genre> Genres { get; set; } = new List<Genre>();
+        
+        [JsonIgnore] public ICollection<Genre> Genres { get; set; } = new List<Genre>();
         public ICollection<Submission> Submissions { get; set; } = new List<Submission>(); 
     }
 }
