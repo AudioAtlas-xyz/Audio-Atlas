@@ -38,13 +38,14 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var ctx = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    /*var ctx = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var seedLogger = scope.ServiceProvider.GetRequiredService<ILogger<DbInitializer>>();
 
     app.Logger.LogInformation("Running database migration and seed.");
-    ctx.Database.Migrate();
+    //ctx.Database.Migrate(); - does not work on Ubuntu :(
     DbInitializer.SeedDatabase(ctx, seedLogger);
     app.Logger.LogInformation("Database migration and seed completed.");
+    */
 }
 
 

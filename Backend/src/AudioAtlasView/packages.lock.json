@@ -11,12 +11,6 @@
           "Microsoft.OpenApi": "2.0.0"
         }
       },
-      "Microsoft.Extensions.ApiDescription.Server": {
-        "type": "Direct",
-        "requested": "[10.0.*-*, )",
-        "resolved": "10.0.5",
-        "contentHash": "Lx8zu/RWUAuPuDfM4S3AeXGNu50G/oDMw2MIWRsZPm+giT0iChOGln6ezM5CEuI7SS2IKOPmAp+ry4pMBv/r/w=="
-      },
       "Swashbuckle.AspNetCore.SwaggerUI": {
         "type": "Direct",
         "requested": "[10.1.5, )",
