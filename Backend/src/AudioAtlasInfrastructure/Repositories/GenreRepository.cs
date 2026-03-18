@@ -20,11 +20,11 @@ public class GenreRepository : IGenreRepository
     /// </summary>
     /// <param name="genre"> Specific genre </param>
     /// <returns> The description of a specific genre or null </returns>
-    public string getDescription(Genre genre)
+    public string getDescription(Guid id)
     {
         return _dbcontext.Genres
-            .Where(g => g.Id == genre.Id)
-            .First()
+            .Where(g => g.Id == id)
+            .Single()
             .Description;
     }
 
@@ -33,11 +33,11 @@ public class GenreRepository : IGenreRepository
     /// </summary>
     /// <param name="genre"> Specific genre </param>
     /// <returns> A string corresponding to the genres name </returns>
-    public string getName(Genre genre)
+    public string getName(Guid id)
     {
         return _dbcontext.Genres
-            .Where(g => g.Id == genre.Id)
-            .First()
+            .Where(g => g.Id == id)
+            .Single()
             .Name;
     }
 
@@ -48,10 +48,8 @@ public class GenreRepository : IGenreRepository
     /// <returns> The genre corresponding to the ID </returns>
     public Genre getGenre(Guid id)
     {
-        return _dbcontext.Genres
-            .Where(g => g.Id == id)
-            .First();
-            
+        return _dbcontext.Genres.Find(id);
+
     }
 
     /// <summary>
@@ -59,10 +57,10 @@ public class GenreRepository : IGenreRepository
     /// </summary>
     /// <param name="genre"> Specific genre </param>
     /// <returns> A collection of aliases corresponding to a specific genre </returns>
-    public ICollection<GenreAlias> getAliases(Genre genre)
+    public ICollection<GenreAlias> getAliases(Guid id)
     {
         return _dbcontext.Genres
-            .Where(g => g.Id == genre.Id)
+            .Where(g => g.Id == id)
             .Single()
             .Aliases;
     }
@@ -72,10 +70,10 @@ public class GenreRepository : IGenreRepository
     /// </summary>
     /// <param name="genre"> Specific genre </param>
     /// <returns> A collection of parents corresponding to a specified genre </returns>
-    public ICollection<Genre> getParents(Genre genre)
+    public ICollection<Genre> getParents(Guid id)
     {
         return _dbcontext.Genres
-            .Where(g => g.Id == genre.Id)
+            .Where(g => g.Id == id)
             .Single()
             .ParentGenres;
     }
@@ -85,10 +83,11 @@ public class GenreRepository : IGenreRepository
     /// </summary>
     /// <param name="genre"> Specific genre </param>
     /// <returns> A collection of subgenres corresponding to a specified genre </returns>
-    public ICollection<Genre> getSubGenres(Genre genre)
+    public ICollection<Genre> getSubGenres(Guid id)
     {
         return _dbcontext.Genres
-            .Where(g => g.Id == genre.Id)
+            .Include(g => g.SubGenres)
+            .Where(g => g.Id == id)
             .Single()
             .SubGenres;
     }
@@ -98,10 +97,10 @@ public class GenreRepository : IGenreRepository
     /// </summary>
     /// <param name="genre"> Specific genre </param>
     /// <returns> A collection of similar genres corresponding to a specified genre </returns>
-    public ICollection<Genre> getSimilarGenres(Genre genre)
+    public ICollection<Genre> getSimilarGenres(Guid id)
     {
         return _dbcontext.Genres
-            .Where(g => g.Id == genre.Id)
+            .Where(g => g.Id == id)
             .Single()
             .SimilarGenres;
     }
@@ -111,12 +110,12 @@ public class GenreRepository : IGenreRepository
     /// </summary>
     /// <param name="genre"> Specific genre </param>
     /// <returns> A list with all related genres to a specific genre </returns>
-    public ICollection<Genre> getRelated(Genre genre)
+    public ICollection<Genre> getRelated(Guid id)
     {
         return _dbcontext.Genres
-            .Where(g => g.Id == genre.Id)
+            .Where(g => g.Id == id)
             .Single()
-            .SubGenres.Union(getParents(genre)).Union(getSimilarGenres(genre))
+            .SubGenres.Union(getParents(id)).Union(getSimilarGenres(id))
             .ToList();
     }
     
