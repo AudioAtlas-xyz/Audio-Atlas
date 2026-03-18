@@ -23,5 +23,12 @@
     <ItemGroup>
         <ProjectReference Include="../../src/AudioAtlasInfrastructure/AudioAtlasInfrastructure.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+        <Content Include="../../src/AudioAtlasInfrastructure/resources/seeding.json">
+            <Link>seeding.json</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@ using AudioAtlasApplication.Repositories;
 using AudioAtlasDomain.Genres;
 using AudioAtlasInfrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace AudioAtlasInfrastructure.Repositories;
 
@@ -41,7 +42,7 @@ public class GenreRepository : IGenreRepository
     }
 
     /// <summary>
-    /// Retrieves a country from the database based on id
+    /// Retrieves a genre from the database based on id
     /// </summary>
     /// <param name="id"> Unique identifier for a specific genre </param>
     /// <returns> The genre corresponding to the ID </returns>

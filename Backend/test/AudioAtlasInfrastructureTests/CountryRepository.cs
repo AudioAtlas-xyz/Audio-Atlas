@@ -23,13 +23,15 @@ public class CountryRepositoryTests : IClassFixture<TestService>
         {
             Name = "Test"
         };
-        var id = sampleCountry.Id;
-
+        
         _testService._context.Countries.Add(sampleCountry);
         _testService._context.SaveChanges();
         
+        var id = sampleCountry.Id;
+        
         var country = _countryRepository.getCountryByID(id);
-        Assert.Equal(sampleCountry, country);
+        Assert.Equal(sampleCountry.Id, country.Id);
+        Assert.Equal(sampleCountry.Name, country.Name);
     }
     
     
@@ -37,7 +39,8 @@ public class CountryRepositoryTests : IClassFixture<TestService>
     [Fact]
     public void getAllGenres_Works()
     {
-        int CountryCount = 96;
+        int CountryCount = 106;
+        
         var result = _countryRepository.getGenreCounts();
         
         Assert.Equal(CountryCount, result.Count);

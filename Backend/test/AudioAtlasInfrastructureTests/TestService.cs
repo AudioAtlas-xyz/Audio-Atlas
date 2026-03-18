@@ -51,6 +51,7 @@ public class TestService : IDisposable
         
         _context = _serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
         _context.Database.EnsureCreated();
+        
         DbInitializer.SeedDatabase(_context, _logger);
         
         _countryRepository = _serviceProvider.GetRequiredService<ICountryRepository>();

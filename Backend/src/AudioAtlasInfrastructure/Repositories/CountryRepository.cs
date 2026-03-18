@@ -51,6 +51,10 @@ public class CountryRepository : ICountryRepository
             .Genres;
     }
 
+    /// <summary>
+    /// Retrieves a list of all countries in the database
+    /// </summary>
+    /// <returns> A list of all countries </returns>
     public ICollection<Country> getAllCountries()
     {
         return _dbcontext.Countries.ToList();
