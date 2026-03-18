@@ -1,0 +1,48 @@
+﻿using AudioAtlasApplication.Repositories;
+using Xunit;
+
+namespace AudioAtlasInfrastructureTests;
+using AudioAtlasTestServices;
+
+public class CountryRepositoryTests : IClassFixture<TestService>
+{
+    private readonly ICountryRepository _countryRepository;
+    private readonly TestService _testService;
+    public CountryRepositoryTests(TestService testService)
+    {
+        _testService = testService;
+        _countryRepository = testService._countryRepository;
+        
+        
+        
+    }
+    
+    /*
+    [Fact]
+    public void getCountryByID_Works ()
+    {
+        var id = "gh";
+        var country = _countryRepository.getCountryByID(id);
+
+    }
+    */
+
+    [Fact]
+    public void getAllGenres_Works()
+    {
+        int CountryCount = 96;
+        var result = _countryRepository.getGenreCounts();
+        
+        Assert.Equal(CountryCount, result.Count);
+    }
+
+    [Fact]
+    public void getGenreCountPerCountry_Works()
+    {
+        int GhanaCount = 12;
+        //Country Ghana = _countryRepository.getCountryByID(); //??? :D
+        
+       // var result = _countryRepository.getGenreCounts()[Ghana]
+    }
+    
+}

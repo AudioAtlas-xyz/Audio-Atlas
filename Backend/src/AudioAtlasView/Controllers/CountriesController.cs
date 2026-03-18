@@ -1,5 +1,9 @@
+using AudioAtlasDomain.Geography;
+using AudioAtlasInfrastructure.Database;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using AudioAtlasInfrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace AudioAtlasView.Controllers
 {
@@ -7,11 +11,12 @@ namespace AudioAtlasView.Controllers
     [ApiController]
     public class CountriesController : ControllerBase
     {
-        // GET: api/countries
+        private CountryRepository _countryRepository = new CountryRepository(new AppDbContext(new DbContextOptions<AppDbContext>()));
+        // GET: api/countries 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public Dictionary<Country,int> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _countryRepository.getGenreCounts();
         }
         
         // GET: api/countries/{id string}/genres
@@ -19,6 +24,7 @@ namespace AudioAtlasView.Controllers
         public string Get(int id)
         {
             return "value";
+            //getGenres(genre)
         }
         
      

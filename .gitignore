@@ -69,3 +69,7 @@ yarn-error.log*
 coverage/
 TestResults/
 *.trx
+
+
+# ── Visual Paradigm ──
+*.bak_*

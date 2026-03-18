@@ -1,10 +1,15 @@
 namespace AudioAtlasApplication.Repositories;
+
+using AudioAtlasDomain.Geography;
+using AudioAtlasDomain.Genres;
 using Domain.Country;
 using System.Collections.Generic;
 
 public interface ICountryRepository
-{ //hey errbod'
-    public Country getCountryByID(string id);
-    public Dictionary<Country, int> getCountryWithGenreCount();
+{
+    public Country getCountryByID(Guid id);
+    public Dictionary<Country, int> getGenreCounts();
+
+    public ICollection<Genre> getGenres(Country country);
 
 }
