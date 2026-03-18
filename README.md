@@ -28,6 +28,10 @@ Preparing for User Story Mapping and Sprint 1.
 
 Explore the early prototype: [audio-atlas-global-m-jjc7.bolt.host](https://audio-atlas-global-m-jjc7.bolt.host)
 
+## Installation of Prerequisites
+Look in Backend/README.md and Frontend/README.md
+
+
 ## Licensing
 
 This project uses a dual-licence model:
