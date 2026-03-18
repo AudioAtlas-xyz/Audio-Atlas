@@ -30,18 +30,25 @@ public class TestService : IDisposable
     {
         _connection = new SqliteConnection("DataSource=:memory:");
         _connection.Open();
-
+        
         var services = new ServiceCollection();
         
+        
         services.AddDbContext<AppDbContext>(o => o.UseSqlite(_connection));
+        services.AddLogging();
 
         services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<IGenreRepository, GenreRepository>();
-        services.AddScoped<ILogger<DbInitializer>, Logger<DbInitializer>>();
         
         _serviceProvider = services.BuildServiceProvider();
+        
+        _logger = _serviceProvider.GetService<ILogger<DbInitializer>>();
+        
         _serviceScope = _serviceProvider.CreateScope();
-
+        
+       
+        
+        
         _context = _serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
         _context.Database.EnsureCreated();
         DbInitializer.SeedDatabase(_context, _logger);

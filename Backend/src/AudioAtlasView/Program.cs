@@ -16,7 +16,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 if (string.IsNullOrWhiteSpace(connectionString))
 {
-    connectionString = builder.Environment.IsDevelopment() 
+    connectionString = builder.Environment.IsDevelopment()
         ? AppDbContextDefaults.DevelopmentConnectionString 
         : throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured. Set ConnectionStrings:DefaultConnection before starting the app.");
 }
