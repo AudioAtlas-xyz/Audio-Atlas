@@ -1,4 +1,5 @@
 ﻿using AudioAtlasApplication.Repositories;
+using AudioAtlasDomain.Geography;
 using Xunit;
 
 namespace AudioAtlasInfrastructureTests;
@@ -17,15 +18,24 @@ public class CountryRepositoryTests : IClassFixture<TestService>
         
     }
     
-    /*
+    
     [Fact]
     public void getCountryByID_Works ()
     {
-        var id = "gh";
-        var country = _countryRepository.getCountryByID(id);
+        var sampleCountry = new Country
+        {
+            Name = "Test"
+        };
+        var id = sampleCountry.Id;
 
+        _testService._context.Countries.Add(sampleCountry);
+        _testService._context.SaveChanges();
+        
+        var country = _countryRepository.getCountryByID(id);
+        Assert.Equal(sampleCountry, country);
     }
-    */
+    
+    
 
     [Fact]
     public void getAllGenres_Works()

@@ -116,4 +116,14 @@ public class GenreRepository : IGenreRepository
             .SubGenres.Union(getParents(genre)).Union(getSimilarGenres(genre))
             .ToList();
     }
-}
+    
+    /// <summary>
+    /// Retrieves all genres from the database
+    /// </summary>
+    /// <returns> A list with all genres </returns>
+    public ICollection<Genre> getAllGenres()
+    {
+        return _dbcontext.Genres.ToList();
+    }
+        
+}   

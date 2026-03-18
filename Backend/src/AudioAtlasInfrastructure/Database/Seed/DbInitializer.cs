@@ -20,7 +20,6 @@ namespace AudioAtlasInfrastructure.Database.Seed
                 return;
             }
 
-
             string path = Path.Combine(AppContext.BaseDirectory, "seeding.json");
             logger.LogInformation("Loading seed data from {SeedPath}", path);
 

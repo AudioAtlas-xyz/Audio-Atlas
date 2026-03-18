@@ -140,5 +140,8 @@ public class GenreConfiguration : IEntityTypeConfiguration<AudioAtlasDomain.Genr
                 {
                     j.HasKey("GenreId", "SimilarGenreId");
                 });
+        
+        
+        
     }
 }

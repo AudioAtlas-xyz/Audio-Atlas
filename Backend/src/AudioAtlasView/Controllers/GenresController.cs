@@ -1,5 +1,8 @@
+using AudioAtlasApplication.Repositories;
+using AudioAtlasApplication.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using AudioAtlasDomain.Genres;
 
 namespace AudioAtlasView.Controllers
 {
@@ -7,11 +10,18 @@ namespace AudioAtlasView.Controllers
     [ApiController]
     public class GenresController : ControllerBase
     {
-        // GET: api/<GenresController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IGenreRepository _genreRepository;
+
+        public GenresController(IGenreRepository genreRepository)
         {
-            return new string[] { "value1", "value2" };
+            _genreRepository = genreRepository;
+        }
+        
+        // GET: api/genres
+        [HttpGet]
+        public ICollection<Genre> Get()
+        {
+            return _genreRepository.getAllGenres();
         }
         
         // GET api/<GenresController>/5

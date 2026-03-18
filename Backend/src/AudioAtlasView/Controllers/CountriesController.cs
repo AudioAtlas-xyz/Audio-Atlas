@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AudioAtlasInfrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using AudioAtlasApplication.Repositories;
+using AudioAtlasDomain.Genres;
 
 namespace AudioAtlasView.Controllers
 {
@@ -11,20 +13,39 @@ namespace AudioAtlasView.Controllers
     [ApiController]
     public class CountriesController : ControllerBase
     {
-        private CountryRepository _countryRepository = new CountryRepository(new AppDbContext(new DbContextOptions<AppDbContext>()));
+        private readonly ICountryRepository _countryRepository;
+
+        public CountriesController(ICountryRepository countryRepository)
+        {
+            _countryRepository = countryRepository;
+        }
+        
         // GET: api/countries 
         [HttpGet]
-        public Dictionary<Country,int> Get()
+        public Dictionary<string,int> Get()
         {
             return _countryRepository.getGenreCounts();
         }
         
-        // GET: api/countries/{id string}/genres
-        [HttpGet("{id}/genres")]
-        public string Get(int id)
+        // GET: api/countries/all
+        [HttpGet("all")]
+        public ICollection<Country> GetCountries()
         {
-            return "value";
-            //getGenres(genre)
+            return _countryRepository.getAllCountries();
+        }
+        
+        // GET: api/countries/{id}/genres
+        [HttpGet("{id}/genres")]
+        public ICollection<Genre> Get(Guid id)
+        {
+            return _countryRepository.getGenres(id);
+        }
+        
+        // GET: api/countries/{id}
+        [HttpGet("{id}")]
+        public Country Getter(Guid id)
+        {
+            return _countryRepository.getCountryByID(id);
         }
         
      

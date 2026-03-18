@@ -11,4 +11,5 @@ public interface IGenreRepository
     public ICollection<Genre> getSimilarGenres(Genre genre);
     public string getDescription(Genre genre);
     public ICollection<Genre> getRelated(Genre genre);
+    public ICollection<Genre> getAllGenres();
 }
