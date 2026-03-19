@@ -70,7 +70,7 @@ jobs:
 
       - name: Run backend tests
         working-directory: ./Backend
-        run: dotnet test --configuration Release --no-build
+        run: dotnet test --configuration Release
 
 
   deploy:
