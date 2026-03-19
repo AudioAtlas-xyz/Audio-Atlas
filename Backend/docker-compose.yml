@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: audioatlas-sql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=password123!
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    networks:
+      - audioatlas
+
+volumes:
+  sql_data:
+
+networks:
+  audioatlas:

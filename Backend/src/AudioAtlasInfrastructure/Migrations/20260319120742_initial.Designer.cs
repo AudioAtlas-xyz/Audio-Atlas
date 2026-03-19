@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AudioAtlasInfrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260316234431_SeederRelationshipChanges")]
-    partial class SeederRelationshipChanges
+    [Migration("20260319120742_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,11 +31,10 @@ namespace AudioAtlasInfrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AuthorId")
+                    b.Property<Guid?>("AuthorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(4000)
                         .HasColumnType("nvarchar(4000)");
 
@@ -48,12 +47,10 @@ namespace AudioAtlasInfrastructure.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("PlaylistLink")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("SensitiveDescription")
-                        .IsRequired()
                         .HasMaxLength(4000)
                         .HasColumnType("nvarchar(4000)");
 
@@ -544,8 +541,7 @@ namespace AudioAtlasInfrastructure.Migrations
                     b.HasOne("AudioAtlasDomain.Users.ApplicationUser", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Author");
                 });
