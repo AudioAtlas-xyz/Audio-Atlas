@@ -3,6 +3,8 @@ using AudioAtlasInfrastructure.Database.Seed;
 using AudioAtlasDomain.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using AudioAtlasView;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
@@ -38,6 +40,7 @@ using (var scope = app.Services.CreateScope())
     ctx.Database.Migrate(); // works fine on ubuntu. bitchass
     DbInitializer.SeedDatabase(ctx, seedLogger);
     app.Logger.LogInformation("Database migration and seed completed.");
+    ViewDebugger.DebugToFile(ctx);
 }
 
 
