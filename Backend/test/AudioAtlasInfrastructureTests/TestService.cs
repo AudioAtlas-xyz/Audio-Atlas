@@ -42,21 +42,17 @@ public class TestService : IDisposable
         
         _serviceProvider = services.BuildServiceProvider();
         
-        _logger = _serviceProvider.GetService<ILogger<DbInitializer>>();
-        
         _serviceScope = _serviceProvider.CreateScope();
         
-       
-        
-        
+        _logger = _serviceScope.ServiceProvider.GetService<ILogger<DbInitializer>>();
         _context = _serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
+        
+        _countryRepository = _serviceScope.ServiceProvider.GetRequiredService<ICountryRepository>();
+        _genreRepository = _serviceScope.ServiceProvider.GetRequiredService<IGenreRepository>();
+        
         _context.Database.EnsureCreated();
         
         DbInitializer.SeedDatabase(_context, _logger);
-        
-        _countryRepository = _serviceProvider.GetRequiredService<ICountryRepository>();
-        _genreRepository = _serviceProvider.GetRequiredService<IGenreRepository>();
-        
     }
 
     public void Dispose()

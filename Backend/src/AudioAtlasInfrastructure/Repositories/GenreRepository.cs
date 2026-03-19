@@ -48,7 +48,9 @@ public class GenreRepository : IGenreRepository
     /// <returns> The genre corresponding to the ID </returns>
     public Genre getGenre(Guid id)
     {
-        return _dbcontext.Genres.Find(id);
+        return _dbcontext.Genres
+            .Where(g => g.Id == id)
+            .Single();
 
     }
 
@@ -60,6 +62,7 @@ public class GenreRepository : IGenreRepository
     public ICollection<GenreAlias> getAliases(Guid id)
     {
         return _dbcontext.Genres
+            .Include(g => g.Aliases)
             .Where(g => g.Id == id)
             .Single()
             .Aliases;
@@ -73,6 +76,7 @@ public class GenreRepository : IGenreRepository
     public ICollection<Genre> getParents(Guid id)
     {
         return _dbcontext.Genres
+            .Include(g => g.ParentGenres)
             .Where(g => g.Id == id)
             .Single()
             .ParentGenres;
@@ -100,6 +104,7 @@ public class GenreRepository : IGenreRepository
     public ICollection<Genre> getSimilarGenres(Guid id)
     {
         return _dbcontext.Genres
+            .Include(g => g.SimilarGenres)
             .Where(g => g.Id == id)
             .Single()
             .SimilarGenres;

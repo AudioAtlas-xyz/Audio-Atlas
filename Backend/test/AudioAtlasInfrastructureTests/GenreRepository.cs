@@ -72,7 +72,6 @@ public class GenreRepository : IClassFixture<TestService>
         Assert.Equal(sampleGenre.Name, genre.Name);
     }
     
-    //Currently fails
     [Fact]
     public void getAliases_Works()
     {
@@ -82,12 +81,12 @@ public class GenreRepository : IClassFixture<TestService>
         _testService._context.SaveChanges();
         
         var expectedList = sample.Aliases;
+        
         //Assert.Equal(expectedList, _genreRepository.getAliases(sample.Id));
         Assert.Contains(expectedList, a => a.Alias == "sampleAlias");
         Assert.Contains(_genreRepository.getAliases(sample.Id), a => a.Alias == "sampleAlias");
     }
     
-    //Currently fails
     [Fact]
     public void getParents_Works()
     {
@@ -95,8 +94,11 @@ public class GenreRepository : IClassFixture<TestService>
         var parent2 = new Genre { Name = "parent2" };
 
         var sample = new Genre { Name = "sampleGenre" };
+        
         sample.ParentGenres.Add(parent1);
         sample.ParentGenres.Add(parent2);
+        parent1.SubGenres.Add(sample);
+        parent2.SubGenres.Add(sample);
 
         _testService._context.Genres.AddRange(parent1, parent2);
         _testService._context.Genres.Add(sample);
@@ -110,56 +112,46 @@ public class GenreRepository : IClassFixture<TestService>
         Assert.Contains(result, g => g.Name == "parent1");
         Assert.Contains(result, g => g.Name == "parent2");
     }
-
-    //Currently fails
+    
     [Fact]
     public void getSubGenres_Works()
     {
         var parent = new Genre
         {
-            Name = "parent",
-            SubGenres = new List<Genre>()
+            Name = "parent"
         };
-        var child = new Genre
+        var child1 = new Genre
         {
-            Name = "child",
-            ParentGenres = new List<Genre>()
+            Name = "child1"
+        };
+        var child2 = new Genre
+        {
+            Name = "child2"
         };
 
-        parent.SubGenres.Add(child);
-        child.ParentGenres.Add(parent);
+        parent.SubGenres.Add(child1);
+        parent.SubGenres.Add(child2);
+        child1.ParentGenres.Add(parent);
+        child2.ParentGenres.Add(parent);
         
-        _testService._context.Genres.Add(parent);
-        _testService._context.Genres.Add(child);
+        _testService._context.Genres.AddRange(parent, child1, child2);
         _testService._context.SaveChanges();
 
         var result = _genreRepository.getSubGenres(parent.Id);
 
         Assert.NotNull(result);
-        Assert.Contains(child, result);
-        Assert.True(parent.SubGenres.Count == 1);
+        Assert.Contains(result, g => g.Name == "child1");
+        Assert.Contains(result, g => g.Name == "child2");
+        Assert.True(parent.SubGenres.Count == 2);
     }
-
-    /*
+    
     [Fact]
     public void getAllGenres_Works()
     {
-        var context = _testService._context;
+        int expected = _testService._context.Genres.Count();
+        int actual =  _genreRepository.getAllGenres().Count();
         
-        var genre1 = new Genre();
-        var genre2 = new Genre();
-        var genre3 = new Genre();
-        
-        context.Add(genre1);
-        context.Add(genre2);
-        context.Add(genre3);
-        
-        context.SaveChanges();
-        
-        int size = _genreRepository.getAllGenres().size;
-        
-        Assert.Equal(3, size);
-        
+        Assert.Equal(actual, expected);
     }
-    */
+
 }
