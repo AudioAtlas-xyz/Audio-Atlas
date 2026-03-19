@@ -3,6 +3,7 @@ using AudioAtlasInfrastructure.Database.Seed;
 using AudioAtlasDomain.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using AudioAtlasView;
 using AudioAtlasApplication.Repositories;
 using AudioAtlasApplication.Services;
 using AudioAtlasInfrastructure.Repositories;
@@ -60,10 +61,23 @@ using (var scope = app.Services.CreateScope())
     var seedLogger = scope.ServiceProvider.GetRequiredService<ILogger<DbInitializer>>();
 
     app.Logger.LogInformation("Running database migration and seed.");
-    ctx.Database.Migrate();
+    ctx.Database.Migrate(); 
     DbInitializer.SeedDatabase(ctx, seedLogger);
     app.Logger.LogInformation("Database migration and seed completed.");
+    ViewDebugger.DebugToFile(ctx);
 }
+
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "v1");
+    });
+}
+
+app.UseHttpsRedirection();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

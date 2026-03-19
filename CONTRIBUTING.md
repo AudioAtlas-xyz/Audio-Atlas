@@ -75,49 +75,35 @@ Open an issue with the label `enhancement` and describe:
 
 ---
 
-## Development Setup
-
-```bash
-# Clone your fork
-git clone https://github.com/YOUR-USERNAME/audio-atlas.git
-cd audio-atlas
-
-# Install dependencies
-npm install
-
-# Start the development server
-npm run dev
-
-# Open in your browser
-# The app will be running at http://localhost:5173 (or the port shown in terminal)
-```
-
-### Prerequisites
-
-- Node.js 18 or higher
-- npm 9 or higher
-- Git
-
 ### Project Structure
-
 ```
 audio-atlas/
-├── public/            # Static assets
-├── src/
-│   ├── components/    # React components
-│   ├── data/          # Audio Atlas JSON dataset
-│   ├── hooks/         # Custom React hooks
-│   ├── pages/         # Page-level components
-│   ├── styles/        # CSS modules and Tailwind config
-│   └── utils/         # Helper functions
-├── README.md
-├── CONTRIBUTING.md    # This file
-├── LICENSE            # MIT License (code)
-├── LICENSE-CONTENT    # CC BY-SA 4.0 (genre data and content)
-└── package.json
+├── Backend/
+│   ├── src/
+│       ├── AudioAtlasApplication/
+│       ├── AudioAtlasDomain/
+│       ├── AudioAtlasInfrastructure/
+│       ├── AudioAtlasView/
+│   ├── AudioAtlasBackend.slnx/             # Solution file
+│   ├── README.md/                          # README for backend developing
+├── docs/                                   # ERD diagram
+├── Frontend/
+│   ├── src/
+│       ├── app/
+│       ├── public/
+│       ├── README.md/                      # README for frontend developing
+├── README.md                               # top level README
+├── CONTRIBUTING.md                         # This file
+├── LICENSE                                 # MIT License (code)
+└── LICENSE-CONTENT                         # CC BY-SA 4.0 (genre data and content)
 ```
 
+
 ---
+
+## Setup
+Fork and clone your own version see README.MD for building and running
+
 
 ## Pull Request Process
 
@@ -153,7 +139,7 @@ Audio Atlas uses two licences:
 
 | What | Licence | File |
 |------|---------|------|
-| Source code (JavaScript, HTML, CSS, config) | MIT License | `LICENSE` |
+| Source code | MIT License | `LICENSE` |
 | Genre data, descriptions, and content | Creative Commons BY-NC-SA 4.0 | `LICENSE-CONTENT` |
 
 **By submitting a contribution to this project, you agree that:**
