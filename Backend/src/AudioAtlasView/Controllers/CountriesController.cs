@@ -16,7 +16,12 @@ namespace AudioAtlasView.Controllers
     {
         private readonly ICountryRepository _countryRepository;
         private readonly ICountryService _countryService;
-
+        
+        /// <summary>
+        /// Initialises a new instance of CountriesController class
+        /// </summary>
+        /// <param name="countryRepository"> Repository for retrieving country related data </param>
+        /// <param name="countryService"> Service for handling country related data </param>
         public CountriesController(ICountryRepository countryRepository, ICountryService countryService)
         {
             _countryRepository = countryRepository;
@@ -50,8 +55,6 @@ namespace AudioAtlasView.Controllers
         {
             return _countryService.getCountryById(id);
         }
-        
-     
 
         // POST api/<ViewController>
         [HttpPost]

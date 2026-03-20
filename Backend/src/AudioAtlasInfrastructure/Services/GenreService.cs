@@ -9,6 +9,10 @@ public class GenreService : IGenreService
 {
     IGenreRepository _genreRepository;
     
+    /// <summary>
+    /// Initialises a new instance of the GenreService class
+    /// </summary>
+    /// <param name="genreRepository"> Repository that retrieves genre related data from the database </param>
     public GenreService(IGenreRepository genreRepository)
     {
         _genreRepository = genreRepository;
@@ -18,7 +22,7 @@ public class GenreService : IGenreService
     /// Takes a genre and converts it into a GenreDTO
     /// </summary>
     /// <param name="id"> The ID corresponding to a genre </param>
-    /// <returns> A GenreDTO </returns>
+    /// <returns> A GenreDTO based on a specific genre </returns>
     public GenreDTO getGenre(Guid id)
     {
         Genre genre = _genreRepository.getGenre(id);

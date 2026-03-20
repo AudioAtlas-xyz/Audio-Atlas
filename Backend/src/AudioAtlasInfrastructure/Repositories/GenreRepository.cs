@@ -9,7 +9,11 @@ namespace AudioAtlasInfrastructure.Repositories;
 public class GenreRepository : IGenreRepository
 {
     readonly AppDbContext _dbcontext;
-
+    
+    /// <summary>
+    /// Initialises a new instance of GenreRepository class
+    /// </summary>
+    /// <param name="appDbContext"> The database context containing data </param>
     public GenreRepository(AppDbContext appDbContext)
     {
         _dbcontext = appDbContext;

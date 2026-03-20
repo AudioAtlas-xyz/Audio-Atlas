@@ -9,6 +9,11 @@ namespace AudioAtlasInfrastructure.Repositories;
 public class CountryRepository : ICountryRepository
 {
     readonly AppDbContext _dbcontext;
+    
+    /// <summary>
+    /// Initialises a new instance of CountryRepository class
+    /// </summary>
+    /// <param name="appDbContext"></param>
     public CountryRepository(AppDbContext appDbContext)
     {
         _dbcontext = appDbContext;
