@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using AudioAtlasInfrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using AudioAtlasApplication.Repositories;
+using AudioAtlasApplication.Services;
 using AudioAtlasDomain.Genres;
 
 namespace AudioAtlasView.Controllers
@@ -14,10 +15,12 @@ namespace AudioAtlasView.Controllers
     public class CountriesController : ControllerBase
     {
         private readonly ICountryRepository _countryRepository;
+        private readonly ICountryService _countryService;
 
-        public CountriesController(ICountryRepository countryRepository)
+        public CountriesController(ICountryRepository countryRepository, ICountryService countryService)
         {
             _countryRepository = countryRepository;
+            _countryService = countryService;
         }
         
         // GET: api/countries 
@@ -43,9 +46,9 @@ namespace AudioAtlasView.Controllers
         
         // GET: api/countries/{id}
         [HttpGet("{id}")]
-        public Country Getter(Guid id)
+        public CountryDTO Getter(Guid id)
         {
-            return _countryRepository.getCountryByID(id);
+            return _countryService.getCountryById(id);
         }
         
      

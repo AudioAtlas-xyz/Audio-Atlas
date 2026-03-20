@@ -11,10 +11,12 @@ namespace AudioAtlasView.Controllers
     public class GenresController : ControllerBase
     {
         private readonly IGenreRepository _genreRepository;
+        private readonly IGenreService _genreService;
 
-        public GenresController(IGenreRepository genreRepository)
+        public GenresController(IGenreRepository genreRepository, IGenreService genreService)
         {
             _genreRepository = genreRepository;
+            _genreService = genreService;
         }
         
         // GET: api/genres
@@ -26,9 +28,9 @@ namespace AudioAtlasView.Controllers
         
         // GET api/genres/{id}
         [HttpGet("{id}")]
-        public Genre Get(Guid id)
+        public GenreDTO Get(Guid id)
         {
-            return _genreRepository.getGenre(id);
+            return _genreService.getGenre(id);
         }
 
         // POST api/<GenresController>

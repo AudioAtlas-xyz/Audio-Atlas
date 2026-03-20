@@ -96,7 +96,6 @@ public class Genre
     /// Not limited to a single country.
     /// </summary>
     public ICollection<Country> Countries { get; set; } = new List<Country>();
-
     /// <summary>
     /// Instruments commonly associated with the genre.
     /// 

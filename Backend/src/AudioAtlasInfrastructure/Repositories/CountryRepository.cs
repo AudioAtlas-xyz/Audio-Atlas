@@ -22,7 +22,10 @@ public class CountryRepository : ICountryRepository
     /// <returns> The country corresponding to the ID or null </returns>
     public Country getCountryByID(Guid id)
     {
-        return _dbcontext.Countries.Find(id);
+        return _dbcontext.Countries
+            .Where(c => c.Id == id)
+            .Include(c => c.Genres)
+            .Single();
     }
 
     /// <summary>
