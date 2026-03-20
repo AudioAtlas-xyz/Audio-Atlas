@@ -31,6 +31,8 @@ public class GenreService : IGenreService
             AuthorId = genre.AuthorId,
             Name = genre.Name,
             Description = genre.Description,
+            StartYear = genre.StartYear,
+            PlaylistLink =  genre.PlaylistLink,
             SensitiveDescription = genre.SensitiveDescription,
             IsSensitive = genre.IsSensitive,
             Aliases = genre.Aliases,
