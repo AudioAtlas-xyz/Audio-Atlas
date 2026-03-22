@@ -1,4 +1,5 @@
-﻿using AudioAtlasDomain.Genres;
+﻿using System.Text.Json.Serialization;
+using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Submissions;
 
 namespace AudioAtlasDomain.Geography
