@@ -1,9 +1,9 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="src/AudioAtlasApplication/AudioAtlasApplication.csproj" />
-    <Project Path="src/AudioAtlasDomain/AudioAtlasDomain.csproj" />
-    <Project Path="src/AudioAtlasInfrastructure/AudioAtlasInfrastructure.csproj" />
-    <Project Path="src/AudioAtlasView/AudioAtlasView.csproj" />
+    <Project Path="src/AudioAtlasApplication/AudioAtlas.Application.csproj" />
+    <Project Path="src/AudioAtlasDomain/AudioAtlas.Domain.csproj" />
+    <Project Path="src/AudioAtlasInfrastructure/AudioAtlas.Infrastructure.csproj" />
+    <Project Path="src/AudioAtlasView/AudioAtlas.API.csproj" />
   </Folder>
   <Folder Name="/test/">
     <Project Path="test/AudioAtlasInfrastructureTests/AudioAtlasInfrastructureTests.csproj" />

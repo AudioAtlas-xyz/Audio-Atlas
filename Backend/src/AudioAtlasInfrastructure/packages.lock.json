@@ -371,13 +371,13 @@
         "resolved": "9.0.4",
         "contentHash": "o94k2RKuAce3GeDMlUvIXlhVa1kWpJw95E6C9LwW0KlG0nj5+SgCiIxJ2Eroqb9sLtG1mEMbFttZIBZ13EJPvQ=="
       },
-      "audioatlasapplication": {
+      "audioatlas.application": {
         "type": "Project",
         "dependencies": {
-          "AudioAtlasDomain": "[1.0.0, )"
+          "AudioAtlas.Domain": "[1.0.0, )"
         }
       },
-      "audioatlasdomain": {
+      "audioatlas.domain": {
         "type": "Project"
       }
     }

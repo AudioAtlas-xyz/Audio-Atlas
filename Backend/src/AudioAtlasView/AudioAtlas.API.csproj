@@ -20,9 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AudioAtlasApplication\AudioAtlasApplication.csproj" />
-    <ProjectReference Include="..\AudioAtlasDomain\AudioAtlasDomain.csproj" />
-    <ProjectReference Include="..\AudioAtlasInfrastructure\AudioAtlasInfrastructure.csproj" />
+    <ProjectReference Include="..\AudioAtlasApplication\AudioAtlas.Application.csproj" />
+    <ProjectReference Include="..\AudioAtlasDomain\AudioAtlas.Domain.csproj" />
+    <ProjectReference Include="..\AudioAtlasInfrastructure\AudioAtlas.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
