@@ -1,4 +1,5 @@
-﻿using AudioAtlasDomain.MusicMetadata;
+﻿using System.Text.Json.Serialization;
+using AudioAtlasDomain.MusicMetadata;
 using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.Users;
 
@@ -95,7 +96,6 @@ public class Genre
     /// Not limited to a single country.
     /// </summary>
     public ICollection<Country> Countries { get; set; } = new List<Country>();
-
     /// <summary>
     /// Instruments commonly associated with the genre.
     /// 
