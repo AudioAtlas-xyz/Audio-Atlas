@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AudioAtlasInfrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialized : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -187,13 +187,13 @@ namespace AudioAtlasInfrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
                     StartYear = table.Column<int>(type: "int", nullable: true),
                     IsSensitive = table.Column<bool>(type: "bit", nullable: false),
-                    PlaylistLink = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    SensitiveDescription = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: false)
+                    PlaylistLink = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    SensitiveDescription = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true)
                 },
                 constraints: table =>
                 {

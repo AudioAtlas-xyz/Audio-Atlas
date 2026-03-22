@@ -9,18 +9,13 @@ using AudioAtlasApplication.Services;
 using AudioAtlasInfrastructure.Repositories;
 using AudioAtlasInfrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 [assembly: ApiController]
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-if (string.IsNullOrWhiteSpace(connectionString))
-{
-    connectionString = builder.Environment.IsDevelopment()
-        ? AppDbContextDefaults.DevelopmentConnectionString 
-        : throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured. Set ConnectionStrings:DefaultConnection before starting the app.");
-}
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
@@ -49,7 +44,11 @@ builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
@@ -59,9 +58,8 @@ using (var scope = app.Services.CreateScope())
 {
     var ctx = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var seedLogger = scope.ServiceProvider.GetRequiredService<ILogger<DbInitializer>>();
-
     app.Logger.LogInformation("Running database migration and seed.");
-    ctx.Database.Migrate(); 
+    ctx.Database.Migrate(); // works fine on ubuntu. bitchass
     DbInitializer.SeedDatabase(ctx, seedLogger);
     app.Logger.LogInformation("Database migration and seed completed.");
     ViewDebugger.DebugToFile(ctx);
@@ -76,8 +74,6 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/openapi/v1.json", "v1");
     });
 }
-
-app.UseHttpsRedirection();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

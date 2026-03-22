@@ -30,7 +30,6 @@ jobs:
           cache: true
           cache-dependency-path: 'Backend/**/packages.lock.json'
 
-
       - name: Restore dependencies
         working-directory: ./Backend
         run: dotnet restore
@@ -54,6 +53,21 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
 
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: TestPassword123!
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'TestPassword123!' -C -Q 'SELECT 1'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+          --health-start-period 20s
+
     steps:
       - uses: actions/checkout@v4
 
@@ -68,9 +82,15 @@ jobs:
         working-directory: ./Backend
         run: dotnet restore
 
+      - name: Build backend
+        working-directory: ./Backend
+        run: dotnet build --configuration Release --no-restore
+
       - name: Run backend tests
         working-directory: ./Backend
-        run: dotnet test --configuration Release
+        env:
+          ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=AudioAtlasTestDb;User Id=sa;Password=TestPassword123!;TrustServerCertificate=True;"
+        run: dotnet test --configuration Release --no-build
 
 
   deploy:
