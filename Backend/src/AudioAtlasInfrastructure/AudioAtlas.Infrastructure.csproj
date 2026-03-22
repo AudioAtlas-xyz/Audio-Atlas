@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AudioAtlasApplication\AudioAtlasApplication.csproj" />
-    <ProjectReference Include="..\AudioAtlasDomain\AudioAtlasDomain.csproj" />
+    <ProjectReference Include="..\AudioAtlasApplication\AudioAtlas.Application.csproj" />
+    <ProjectReference Include="..\AudioAtlasDomain\AudioAtlas.Domain.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

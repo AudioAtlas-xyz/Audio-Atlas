@@ -21,7 +21,7 @@
   </ItemGroup>
     
     <ItemGroup>
-        <ProjectReference Include="../../src/AudioAtlasInfrastructure/AudioAtlasInfrastructure.csproj" />
+        <ProjectReference Include="../../src/AudioAtlasInfrastructure/AudioAtlas.Infrastructure.csproj" />
     </ItemGroup>
     
     <ItemGroup>
