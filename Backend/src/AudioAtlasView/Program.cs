@@ -9,6 +9,7 @@ using AudioAtlasApplication.Services;
 using AudioAtlasInfrastructure.Repositories;
 using AudioAtlasInfrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 [assembly: ApiController]
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
@@ -43,7 +44,11 @@ builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
