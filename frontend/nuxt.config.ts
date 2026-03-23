@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
+    '@nuxt/eslint',
     '@nuxtjs/google-fonts'
   ],
 

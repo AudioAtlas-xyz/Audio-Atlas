@@ -1,36 +1,42 @@
 export default defineAppConfig({
   ui: {
-    primary: 'aurora',       // maps to aurora teal (#3de8c8)
-    gray:    'space',        // custom gray scale (defined in app/assets/css/main.css)
+    primary: 'aurora', // maps to aurora teal (#3de8c8)
+    gray: 'space', // custom gray scale (defined in app/assets/css/main.css)
 
     button: {
-      // font override — all buttons use Space Grotesk
-      base: 'font-body tracking-wide',
-      rounded: 'rounded-sm',     // --r-sm = 3px
+      slots: {
+        base: 'font-body tracking-wide rounded-sm', // --r-sm = 3px
+      },
     },
 
     input: {
-      base: 'font-body font-light',
-      rounded: 'rounded-sm',
+      slots: {
+        base: 'font-body font-light rounded-sm',
+      },
     },
 
     badge: {
-      rounded: 'rounded-none',    // AudioAtlas tags are square
+      slots: {
+        base: 'rounded-none', // AudioAtlas tags are square
+      },
     },
 
     card: {
-      rounded: 'rounded-md',      // --r-md = 6px
-      base: 'overflow-hidden',
-      background: 'bg-surface-2',
-      ring: 'ring-1 ring-border',
+      slots: {
+        root: 'rounded-md overflow-hidden bg-surface-2 ring-1 ring-border', // --r-md = 6px
+      },
     },
 
     alert: {
-      rounded: 'rounded-md',
+      slots: {
+        root: 'rounded-md',
+      },
     },
 
     breadcrumb: {
-      base: 'font-mono text-[0.62rem] tracking-wider',
-    }
-  }
+      slots: {
+        link: 'font-mono text-[0.62rem] tracking-wider',
+      },
+    },
+  },
 })
