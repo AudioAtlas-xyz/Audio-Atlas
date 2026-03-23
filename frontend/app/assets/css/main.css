@@ -2,17 +2,48 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-sans: 'Public Sans', sans-serif;
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Space Grotesk", sans-serif;
+  --font-mono: "Space Mono", monospace;
 
-  --color-green-50: #EFFDF5;
-  --color-green-100: #D9FBE8;
-  --color-green-200: #B3F5D1;
-  --color-green-300: #75EDAE;
-  --color-green-400: #00DC82;
-  --color-green-500: #00C16A;
-  --color-green-600: #00A155;
-  --color-green-700: #007F45;
-  --color-green-800: #016538;
-  --color-green-900: #0A5331;
-  --color-green-950: #052E16;
+  --color-bg: #07080f;
+  --color-surface: #0d0f1a;
+  --color-surface-2: #131624;
+  --color-surface-3: #1a1e30;
+
+  --color-aurora: #3de8c8;
+  --color-aurora-dim: #1a6e5e;
+  --color-nebula: #c855f0;
+  --color-nebula-dim: #5c2070;
+  --color-starlight: #8899ff;
+  --color-rust: #e05570;
+
+  --color-border: #1c2038;
+  --color-border-light: #252c48;
+
+  --color-sacred: #40e8a0;
+  --color-sacred-bg: #081510;
+  --color-sacred-border: #1a5c38;
+  --color-notice: #60b8ff;
+  --color-notice-bg: #080f1a;
+  --color-notice-border: #1a3a6e;
+  --color-disputed: #e060d8;
+  --color-disputed-bg: #110810;
+  --color-disputed-border: #5a1a5c;
+
+  --color-space-50: #f5f7ff;
+  --color-space-100: #e7ecff;
+  --color-space-200: #cfd8ff;
+  --color-space-300: #aab9ff;
+  --color-space-400: #7f93ff;
+  --color-space-500: #5d70f7;
+  --color-space-600: #4455d6;
+  --color-space-700: #3440a8;
+  --color-space-800: #262f73;
+  --color-space-900: #1a214a;
+  --color-space-950: #10152b;
+
+  --radius-sm: 3px;
+  --radius-md: 6px;
 }
