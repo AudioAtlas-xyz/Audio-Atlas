@@ -1,6 +1,6 @@
 # Backend guide
 
-## Installasion of Prerequisites
+## Installation of Prerequisites
 - dotnet version 10
 - ubunto
 
