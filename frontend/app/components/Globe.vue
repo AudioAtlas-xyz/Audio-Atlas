@@ -1,22 +1,23 @@
 <template>
-    <div ref="globeDiv"> 
+    <div ref="globeDiv">
     </div>
 </template>
 
-<script> 
-import Globe from "globe.gl";
+<script>
 import * as THREE from "three";
 import {ref, onMounted} from "vue";
 export default {
     setup() {
         const globeDiv = ref(null);
 
-        onMounted(() => {
+        onMounted(async () => {
+            const Globe = (await import("globe.gl")).default;
+
             const myGlobe = Globe()(globeDiv.value)
              .globeImageUrl('//cdn.jsdelivr.net/npm/three-globe/example/img/earth-blue-marble.jpg')
              .bumpImageUrl('//cdn.jsdelivr.net/npm/three-globe/example/img/earth-topology.png')
              .backgroundImageUrl('//cdn.jsdelivr.net/npm/three-globe/example/img/night-sky.png');
- 
+
             const globeMaterial = myGlobe.globeMaterial();
             globeMaterial.bumpScale = 10;
 
