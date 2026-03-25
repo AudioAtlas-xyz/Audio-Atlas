@@ -47,3 +47,15 @@
   --radius-sm: 3px;
   --radius-md: 6px;
 }
+
+:root {
+  --ui-bg: var(--color-bg)
+}
+
+@layer base {
+    html,
+    body,
+    #__nuxt {
+      font-family: var(--font-body);
+    }
+}
