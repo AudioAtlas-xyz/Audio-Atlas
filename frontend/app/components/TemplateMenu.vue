@@ -46,4 +46,14 @@
       }"
     />
   </UDropdownMenu>
+
+  <UDashboardGroup>
+    <UDashboardSidebar>
+      <UDashboardSearchButton />
+    </UDashboardSidebar>
+
+    <UDashboardSearch />
+
+    <slot />
+  </UDashboardGroup>
 </template>

@@ -14,9 +14,9 @@ export default {
             const Globe = (await import("globe.gl")).default;
 
             const myGlobe = Globe()(globeDiv.value)
-             .globeImageUrl('//cdn.jsdelivr.net/npm/three-globe/example/img/earth-blue-marble.jpg')
-             .bumpImageUrl('//cdn.jsdelivr.net/npm/three-globe/example/img/earth-topology.png')
-             .backgroundImageUrl('//cdn.jsdelivr.net/npm/three-globe/example/img/night-sky.png');
+             .globeImageUrl('https://raw.githubusercontent.com/annanassen/Ricart-Argawala/main/discoballtext.jpg')
+             .bumpImageUrl('https://unpkg.com/three-globe@2.45.1/example/img/earth-topology.png')
+             .backgroundImageUrl('https://raw.githubusercontent.com/annanassen/Ricart-Argawala/main/partyscene.webp');
 
             const globeMaterial = myGlobe.globeMaterial();
             globeMaterial.bumpScale = 10;
