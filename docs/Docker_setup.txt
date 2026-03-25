@@ -1,0 +1,82 @@
+================================================================================
+  AUDIO ATLAS — LOCAL DEVELOPMENT SETUP
+================================================================================
+
+PREREQUISITES
+-------------
+  - Docker Desktop        https://www.docker.com/products/docker-desktop/
+  - .NET 10 SDK           https://dotnet.microsoft.com/download
+  - EF Core CLI tools     Install once with:
+
+        dotnet tool install --global dotnet-ef
+
+
+Optional:
+-------------
+  - SSMS                  https://learn.microsoft.com/en-us/ssms/install/install
+        For viewing the table contents
+
+--------------------------------------------------------------------------------
+  STEP 1 — START THE DATABASE
+--------------------------------------------------------------------------------
+
+Open the docker app.
+
+
+From /backend, run:
+
+    docker compose up -d
+
+This starts a SQL Server 2022 instance on port 1433. Data is persisted in a
+Docker volume, so it survives restarts.
+
+
+To stop the container:
+
+    docker compose down
+
+
+--------------------------------------------------------------------------------
+  STEP 2 — APPLY MIGRATIONS
+--------------------------------------------------------------------------------
+
+From the Backend/infrastructure directory, run:
+
+    dotnet ef database update
+
+
+This creates the AudioAtlasDb database and applies all migrations.
+
+You only need to do this:
+  - Once on first setup
+  - Again whenever a teammate commits new migrations
+
+
+--------------------------------------------------------------------------------
+  STEP 3 — RUN THE API
+--------------------------------------------------------------------------------
+
+From the Backend/view directory run:
+    dotnet run
+
+
+
+--------------------------------------------------------------------------------
+  VIEWING THE DATABASE IN SSMS
+--------------------------------------------------------------------------------
+
+Download SSMS:  https://learn.microsoft.com/en-us/ssms/install/install
+
+Once installed, open SSMS and connect with the following details:
+
+    Server type:    Database Engine
+    Server name:    localhost,1433
+    Authentication: SQL Server Authentication
+    Login:          sa
+    Password:       password123!
+
+    Trust server certificate : checked
+
+You should see AudioAtlasDb listed under Databases.
+
+================================================================================

@@ -3,18 +3,19 @@ using AudioAtlasInfrastructure.Database.Seed;
 using AudioAtlasDomain.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using AudioAtlasView;
+using AudioAtlasApplication.Repositories;
+using AudioAtlasApplication.Services;
+using AudioAtlasInfrastructure.Repositories;
+using AudioAtlasInfrastructure.Services;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
+[assembly: ApiController]
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-if (string.IsNullOrWhiteSpace(connectionString))
-{
-    connectionString = builder.Environment.IsDevelopment() 
-        ? AppDbContextDefaults.DevelopmentConnectionString 
-        : throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured. Set ConnectionStrings:DefaultConnection before starting the app.");
-}
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
@@ -34,17 +35,55 @@ builder.Services
     .AddDefaultTokenProviders();
 
 
+
+builder.Services.AddOpenApi();
+
+//Dependency injection HAS TO be here, or else mapping of controllers will crash.
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<ICountryService, CountryService>();
+builder.Services.AddScoped<IGenreService, GenreService>();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
     var ctx = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var seedLogger = scope.ServiceProvider.GetRequiredService<ILogger<DbInitializer>>();
-
     app.Logger.LogInformation("Running database migration and seed.");
-    ctx.Database.Migrate();
+    ctx.Database.Migrate(); // works fine on ubuntu. bitchass
     DbInitializer.SeedDatabase(ctx, seedLogger);
     app.Logger.LogInformation("Database migration and seed completed.");
+    ViewDebugger.DebugToFile(ctx);
 }
+
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "v1");
+    });
+}
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+}
+
+app.UseHttpsRedirection();
+app.MapControllers();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

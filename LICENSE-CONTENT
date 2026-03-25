@@ -5,75 +5,101 @@ LICENSE-CONTENT
 This licence applies to all genre data, descriptions, cultural context,
 artist information, and other non-code content in the Audio Atlas project.
 
-For the source code licence, see the LICENSE file (MIT License).
+The source code of this project is licensed separately under the MIT License.
+See the LICENSE file for details.
 
-------------------------------------------------------------------------
+---
+
+LICENSE NOTICE
+
+This work is licensed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0).
+
+To view a copy of this license, visit:
+https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+To view the full legal code, visit:
+https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+---
+
+SUMMARY (NON-BINDING)
+
+The following is a human-readable summary of the license.
+It does not replace or modify the official license terms.
 
 You are free to:
 
-  Share — copy and redistribute the material in any medium or format.
+Share — copy and redistribute the material in any medium or format.
 
-  Adapt — remix, transform, and build upon the material.
+Adapt — remix, transform, and build upon the material.
 
 Under the following terms:
 
-  Attribution — You must give appropriate credit to Audio Atlas and its
-  contributors, provide a link to the licence, and indicate if changes
-  were made. You may do so in any reasonable manner, but not in any way
-  that suggests Audio Atlas endorses you or your use.
+Attribution — You must give appropriate credit to Audio Atlas and its
+contributors, provide a link to the license, and indicate if changes
+were made. You may do so in any reasonable manner, but not in any way
+that suggests Audio Atlas endorses you or your use.
 
-  NonCommercial — You may not use the material for commercial purposes
-  without a separate commercial licence from Audio Atlas. For commercial
-  licensing enquiries, contact the Audio Atlas maintainers.
+NonCommercial — You may not use the material for commercial purposes.
 
-  ShareAlike — If you remix, transform, or build upon the material, you
-  must distribute your contributions under the same licence as the
-  original.
+ShareAlike — If you remix, transform, or build upon the material, you
+must distribute your contributions under the same license as the
+original.
 
-  No additional restrictions — You may not apply legal terms or
-  technological measures that legally restrict others from doing anything
-  the licence permits.
+No additional restrictions — You may not apply legal terms or
+technological measures that legally restrict others from doing anything
+the license permits.
 
-------------------------------------------------------------------------
-
-Full licence text:
-https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
-
-Human-readable summary:
-https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-------------------------------------------------------------------------
+---
 
 COMMERCIAL LICENSING
 
-The Audio Atlas genre dataset is available for commercial use under a
-separate licence agreement. If you wish to use Audio Atlas data in a
-commercial product or service, please contact the maintainers to discuss
-terms.
+The Audio Atlas dataset may be made available for commercial use under a
+separate commercial license.
+
+If you wish to use Audio Atlas data in a commercial product or service,
+please contact the project maintainers to discuss licensing terms.
 
 This dual-licensing model ensures the data remains freely available for
-non-commercial use while providing a sustainable funding mechanism for
-the project's continued development.
+non-commercial use while supporting the long-term sustainability of the
+project.
 
-------------------------------------------------------------------------
+---
 
-CONTRIBUTOR AGREEMENT
+CONTRIBUTOR TERMS
 
-By contributing genre data, descriptions, or other content to Audio
-Atlas, you agree that:
+By submitting content (including but not limited to genre data,
+descriptions, or other non-code material) to the Audio Atlas project,
+you agree to the following:
 
-1. Your contributions are licensed under CC BY-NC-SA 4.0.
+1. License Grant
 
-2. You grant Audio Atlas (and any future legal entity such as a
-   foundation operating Audio Atlas) the right to offer your
-   contributions under a separate commercial licence.
+   You agree that your contributions are licensed under the
+   Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+   International License (CC BY-NC-SA 4.0).
 
-3. You will be credited as a contributor. Your name (or chosen
-   attribution) will appear in the project's contributor records and,
-   where feasible, on the genre pages you helped create or enrich.
+2. Dual Licensing Rights
 
-4. You have the right to make the contribution — it is your own work,
-   or you have permission to share it under these terms.
+   You grant Audio Atlas and its maintainers (including any future
+   legal entity such as a foundation or organization operating the
+   project) the right to make your contributions available under
+   separate commercial licensing terms.
 
-This agreement is modelled on the approach used by MusicBrainz / the
-MetaBrainz Foundation.
+3. Attribution
+
+   You agree to be credited as a contributor. Your name (or chosen
+   attribution) may be included in contributor records and, where
+   feasible, alongside the content you contributed.
+
+4. Right to Contribute
+
+   You represent that your contributions are your own original work,
+   or that you have the necessary rights and permissions to submit
+   them under these terms.
+
+5. Acceptance of Terms
+
+   Submission of a contribution (e.g., via pull request, patch, or
+   other means) constitutes acceptance of these terms.
+

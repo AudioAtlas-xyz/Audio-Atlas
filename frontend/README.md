@@ -17,6 +17,26 @@ Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
 
 > The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
 
+### Prerequisites
+
+- Node.js 18 or higher
+- npm 9 or higher
+- Git
+
+## Development Setup
+
+```bash
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+
+# Open in your browser
+# The app will be running at http://localhost:5173 (or the port shown in terminal)
+```
+
 ## Quick Start
 
 ```bash [Terminal]
@@ -58,3 +78,6 @@ pnpm preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## How to test
+(coming soon)

@@ -20,7 +20,6 @@ namespace AudioAtlasInfrastructure.Database.Seed
                 return;
             }
 
-
             string path = Path.Combine(AppContext.BaseDirectory, "seeding.json");
             logger.LogInformation("Loading seed data from {SeedPath}", path);
 
@@ -213,6 +212,13 @@ namespace AudioAtlasInfrastructure.Database.Seed
 
                     originCountry.Genres.Add(genre);
 
+                    logger.LogInformation(
+                    "Added relationship between Genre: {GenreName} with GenreID {GenreID} and Country: {CountryName} with CountryID {CountryId}",
+                    genre.Name,
+                    id,
+                    originCountry.Name,
+                    countryElementID);
+
                 }
 
                 foreach (JsonElement instrumentElement in instruments.EnumerateArray())
@@ -231,6 +237,13 @@ namespace AudioAtlasInfrastructure.Database.Seed
                     genre.Instruments.Add(instrumentEntity);
 
                     instrumentEntity.Genres.Add(genre);
+
+                    logger.LogInformation(
+                    "Added relationship between Genre: {GenreName} with GenreID {GenreID} and Instrument: {InstrumentName} with InstrumentID {InstrumentId}",
+                    genre.Name,
+                    id,
+                    instrumentEntity.Type,
+                    instrumentElementID);
 
                 }
 
