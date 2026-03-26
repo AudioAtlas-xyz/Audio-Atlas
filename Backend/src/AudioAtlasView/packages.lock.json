@@ -11,6 +11,12 @@
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "8.0.1"
         }
       },
+      "Microsoft.AspNetCore.Authentication.MicrosoftAccount": {
+        "type": "Direct",
+        "requested": "[10.0.5, )",
+        "resolved": "10.0.5",
+        "contentHash": "tAjyUs6VnAttD5TQIaLin7Q+SZxPM5eDrDIl71c/AJa1Ja4O0rOybVKtFrVXFrs+LjHDhv0/lnOVLPLhHX62DA=="
+      },
       "Microsoft.AspNetCore.OpenApi": {
         "type": "Direct",
         "requested": "[10.0.*-*, )",
