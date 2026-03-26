@@ -50,7 +50,7 @@ import type { Country } from '~/types/country';
           class="rounded-none first:rounded-l-md last:rounded-r-md border-r-0 bg-[#131624]"
         >
           <div class="px-1 py-1">
-            <p class="text-2xl font-semibold leading-none">
+            <p class="text-2xl font-semibold leading-none"> 
               {{ card.description }}
             </p>
             <p class="mt-1 text-xs uppercase tracking-wider text-gray-500">
@@ -69,7 +69,7 @@ import type { Country } from '~/types/country';
           size="lg"
         />
 
-                <UButton
+          <UButton
           color="primary"
           variant="solid"
           label="Submit Report"
