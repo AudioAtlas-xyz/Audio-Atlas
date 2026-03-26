@@ -56,22 +56,12 @@ builder.Services.AddControllers()
 
 var key = Encoding.UTF8.GetBytes("super_secret_key_12345"); // flyt til config senere
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
+builder.Services.AddAuthentication()
+    .AddMicrosoftAccount(options =>
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key)
-    };
-});
+        options.ClientId = builder.Configuration["Authentication:Azure:ClientId"];
+        options.ClientSecret = builder.Configuration["Authentication:Azure:ClientSecret"];
+    });
 
 builder.Services.AddAuthorization();
 

@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using AudioAtlasDomain.Users;
+using Microsoft.AspNetCore.Authentication;
 
 [ApiController]
 [Route("api/auth")]
@@ -18,32 +19,41 @@ public class AuthController : ControllerBase
     {
         _userManager = userManager;
     }
+}
 
-    [HttpPost("login")]
-    public async Task<IActionResult> Login(string email, string password)
+  [HttpGet("login")]
+public IActionResult Login()
+{
+    return Challenge(new AuthenticationProperties
     {
-        var user = await _userManager.FindByEmailAsync(email);
+        RedirectUri = "/"
+    }, "Microsoft");
+}
 
-        if (user == null || !await _userManager.CheckPasswordAsync(user, password))
-            return Unauthorized();
+[HttpPost("login")]
+public async Task<IActionResult> Login(string email, string password)
+{
+    var user = await _userManager.FindByEmailAsync(email);
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super_secret_key_12345"));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+    if (user == null || !await _userManager.CheckPasswordAsync(user, password))
+        return Unauthorized();
 
-        var claims = new[]
-        {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Email, user.Email!)
-        };
+    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super_secret_key_12345"));
+    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var token = new JwtSecurityToken(
-            claims: claims,
-            expires: DateTime.UtcNow.AddHours(1),
-            signingCredentials: creds
-        );
+    var claims = new[]
+    {
+        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        new Claim(ClaimTypes.Email, user.Email!)
+    };
 
-        var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+    var token = new JwtSecurityToken(
+        claims: claims,
+        expires: DateTime.UtcNow.AddHours(1),
+        signingCredentials: creds
+    );
 
-        return Ok(new { token = tokenString });
-    }
+    var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+    return Ok(new { token = tokenString });
 }
