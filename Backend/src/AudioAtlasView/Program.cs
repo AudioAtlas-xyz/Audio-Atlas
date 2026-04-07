@@ -13,8 +13,13 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Security.Claims;
 [assembly: ApiController]
 var builder = WebApplication.CreateBuilder(args);
+
+Console.WriteLine(builder.Environment.EnvironmentName);
+Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
+
 builder.Services.AddOpenApi();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
@@ -62,6 +67,20 @@ builder.Services.AddAuthentication()
     {
         options.ClientId = builder.Configuration["Authentication:Azure:ClientId"];
         options.ClientSecret = builder.Configuration["Authentication:Azure:ClientSecret"];
+    })
+    .AddOAuth("GitHub", options =>
+    {
+        options.ClientId = builder.Configuration["Authentication:GitHub:ClientId"]!;
+        options.ClientSecret = builder.Configuration["Authentication:GitHub:ClientSecret"]!;
+
+        options.CallbackPath = "/signin-github";
+
+        options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
+        options.TokenEndpoint = "https://github.com/login/oauth/access_token";
+        options.UserInformationEndpoint = "https://api.github.com/user";
+
+        options.SignInScheme = IdentityConstants.ExternalScheme;
+        options.SaveTokens = true;
     });
 
 builder.Services.AddAuthorization();
@@ -96,7 +115,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
