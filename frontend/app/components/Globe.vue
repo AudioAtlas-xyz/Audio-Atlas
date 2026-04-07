@@ -43,24 +43,14 @@ export default {
                 .polygonAltitude(d => d === hoverD ? 0.12 : 0.06)
                 .polygonCapColor(d => d === hoverD ? 'steelblue' : colorScale(getVal(d)))
               )
-              .polygonsTransitionDuration(300);
-
-            /*
-            const globeMaterial = myGlobe.globeMaterial();
-            globeMaterial.bumpScale = 10;
-
-            new THREE.TextureLoader().load('//cdn.jsdelivr.net/npm/three-globe/example/img/earth-water.png',
-                texture => {
-                globeMaterial.specularMap = texture;
-                globeMaterial.specular = new THREE.Color('grey');
-                globeMaterial.shininess = 15;
+              .polygonsTransitionDuration(300)
+              .onPolygonClick(({ properties: d }) => {
+              console.log('Clicked country:', d.ADMIN);
+              //needs to be a panel
+              alert(`You clicked on ${d.ADMIN}`);
               });
 
-            const directionalLight = myGlobe.lights().find(light => light.type === 'DirectionalLight');
-            if (directionalLight) {
-                directionalLight.position.set(1, 1, 1);
-            }
-                */
+
         });
     return {
       globeDiv,
