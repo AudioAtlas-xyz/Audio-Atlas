@@ -52,7 +52,7 @@ export default {
                 .hexPolygonColor(d => d === hoverD ? '#FF69B4' : countryColors.get(d.properties.ISO_A2))
               )
               .polygonsTransitionDuration(300)
-              .onPolygonClick(({ properties: d }) => {
+              .onHexPolygonClick(({ properties: d }) => {
               console.log('Clicked country:', d.ADMIN);
               //needs to be a panel
               alert(`You clicked on ${d.ADMIN}`);
