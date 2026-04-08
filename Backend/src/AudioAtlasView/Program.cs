@@ -44,9 +44,6 @@ builder.Services
     .AddDefaultTokenProviders();
 
 
-
-builder.Services.AddOpenApi();
-
 //Dependency injection HAS TO be here, or else mapping of controllers will crash.
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
@@ -60,7 +57,9 @@ builder.Services.AddControllers()
     });
 
 
-var jwtKey = builder.Configuration["Jwt:Key"];
+var jwtKey = builder.Configuration["Jwt:Key"]
+    ?? throw new Exception("JWT Key not configured");
+
 var key = Encoding.UTF8.GetBytes(jwtKey);
 
 builder.Services.AddAuthentication(options =>
@@ -72,17 +71,23 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
+        ValidateIssuer = true,
+        ValidateAudience = true,
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateLifetime = true
+        ValidateLifetime = true,
+
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+
+        IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 })
-.AddMicrosoftAccount(options =>
+.AddGoogle(options =>
 {
-    options.ClientId = builder.Configuration["Authentication:Azure:ClientId"];
-    options.ClientSecret = builder.Configuration["Authentication:Azure:ClientSecret"];
+    options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
+    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+
+    options.SignInScheme = IdentityConstraints.ExternalScheme;
 })
 .AddOAuth("GitHub", options =>
 {
@@ -94,6 +99,8 @@ builder.Services.AddAuthentication(options =>
     options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
     options.TokenEndpoint = "https://github.com/login/oauth/access_token";
     options.UserInformationEndpoint = "https://api.github.com/user";
+
+    options.Scope.Add("user:email");
 
     options.SignInScheme = IdentityConstants.ExternalScheme;
     options.SaveTokens = true;
@@ -123,12 +130,6 @@ if (app.Environment.IsDevelopment())
     {
         options.SwaggerEndpoint("/openapi/v1.json", "v1");
     });
-}
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
 }
 
 //app.UseHttpsRedirection();

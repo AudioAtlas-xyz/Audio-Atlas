@@ -36,13 +36,13 @@ public class AuthController : ControllerBase
         }, "GitHub");
     }
 
-    [HttpGet("login/microsoft")]
-    public IActionResult MicrosoftLogin()
+    [HttpGet("login/google")]
+    public IActionResult GoogleLogin()
     {
         return Challenge(new AuthenticationProperties
         {
             RedirectUri = "/api/auth/external-callback"
-        }, "Microsoft");
+        }, "Google");
     }
 
     [HttpGet("external-callback")]
@@ -54,17 +54,21 @@ public class AuthController : ControllerBase
             return Unauthorized();
 
         var email = info.Principal.FindFirst(ClaimTypes.Email)?.Value;
+        var githubUsername = info.Principal.FindFirst("urn:github:login")?.Value;
 
-        if (email == null)
-            return BadRequest("Email not provided");
+        if (githubUsername == null)
+            return BadRequest("GitHub username not provided");
 
-        var user = await _userManager.FindByEmailAsync(email);
+        
+        var usernameToUse = githubUsername ?? email;
+
+        var user = await _userManager.FindByNameAsync(usernameToUse);
 
         if (user == null)
         {
             user = new ApplicationUser
             {
-                UserName = email,
+                UserName = usernameToUse,
                 Email = email
             };
 
@@ -98,6 +102,8 @@ public class AuthController : ControllerBase
         };
 
         var token = new JwtSecurityToken(
+            issuer: _config["Jwt:Issuer"],
+            audience: _config["Jwt:Audience"],
             claims: claims,
             expires: DateTime.UtcNow.AddHours(1),
             signingCredentials: creds);
