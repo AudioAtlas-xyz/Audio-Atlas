@@ -13,19 +13,14 @@ export default {
 
         onMounted(async () => {
           const Globe = (await import("globe.gl")).default;
-          const { scaleSequentialSqrt } = await import("d3-scale");
-          const { interpolateYlOrRd } = await import("d3-scale-chromatic");
-          const getVal = feat => feat.properties.GDP_MD_EST / Math.max(1e5, feat.properties.POP_EST);
           const result = await fetch('ne_110m_admin_0_countries.geojson');
           const countries = await result.json();
-          const colorScale = scaleSequentialSqrt(interpolateYlOrRd);
-          const maxVal = Math.max(...countries.features.map(getVal));
-          colorScale.domain([0, maxVal]);
 
           const countryColors = new Map();
           const baseHue = 120;
           const range = 90;
 
+          //randomly sets a color to each country, given a range and a basehue
           countries.features.forEach((feat) => {
             countryColors.set(
               feat.properties.ISO_A2, `hsl(${ baseHue + Math.random() * range}, 67%, 50%)`
