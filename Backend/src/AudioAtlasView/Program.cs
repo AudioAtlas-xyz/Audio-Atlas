@@ -60,28 +60,44 @@ builder.Services.AddControllers()
     });
 
 
-var key = Encoding.UTF8.GetBytes("super_secret_key_12345"); // flyt til config senere
+var jwtKey = builder.Configuration["Jwt:Key"];
+var key = Encoding.UTF8.GetBytes(jwtKey);
 
-builder.Services.AddAuthentication()
-    .AddMicrosoftAccount(options =>
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        options.ClientId = builder.Configuration["Authentication:Azure:ClientId"];
-        options.ClientSecret = builder.Configuration["Authentication:Azure:ClientSecret"];
-    })
-    .AddOAuth("GitHub", options =>
-    {
-        options.ClientId = builder.Configuration["Authentication:GitHub:ClientId"]!;
-        options.ClientSecret = builder.Configuration["Authentication:GitHub:ClientSecret"]!;
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateLifetime = true
+    };
+})
+.AddMicrosoftAccount(options =>
+{
+    options.ClientId = builder.Configuration["Authentication:Azure:ClientId"];
+    options.ClientSecret = builder.Configuration["Authentication:Azure:ClientSecret"];
+})
+.AddOAuth("GitHub", options =>
+{
+    options.ClientId = builder.Configuration["Authentication:GitHub:ClientId"]!;
+    options.ClientSecret = builder.Configuration["Authentication:GitHub:ClientSecret"]!;
 
-        options.CallbackPath = "/signin-github";
+    options.CallbackPath = "/signin-github";
 
-        options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
-        options.TokenEndpoint = "https://github.com/login/oauth/access_token";
-        options.UserInformationEndpoint = "https://api.github.com/user";
+    options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
+    options.TokenEndpoint = "https://github.com/login/oauth/access_token";
+    options.UserInformationEndpoint = "https://api.github.com/user";
 
-        options.SignInScheme = IdentityConstants.ExternalScheme;
-        options.SaveTokens = true;
-    });
+    options.SignInScheme = IdentityConstants.ExternalScheme;
+    options.SaveTokens = true;
+});
 
 builder.Services.AddAuthorization();
 
