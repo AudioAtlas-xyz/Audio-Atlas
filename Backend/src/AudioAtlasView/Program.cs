@@ -56,6 +56,20 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
 
+var allowedOrigins = builder.Configuration
+    .GetSection("Cors:AllowedOrigins")
+    .Get<string[]>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+            .WithOrigins(allowedOrigins!)
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 var jwtKey = builder.Configuration["Jwt:Key"]
     ?? throw new Exception("JWT Key not configured");
@@ -87,7 +101,10 @@ builder.Services.AddAuthentication(options =>
     options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
     options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
 
-    options.SignInScheme = IdentityConstraints.ExternalScheme;
+    options.Scope.Add("email");
+    options.Scope.Add("profile");
+
+    options.SignInScheme = IdentityConstants.ExternalScheme;
 })
 .AddOAuth("GitHub", options =>
 {
@@ -103,7 +120,7 @@ builder.Services.AddAuthentication(options =>
     options.Scope.Add("user:email");
 
     options.SignInScheme = IdentityConstants.ExternalScheme;
-    options.SaveTokens = true;
+    options.SaveTokens = true;   
 });
 
 builder.Services.AddAuthorization();
@@ -133,8 +150,12 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection();
+
+app.UseCors("AllowFrontend");
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

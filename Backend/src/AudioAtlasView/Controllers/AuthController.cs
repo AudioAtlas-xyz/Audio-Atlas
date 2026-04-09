@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using AudioAtlasDomain.Users;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/auth")]
@@ -27,6 +28,7 @@ public class AuthController : ControllerBase
         _config = config;
     }
 
+    [AllowAnonymous]
     [HttpGet("login/github")]
     public IActionResult GitHubLogin()
     {
@@ -36,6 +38,7 @@ public class AuthController : ControllerBase
         }, "GitHub");
     }
 
+    [AllowAnonymous]
     [HttpGet("login/google")]
     public IActionResult GoogleLogin()
     {
@@ -45,6 +48,7 @@ public class AuthController : ControllerBase
         }, "Google");
     }
 
+    [AllowAnonymous]
     [HttpGet("external-callback")]
     public async Task<IActionResult> ExternalCallback()
     {
@@ -54,28 +58,33 @@ public class AuthController : ControllerBase
             return Unauthorized();
 
         var email = info.Principal.FindFirst(ClaimTypes.Email)?.Value;
-        var githubUsername = info.Principal.FindFirst("urn:github:login")?.Value;
 
-        if (githubUsername == null)
-            return BadRequest("GitHub username not provided");
+        var username = info.Principal.Identity?.Name ?? email;
 
-        
-        var usernameToUse = githubUsername ?? email;
+        if (username == null)
+            return BadRequest("No username or email available");
 
-        var user = await _userManager.FindByNameAsync(usernameToUse);
+        var user = await _userManager.FindByLoginAsync(
+        info.LoginProvider,
+        info.ProviderKey);
 
         if (user == null)
         {
-            user = new ApplicationUser
+            user = await _userManager.FindByNameAsync(username);
+
+            if (user == null)
             {
-                UserName = usernameToUse,
-                Email = email
-            };
+                user = new ApplicationUser
+                {
+                    UserName = username,
+                    Email = email ?? $"{username}@noemail.local"
+                };
 
-            var result = await _userManager.CreateAsync(user);
+                var result = await _userManager.CreateAsync(user);
 
-            if (!result.Succeeded)
-                return BadRequest(result.Errors);
+                if (!result.Succeeded)
+                    return BadRequest(new { errors = result.Errors });
+            }
 
             await _userManager.AddLoginAsync(user, info);
         }
@@ -85,6 +94,27 @@ public class AuthController : ControllerBase
         return Ok(new
         {
             token
+        });
+    }
+
+    [Authorize]
+    [HttpGet("protected")]
+    public IActionResult Protected()
+    {
+        return Ok("You are authenticated");
+    }
+
+    [Authorize]
+    [HttpGet("me")]
+    public IActionResult Me()
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var email = User.FindFirst(ClaimTypes.Email)?.Value;
+
+        return Ok(new
+        {
+            userId,
+            email
         });
     }
 
