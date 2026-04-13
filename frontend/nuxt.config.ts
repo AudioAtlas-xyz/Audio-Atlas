@@ -4,7 +4,16 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui'
   ],
-
+   vite: {
+    optimizeDeps: {
+      include: [
+        'globe.gl',
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        'three',
+      ]
+    }
+  },
   devtools: {
     enabled: true
   },
@@ -25,4 +34,5 @@ export default defineNuxtConfig({
       }
     }
   }
+
 })
