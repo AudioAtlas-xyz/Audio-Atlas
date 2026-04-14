@@ -25,6 +25,8 @@
       </div>
       </NuxtLink>
 
+
+
       <NuxtLink to="/">
       <div :class="$style.divnavRight">
         <div :class="$style.signInLink">

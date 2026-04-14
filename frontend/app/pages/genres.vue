@@ -4,13 +4,11 @@
 
 
 <template #right>
-  <h1>Genre Detail Page</h1>
-  <h2>hejsa</h2>
-
-  <UHeader>
-    <UButton to="/">Globe</UButton>
-  </UHeader>
+  <UContainer>
+    <GenrePanel />
+  </UContainer>
 </template>
+
 
 <style scoped>
 
