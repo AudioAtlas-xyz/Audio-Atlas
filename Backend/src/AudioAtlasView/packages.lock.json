@@ -1243,6 +1243,7 @@
         "dependencies": {
           "AudioAtlas.Application": "[1.0.0, )",
           "AudioAtlas.Domain": "[1.0.0, )",
+          "Microsoft.AspNetCore.Authentication.Google": "[10.0.5, )",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "[10.0.4, )",
           "Microsoft.EntityFrameworkCore": "[10.0.4, )",
           "Microsoft.EntityFrameworkCore.SqlServer": "[10.0.4, )"
