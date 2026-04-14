@@ -2,10 +2,18 @@
 import Globe from "./../components/Globe.vue";
 </script>
 
+
+
 <template>
-  <CLientOnly>
+  <ClientOnly>
     <Globe />
-  </CLientOnly>
+  </ClientOnly>
+
+
+  <UButton to="/genres">
+    Genre Detail Page
+  </UButton>
+
 </template>
 
 <style>
