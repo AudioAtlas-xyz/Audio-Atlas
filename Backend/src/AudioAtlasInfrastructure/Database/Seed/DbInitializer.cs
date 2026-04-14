@@ -265,6 +265,11 @@ namespace AudioAtlasInfrastructure.Database.Seed
                         continue;
                     }
 
+                    if(!countryMapping.ContainsKey(countryElementID))
+                    {
+                        continue;
+                    }
+
                     Country originCountry = countryMapping[countryElementID];
 
                     genre.Countries.Add(originCountry);
@@ -287,6 +292,11 @@ namespace AudioAtlasInfrastructure.Database.Seed
 
 
                     if (string.IsNullOrWhiteSpace(instrumentElementID))
+                    {
+                        continue;
+                    }
+
+                    if (!instrumentMapping.ContainsKey(instrumentElementID))
                     {
                         continue;
                     }
