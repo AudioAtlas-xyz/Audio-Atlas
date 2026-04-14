@@ -29,24 +29,28 @@ public class AuthController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet("login/github")]
-    public IActionResult GitHubLogin()
-    {
-        return Challenge(new AuthenticationProperties
-        {
-            RedirectUri = "/api/auth/external-callback"
-        }, "GitHub");
-    }
+[HttpGet("login/github")]
+public IActionResult GitHubLogin()
+{
+    var redirectUrl = Url.Action(nameof(ExternalCallback));
+    var properties = _signInManager.ConfigureExternalAuthenticationProperties(
+        "GitHub",
+        redirectUrl);
 
-    [AllowAnonymous]
-    [HttpGet("login/google")]
-    public IActionResult GoogleLogin()
-    {
-        return Challenge(new AuthenticationProperties
-        {
-            RedirectUri = "/api/auth/external-callback"
-        }, "Google");
-    }
+    return Challenge(properties, "GitHub");
+}
+
+[AllowAnonymous]
+[HttpGet("login/google")]
+public IActionResult GoogleLogin()
+{
+    var redirectUrl = Url.Action(nameof(ExternalCallback));
+    var properties = _signInManager.ConfigureExternalAuthenticationProperties(
+        "Google",
+        redirectUrl);
+
+    return Challenge(properties, "Google");
+}
 
     [AllowAnonymous]
     [HttpGet("external-callback")]
@@ -121,8 +125,7 @@ public class AuthController : ControllerBase
     private string GenerateJwtToken(ApplicationUser user)
     {
         var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-
+        Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));        
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var claims = new[]

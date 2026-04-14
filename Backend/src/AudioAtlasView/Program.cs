@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 [assembly: ApiController]
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,7 +74,7 @@ builder.Services.AddCors(options =>
 
 var jwtKey = builder.Configuration["Jwt:Key"]
     ?? throw new Exception("JWT Key not configured");
-
+    
 var key = Encoding.UTF8.GetBytes(jwtKey);
 
 builder.Services.AddAuthentication(options =>
@@ -120,7 +121,27 @@ builder.Services.AddAuthentication(options =>
     options.Scope.Add("user:email");
 
     options.SignInScheme = IdentityConstants.ExternalScheme;
-    options.SaveTokens = true;   
+    options.SaveTokens = true;
+
+    options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+    options.ClaimActions.MapJsonKey(ClaimTypes.Name, "login");
+
+    options.Events.OnCreatingTicket = async context =>
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, context.Options.UserInformationEndpoint);
+        request.Headers.Authorization =
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", context.AccessToken);
+        request.Headers.Accept.Add(
+            new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+        request.Headers.UserAgent.ParseAdd("AudioAtlas");
+
+        var response = await context.Backchannel.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+
+        var user = System.Text.Json.JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+
+        context.RunClaimActions(user.RootElement);
+    };
 });
 
 builder.Services.AddAuthorization();
