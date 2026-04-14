@@ -20,28 +20,47 @@ namespace AudioAtlasInfrastructure.Database.Seed
                 return;
             }
 
-            string path = Path.Combine(AppContext.BaseDirectory, "seeding.json");
-            logger.LogInformation("Loading seed data from {SeedPath}", path);
+            string countryPath = Path.Combine(AppContext.BaseDirectory, "countrySeeding.json");
+            string instrumentPath = Path.Combine(AppContext.BaseDirectory, "instrumentSeeding.json");
+            string genrePath = Path.Combine(AppContext.BaseDirectory, "genreSeeding.json");
 
-            string json = File.ReadAllText(path);
+            logger.LogInformation("Loading seed data from {SeedPath}", genrePath);
 
+            string countryJson = File.ReadAllText(countryPath);
+            string instrumentJson = File.ReadAllText(instrumentPath);
+            string genreJson = File.ReadAllText(genrePath);
 
-            using (JsonDocument doc = JsonDocument.Parse(json))
+            Dictionary<string, Country> countryMapping = null;
+            Dictionary<string, Instrument> instrumentMapping = null;
+
+            using (JsonDocument doc = JsonDocument.Parse(countryJson))
             {
                 JsonElement root = doc.RootElement;
-                JsonElement countries = root.GetProperty("lookups").GetProperty("countries");
-                JsonElement instruments = root.GetProperty("lookups").GetProperty("instruments");
+
+
+                countryMapping = ProcessCountries(root, logger);
+                dbContext.Countries.AddRange(countryMapping.Values);
+            }
+
+            using (JsonDocument doc = JsonDocument.Parse(instrumentJson))
+            {
+                JsonElement root = doc.RootElement;
+                instrumentMapping = ProcessInstruments(root, logger);
+
+                dbContext.Instruments.AddRange(instrumentMapping.Values);
+
+            }
+
+
+            using (JsonDocument doc = JsonDocument.Parse(genreJson))
+            {
+                JsonElement root = doc.RootElement;
                 JsonElement genres = root.GetProperty("genres");
 
-                Dictionary<string, Country> countryMapping = ProcessCountries(countries, logger);
-                Dictionary<string, Instrument> instrumentMapping = ProcessInstruments(instruments, logger);
                 Dictionary<string, Genre> genreMapping = ProcessGenres(genres, countryMapping, instrumentMapping, logger);
 
                 ProcessGenreRelationships(genres, genreMapping, logger);
 
-                dbContext.Countries.AddRange(countryMapping.Values);
-                dbContext.Instruments.AddRange(instrumentMapping.Values);
-                dbContext.Genres.AddRange(genreMapping.Values);
                 dbContext.SaveChanges();
 
             }
@@ -54,16 +73,37 @@ namespace AudioAtlasInfrastructure.Database.Seed
             Dictionary<string, Country> countryMapping = new Dictionary<string, Country>();
             int countryCount = 0;
 
-            foreach (JsonProperty property in countryRoot.EnumerateObject())
+            foreach (JsonElement obj in countryRoot.EnumerateArray())
             {
-                JsonElement obj = property.Value;
 
-                string? id = obj.GetProperty("id").GetString();
-                string? name = obj.GetProperty("name").GetString();
+
+                string? id = obj.GetProperty("Id").GetString();
+                string? name = obj.GetProperty("Name").GetString();
+                string? region = obj.GetProperty("Region").GetString();
+                string? continent = obj.GetProperty("Continent").GetString();
+                string? desc = obj.GetProperty("Description").GetString();
 
                 if (string.IsNullOrWhiteSpace(id))
                 {
                     logger.LogWarning("Skipping seed country with no id.");
+                    continue;
+                }
+
+                if (string.IsNullOrWhiteSpace(region))
+                {
+                    logger.LogWarning("Skipping seed country with no region.");
+                    continue;
+                }
+
+                if (string.IsNullOrWhiteSpace(continent))
+                {
+                    logger.LogWarning("Skipping seed country with no continent.");
+                    continue;
+                }
+
+                if (string.IsNullOrWhiteSpace(desc))
+                {
+                    logger.LogWarning("Skipping seed country with no description.");
                     continue;
                 }
 
@@ -75,21 +115,26 @@ namespace AudioAtlasInfrastructure.Database.Seed
 
                 if (countryMapping.ContainsKey(id))
                 {
-
                     logger.LogWarning("Skipping seed country with source id {SourceId} because it is a duplicate.", id);
                     continue;
                 }
 
                 Country country = new Country
                 {
-                    Name = name
+                    Name = name,
+                    Description = desc,
+                    Region = region,
+                    Continent = continent
                 };
 
                 logger.LogInformation(
-                    "Prepared seed country {CountryName} from source id {SourceId} with generated id {CountryId}",
+                    "Prepared seed country {CountryName} from source id {SourceId} with generated id {CountryId}. Has region {Region}, continent {Continent} and Description {Desc}",
                     country.Name,
                     id,
-                    country.Id);
+                    country.Id,
+                    country.Region,
+                    country.Continent,
+                    country.Description);
 
                 countryMapping.Add(id, country);
 
@@ -106,12 +151,12 @@ namespace AudioAtlasInfrastructure.Database.Seed
             int instrumentCount = 0;
             Dictionary<string, Instrument> instrumentMapping = new Dictionary<string, Instrument>();
 
-            foreach (JsonProperty property in instrumentRoot.EnumerateObject())
+            foreach (JsonElement obj in instrumentRoot.EnumerateArray())
             {
-                JsonElement obj = property.Value;
-
-                string? id = obj.GetProperty("id").GetString();
-                string? name = obj.GetProperty("name").GetString();
+                string? id = obj.GetProperty("Id").GetString();
+                string? name = obj.GetProperty("Name").GetString();
+                string? type = obj.GetProperty("Type").GetString();
+                string? desc = obj.GetProperty("Description").GetString();
 
                 if (string.IsNullOrWhiteSpace(id))
                 {
@@ -122,6 +167,18 @@ namespace AudioAtlasInfrastructure.Database.Seed
                 if (string.IsNullOrWhiteSpace(name))
                 {
                     logger.LogWarning("Skipping seed instrument with source id {SourceId} because it has no name.", id);
+                    continue;
+                }
+
+                if (string.IsNullOrWhiteSpace(desc))
+                {
+                    logger.LogWarning("Skipping seed country with no description.");
+                    continue;
+                }
+
+                if (string.IsNullOrWhiteSpace(type))
+                {
+                    logger.LogWarning("Skipping seed country with no type.");
                     continue;
                 }
 
@@ -139,10 +196,12 @@ namespace AudioAtlasInfrastructure.Database.Seed
 
 
                 logger.LogInformation(
-                    "Prepared seed instrument {InstrumentName} from source id {SourceId} with generated id {Instrumentd}",
+                    "Prepared seed instrument {InstrumentName} from source id {SourceId} with generated id {Instrumentd}, type {Type} and description {Description}",
                     instrument.Type,
                     id,
-                    instrument.Id);
+                    instrument.Id,
+                    type,
+                    desc);
 
                 instrumentMapping.Add(id, instrument);
 
