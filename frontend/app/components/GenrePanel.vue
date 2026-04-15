@@ -122,7 +122,7 @@
 }
 .genrestats {
   position: absolute;
-  width: calc(100% - 442.8px);
+  width: fit-content;
   top: 10.375rem;
   right: 27.3rem;
   left: 0.375rem;
