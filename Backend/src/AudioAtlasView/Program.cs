@@ -15,11 +15,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using System.Text.Json;
 [assembly: ApiController]
 var builder = WebApplication.CreateBuilder(args);
 
 Console.WriteLine(builder.Environment.EnvironmentName);
-Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 builder.Services.AddOpenApi();
 
@@ -125,6 +125,7 @@ builder.Services.AddAuthentication(options =>
 
     options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
     options.ClaimActions.MapJsonKey(ClaimTypes.Name, "login");
+    options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
 
     options.Events.OnCreatingTicket = async context =>
     {
@@ -141,6 +142,35 @@ builder.Services.AddAuthentication(options =>
         var user = System.Text.Json.JsonDocument.Parse(await response.Content.ReadAsStringAsync());
 
         context.RunClaimActions(user.RootElement);
+
+        if (!context.Identity!.HasClaim(claim => claim.Type == ClaimTypes.Email))
+        {
+            var emailRequest = new HttpRequestMessage(HttpMethod.Get, "https://api.github.com/user/emails");
+            emailRequest.Headers.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", context.AccessToken);
+            emailRequest.Headers.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            emailRequest.Headers.UserAgent.ParseAdd("AudioAtlas");
+
+            var emailResponse = await context.Backchannel.SendAsync(emailRequest);
+            emailResponse.EnsureSuccessStatusCode();
+
+            using var emailDocument = JsonDocument.Parse(await emailResponse.Content.ReadAsStringAsync());
+            var primaryVerifiedEmail = emailDocument.RootElement
+                .EnumerateArray()
+                .FirstOrDefault(email =>
+                    email.TryGetProperty("primary", out var primary) &&
+                    primary.GetBoolean() &&
+                    email.TryGetProperty("verified", out var verified) &&
+                    verified.GetBoolean() &&
+                    email.TryGetProperty("email", out _));
+
+            if (primaryVerifiedEmail.ValueKind != JsonValueKind.Undefined &&
+                primaryVerifiedEmail.TryGetProperty("email", out var emailValue))
+            {
+                context.Identity.AddClaim(new Claim(ClaimTypes.Email, emailValue.GetString()!));
+            }
+        }
     };
 });
 
