@@ -293,10 +293,7 @@
 }
 .culturalsensitivitynotice {
   align-self: stretch;
-  background-color: #080f1a;
-  background-image: radial-gradient(50% 33.5% at 0% 50%, #60b8ff 100%, #1a3a6e);
-  background-clip: padding-box, border-box;
-  background-origin: padding-box, border-box;
+  background: padding-box, radial-gradient(50% 33.5% at 0% 50%, #60b8ff 100%, #1a3a6e) border-box #080f1a;
   border-top: 1px solid transparent;
   border-right: 1px solid transparent;
   border-bottom: 1px solid transparent;

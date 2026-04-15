@@ -1,3 +1,7 @@
+<script setup lang="ts">
+
+</script>
+
 <template>
   <div :class="$style.genrepanel">
     <div :class="$style.divheroLeft">
@@ -61,31 +65,21 @@
     </div>
   </div>
 </template>
-<style  module>.genrepanel {
+<style module>.divheroLeft {
   width: 100%;
+  height: 19.138rem;
   position: relative;
-  display: grid;
-  box-sizing: border-box;
-  grid-template-columns: 1fr;
-  grid-template-rows: 306.1719970703125px;
-  gap: 48px;
   text-align: left;
-  font-size: 47.6px;
+  font-size: 2.975rem;
   color: #e4e8f5;
   font-family: 'Space Grotesk';
-}
-.divheroLeft {
-  height: 306.2px;
-  position: relative;
-  grid-column: 1;
-  grid-row: 1;
 }
 .h1heroTitle {
   position: absolute;
   width: 100%;
-  top: 25px;
-  right: 0px;
-  left: 0px;
+  top: 1.563rem;
+  right: 0rem;
+  left: 0rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -94,22 +88,22 @@
 .heroTitle {
   position: relative;
   letter-spacing: -1.44px;
-  line-height: 48px;
+  line-height: 3rem;
 }
 .countrybadgerow {
   position: absolute;
   width: calc(100% + 21.2px);
-  top: 121px;
-  right: -21.2px;
-  left: 0px;
+  top: 7.563rem;
+  right: -1.325rem;
+  left: 0rem;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
   align-content: flex-start;
-  gap: 0px 5px;
+  gap: 0rem 0.312rem;
   flex-shrink: 0;
   text-align: center;
-  font-size: 10px;
+  font-size: 0.625rem;
   font-family: Space_Grotesk;
 }
 .countryBadge {
@@ -119,41 +113,41 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 6px;
+  padding: 0.25rem 0.375rem;
 }
 .nigeria {
   position: relative;
-  line-height: 12px;
+  line-height: 0.75rem;
   font-weight: 500;
 }
 .genrestats {
   position: absolute;
   width: calc(100% - 442.8px);
-  top: 166px;
-  right: 436.8px;
-  left: 6px;
+  top: 10.375rem;
+  right: 27.3rem;
+  left: 0.375rem;
   border-radius: 4px;
   border: 1px solid #1c2038;
   box-sizing: border-box;
-  height: 80px;
+  height: 5rem;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 30px;
+  font-size: 1.875rem;
   font-family: DM_Sans;
 }
 .prosecard {
-  height: 100px;
-  width: 192px;
+  height: 6.25rem;
+  width: 12rem;
   background-color: #0d0f1a;
   border: 1px solid #1c2038;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 24px;
+  padding: 1.5rem;
   flex-shrink: 0;
 }
 .titleAndDescription {
@@ -161,34 +155,34 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
+  gap: 0.25rem;
   flex-shrink: 0;
 }
 .title {
   align-self: stretch;
   position: relative;
-  line-height: 36px;
+  line-height: 2.25rem;
 }
 .loremIpsumDolor {
   align-self: stretch;
   position: relative;
-  font-size: 12px;
-  line-height: 20px;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
   font-family: Space_Grotesk;
   color: #252c48;
 }
 .divheroActions {
   position: absolute;
-  top: 270.58px;
-  left: 0px;
-  width: 664.8px;
+  top: 16.911rem;
+  left: 0rem;
+  width: 41.55rem;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
   align-content: flex-start;
   flex-shrink: 0;
   text-align: center;
-  font-size: 13.1px;
+  font-size: 0.819rem;
   color: #07080f;
 }
 .contributeAGenreButton {
@@ -198,7 +192,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 11.4px 24px;
+  padding: 0.712rem 1.5rem;
 }
 .text {
   position: relative;
@@ -207,19 +201,19 @@
 }
 .divnavCrumb {
   position: absolute;
-  top: 86px;
-  left: 0px;
+  top: 5.375rem;
+  left: 0rem;
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #252c48;
   font-family: Space_Grotesk;
 }
 .breadcrumb {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.375rem;
 }
 .link {
   display: flex;
@@ -228,17 +222,17 @@
 }
 .label {
   position: relative;
-  line-height: 20px;
+  line-height: 1.25rem;
   font-weight: 500;
 }
 .chevronRightIcon {
-  height: 20px;
-  width: 20px;
+  height: 1.25rem;
+  width: 1.25rem;
   position: relative;
 }
 .dropdownmenu {
-  height: 24px;
-  width: 24px;
+  height: 1.5rem;
+  width: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -247,11 +241,11 @@
   border-radius: 6px;
   display: flex;
   align-items: center;
-  padding: 4px;
+  padding: 0.25rem;
 }
 .ellipsisIcon {
-  height: 16px;
-  width: 16px;
+  height: 1rem;
+  width: 1rem;
   position: relative;
 }
 .link3 {
@@ -262,7 +256,6 @@
 }
 .label3 {
   position: relative;
-  line-height: 20px;
+  line-height: 1.25rem;
 }
-
 </style>
