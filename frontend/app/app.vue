@@ -36,6 +36,8 @@ useSeoMeta({
 
     <USeparator icon="i-simple-icons-nuxtdotjs" />
 
+    <Footer />
+    <!---
     <UFooter>
       <template #left>
         <p class="text-sm text-muted">
@@ -53,6 +55,6 @@ useSeoMeta({
           variant="ghost"
         />
       </template>
-    </UFooter>
+    </UFooter> --->
   </UApp>
 </template>

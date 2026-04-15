@@ -2,9 +2,9 @@
     <div :class="$style.nav">
 
       <NuxtLink to="/">
-      <div :class="$style.audioatlasHomeButton">
-        <div :class="$style.button">AudioAtlas</div>
-      </div>
+        <div :class="$style.audioatlasHomeButton">
+          <div :class="$style.button">AudioAtlas</div>
+        </div>
       </NuxtLink>
 
       <NuxtLink to = "/">
@@ -14,9 +14,9 @@
       </NuxtLink>
 
       <NuxtLink to="/">
-      <div :class="$style.exploreLink">
-        <div :class="$style.label">CONTRIBUTE</div>
-      </div>
+        <div :class="$style.exploreLink">
+          <div :class="$style.label">CONTRIBUTE</div>
+        </div>
       </NuxtLink>
 
       <NuxtLink to="/">

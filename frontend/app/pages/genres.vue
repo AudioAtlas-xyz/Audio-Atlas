@@ -3,9 +3,10 @@
 </script>
 
 
-<template #right>
+<template>
   <UContainer>
     <GenrePanel />
+    <GenreInfo />
   </UContainer>
 </template>
 
