@@ -2,49 +2,78 @@
 import type { ContributorSummary, Country } from '~/types/country'
 import type { NestedGenre } from '~/types/nestedgenre'
 
-type CountryPageData = Country
-
+//UseRoute() giver dig adgang til 'Route objekt.' Den indeholder path, query parameters, route params, full URL, navn på route.
+//Vi skal bruge dette object for at få adgang til query parametrene, for at se hvilket ID de har anvendt.
 const route = useRoute()
 
+//Her trækker vi selve countryId ud af query parametrene
 const countryId = computed(() => {
+  //Vi kalder på countryId. Dermed SKAL query i URL være CountryPage?countryId=MIT_GUID (efter spørgsmålstegn)
   const rawCountryId = route.query.countryId
 
+  //Vi tjekker om countryId er en string og indeholder noget tekst. Hvis ikke returnere vi undefined, da dette er en falsy som vi kan tjekke på senere.
   return typeof rawCountryId === 'string' && rawCountryId.length > 0 ? rawCountryId : undefined
 })
 
-const { data, pending, error } = await useAsyncData<CountryPageData | null>(
+//Her henter vi dataen fra backend API. I skal lave en DTO som matcher 1-1 med JSON respons. Så Kan Nuxt selv mappe respons to objektet.
+//På denne måde kan i så refere til values på et objekt, istedet for json strings. DTO'en skal angives i både useAsyncData og i $fetch 
+const { data, pending, error } = await useAsyncData<Country | null>(
+  //nedenstående string er en nøgle. Når vi henter data, cacher vi det hos klienten under denne nøgle. Hvis klienten
+  //Forespørger samme land igen, henter vi ikke fra API'et, men henter fra cache. Så undgår vi stress på backend
   'country-page',
+  
+  //Async kald her er nødvendigt for at få et promise (pending objektet). Uden async kald står frontend aktivt og venter,
+  //og loader ingen visuelle elementer.
   async () => {
+    //Hvis countryId er undefined, returnere vi null. undefined er falsy, modsat et tom string er ikke falsy.
+    //Derfor lavede vi et tjek tidligere, da hvis vi ikke havde sat den til undefined, ville denne være true.
     if (!countryId.value) {
       return null
     }
 
-    return $fetch<CountryPageData>(`http://localhost:5085/api/countries/${countryId.value}`)
+    //Her kalder vi selve backend, og indsætter countryId, vi har fået.
+    return $fetch<Country>(`http://localhost:5085/api/countries/${countryId.value}`)
   },
   {
+    //En watch holder øje med om countryId har ændret sig. Da vi cacher hele country-page siden og genbruger cache,
+    //tjekker vi med en watch om countryId er det samme som tidligere, for hvis ikke skal vi ikke genbruge cache.
+    // (Ellers ville vi få data for et land der ikke er det samme land ...)
     watch: [countryId],
+    //Default værdi for hvad data skal være, inden vores promise returnere noget.
     default: () => null
   }
 )
 
+//Data er et ref objekt. Her hiver vi værdierne ud af ref objektet fra responsen, så vi kan bruge dem individuelt.
+//Computed beregner en værdi ud fra en reactive state. Reactive state i nuxt betyder, at værdien kan ændre sig dynamisk under runtime.
+//Vi bruger dem her, fordi alle nedenstående værdier formentlig er null, da vi ikke har fået en respons endnu.
+//Så ved at bruge computed, vil variablerne nedenunder ændre sig til deres sande værdier så snart vi får en respons
+//Fra vores backend.
 const country = computed(() => data.value)
 const genres = computed(() => country.value?.genres ?? [])
 const contributors = computed(() => country.value?.contributors ?? [])
 const genreCount = computed(() => genres.value.length)
 const contributorCount = computed(() => contributors.value.length)
 
+//Vi laver en liste med alle vores regions og navne på lande. Lige nu er region sat til "/" som path, fordi vi ikke
+//Har en region path.
+//Denne er igen computed, så listen opdatere så snart vi har data fra vores backend dynamisk.
 const breadcrumbItems = computed(() =>
   [
     { label: 'Explore', to: '/' },
     country.value?.region ? { label: country.value.region, to: '/' } : null,
     country.value?.name ? { label: country.value.name, to: route.fullPath, active: true } : null
+    //Filer boolean fjerne alle falsy elementer. I dette tilfælde ville det være null værdier.
   ].filter(Boolean) as Array<{ label: string, to: string, active?: boolean }>
 )
 
+
+//Vi laver location badges. Dette er region og continent. Gør det samme som ovenstående, men filtrere på om string er empty.
 const locationBadges = computed(() =>
   [country.value?.region, country.value?.continent].filter((value): value is string => Boolean(value))
 )
 
+//Viser contributor count. Viser kun top 3. Skal ændres...
 const contributorCardRows = computed(() =>
   contributors.value.slice(0, 3).map(contributor => ({
     ...contributor,
@@ -52,6 +81,7 @@ const contributorCardRows = computed(() =>
   }))
 )
 
+//Viser page description. Har en default value.
 const pageDescription = computed(() => {
   if (!country.value?.description?.trim()) {
     return 'Country context from the Audio Atlas API will appear here once the backend payload is wired up.'
@@ -60,10 +90,12 @@ const pageDescription = computed(() => {
   return country.value.description
 })
 
+//Dette sætter titlen på selve browseren (det der står i tabben).
 useHead(() => ({
   title: country.value?.name ? `${country.value.name} | Audio Atlas` : 'Country | Audio Atlas'
 }))
 
+//En getter, hvis nu værdien er null
 function getGenreSummary(genre: NestedGenre) {
   return genre.description?.trim() || 'Genre summary will appear here when the backend exposes it.'
 }
