@@ -14,5 +14,4 @@ export interface Genre {
   similarGenres: Genre[]
   subGenres: Genre[]
   parentGenres: Genre[]
-
 }
