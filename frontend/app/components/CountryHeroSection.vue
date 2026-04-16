@@ -1,8 +1,9 @@
 <script setup lang="ts">
-const props = defineProps<{
+const { breadCrumbItems, locationBadges, countryName, description } = defineProps<{
   locationBadges: string[]
   countryName: string
   description: string
+  breadCrumbItems: Array<{ label: string, to: string, active?: boolean }>
 }>()
 </script>
 
@@ -11,12 +12,13 @@ const props = defineProps<{
     <div class="space-y-5">
 
       <HeroSection
-            :badges="props.locationBadges"
-            :name="props.countryName"
+            :badges="locationBadges"
+            :name="countryName"
+            :bread-crumb-items="breadCrumbItems"
       />
 
         <p class="max-w-[680px] text-sm leading-8 text-[#7a84a8]">
-          {{ props.description }}
+          {{ description }}
         </p>
 
     </div>
@@ -28,10 +30,10 @@ const props = defineProps<{
         color="primary"
         class="justify-center bg-aurora px-4 py-2 font-medium text-bg hover:bg-aurora rounded-xl"
       >
-        + Add a genre from {{ props.countryName }}
+        + Add a genre from {{ countryName }}
       </UButton>
       <p class="text-[11px] text-[#373d5a]">
-        Know a {{ props.countryName }} genre we&apos;ve missed?
+        Know a {{ countryName }} genre we&apos;ve missed?
       </p>
     </div>
   </div>
