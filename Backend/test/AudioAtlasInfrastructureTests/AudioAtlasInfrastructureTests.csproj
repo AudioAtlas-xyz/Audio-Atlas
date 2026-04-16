@@ -25,7 +25,7 @@
     </ItemGroup>
     
     <ItemGroup>
-        <Content Include="../../src/AudioAtlasInfrastructure/resources/seeding.json">
+        <Content Include="../../src/AudioAtlasInfrastructure/resources/genreSeeding.json">
             <Link>seeding.json</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
