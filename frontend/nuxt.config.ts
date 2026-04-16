@@ -5,7 +5,6 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxtjs/google-fonts'
   ],
-
   googleFonts: {
     families: {
       'Space Grotesk': [300, 400, 500, 600],
@@ -15,6 +14,16 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+   vite: {
+    optimizeDeps: {
+      include: [
+        'globe.gl',
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        'three',
+      ]
+    }
+  },
   devtools: {
     enabled: true
   },
@@ -33,4 +42,5 @@ export default defineNuxtConfig({
       }
     }
   }
+
 })

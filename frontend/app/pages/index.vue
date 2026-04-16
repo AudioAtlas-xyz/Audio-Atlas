@@ -1,76 +1,163 @@
+<script setup>
+import { computed } from 'vue'
+import Globe from './../components/Globe.vue'
+import AppHeader from './../components/Appheader.vue'
+import { useScrollIntro } from './../composables/useScrollIntro'
+
+const { progress, finished } = useScrollIntro()
+
+const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
+const settledPov = { lat: 16, lng: 0, altitude: 2.15 }
+
+const easeOut = (t) => 1 - Math.pow(1 - t, 3)
+
+const eased = computed(() => easeOut(finished.value ? 1 : progress.value))
+
+const globeOffset = computed(() => [
+  0,
+  Math.round((1 - eased.value) * window.innerHeight * 0.14)
+])
+
+const globePov = computed(() =>
+  finished.value ? { ...settledPov } : { ...landingPov }
+)
+
+const pageStyle = computed(() => {
+  const p = finished.value ? 1 : progress.value
+  return {
+    '--title-opacity': Math.max(0, 1 - p * 1.55).toFixed(3),
+    '--title-lift': `${Math.round(p * -88)}px`
+  }
+})
+
+const handleLogin = () => {
+  console.log('Login clicked')
+}
+</script>
+
 <template>
-  <div>
-    <UPageHero
-      title="Nuxt Starter Template"
-      description="A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours."
-      :links="[{
-        label: 'Get started',
-        to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
-        target: '_blank',
-        trailingIcon: 'i-lucide-arrow-right',
-        size: 'xl'
-      }, {
-        label: 'Use this template',
-        to: 'https://github.com/nuxt-ui-templates/starter',
-        target: '_blank',
-        icon: 'i-simple-icons-github',
-        size: 'xl',
-        color: 'neutral',
-        variant: 'subtle'
-      }]"
+  <main
+    class="landing-page"
+    :style="pageStyle"
+  >
+    <Appheader
+      :visible="finished"
+      @login="handleLogin"
     />
 
-    <UPageSection
-      id="features"
-      title="Everything you need to build modern Nuxt apps"
-      description="Start with a solid foundation. This template includes all the essentials for building production-ready applications with Nuxt UI's powerful component system."
-      :features="[{
-        icon: 'i-lucide-rocket',
-        title: 'Production-ready from day one',
-        description: 'Pre-configured with TypeScript, ESLint, Tailwind CSS, and all the best practices. Focus on building features, not setting up tooling.'
-      }, {
-        icon: 'i-lucide-palette',
-        title: 'Beautiful by default',
-        description: 'Leveraging Nuxt UI\'s design system with automatic dark mode, consistent spacing, and polished components that look great out of the box.'
-      }, {
-        icon: 'i-lucide-zap',
-        title: 'Lightning fast',
-        description: 'Optimized for performance with SSR/SSG support, automatic code splitting, and edge-ready deployment. Your users will love the speed.'
-      }, {
-        icon: 'i-lucide-blocks',
-        title: '100+ components included',
-        description: 'Access Nuxt UI\'s comprehensive component library. From forms to navigation, everything is accessible, responsive, and customizable.'
-      }, {
-        icon: 'i-lucide-code-2',
-        title: 'Developer experience first',
-        description: 'Auto-imports, hot module replacement, and TypeScript support. Write less boilerplate and ship more features.'
-      }, {
-        icon: 'i-lucide-shield-check',
-        title: 'Built for scale',
-        description: 'Enterprise-ready architecture with proper error handling, SEO optimization, and security best practices built-in.'
-      }]"
-    />
+    <div class="globe-layer">
+      <ClientOnly>
+        <div class="globe-motion">
+          <Globe
+            :intro-complete="finished"
+            :initial-point-of-view="landingPov"
+            :point-of-view="globePov"
+            :globe-offset="globeOffset"
+          />
+        </div>
+      </ClientOnly>
+    </div>
 
-    <UPageSection>
-      <UPageCTA
-        title="Ready to build your next Nuxt app?"
-        description="Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today."
-        variant="subtle"
-        :links="[{
-          label: 'Start building',
-          to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
-          target: '_blank',
-          trailingIcon: 'i-lucide-arrow-right',
-          color: 'neutral'
-        }, {
-          label: 'View on GitHub',
-          to: 'https://github.com/nuxt-ui-templates/starter',
-          target: '_blank',
-          icon: 'i-simple-icons-github',
-          color: 'neutral',
-          variant: 'outline'
-        }]"
-      />
-    </UPageSection>
-  </div>
+    <div class="hero-title">
+      <p class="eyebrow">
+        explorable by map <br> growable by community
+      </p>
+      <h1>Audio Atlas</h1>
+    </div>
+
+    <div
+      class="scroll-spacer"
+      aria-hidden="true"
+    />
+  </main>
 </template>
+
+<style>
+html,
+body,
+#__nuxt {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #02070a;
+}
+
+html.globe-intro-complete,
+html.globe-intro-complete body {
+  height: 100%;
+  overflow: hidden;
+}
+</style>
+
+<style scoped>
+.landing-page {
+  min-height: 185vh;
+  color: #eefcf8;
+  background: #02070a;
+}
+
+.globe-layer {
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(98, 194, 210, 0.2), transparent 34rem),
+    linear-gradient(180deg, #02070a 0%, #071512 100%);
+}
+
+.globe-motion {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-title {
+  position: fixed;
+  z-index: 3;
+  top: 17vh;
+  left: 50%;
+  width: min(42rem, calc(100% - 3rem));
+  transform: translate3d(-50%, var(--title-lift), 0);
+  opacity: var(--title-opacity);
+  pointer-events: none;
+  text-align: center;
+  will-change: transform, opacity;
+}
+
+.eyebrow {
+  margin: 0 0 0.9rem;
+  color: #8ddbe6;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  color: #f6fffb;
+  font-size: 6.5rem;
+  font-weight: 850;
+  line-height: 0.88;
+  letter-spacing: 0;
+  text-shadow: 0 1.5rem 4rem rgba(5, 23, 22, 0.7);
+}
+
+.scroll-spacer {
+  height: 185vh;
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .hero-title {
+    top: 16vh;
+    width: min(24rem, calc(100% - 2rem));
+  }
+
+  h1 {
+    font-size: 4rem;
+  }
+}
+</style>
