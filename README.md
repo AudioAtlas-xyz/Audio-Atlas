@@ -12,7 +12,7 @@ genres from every corner of the world, and contribute your own knowledge.
 ## Status
 
 🚧 **Pre-development** — Kickoff workshop completed. Architecture decisions confirmed.
-
+Preparing for User Story Mapping and Sprint 1.
 
 ## Tech Stack (Confirmed)
 | Layer | Technology |
@@ -54,7 +54,7 @@ getting started.
 - **Jed Anang** — Product owner, strategy
 - **Christophe Berbec** — Design, interaction
 
-============ Team 14 ============
+============ Team 14 =========================
 - **Alexander Olsen** - Scrum Master
 - **Camilla Frøkjær Jørgensen** - Developer
 - **Camille Holmskov Larsen** - Developer
