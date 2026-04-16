@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import Globe from './../components/Globe.vue'
-import AppHeader from './../components/AppHeader.vue'
+import AppHeader from './../components/Appheader.vue'
 import { useScrollIntro } from './../composables/useScrollIntro'
 
 const { progress, finished } = useScrollIntro()
@@ -40,7 +40,7 @@ const handleLogin = () => {
     class="landing-page"
     :style="pageStyle"
   >
-    <AppHeader
+    <Appheader
       :visible="finished"
       @login="handleLogin"
     />
