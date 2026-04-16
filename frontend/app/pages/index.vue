@@ -1,118 +1,38 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed } from 'vue'
 import Globe from './../components/Globe.vue'
+import AppHeader from './../components/AppHeader.vue'
+import { useScrollIntro } from './../composables/useScrollIntro'
 
-const scrollProgress = ref(0)
-const introFinished = ref(false)
-const viewportHeight = ref(800)
-let rafId = 0
+const { progress, finished } = useScrollIntro()
 
-// The globe starts here and stays here throughout the scroll intro.
-// Only after the intro locks do we transition to the settled altitude.
-const landingPointOfView = {
-  lat: 16,
-  lng: 0,
-  altitude: 1.55
-}
-const settledPointOfView = {
-  lat: 16,
-  lng: 0,
-  altitude: 2.15
-}
+const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
+const settledPov = { lat: 16, lng: 0, altitude: 2.15 }
 
-const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3)
+const easeOut = (t) => 1 - Math.pow(1 - t, 3)
 
-const activeProgress = computed(() => introFinished.value ? 1 : scrollProgress.value)
-const introComplete = computed(() => introFinished.value)
+const eased = computed(() => easeOut(finished.value ? 1 : progress.value))
 
-// During scroll: only move the globe vertically via offset.
-// The altitude stays fixed at landingPointOfView.altitude the entire time.
 const globeOffset = computed(() => [
   0,
-  Math.round((1 - easeOutCubic(activeProgress.value)) * viewportHeight.value * 0.14)
+  Math.round((1 - eased.value) * window.innerHeight * 0.14)
 ])
 
-// During scroll: keep altitude locked so globe.gl doesn't internally
-// recompute camera position (which causes the snap).
-// After intro: we signal Globe.vue to animate to settled altitude.
-const globePointOfView = computed(() => {
-  if (!introFinished.value) {
-    return { ...landingPointOfView }
-  }
+const globePov = computed(() =>
+  finished.value ? { ...settledPov } : { ...landingPov }
+)
 
-  return { ...settledPointOfView }
-})
-
-const pageStyle = computed(() => ({
-  '--title-opacity': Math.max(0, 1 - activeProgress.value * 1.55).toFixed(3),
-  '--title-lift': `${Math.round(activeProgress.value * -88)}px`
-}))
-
-const lockIntro = () => {
-  if (introFinished.value) {
-    return
-  }
-
-  introFinished.value = true
-  scrollProgress.value = 1
-
-  if (rafId) {
-    window.cancelAnimationFrame(rafId)
-    rafId = 0
-  }
-
-  document.documentElement.classList.add('globe-intro-complete')
-  window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-}
-
-const updateScrollProgress = () => {
-  if (introFinished.value) {
-    return
-  }
-
-  viewportHeight.value = window.innerHeight
-  const scrollRange = Math.max(1, window.innerHeight * 0.85)
-  const progress = Math.min(1, Math.max(0, window.scrollY / scrollRange))
-
-  scrollProgress.value = progress
-
-  if (progress >= 1) {
-    lockIntro()
-  }
-}
-
-const requestScrollUpdate = () => {
-  if (introFinished.value) {
-    return
-  }
-
-  if (rafId) {
-    return
-  }
-
-  rafId = window.requestAnimationFrame(() => {
-    rafId = 0
-    updateScrollProgress()
-  })
-}
-
-onMounted(() => {
-  document.documentElement.classList.remove('globe-intro-complete')
-  updateScrollProgress()
-  window.addEventListener('scroll', requestScrollUpdate, { passive: true })
-  window.addEventListener('resize', requestScrollUpdate)
-})
-
-onBeforeUnmount(() => {
-  document.documentElement.classList.remove('globe-intro-complete')
-  window.removeEventListener('scroll', requestScrollUpdate)
-  window.removeEventListener('resize', requestScrollUpdate)
-
-  if (rafId) {
-    window.cancelAnimationFrame(rafId)
-    rafId = 0
+const pageStyle = computed(() => {
+  const p = finished.value ? 1 : progress.value
+  return {
+    '--title-opacity': Math.max(0, 1 - p * 1.55).toFixed(3),
+    '--title-lift': `${Math.round(p * -88)}px`
   }
 })
+
+const handleLogin = () => {
+  console.log('Login clicked')
+}
 </script>
 
 <template>
@@ -120,13 +40,18 @@ onBeforeUnmount(() => {
     class="landing-page"
     :style="pageStyle"
   >
+    <AppHeader
+      :visible="finished"
+      @login="handleLogin"
+    />
+
     <div class="globe-layer">
       <ClientOnly>
         <div class="globe-motion">
           <Globe
-            :intro-complete="introComplete"
-            :initial-point-of-view="landingPointOfView"
-            :point-of-view="globePointOfView"
+            :intro-complete="finished"
+            :initial-point-of-view="landingPov"
+            :point-of-view="globePov"
             :globe-offset="globeOffset"
           />
         </div>
@@ -135,7 +60,7 @@ onBeforeUnmount(() => {
 
     <div class="hero-title">
       <p class="eyebrow">
-        Sounds across borders
+        explorable by map <br> growable by community
       </p>
       <h1>Audio Atlas</h1>
     </div>

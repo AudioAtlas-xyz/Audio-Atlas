@@ -15,7 +15,10 @@ defineOptions({
 
 const globeDiv = ref(null)
 let globeInstance = null
+let resizeObserver = null
 let lastPovKey = ''
+let lastWidth = 0
+let lastHeight = 0
 
 const props = defineProps({
   introComplete: {
@@ -42,12 +45,13 @@ const props = defineProps({
 
 const setControlsEnabled = (enabled) => {
   const controls = globeInstance?.controls?.()
-
-  if (!controls) {
-    return
-  }
+  if (!controls) return
 
   controls.enabled = enabled
+
+  // Spin slowly during intro, stop when controls unlock
+  controls.autoRotate = !enabled
+  controls.autoRotateSpeed = 0.4
 }
 
 const povKey = (pov) => `${pov.lat}|${pov.lng}|${pov.altitude}`
@@ -99,7 +103,7 @@ onMounted(async () => {
     .backgroundImageUrl('https://unpkg.com/three-globe@2.45.2/example/img/night-sky.png')
     .showAtmosphere(true)
     .atmosphereColor('#78d8ff')
-    .atmosphereAltitude(0.12)
+    .atmosphereAltitude(0.24)
     .lineHoverPrecision(0)
     .polygonsData(features)
     .polygonAltitude(polygonAltitude)
@@ -140,6 +144,10 @@ onMounted(async () => {
     .globeOffset(props.globeOffset)
 
   setControlsEnabled(props.introComplete)
+  
+  const controls = globeInstance.controls()
+  controls.autoRotate = !props.introComplete
+  controls.autoRotateSpeed = 0.4
 
   const globeMaterial = globeInstance.globeMaterial()
   globeMaterial.color = new THREE.Color('#b7f3ff')
@@ -148,9 +156,32 @@ onMounted(async () => {
   globeMaterial.specular = new THREE.Color('#7fd4ff')
   globeMaterial.shininess = 8
   globeMaterial.needsUpdate = true
+
+  // Track initial size
+  lastWidth = globeDiv.value.clientWidth
+  lastHeight = globeDiv.value.clientHeight
+
+  // Only resize when dimensions actually changed to avoid infinite loops.
+  // ResizeObserver fires when we call .width()/.height(), so without
+  // this guard it would trigger itself endlessly.
+  resizeObserver = new ResizeObserver(() => {
+    if (!globeInstance || !globeDiv.value) return
+
+    const w = globeDiv.value.clientWidth
+    const h = globeDiv.value.clientHeight
+
+    if (w === lastWidth && h === lastHeight) return
+
+    lastWidth = w
+    lastHeight = h
+    globeInstance.width(w)
+    globeInstance.height(h)
+  })
+  resizeObserver.observe(globeDiv.value)
 })
 
 onBeforeUnmount(() => {
+  resizeObserver?.disconnect()
   globeInstance?.pauseAnimation?.()
 })
 
@@ -176,9 +207,6 @@ watch(
       return
     }
 
-    // Skip if nothing actually changed — this prevents globe.gl from
-    // internally re-running its camera tween logic on identical values,
-    // which can cause a visual snap even with transitionMs=0.
     const key = povKey(pointOfView)
 
     if (key === lastPovKey) {
@@ -187,9 +215,6 @@ watch(
 
     lastPovKey = key
 
-    // After intro: animate the altitude zoom-out smoothly over 600ms.
-    // During intro: instant (but this should rarely fire since we keep
-    // the POV locked during scroll).
     const transitionMs = props.introComplete ? 600 : 0
     globeInstance.pointOfView(pointOfView, transitionMs)
   },
