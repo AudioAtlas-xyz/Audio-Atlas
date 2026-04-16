@@ -118,7 +118,7 @@ useHead(() => ({
               <USkeleton class="h-4 w-40 rounded-md bg-surface-2" />
             </div>
           </div>
-
+          
           <CountryHeroSection
             v-else-if="country"
             :location-badges="locationBadges"
