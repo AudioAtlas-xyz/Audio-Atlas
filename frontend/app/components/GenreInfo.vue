@@ -263,7 +263,8 @@
     </div>
   </div>
 </template>
-<style  module>.genreinfo {
+<style  module>
+.genreinfo {
   width: 100%;
   height: 73.875rem;
   position: relative;

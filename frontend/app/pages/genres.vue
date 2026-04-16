@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import type { Genre } from '~/types/genres'
+import type { Genre } from '~/types/genre'
 
 type GenrePageData = Genre
 
 const route = useRoute()
-
 const genreId = computed(() => {
   const rawGenreId = route.query.genreId
   return typeof rawGenreId === 'string' && rawGenreId.length > 0 ? rawGenreId : undefined
@@ -25,7 +24,6 @@ const genreId = computed(() => {
     })
 
 const genre = computed(() => {data.value})
-
 </script>
 
 
