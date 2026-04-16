@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AudioAtlasInfrastructure.Migrations
+namespace AudioAtlas.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260319120742_initial")]
+    [Migration("20260414140415_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -96,10 +96,18 @@ namespace AudioAtlasInfrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Continent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Region")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

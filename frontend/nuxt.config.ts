@@ -1,9 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
+    '@nuxt/ui',
     '@nuxt/eslint',
-    '@nuxt/ui'
+    '@nuxtjs/google-fonts'
   ],
+  googleFonts: {
+    families: {
+      'Space Grotesk': [300, 400, 500, 600],
+      'Space Mono': [400, 700]
+    }
+  },
+
+  css: ['~/assets/css/main.css'],
+
    vite: {
     optimizeDeps: {
       include: [
@@ -17,8 +27,6 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true
   },
-
-  css: ['~/assets/css/main.css'],
 
   routeRules: {
     '/': { prerender: true }
