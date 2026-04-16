@@ -13,7 +13,7 @@ const contributorRows = computed(() =>
 )
 
 function getContributorInitials(contributor: ContributorSummary) {
-  const source = contributor.displayName || contributor.username || '?'
+  const source = contributor.username || '?'
 
   return source
     .split(/\s+/)

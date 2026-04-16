@@ -91,17 +91,6 @@ useHead(() => ({
     <UContainer class="px-0 sm:px-0">
       <section class="border-b border-border bg-bg">
         <div class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-8 sm:px-10 lg:px-[120px] lg:py-10">
-          <div class="flex items-center justify-between gap-4">
-            <UBreadcrumb
-              v-if="breadcrumbItems.length"
-              :items="breadcrumbItems"
-              class="min-w-0"
-            />
-
-            <div class="hidden text-[11px] text-[#373d5a] lg:block">
-              Know a genre we&apos;ve missed?
-            </div>
-          </div>
 
           <div v-if="pending" class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
             <div class="space-y-4">
@@ -118,12 +107,13 @@ useHead(() => ({
               <USkeleton class="h-4 w-40 rounded-md bg-surface-2" />
             </div>
           </div>
-
+          
           <CountryHeroSection
             v-else-if="country"
             :location-badges="locationBadges"
             :country-name="country.name"
             :description="pageDescription"
+            :bread-crumb-items="breadcrumbItems"
           />
 
           <UAlert

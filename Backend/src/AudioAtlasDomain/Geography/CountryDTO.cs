@@ -20,6 +20,9 @@ public class CountryDTO
     /// A general description of the country.
     /// </summary>
     public string? Description { get; set; }
+
+    public string? Region { get; set; }
+    public string? Continent { get; set; }
     
     /// <summary>
     /// Genres originating from the country.
