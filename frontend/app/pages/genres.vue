@@ -25,7 +25,7 @@ const genreId = computed(() => {
 
 const genre = computed(() => data.value)
 //copied from countryPage
-const description = computed(() => {
+const pageDescription = computed(() => {
   if (!genre.value?.description?.trim()) {
     return 'Genre context from the Audio Atlas API will appear here once the backend payload is wired up.'
   }
@@ -35,6 +35,7 @@ const description = computed(() => {
 const name = computed(() => genre.value.name)
 const startYear = computed(()=> genre.value?.startYear)
 const isSensitive = computed(()=> genre.value?.isSensitive ?? false)
+const sensitivityDescription = computed(() => {genre.value?.sensitiveDescription ?? undefined})
 const countries = computed(()=> genre.value?.countries?? [])
 const contributors = computed(() => genre.value?.contributors ?? [])
 
@@ -129,8 +130,9 @@ const breadcrumbItems = computed(() =>
       <section class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-8 sm:px-10 lg:py-10">
         <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
           <GenreInfo
-            :is-sensitive="isSensitive"
-            :description="description"
+            :is-sensitive="true"
+            :sensitivity-description="sensitivityDescription"
+            :pageDescription="pageDescription"
           />
 
           <CountryContributorsCard

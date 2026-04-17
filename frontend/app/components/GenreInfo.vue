@@ -1,7 +1,8 @@
 ﻿<script setup lang="ts">
-const { isSensitive,description } = defineProps<{
+const { isSensitive, sensitivityDescription, pageDescription } = defineProps<{
   isSensitive: boolean
-  description: string
+  sensitivityDescription?: string
+  pageDescription: string
 }>()
 </script>
 
@@ -17,7 +18,8 @@ const { isSensitive,description } = defineProps<{
             <div :class="$style.noticeTitle">Cultural SENSITIVITY notice</div>
           </div>
           <div :class="$style.divsensText">
-            <div :class="$style.noticeText">Afrobeat is frequently conflated with Afrobeats — a related but distinct<br/>contemporary pop genre. This page documents the original Afrobeat tradition as<br/>defined by Fela Kuti. Misattribution erases the explicitly political and anti-colonial<br/>intent of the original form.</div>
+            <div :class="$style.noticeText">{{sensitivityDescription}}
+            </div>
           </div>
         </div>
       </div>
@@ -26,7 +28,7 @@ const { isSensitive,description } = defineProps<{
           <div :class="$style.sectionTitle">Overview</div>
         </div>
         <div :class="$style.divsensTitle">
-          <div :class="$style.sectionText">{{description}}
+          <div :class="$style.sectionText">{{pageDescription}}
           </div>
         </div>
       </div>
@@ -259,15 +261,13 @@ const { isSensitive,description } = defineProps<{
 }
 .culturalsensitivitynotice {
   align-self: stretch;
-  background: padding-box, radial-gradient(50% 33.5% at 0% 50%, #60b8ff 100%, #1a3a6e) border-box #080f1a;
-  border-top: 1px solid transparent;
-  border-right: 1px solid transparent;
-  border-bottom: 1px solid transparent;
-  border-left: 3px solid transparent;
+  background: linear-gradient(135deg, #0a1a3a 0%, #1a3a6e 100%);
+  border-left: 3px solid #3de8c8;
   display: flex;
   align-items: flex-start;
-  padding: 0.9rem 1.2rem;
+  padding: 1rem 1.25rem;
   gap: 0.75rem;
+  border-radius: 0px;
 }
 .spansensIconmargin {
   display: flex;
@@ -342,19 +342,6 @@ const { isSensitive,description } = defineProps<{
   text-transform: uppercase;
 }
 .sectionText {
-  position: relative;
-  line-height: 1.591rem;
-  font-weight: 300;
-}
-.pbodyText2 {
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0.25rem 0rem 0rem;
-}
-.sectionText2 {
-  align-self: stretch;
   position: relative;
   line-height: 1.591rem;
   font-weight: 300;
@@ -501,193 +488,6 @@ const { isSensitive,description } = defineProps<{
   font-size: 0.563rem;
   color: #373d5a;
   font-family: 'Space Mono';
-}
-.contributioncolumn {
-  width: 19.938rem;
-  height: 10rem;
-  position: relative;
-  border-radius: 6px;
-  background-color: #0d0f1a;
-  border: 1px solid #1c2038;
-  box-sizing: border-box;
-  overflow: hidden;
-  flex-shrink: 0;
-  font-size: 0.688rem;
-  color: #3de8c8;
-  font-family: 'Space Grotesk';
-}
-.contributorscard {
-  position: absolute;
-  top: 0rem;
-  left: 0rem;
-  width: 19.938rem;
-  height: 9.25rem;
-}
-.cardheader {
-  position: absolute;
-  height: 27.03%;
-  width: 100%;
-  top: 0%;
-  right: 0%;
-  bottom: 72.97%;
-  left: 0%;
-  background-color: #131624;
-  overflow: hidden;
-  font-size: 0.75rem;
-  color: #e4e8f5;
-  font-family: Inter;
-}
-.rectangle {
-  position: absolute;
-  top: 2.438rem;
-  left: 0rem;
-  background-color: #1c2038;
-  width: 18.75rem;
-  height: 0.063rem;
-}
-.rectangle2 {
-  position: absolute;
-  top: 0rem;
-  left: 0rem;
-  background-color: rgba(61, 232, 200, 0.5);
-  width: 0.188rem;
-  height: 2.5rem;
-}
-.cardTitle4 {
-  position: absolute;
-  top: 0.75rem;
-  left: 1rem;
-}
-.cardIndex {
-  position: absolute;
-  top: 0.813rem;
-  left: 16.75rem;
-  font-size: 0.688rem;
-  font-family: 'Space Mono';
-  color: #373d5a;
-}
-.genreCount {
-  position: absolute;
-  top: 38.51%;
-  left: 72.1%;
-  font-weight: 300;
-  color: #373d5a;
-}
-.genreCount2 {
-  position: absolute;
-  top: 62.84%;
-  left: 72.1%;
-  font-weight: 300;
-  color: #373d5a;
-}
-.genreCount3 {
-  position: absolute;
-  top: 87.16%;
-  left: 72.1%;
-  font-weight: 300;
-  color: #373d5a;
-}
-.contributorprofilelink2 {
-  position: absolute;
-  height: 11.49%;
-  width: 23.51%;
-  top: 37.16%;
-  right: 59.87%;
-  bottom: 51.35%;
-  left: 16.61%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.631rem;
-  font-family: 'Space Mono';
-}
-.avatar {
-  position: absolute;
-  height: 16.89%;
-  width: 7.84%;
-  top: 34.46%;
-  right: 87.15%;
-  bottom: 48.65%;
-  left: 5.02%;
-  border-radius: 999px;
-  background-color: #000;
-  border: 1px solid #3de8c8;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.875rem;
-  font-family: DM_Sans;
-}
-.bc {
-  position: relative;
-  line-height: 1.25rem;
-  font-weight: 500;
-  text-shadow: 1px 0 0 #000, 0 1px 0 #000, -1px 0 0 #000, 0 -1px 0 #000;
-}
-.contributorprofilelink3 {
-  position: absolute;
-  height: 11.49%;
-  width: 23.51%;
-  top: 61.49%;
-  right: 59.87%;
-  bottom: 27.03%;
-  left: 16.61%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.631rem;
-  font-family: 'Space Mono';
-}
-.avatar2 {
-  position: absolute;
-  height: 16.89%;
-  width: 7.84%;
-  top: 58.78%;
-  right: 87.15%;
-  bottom: 24.32%;
-  left: 5.02%;
-  border-radius: 999px;
-  background-color: #000;
-  border: 1px solid #3de8c8;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.875rem;
-  font-family: DM_Sans;
-}
-.contributorprofilelink4 {
-  position: absolute;
-  height: 11.49%;
-  width: 23.51%;
-  top: 85.81%;
-  right: 59.87%;
-  bottom: 2.7%;
-  left: 16.61%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.631rem;
-  font-family: 'Space Mono';
-}
-.avatar3 {
-  position: absolute;
-  height: 16.89%;
-  width: 7.84%;
-  top: 83.11%;
-  right: 87.15%;
-  bottom: 0%;
-  left: 5.02%;
-  border-radius: 999px;
-  background-color: #000;
-  border: 1px solid #3de8c8;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.875rem;
-  font-family: DM_Sans;
 }
 .sourcelist {
   align-self: stretch;
