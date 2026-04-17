@@ -49,46 +49,50 @@ const breadcrumbItems = computed(() =>
 
 <template>
   <div class="bg-bg text-space-50">
-    <UContainer>
-      <div v-if="pending" class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
-        <div class="space-y-4">
-          <USkeleton class="h-14 w-64 rounded-md bg-surface-2" />
-          <div class="flex gap-2">
-            <USkeleton class="h-6 w-24 rounded-full bg-surface-2" />
-            <USkeleton class="h-6 w-20 rounded-full bg-surface-2" />
+    <UContainer class="px-0 sm:px-0">
+      <section class="border-b border-border bg-bg">
+        <div class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-8 sm:px-10 lg:py-10">
+          <div v-if="pending" class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+            <div class="space-y-4">
+              <USkeleton class="h-14 w-64 rounded-md bg-surface-2" />
+              <div class="flex gap-2">
+                <USkeleton class="h-6 w-24 rounded-full bg-surface-2" />
+                <USkeleton class="h-6 w-20 rounded-full bg-surface-2" />
+              </div>
+              <USkeleton class="h-20 w-full rounded-md bg-surface-2" />
+            </div>
+
+            <div class="space-y-3">
+              <USkeleton class="h-10 w-full rounded-md bg-surface-2" />
+              <USkeleton class="h-4 w-40 rounded-md bg-surface-2" />
+            </div>
           </div>
-          <USkeleton class="h-20 w-full rounded-md bg-surface-2" />
+
+          <HeroSection
+            v-else-if="genre"
+            :bread-crumb-items="breadcrumbItems"
+            :badges="countryBadges"
+            :name="name"
+          />
+
+         <UAlert
+            v-else-if="error"
+            color="error"
+            variant="soft"
+            title="Could not load genre data"
+            :description="error.message"
+          />
+
+          <UAlert
+            v-else
+            color="warning"
+            variant="soft"
+            title="Missing genreId"
+            description="Open this page with a ?genreId=... query so the page can request genre data from the backend."
+          />
         </div>
-
-        <div class="space-y-3">
-          <USkeleton class="h-10 w-full rounded-md bg-surface-2" />
-          <USkeleton class="h-4 w-40 rounded-md bg-surface-2" />
-        </div>
-      </div>
-
-      <HeroSection
-        v-else-if="genre"
-        :bread-crumb-items="breadcrumbItems"
-        :badges="countryBadges"
-        :name="name"
-      />
-
-     <UAlert
-        v-else-if="error"
-        color="error"
-        variant="soft"
-        title="Could not load genre data"
-        :description="error.message"
-      />
-
-      <UAlert
-        v-else
-        color="warning"
-        variant="soft"
-        title="Missing genreId"
-        description="Open this page with a ?genreId=... query so the page can request genre data from the backend."
-      />
-      <GenreInfo />
+        <GenreInfo />
+      </section>
     </UContainer>
   </div>
 </template>
