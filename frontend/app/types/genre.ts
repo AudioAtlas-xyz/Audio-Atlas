@@ -1,5 +1,5 @@
 ﻿import type { GenreAlias } from "./genreAlias";
-import type { Country } from "./country"
+import type { Country, ContributorSummary } from "./country"
 
 export interface Genre {
   id: string
@@ -14,4 +14,5 @@ export interface Genre {
   similarGenres: Genre[]
   subGenres: Genre[]
   parentGenres: Genre[]
+  contributors: ContributorSummary[]
 }

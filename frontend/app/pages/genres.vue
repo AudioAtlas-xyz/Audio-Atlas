@@ -29,6 +29,27 @@ const name = computed(() => genre.value.name)
 const startYear = computed(()=> genre.value?.startYear)
 const isSensitive = computed(()=> genre.value?.isSensitive)
 const countries = computed(()=> genre.value?.countries?? [])
+const contributors = computed(() => genre.value?.contributors ?? [])
+
+//for genrepanel (try ID: 01bce686-c704-4fd3-bb5b-0ea301a8b0fc)
+const relatedCount = computed(()=> {
+  if(!genre.value) return "0"
+
+  //related genres are all similar, parent and sub genres.
+  const similarGenresCount = genre.value.similarGenres?.length || 0
+  const subGenresCount = genre.value.subGenres?.length || 0
+  const parentGenresCount = genre.value.parentGenres?.length || 0
+
+  //added together and converted into a string
+  const total = similarGenresCount + subGenresCount + parentGenresCount
+  return total.toString()
+})
+//takes the list length of the contributors list
+const contributorsCount = computed(() => {
+  const total = contributors.value.length || 0
+  return total.toString()
+})
+
 
 // it takes the array of countries from genre and returns an array of strings consisting of only the country names.
 const countryBadges = computed(() => {
@@ -89,6 +110,11 @@ const breadcrumbItems = computed(() =>
             variant="soft"
             title="Missing genreId"
             description="Open this page with a ?genreId=... query so the page can request genre data from the backend."
+          />
+          <GenrePanel
+            :related-count="relatedCount"
+            :contributor-count="contributorsCount"
+            instrument-count="0"
           />
         </div>
         <GenreInfo />
