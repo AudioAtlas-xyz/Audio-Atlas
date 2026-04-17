@@ -30,11 +30,9 @@ const { relatedCount, contributorCount, instrumentCount } = defineProps<{
         </div>
       </div>
       <div :class="$style.divheroActions">
-        <div :class="$style.contributeAGenreButton">
-          <NuxtLink to="/">
+        <NuxtLink to="/" :class="$style.contributeAGenreButton">
           <div :class="$style.text">Suggest Edits</div>
-          </NuxtLink>
-        </div>
+        </NuxtLink>
       </div>
     </div>
   </div>
@@ -123,6 +121,11 @@ const { relatedCount, contributorCount, instrumentCount } = defineProps<{
   justify-content: center;
   padding: 0.712rem 1.5rem;
 }
+
+.contributeAGenreButton:hover {
+  background-color: #4AF7D7;
+}
+
 .text {
   position: relative;
   letter-spacing: 0.39px;

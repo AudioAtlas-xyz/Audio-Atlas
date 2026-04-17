@@ -1,11 +1,14 @@
 ﻿<script setup lang="ts">
-
+const { isSensitive,description } = defineProps<{
+  isSensitive: boolean
+  description: string
+}>()
 </script>
 
 <template>
   <div :class="$style.genreinfo">
     <div :class="$style.divcontent">
-      <div :class="$style.culturalsensitivitynotice">
+      <div v-if= isSensitive :class="$style.culturalsensitivitynotice">
         <div :class="$style.spansensIconmargin">
           <div :class="$style.symbol">◎</div>
         </div>
@@ -23,13 +26,8 @@
           <div :class="$style.sectionTitle">Overview</div>
         </div>
         <div :class="$style.divsensTitle">
-          <div :class="$style.sectionText">Afrobeat is a music genre that emerged in Nigeria in the late 1960s, pioneered by<br/>musician and activist Fela Anikulapo Kuti and drummer Tony Allen. It is a complex fusion<br/>of West African musical traditions — particularly Yoruba and Highlife — with American<br/>jazz, funk, and soul, driven by sprawling brass arrangements, interlocking percussion, and<br/>call-and-response vocals.</div>
-        </div>
-        <div :class="$style.pbodyText2">
-          <div :class="$style.sectionText2">Unlike most popular music, Afrobeat was inseparable from its political context. Fela's<br/>compositions — often 20 minutes or longer — were extended critiques of Nigerian<br/>military rule, colonial legacy, and Pan-African identity. The Kalakuta Republic, Fela's<br/>communal compound in Lagos, was both recording studio and political headquarters,<br/>raided multiple times by the Nigerian army.</div>
-        </div>
-        <div :class="$style.pbodyText2">
-          <div :class="$style.sectionText2">The genre is distinguished from the commercially-oriented Afrobeats (with an 's') which<br/>emerged in the 2000s and 2010s. That distinction is culturally significant: Afrobeat was<br/>born as protest; Afrobeats emerged as pop.</div>
+          <div :class="$style.sectionText">{{description}}
+          </div>
         </div>
       </div>
       <div :class="$style.sectiondivider" />
@@ -153,38 +151,7 @@
         <div :class="$style.seemorerelatedgenres">See more...</div>
       </div>
     </div>
-    <div :class="$style.divsidebar">
-      <div :class="$style.contributioncolumn">
-        <div :class="$style.contributorscard">
-          <div :class="$style.cardheader">
-            <div :class="$style.rectangle" />
-            <div :class="$style.rectangle2" />
-            <div :class="$style.cardTitle4">Contributors</div>
-            <div :class="$style.cardIndex">3</div>
-          </div>
-          <div :class="$style.genreCount">6 genres</div>
-          <div :class="$style.genreCount2">2 genres</div>
-          <div :class="$style.genreCount3">1 genre</div>
-          <div :class="$style.contributorprofilelink2">
-            <div :class="$style.seemorerelatedgenres">@kofi_mensah</div>
-          </div>
-          <div :class="$style.avatar">
-            <div :class="$style.bc">K</div>
-          </div>
-          <div :class="$style.contributorprofilelink3">
-            <div :class="$style.seemorerelatedgenres">@kofi_mensah</div>
-          </div>
-          <div :class="$style.avatar2">
-            <div :class="$style.bc">K</div>
-          </div>
-          <div :class="$style.contributorprofilelink4">
-            <div :class="$style.seemorerelatedgenres">@kofi_mensah</div>
-          </div>
-          <div :class="$style.avatar3">
-            <div :class="$style.bc">K</div>
-          </div>
-        </div>
-      </div>
+    <div v-if=false :class="$style.divsidebar">
       <div :class="$style.sourcelist">
         <div :class="$style.divsideCardHead3">
           <div :class="$style.span3">
@@ -268,10 +235,8 @@
   width: 100%;
   height: 73.875rem;
   position: relative;
-  display: grid;
   box-sizing: border-box;
   grid-template-columns: 1fr 320px;
-  grid-template-rows: 2359.080078125px;
   gap: 3rem;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
