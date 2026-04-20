@@ -29,7 +29,8 @@ public class CountryService : ICountryService
             Genres = country.Genres.Select(genre => new GenreDTO
             {
                 Id = genre.Id,
-                Name = genre.Name
+                Name = genre.Name,
+                Summary = genre.Summary
             }).ToList()
         };
     }

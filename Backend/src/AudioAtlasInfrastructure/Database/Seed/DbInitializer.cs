@@ -22,14 +22,30 @@ public class DbInitializer
         ApplicationUser systemUser = await dbContext.Users
             .FirstOrDefaultAsync(u => u.UserName == "system");
 
-        if(systemUser == null)
+        if (systemUser == null)
         {
-            systemUser = new ApplicationUser();
+            systemUser = new ApplicationUser
+            {
+                UserName = "system",
+                Email = "system@audioatlas.com",
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
 
-            systemUser.UserName = "system";
+            // Create without password using a bypass
+            var result = await userManager.CreateAsync(systemUser);
 
-            await userManager.CreateAsync(systemUser, Guid.NewGuid().ToString());
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    logger.LogError("Identity error: {Code} - {Description}", error.Code, error.Description);
+                }
 
+                throw new Exception($"Could not create system user: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+            }
+
+            await dbContext.SaveChangesAsync();
         }
 
 
