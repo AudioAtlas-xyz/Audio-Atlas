@@ -1,6 +1,9 @@
 using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.MusicMetadata;
+using AudioAtlasDomain.Users;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
@@ -8,13 +11,27 @@ namespace AudioAtlasInfrastructure.Database.Seed;
 
 public class DbInitializer
 {
-    public static void SeedDatabase(AppDbContext dbContext, ILogger<DbInitializer> logger)
+    public static async Task SeedDatabase(AppDbContext dbContext, UserManager<ApplicationUser> userManager,ILogger<DbInitializer> logger)
     {
         if (dbContext.Instruments.Any() || dbContext.Genres.Any() || dbContext.Countries.Any())
         {
             logger.LogWarning("Skipping seeding as database contains data.");
             return;
         }
+
+        ApplicationUser systemUser = await dbContext.Users
+            .FirstOrDefaultAsync(u => u.UserName == "system");
+
+        if(systemUser == null)
+        {
+            systemUser = new ApplicationUser();
+
+            systemUser.UserName = "system";
+
+            await userManager.CreateAsync(systemUser, Guid.NewGuid().ToString());
+
+        }
+
 
         string countryPath = GetSeedFilePath("countrySeeding.json");
         string instrumentPath = GetSeedFilePath("instrumentSeeding.json");
@@ -45,7 +62,7 @@ public class DbInitializer
         {
             JsonElement root = doc.RootElement;
 
-            Dictionary<string, Genre> genreMapping = ProcessGenres(root.GetProperty("genres"), logger);
+            Dictionary<string, Genre> genreMapping = ProcessGenres(root.GetProperty("genres"), systemUser, logger);
             dbContext.Genres.AddRange(genreMapping.Values);
 
             ProcessGenreCountries(root, genreMapping, countryMapping, logger);
@@ -175,7 +192,7 @@ public class DbInitializer
         return instrumentMapping;
     }
 
-    private static Dictionary<string, Genre> ProcessGenres(JsonElement genreRoot, ILogger<DbInitializer> logger)
+    private static Dictionary<string, Genre> ProcessGenres(JsonElement genreRoot, ApplicationUser systemUser, ILogger<DbInitializer> logger)
     {
         Dictionary<string, Genre> genreMapping = new();
         int genreCount = 0;
@@ -211,7 +228,8 @@ public class DbInitializer
                 StartYear = ParseStartYear(obj),
                 IsSensitive = TryGetBoolProperty(obj, "isSensitive"),
                 SensitiveDescription = TryGetStringProperty(obj, "sensitiveDescription"),
-                PlaylistLink = TryGetStringProperty(obj, "playlistLink")
+                PlaylistLink = TryGetStringProperty(obj, "playlistLink"),
+                AuthorId = systemUser.Id
             };
 
             genreMapping.Add(id, genre);
