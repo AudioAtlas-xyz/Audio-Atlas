@@ -2,7 +2,7 @@
 import { computed, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import Globe from './../components/Globe.vue'
-import AppHeader from '../components/AppHeader.vue'
+import AppHeader from '../components/Appheader.vue'
 import LoginModal from './../components/LoginModal.vue'
 import UsernameModal from './../components/UsernameModal.vue'
 import SuccessModal from './../components/SuccessModal.vue'
