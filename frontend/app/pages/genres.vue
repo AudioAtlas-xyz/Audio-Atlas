@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Genre } from '~/types/genre'
+import SourceList from "~/components/SourceList.vue";
 
 type GenrePageData = Genre
 
@@ -138,6 +139,9 @@ const breadcrumbItems = computed(() =>
           <CountryContributorsCard
             :contributors="contributors"
           />
+
+          <SourceList/>
+
         </div>
       </section>
     </UContainer>
