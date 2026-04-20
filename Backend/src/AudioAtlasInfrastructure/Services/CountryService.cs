@@ -34,13 +34,15 @@ public class CountryService : ICountryService
             Name = country.Name,
             Description = country.Description,
             Submissions = country.Submissions,
+            Region = country.Region,
+            Continent = country.Continent,
 
             // Make DTOs instead of Genre objects
             Genres = country.Genres.Select(g => new GenreDTO
             {
                 Name = g.Name,
                 Id = g.Id
-            }).ToList(),
+            }).ToList()
         };
 
     }

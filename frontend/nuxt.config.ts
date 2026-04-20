@@ -1,10 +1,19 @@
 export default defineNuxtConfig({
   modules: [
+    '@nuxt/ui',
     '@nuxt/eslint',
-    '@nuxt/ui'
+    '@nuxtjs/google-fonts'
   ],
+  googleFonts: {
+    families: {
+      'Space Grotesk': [300, 400, 500, 600],
+      'Space Mono': [400, 700]
+    }
+  },
 
-  vite: {
+  css: ['~/assets/css/main.css'],
+
+   vite: {
     optimizeDeps: {
       include: [
         'globe.gl',
@@ -13,13 +22,12 @@ export default defineNuxtConfig({
         'three'
       ]
     }
+    
   },
 
   devtools: {
     enabled: true
   },
-
-  css: ['~/assets/css/main.css'],
 
   routeRules: {
     '/': { prerender: true }
@@ -41,4 +49,4 @@ export default defineNuxtConfig({
       }
     }
   }
-})
+} as any)

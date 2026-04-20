@@ -23,6 +23,10 @@ namespace AudioAtlasDomain.Geography
         /// The commonly recognized name of the country.
         /// </summary>
         public string Name { get; set; } = null!;
+        public string Region { get; set; } = null!;
+        public string Continent { get; set; } = null!;
+
+
 
         /// <summary>
         /// Optional description providing cultural, historical,

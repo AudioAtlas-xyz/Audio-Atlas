@@ -10,6 +10,19 @@ public class CountryRepositoryTests : IClassFixture<TestService>
 {
     private readonly ICountryRepository _countryRepository;
     private readonly TestService _testService;
+
+    private static Country CreateCountry(string name, List<Genre>? genres = null)
+    {
+        return new Country
+        {
+            Name = name,
+            Region = "Test Region",
+            Continent = "Test Continent",
+            Description = "Test Description",
+            Genres = genres ?? new List<Genre>()
+        };
+    }
+
     public CountryRepositoryTests(TestService testService)
     {
         _testService = testService;
@@ -20,10 +33,7 @@ public class CountryRepositoryTests : IClassFixture<TestService>
     [Fact]
     public void getCountryByID_Works ()
     {
-        var sampleCountry = new Country
-        {
-            Name = "Test"
-        };
+        var sampleCountry = CreateCountry("Test");
         
         _testService._context.Countries.Add(sampleCountry);
         _testService._context.SaveChanges();
@@ -52,15 +62,13 @@ public class CountryRepositoryTests : IClassFixture<TestService>
     public void getGenreCountPerCountry_Works()
     {
         
-        var sampleCountry = new Country
-        {
-            Name = "Test",
-            Genres = new List<Genre>
+        var sampleCountry = CreateCountry(
+            "Test",
+            new List<Genre>
             {
                 new Genre { Name = "Genre1"},
                 new Genre { Name = "Genre2"}
-            }
-        };
+            });
         
         _testService._context.Countries.Add(sampleCountry);
         _testService._context.SaveChanges();
@@ -81,11 +89,7 @@ public class CountryRepositoryTests : IClassFixture<TestService>
         var sampleGenre1 = new Genre { Name = "genre1" };
         var sampleGenre2 = new Genre { Name = "genre2" };
         
-        var sampleCountry = new Country
-        {
-            Name = "Test",
-            Genres = new List<Genre> { sampleGenre1, sampleGenre2 }
-        };
+        var sampleCountry = CreateCountry("Test", new List<Genre> { sampleGenre1, sampleGenre2 });
         
         _testService._context.Countries.Add(sampleCountry);
         _testService._context.SaveChanges();
