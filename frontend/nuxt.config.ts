@@ -1,19 +1,20 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxt/ui'
   ],
-   vite: {
+
+  vite: {
     optimizeDeps: {
       include: [
         'globe.gl',
         '@vue/devtools-core',
         '@vue/devtools-kit',
-        'three',
+        'three'
       ]
     }
   },
+
   devtools: {
     enabled: true
   },
@@ -26,6 +27,12 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-01-15',
 
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://localhost:5000'
+    }
+  },
+
   eslint: {
     config: {
       stylistic: {
@@ -34,5 +41,4 @@ export default defineNuxtConfig({
       }
     }
   }
-
 })

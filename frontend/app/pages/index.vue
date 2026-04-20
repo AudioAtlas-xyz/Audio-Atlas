@@ -1,7 +1,11 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import Globe from './../components/Globe.vue'
-import AppHeader from './../components/Appheader.vue'
+import AppHeader from '../components/AppHeader.vue'
+import LoginModal from './../components/LoginModal.vue'
+import UsernameModal from './../components/UsernameModal.vue'
+import SuccessModal from './../components/SuccessModal.vue'
 import { useScrollIntro } from './../composables/useScrollIntro'
 
 const { progress, finished } = useScrollIntro()
@@ -10,13 +14,14 @@ const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
 const settledPov = { lat: 16, lng: 0, altitude: 2.15 }
 
 const easeOut = (t) => 1 - Math.pow(1 - t, 3)
-
 const eased = computed(() => easeOut(finished.value ? 1 : progress.value))
 
-const globeOffset = computed(() => [
-  0,
-  Math.round((1 - eased.value) * window.innerHeight * 0.14)
-])
+const globeOffset = computed(() => {
+  if (process.client) {
+    return [0, Math.round((1 - eased.value) * window.innerHeight * 0.14)]
+  }
+  return [0, 0]
+})
 
 const globePov = computed(() =>
   finished.value ? { ...settledPov } : { ...landingPov }
@@ -30,21 +35,65 @@ const pageStyle = computed(() => {
   }
 })
 
+const showLoginModal = ref(false)
+const showUsernameModal = ref(false)
+const showSuccessModal = ref(false)
+
+const route = useRoute()
+
 const handleLogin = () => {
-  console.log('Login clicked')
+  showLoginModal.value = true
 }
+
+const handleUsernameFinished = () => {
+  showUsernameModal.value = false
+  showSuccessModal.value = true
+}
+
+onMounted(() => {
+  const token = route.query.token
+
+  if (typeof token === 'string') {
+    localStorage.setItem('token', token)
+    showLoginModal.value = false
+  }
+
+  const newUser = route.query.newUser
+
+  if (newUser === 'true') {
+    showUsernameModal.value = true
+  }
+
+  if (newUser === 'false') {
+    showSuccessModal.value = true
+  }
+})
 </script>
 
 <template>
-  <main
-    class="landing-page"
-    :style="pageStyle"
-  >
-    <Appheader
-      :visible="finished"
-      @login="handleLogin"
+  <main class="landing-page" :style="pageStyle">
+
+    <AppHeader @login="handleLogin" />
+
+    <!-- ALL MODALS HERE -->
+    <LoginModal
+      v-if="showLoginModal"
+      @close="showLoginModal = false"
     />
 
+    <UsernameModal
+      v-if="showUsernameModal"
+      :pending-registration-id="route.query.pendingRegistrationId"
+      @close="showUsernameModal = false"
+      @finished="handleUsernameFinished"
+    />
+
+    <SuccessModal
+      v-if="showSuccessModal"
+      @close="showSuccessModal = false"
+    />
+
+    <!-- Globe stays behind everything -->
     <div class="globe-layer">
       <ClientOnly>
         <div class="globe-motion">
@@ -60,15 +109,14 @@ const handleLogin = () => {
 
     <div class="hero-title">
       <p class="eyebrow">
-        explorable by map <br> growable by community
+        explorable by map <br>
+        growable by community
       </p>
+
       <h1>Audio Atlas</h1>
     </div>
 
-    <div
-      class="scroll-spacer"
-      aria-hidden="true"
-    />
+    <div class="scroll-spacer" aria-hidden="true" />
   </main>
 </template>
 
@@ -103,6 +151,9 @@ html.globe-intro-complete body {
   z-index: 1;
   inset: 0;
   overflow: hidden;
+
+  pointer-events: none; /* 👈 prevents blocking UI */
+
   background:
     radial-gradient(circle at 50% 12%, rgba(98, 194, 210, 0.2), transparent 34rem),
     linear-gradient(180deg, #02070a 0%, #071512 100%);
@@ -141,7 +192,6 @@ h1 {
   font-size: 6.5rem;
   font-weight: 850;
   line-height: 0.88;
-  letter-spacing: 0;
   text-shadow: 0 1.5rem 4rem rgba(5, 23, 22, 0.7);
 }
 
