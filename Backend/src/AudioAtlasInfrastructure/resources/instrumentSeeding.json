@@ -1,4 +1,46 @@
-﻿[
+[
+    {
+        "Id":  "guitar",
+        "Name":  "Guitar",
+        "Type":  "String",
+        "Description":  "A fretted string instrument played by plucking or strumming. It is central to popular, folk, rock, jazz, and many regional traditions worldwide."
+    },
+    {
+        "Id":  "horn-section",
+        "Name":  "Horn Section",
+        "Type":  "Wind",
+        "Description":  "A coordinated group of brass and woodwind instruments, often including trumpets, trombones, and saxophones, used for powerful ensemble lines."
+    },
+    {
+        "Id":  "drum-kit",
+        "Name":  "Drum Kit",
+        "Type":  "Percussion",
+        "Description":  "A combined percussion setup with kick, snare, toms, cymbals, and hi-hat, played by one performer in modern band and studio settings."
+    },
+    {
+        "Id":  "bass",
+        "Name":  "Bass",
+        "Type":  "String",
+        "Description":  "A low-register string instrument that anchors rhythm and harmony, commonly used in electric, acoustic, and ensemble forms."
+    },
+    {
+        "Id":  "turntables",
+        "Name":  "Turntables",
+        "Type":  "Electronic",
+        "Description":  "Rotating record players used as performance instruments by DJs for scratching, cueing, beatmatching, and live remixing."
+    },
+    {
+        "Id":  "samplers",
+        "Name":  "Samplers",
+        "Type":  "Electronic",
+        "Description":  "Electronic instruments that record and trigger audio snippets, widely used to build beats, loops, textures, and layered productions."
+    },
+    {
+        "Id":  "log-drum",
+        "Name":  "Log Drum",
+        "Type":  "Percussion",
+        "Description":  "A hollowed wooden percussion instrument struck to produce deep, resonant tones, used in traditional and modern rhythmic settings."
+    },
     {
         "Id":  "oud",
         "Name":  "Oud",
@@ -15,7 +57,7 @@
         "Id":  "kora",
         "Name":  "Kora",
         "Type":  "String",
-        "Description":  "A 21-string harp-lute made from a large gourd resonator covered in cowhide. Central to the MandÃ© griot tradition of West Africa."
+        "Description":  "A 21-string harp-lute made from a large gourd resonator covered in cowhide. Central to the Mande griot tradition of West Africa."
     },
     {
         "Id":  "guqin",
@@ -87,7 +129,7 @@
         "Id":  "dombra",
         "Name":  "Dombra",
         "Type":  "String",
-        "Description":  "A long-necked two-stringed lute and the national instrument of Kazakhstan. Used for solo kÃ¼y performances that narrate stories and depict nature."
+        "Description":  "A long-necked two-string lute and national instrument of Kazakhstan, used in solo kuy performances."
     },
     {
         "Id":  "komuz",
@@ -115,7 +157,7 @@
     },
     {
         "Id":  "saz-baaylama",
-        "Name":  "Saz (BaÄŸlama)",
+        "Name":  "Saz (Balama)",
         "Type":  "String",
         "Description":  "A family of long-necked plucked lutes and the most widely played instrument in Turkish folk music. Features movable frets for microtonal intervals."
     },
@@ -162,14 +204,14 @@
         "Description":  "A large plucked zither with 21 or more strings and movable bridges. One of the most popular traditional Chinese instruments, with ancient origins."
     },
     {
-        "Id":  "a-a-n-tranh",
-        "Name":  "ÄÃ n Tranh",
+        "Id":  "dan-tranh",
+        "Name":  "Dan Tranh",
         "Type":  "String",
-        "Description":  "A 16-string plucked zither used in Vietnamese classical and folk music. Related to the Chinese zheng family of instruments."
+        "Description":  "A 16-string plucked zither used in Vietnamese classical and folk music. It belongs to the zheng family of instruments."
     },
     {
         "Id":  "kannel-kankla-s-kokle",
-        "Name":  "Kannel / KanklÄ—s / Kokle",
+        "Name":  "Kannel / Kankles / Kokle",
         "Type":  "String",
         "Description":  "A plucked psaltery-type zither found across the Baltic states. Each country\u0027s variant is considered a national instrument."
     },
@@ -225,7 +267,7 @@
         "Id":  "mejorana",
         "Name":  "Mejorana",
         "Type":  "String",
-        "Description":  "A small five-stringed guitar from Panama used in tÃ­pico folk music. Carved from a single piece of wood."
+        "Description":  "A small five-string guitar from Panama used in tipico folk music and carved from a single piece of wood."
     },
     {
         "Id":  "mvet",
@@ -258,10 +300,10 @@
         "Description":  "A large concert hammered dulcimer played with padded beaters. Prominent in Hungarian, Romanian, and Central European folk and classical music."
     },
     {
-        "Id":  "guitarra-n-mexicano",
-        "Name":  "GuitarrÃ³n Mexicano",
+        "Id":  "guitarron-mexicano",
+        "Name":  "Guitarron Mexicano",
         "Type":  "String",
-        "Description":  "A large, deep-bodied acoustic bass guitar. Provides the bass foundation in Mexican mariachi ensembles."
+        "Description":  "A large deep-bodied acoustic bass guitar that provides the bass foundation in mariachi ensembles."
     },
     {
         "Id":  "erhu",
@@ -330,10 +372,10 @@
         "Description":  "A Burmese arched harp with 13 silk strings. One of the few surviving examples of the ancient arched harp tradition in Asia."
     },
     {
-        "Id":  "a-a-n-ba-u",
-        "Name":  "ÄÃ n Báº§u",
+        "Id":  "dan-bau",
+        "Name":  "Dan Bau",
         "Type":  "String",
-        "Description":  "A Vietnamese single-stringed monochord with a flexible pitch-bending rod. Produces ethereal, voice-like tones through harmonic techniques."
+        "Description":  "A Vietnamese single-string monochord with a flexible pitch-bending rod and voice-like harmonic tones."
     },
     {
         "Id":  "haegeum",
@@ -426,10 +468,10 @@
         "Description":  "A large Korean transverse bamboo flute with a vibrating membrane, producing a rich buzzing quality. Used in court and folk music."
     },
     {
-        "Id":  "siku-zampoa-a",
-        "Name":  "Siku / ZampoÃ±a",
+        "Id":  "siku-zampona",
+        "Name":  "Siku / Zampona",
         "Type":  "Wind",
-        "Description":  "Panpipes made from rows of cane tubes of graduated length. Central to Andean music, traditionally played in interlocking pairs (ira and arka)."
+        "Description":  "Andean panpipes made from graduated cane tubes, traditionally played in interlocking pairs."
     },
     {
         "Id":  "nai",
@@ -445,9 +487,9 @@
     },
     {
         "Id":  "ka-auau",
-        "Name":  "KÅauau",
+        "Name":  "Koauau",
         "Type":  "Wind",
-        "Description":  "A small MÄori cross-blown flute traditionally made from bone, wood, or stone. Used for entertainment, mourning, and attracting birds."
+        "Description":  "A small Maori cross-blown flute traditionally made from bone, wood, or stone. Used for entertainment, mourning, and attracting birds."
     },
     {
         "Id":  "rondador",
@@ -522,10 +564,10 @@
         "Description":  "A quadruple-reed oboe used in Thai classical piphat ensembles. Produces a nasal, penetrating tone that leads the melodic line."
     },
     {
-        "Id":  "chirima-a",
-        "Name":  "ChirimÃ­a",
+        "Id":  "chirimia",
+        "Name":  "Chirimia",
         "Type":  "Wind",
-        "Description":  "A double-reed instrument of Spanish origin, adapted in Latin American indigenous and mestizo traditions. Still used in Guatemalan and Mexican ceremonial music."
+        "Description":  "A double-reed instrument of Spanish origin adapted into Indigenous and mestizo traditions in Latin America."
     },
     {
         "Id":  "gyaling",
@@ -547,7 +589,7 @@
     },
     {
         "Id":  "sha",
-        "Name":  "ShÅ",
+        "Name":  "Sho",
         "Type":  "Wind",
         "Description":  "A Japanese free-reed mouth organ derived from the Chinese sheng. Used in gagaku court music to provide sustained harmonic clusters."
     },
@@ -567,13 +609,13 @@
         "Id":  "accordion",
         "Name":  "Accordion",
         "Type":  "Wind",
-        "Description":  "A bellows-driven free-reed instrument with a keyboard or buttons. Foundational in tango, vallenato, zydeco, norteÃ±o, forrÃ³, musette, and many folk traditions worldwide."
+        "Description":  "A bellows-driven free-reed instrument with a keyboard or buttons. Foundational in tango, vallenato, zydeco, norteno, forro, musette, and many folk traditions worldwide."
     },
     {
-        "Id":  "bandonea-n",
-        "Name":  "BandoneÃ³n",
+        "Id":  "bandoneon",
+        "Name":  "Bandoneon",
         "Type":  "Wind",
-        "Description":  "A concertina-type bellows instrument with button keys on both sides. The signature sound of Argentine tango."
+        "Description":  "A concertina-type bellows instrument whose sound became central to Argentine tango."
     },
     {
         "Id":  "concertina",
@@ -613,9 +655,9 @@
     },
     {
         "Id":  "pa-ta-tara",
-        "Name":  "PÅ«tÄtara",
+        "Name":  "Putatara",
         "Type":  "Wind",
-        "Description":  "A MÄori trumpet made from a conch shell fitted with a carved wooden mouthpiece. Used for signalling and ceremonial purposes in New Zealand."
+        "Description":  "A Maori trumpet made from a conch shell fitted with a carved wooden mouthpiece. Used for signalling and ceremonial purposes in New Zealand."
     },
     {
         "Id":  "vaksin",
@@ -627,7 +669,7 @@
         "Id":  "djembe",
         "Name":  "Djembe",
         "Type":  "Percussion",
-        "Description":  "A goblet-shaped hand drum carved from a single piece of wood with a goat-skin head. Originating from the MandÃ© peoples of West Africa, now played globally."
+        "Description":  "A goblet-shaped hand drum carved from a single piece of wood with a goatskin head. Originating among Mande peoples of West Africa, it is now played globally."
     },
     {
         "Id":  "tabla",
@@ -642,16 +684,16 @@
         "Description":  "A double-headed barrel drum and the primary rhythmic instrument of South Indian (Carnatic) classical music. Produces a range of distinct tonal strokes."
     },
     {
-        "Id":  "caja-n",
-        "Name":  "CajÃ³n",
+        "Id":  "cajon",
+        "Name":  "Cajon",
         "Type":  "Percussion",
-        "Description":  "A box-shaped drum of Afro-Peruvian origin, played by slapping the front face while seated on it. Now widely adopted in flamenco and global acoustic music."
+        "Description":  "A box-shaped drum of Afro-Peruvian origin, played by striking the front face while seated on it."
     },
     {
-        "Id":  "bodhra-n",
-        "Name":  "BodhrÃ¡n",
+        "Id":  "bodhran",
+        "Name":  "Bodhran",
         "Type":  "Percussion",
-        "Description":  "An Irish frame drum played with a double-ended beater (tipper). Central to Irish traditional music ensembles."
+        "Description":  "An Irish frame drum played with a double-ended beater called a tipper. Central to Irish traditional ensembles."
     },
     {
         "Id":  "doira-daf",
@@ -691,9 +733,9 @@
     },
     {
         "Id":  "bata",
-        "Name":  "BatÃ¡",
+        "Name":  "Bata",
         "Type":  "Percussion",
-        "Description":  "A set of three hourglass-shaped double-headed drums sacred to the Yoruba LucumÃ­ tradition. Central to SanterÃ­a religious music in Cuba and Nigeria."
+        "Description":  "A set of three hourglass-shaped double-headed drums sacred to Yoruba and Lucumi traditions."
     },
     {
         "Id":  "conga",
@@ -771,13 +813,13 @@
         "Id":  "ravanne",
         "Name":  "Ravanne",
         "Type":  "Percussion",
-        "Description":  "A large Mauritian frame drum central to sÃ©ga music. Played over a fire to tighten the goat-skin head, then struck with hands."
+        "Description":  "A large Mauritian frame drum central to sega music, played with the hands after heating the skin."
     },
     {
-        "Id":  "roula-r",
-        "Name":  "RoulÃ©r",
+        "Id":  "rouler",
+        "Name":  "Rouler",
         "Type":  "Percussion",
-        "Description":  "A barrel drum from RÃ©union, central to maloya music. Placed between the legs and played with both hands."
+        "Description":  "A barrel drum from Reunion that is central to maloya music and played with both hands."
     },
     {
         "Id":  "tambora",
@@ -825,7 +867,7 @@
         "Id":  "balafon",
         "Name":  "Balafon",
         "Type":  "Percussion",
-        "Description":  "A West African wooden xylophone with gourd resonators. Central to MandÃ© musical traditions and inscribed on UNESCO\u0027s list."
+        "Description":  "A West African wooden xylophone with gourd resonators, central to Mande musical traditions."
     },
     {
         "Id":  "mbira-kalimba",
@@ -888,10 +930,10 @@
         "Description":  "A small wooden box struck with a mallet, used in Afro-Peruvian music. One of several improvised percussion instruments in the tradition."
     },
     {
-        "Id":  "ga-ira",
-        "Name":  "GÃ¼ira",
+        "Id":  "guira",
+        "Name":  "Guira",
         "Type":  "Percussion",
-        "Description":  "A cylindrical metal scraper from the Dominican Republic. Provides a driving rhythmic texture in merengue alongside the tambora."
+        "Description":  "A cylindrical metal scraper from the Dominican Republic that drives merengue rhythm alongside tambora."
     },
     {
         "Id":  "maracas",
@@ -903,7 +945,7 @@
         "Id":  "kayamb",
         "Name":  "Kayamb",
         "Type":  "Percussion",
-        "Description":  "A flat rattle from RÃ©union made from sugarcane flower stalks filled with seeds. A defining instrument of maloya and sÃ©ga music."
+        "Description":  "A flat rattle from Reunion made from sugarcane flower stalks filled with seeds. It defines maloya and sega textures."
     },
     {
         "Id":  "caxixi",
@@ -912,10 +954,10 @@
         "Description":  "A small woven basket rattle from Brazil, typically played alongside the berimbau in capoeira. Adds rhythmic texture to the berimbau\u0027s sound."
     },
     {
-        "Id":  "agoga",
-        "Name":  "AgogÃ´",
+        "Id":  "agogo",
+        "Name":  "Agogo",
         "Type":  "Percussion",
-        "Description":  "A set of two or more coned metal bells struck with a stick, originating from Yoruba tradition. Used in Brazilian samba and West African ceremonial music."
+        "Description":  "A set of two or more metal bells struck with a stick, used in Yoruba-derived and Brazilian traditions."
     },
     {
         "Id":  "claves",
@@ -1029,7 +1071,7 @@
         "Id":  "joik",
         "Name":  "Joik",
         "Type":  "Voice",
-        "Description":  "The traditional vocal expression of the SÃ¡mi people of northern Scandinavia. A personal, evocative form of singing that portrays people, animals, or landscapes."
+        "Description":  "The traditional vocal expression of the Sami people of northern Scandinavia, used to evoke people, animals, and places."
     },
     {
         "Id":  "kulning",

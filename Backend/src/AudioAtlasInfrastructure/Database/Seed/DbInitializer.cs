@@ -3,451 +3,524 @@ using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.MusicMetadata;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Linq;
 
-namespace AudioAtlasInfrastructure.Database.Seed
+namespace AudioAtlasInfrastructure.Database.Seed;
+
+public class DbInitializer
 {
-    public class DbInitializer
+    public static void SeedDatabase(AppDbContext dbContext, ILogger<DbInitializer> logger)
     {
-
-        public static void SeedDatabase(AppDbContext dbContext, ILogger<DbInitializer> logger)
+        if (dbContext.Instruments.Any() || dbContext.Genres.Any() || dbContext.Countries.Any())
         {
-
-            if (dbContext.Instruments.Any() || dbContext.Genres.Any() || dbContext.Countries.Any())
-            {
-                logger.LogWarning("Skipping seeding as database contains data.");
-                return;
-            }
-
-            string countryPath = Path.Combine(AppContext.BaseDirectory, "countrySeeding.json");
-            string instrumentPath = Path.Combine(AppContext.BaseDirectory, "instrumentSeeding.json");
-            string genrePath = Path.Combine(AppContext.BaseDirectory, "genreSeeding.json");
-
-            logger.LogInformation("Loading seed data from {SeedPath}", genrePath);
-
-            string countryJson = File.ReadAllText(countryPath);
-            string instrumentJson = File.ReadAllText(instrumentPath);
-            string genreJson = File.ReadAllText(genrePath);
-
-            Dictionary<string, Country> countryMapping = null;
-            Dictionary<string, Instrument> instrumentMapping = null;
-
-            using (JsonDocument doc = JsonDocument.Parse(countryJson))
-            {
-                JsonElement root = doc.RootElement;
-
-
-                countryMapping = ProcessCountries(root, logger);
-                dbContext.Countries.AddRange(countryMapping.Values);
-            }
-
-            using (JsonDocument doc = JsonDocument.Parse(instrumentJson))
-            {
-                JsonElement root = doc.RootElement;
-                instrumentMapping = ProcessInstruments(root, logger);
-
-                dbContext.Instruments.AddRange(instrumentMapping.Values);
-
-            }
-
-
-            using (JsonDocument doc = JsonDocument.Parse(genreJson))
-            {
-                JsonElement root = doc.RootElement;
-                JsonElement genres = root.GetProperty("genres");
-
-                Dictionary<string, Genre> genreMapping = ProcessGenres(genres, countryMapping, instrumentMapping, logger);
-
-                ProcessGenreRelationships(genres, genreMapping, logger);
-
-                dbContext.SaveChanges();
-
-            }
-
-
+            logger.LogWarning("Skipping seeding as database contains data.");
+            return;
         }
 
-        private static Dictionary<string, Country> ProcessCountries(JsonElement countryRoot, ILogger<DbInitializer> logger)
+        string countryPath = GetSeedFilePath("countrySeeding.json");
+        string instrumentPath = GetSeedFilePath("instrumentSeeding.json");
+        string genrePath = GetSeedFilePath("genreSeeding.json");
+
+        logger.LogInformation("Loading seed data from {SeedPath}", genrePath);
+
+        string countryJson = File.ReadAllText(countryPath);
+        string instrumentJson = File.ReadAllText(instrumentPath);
+        string genreJson = File.ReadAllText(genrePath);
+
+        Dictionary<string, Country> countryMapping;
+        Dictionary<string, Instrument> instrumentMapping;
+
+        using (JsonDocument doc = JsonDocument.Parse(countryJson))
         {
-            Dictionary<string, Country> countryMapping = new Dictionary<string, Country>();
-            int countryCount = 0;
-
-            foreach (JsonElement obj in countryRoot.EnumerateArray())
-            {
-
-
-                string? id = obj.GetProperty("Id").GetString();
-                string? name = obj.GetProperty("Name").GetString();
-                string? region = obj.GetProperty("Region").GetString();
-                string? continent = obj.GetProperty("Continent").GetString();
-                string? desc = obj.GetProperty("Description").GetString();
-
-                if (string.IsNullOrWhiteSpace(id))
-                {
-                    logger.LogWarning("Skipping seed country with no id.");
-                    continue;
-                }
-
-                if (string.IsNullOrWhiteSpace(region))
-                {
-                    logger.LogWarning("Skipping seed country with no region.");
-                    continue;
-                }
-
-                if (string.IsNullOrWhiteSpace(continent))
-                {
-                    logger.LogWarning("Skipping seed country with no continent.");
-                    continue;
-                }
-
-                if (string.IsNullOrWhiteSpace(desc))
-                {
-                    logger.LogWarning("Skipping seed country with no description.");
-                    continue;
-                }
-
-                if (string.IsNullOrWhiteSpace(name))
-                {
-                    logger.LogWarning("Skipping seed country with source id {SourceId} because it has no name.", id);
-                    continue;
-                }
-
-                if (countryMapping.ContainsKey(id))
-                {
-                    logger.LogWarning("Skipping seed country with source id {SourceId} because it is a duplicate.", id);
-                    continue;
-                }
-
-                Country country = new Country
-                {
-                    Name = name,
-                    Description = desc,
-                    Region = region,
-                    Continent = continent
-                };
-
-                logger.LogInformation(
-                    "Prepared seed country {CountryName} from source id {SourceId} with generated id {CountryId}. Has region {Region}, continent {Continent} and Description {Desc}",
-                    country.Name,
-                    id,
-                    country.Id,
-                    country.Region,
-                    country.Continent,
-                    country.Description);
-
-                countryMapping.Add(id, country);
-
-                countryCount++;
-            }
-
-            logger.LogInformation("Processed {CountryCount} countries from seed data", countryCount);
-
-            return countryMapping;
+            countryMapping = ProcessCountries(doc.RootElement, logger);
+            dbContext.Countries.AddRange(countryMapping.Values);
         }
 
-        private static Dictionary<string, Instrument> ProcessInstruments(JsonElement instrumentRoot, ILogger<DbInitializer> logger)
+        using (JsonDocument doc = JsonDocument.Parse(instrumentJson))
         {
-            int instrumentCount = 0;
-            Dictionary<string, Instrument> instrumentMapping = new Dictionary<string, Instrument>();
-
-            foreach (JsonElement obj in instrumentRoot.EnumerateArray())
-            {
-                string? id = obj.GetProperty("Id").GetString();
-                string? name = obj.GetProperty("Name").GetString();
-                string? type = obj.GetProperty("Type").GetString();
-                string? desc = obj.GetProperty("Description").GetString();
-
-                if (string.IsNullOrWhiteSpace(id))
-                {
-                    logger.LogWarning("Skipping seed instrument with no id.");
-                    continue;
-                }
-
-                if (string.IsNullOrWhiteSpace(name))
-                {
-                    logger.LogWarning("Skipping seed instrument with source id {SourceId} because it has no name.", id);
-                    continue;
-                }
-
-                if (string.IsNullOrWhiteSpace(desc))
-                {
-                    logger.LogWarning("Skipping seed country with no description.");
-                    continue;
-                }
-
-                if (string.IsNullOrWhiteSpace(type))
-                {
-                    logger.LogWarning("Skipping seed country with no type.");
-                    continue;
-                }
-
-                if (instrumentMapping.ContainsKey(id))
-                {
-
-                    logger.LogWarning("Skipping seed instrument with source id {SourceId} because it is a duplicate.", id);
-                    continue;
-                }
-
-                Instrument instrument = new Instrument
-                {
-                    Type = name
-                };
-
-
-                logger.LogInformation(
-                    "Prepared seed instrument {InstrumentName} from source id {SourceId} with generated id {Instrumentd}, type {Type} and description {Description}",
-                    instrument.Type,
-                    id,
-                    instrument.Id,
-                    type,
-                    desc);
-
-                instrumentMapping.Add(id, instrument);
-
-                instrumentCount++;
-            }
-
-            logger.LogInformation("Processed {InstrumentCount} countries from seed data", instrumentCount);
-            return instrumentMapping;
-
+            instrumentMapping = ProcessInstruments(doc.RootElement, logger);
+            dbContext.Instruments.AddRange(instrumentMapping.Values);
         }
 
-        private static Dictionary<string, Genre> ProcessGenres(JsonElement genreRoot, Dictionary<string, Country> countryMapping, Dictionary<string, Instrument> instrumentMapping, ILogger<DbInitializer> logger)
+        using (JsonDocument doc = JsonDocument.Parse(genreJson))
         {
-            int genreCount = 0;
-            Dictionary<string, Genre> GenreMapping = new Dictionary<string, Genre>();
+            JsonElement root = doc.RootElement;
 
-            foreach (JsonElement property in genreRoot.EnumerateArray())
+            Dictionary<string, Genre> genreMapping = ProcessGenres(root.GetProperty("genres"), logger);
+            dbContext.Genres.AddRange(genreMapping.Values);
+
+            ProcessGenreCountries(root, genreMapping, countryMapping, logger);
+            ProcessGenreInstruments(root, genreMapping, instrumentMapping, logger);
+            ProcessGenreHierarchy(root, genreMapping, logger);
+            ProcessGenreAliases(root, genreMapping, logger);
+            ProcessGenreSources(root, genreMapping, logger);
+
+            dbContext.SaveChanges();
+        }
+    }
+
+    private static string GetSeedFilePath(string fileName)
+    {
+        string[] candidates =
+        {
+            Path.Combine(AppContext.BaseDirectory, fileName),
+            Path.Combine(AppContext.BaseDirectory, "resources", fileName),
+            Path.Combine(Directory.GetCurrentDirectory(), "resources", fileName)
+        };
+
+        foreach (string path in candidates)
+        {
+            if (File.Exists(path))
             {
-
-                string? id = property.GetProperty("id").GetString();
-                string? name = property.GetProperty("name").GetString();
-                JsonElement countryOrigins = property.GetProperty("origin").GetProperty("country_ids");
-                JsonElement instruments = property.GetProperty("instruments").GetProperty("instrument_ids");
-
-                int? startYear = int.TryParse(
-                    property.GetProperty("period").GetProperty("approx_start").ToString(),
-                    out int parsedYear) ? parsedYear : null;
-
-                if (string.IsNullOrWhiteSpace(id))
-                {
-                    logger.LogWarning("Skipping seed genre with no id.");
-                    continue;
-                }
-
-                if (string.IsNullOrWhiteSpace(name))
-                {
-                    logger.LogWarning("Skipping seed instrument with source id {SourceId} because it has no name.", id);
-                    continue;
-                }
-
-                if (GenreMapping.ContainsKey(id))
-                {
-                    logger.LogWarning("Skipping seed genre with source id {SourceId} because it is a duplicate.", id);
-                    continue;
-                }
-
-                Genre genre = new Genre
-                {
-                    Name = name,
-                    StartYear = startYear
-                };
-
-                foreach (JsonElement countryElement in countryOrigins.EnumerateArray())
-                {
-
-                    string? countryElementID = countryElement.GetString();
-
-
-                    if (string.IsNullOrWhiteSpace(countryElementID))
-                    {
-                        continue;
-                    }
-
-                    if(!countryMapping.ContainsKey(countryElementID))
-                    {
-                        continue;
-                    }
-
-                    Country originCountry = countryMapping[countryElementID];
-
-                    genre.Countries.Add(originCountry);
-
-                    originCountry.Genres.Add(genre);
-
-                    logger.LogInformation(
-                    "Added relationship between Genre: {GenreName} with GenreID {GenreID} and Country: {CountryName} with CountryID {CountryId}",
-                    genre.Name,
-                    id,
-                    originCountry.Name,
-                    countryElementID);
-
-                }
-
-                foreach (JsonElement instrumentElement in instruments.EnumerateArray())
-                {
-
-                    string? instrumentElementID = instrumentElement.GetString();
-
-
-                    if (string.IsNullOrWhiteSpace(instrumentElementID))
-                    {
-                        continue;
-                    }
-
-                    if (!instrumentMapping.ContainsKey(instrumentElementID))
-                    {
-                        continue;
-                    }
-
-                    Instrument instrumentEntity = instrumentMapping[instrumentElementID];
-
-                    genre.Instruments.Add(instrumentEntity);
-
-                    instrumentEntity.Genres.Add(genre);
-
-                    logger.LogInformation(
-                    "Added relationship between Genre: {GenreName} with GenreID {GenreID} and Instrument: {InstrumentName} with InstrumentID {InstrumentId}",
-                    genre.Name,
-                    id,
-                    instrumentEntity.Type,
-                    instrumentElementID);
-
-                }
-
-                logger.LogInformation(
-                    "Prepared seed instrument {GenreName} from source id {SourceId} with generated id {GenreId}",
-                    genre.Name,
-                    id,
-                    genre.Id);
-
-                GenreMapping.Add(id, genre);
-
-                genreCount++;
+                return path;
             }
-
-            logger.LogInformation("Processed {InstrumentCount} countries from seed data", genreCount);
-            return GenreMapping;
-
         }
 
+        throw new FileNotFoundException($"Could not locate seed file '{fileName}'.");
+    }
 
-        private static void ProcessGenreRelationships(JsonElement genreRoot, Dictionary<string, Genre> genreMapping, ILogger<DbInitializer> logger)
+    private static Dictionary<string, Country> ProcessCountries(JsonElement countryRoot, ILogger<DbInitializer> logger)
+    {
+        Dictionary<string, Country> countryMapping = new();
+        int countryCount = 0;
+
+        foreach (JsonElement obj in countryRoot.EnumerateArray())
         {
-            int relationshipMappingCount = 0;
+            string? id = obj.GetProperty("Id").GetString();
+            string? name = obj.GetProperty("Name").GetString();
+            string? region = obj.GetProperty("Region").GetString();
+            string? continent = obj.GetProperty("Continent").GetString();
+            string? description = obj.GetProperty("Description").GetString();
 
-            foreach (JsonElement property in genreRoot.EnumerateArray())
+            if (string.IsNullOrWhiteSpace(id))
             {
-
-                string? id = property.GetProperty("id").GetString();
-
-
-                if (string.IsNullOrWhiteSpace(id))
-                {
-                    continue;
-                }
-
-                Genre mainGenre = genreMapping[id];
-
-                JsonElement lineage = property.GetProperty("lineage");
-
-                JsonElement parent = lineage.GetProperty("parent_ids");
-
-                JsonElement predecessor = lineage.GetProperty("predecessor_ids");
-
-                JsonElement similar = lineage.GetProperty("similar_ids");
-                JsonElement subSengre = lineage.GetProperty("subgenre_ids");
-
-                List<string?> predecessors =
-                    lineage.GetProperty("predecessor_ids")
-                        .EnumerateArray()
-                        .Select(x => x.GetString())
-                    .Concat(
-                        lineage.GetProperty("parent_ids")
-                            .EnumerateArray()
-                            .Select(x => x.GetString())
-                    )
-                    .ToList();
-
-                foreach (string parentElementID in predecessors)
-                {
-
-                    if (string.IsNullOrWhiteSpace(parentElementID))
-                    {
-                        continue;
-                    }
-
-                    Genre parentGenre = genreMapping[parentElementID];
-
-                    if (!mainGenre.ParentGenres.Any(x => x.Id == parentGenre.Id))
-                    {
-                        mainGenre.ParentGenres.Add(parentGenre);
-                        relationshipMappingCount++;
-                    }
-
-                    if (!parentGenre.SubGenres.Any(x => x.Id == mainGenre.Id))
-                    {
-                        parentGenre.SubGenres.Add(mainGenre);
-                        relationshipMappingCount++;
-                    }
-
-                }
-
-                foreach (JsonElement subGenreElement in subSengre.EnumerateArray())
-                {
-
-                    var subGenreID = subGenreElement.GetString();
-
-                    if (string.IsNullOrWhiteSpace(subGenreID))
-                    {
-                        continue;
-                    }
-
-                    Genre subGenre = genreMapping[subGenreID];
-
-                    if (!mainGenre.SubGenres.Any(x => x.Id == subGenre.Id))
-                    {
-                        mainGenre.SubGenres.Add(subGenre);
-                        relationshipMappingCount++;
-                    }
-
-                    if (!subGenre.ParentGenres.Any(x => x.Id == mainGenre.Id))
-                    {
-                        subGenre.ParentGenres.Add(mainGenre);
-                        relationshipMappingCount++;
-                    }
-
-                }
-
-                foreach (JsonElement similarGenreElement in similar.EnumerateArray())
-                {
-
-                    var similarGenreID = similarGenreElement.GetString();
-
-                    if (string.IsNullOrWhiteSpace(similarGenreID))
-                    {
-                        continue;
-                    }
-
-                    Genre similarGenre = genreMapping[similarGenreID];
-
-                    if (!mainGenre.SimilarGenres.Any(x => x.Id == similarGenre.Id))
-                    {
-                        mainGenre.SimilarGenres.Add(similarGenre);
-                        relationshipMappingCount++;
-                    }
-
-                    if (!similarGenre.SimilarGenres.Any(x => x.Id == mainGenre.Id))
-                    {
-                        similarGenre.SimilarGenres.Add(mainGenre);
-                        relationshipMappingCount++;
-                    }
-
-                }
+                logger.LogWarning("Skipping seed country with no id.");
+                continue;
             }
 
-            logger.LogInformation("Processed {RelationshipMappingCount} genre Relationships from seed data", relationshipMappingCount);
+            if (string.IsNullOrWhiteSpace(name) ||
+                string.IsNullOrWhiteSpace(region) ||
+                string.IsNullOrWhiteSpace(continent) ||
+                string.IsNullOrWhiteSpace(description))
+            {
+                logger.LogWarning("Skipping seed country with source id {SourceId} because required fields are missing.", id);
+                continue;
+            }
+
+            if (countryMapping.ContainsKey(id))
+            {
+                logger.LogWarning("Skipping seed country with source id {SourceId} because it is a duplicate.", id);
+                continue;
+            }
+
+            Country country = new()
+            {
+                Name = name,
+                Description = description,
+                Region = region,
+                Continent = continent,
+                isoCode = id
+            };
+
+            countryMapping.Add(id, country);
+            countryCount++;
         }
+
+        logger.LogInformation("Processed {CountryCount} countries from seed data", countryCount);
+        return countryMapping;
+    }
+
+    private static Dictionary<string, Instrument> ProcessInstruments(JsonElement instrumentRoot, ILogger<DbInitializer> logger)
+    {
+        Dictionary<string, Instrument> instrumentMapping = new();
+        int instrumentCount = 0;
+
+        foreach (JsonElement obj in instrumentRoot.EnumerateArray())
+        {
+            string? id = obj.GetProperty("Id").GetString();
+            string? name = obj.GetProperty("Name").GetString();
+            string? type = obj.GetProperty("Type").GetString();
+            string? description = obj.GetProperty("Description").GetString();
+
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                logger.LogWarning("Skipping seed instrument with no id.");
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(name) ||
+                string.IsNullOrWhiteSpace(type) ||
+                string.IsNullOrWhiteSpace(description))
+            {
+                logger.LogWarning("Skipping seed instrument with source id {SourceId} because required fields are missing.", id);
+                continue;
+            }
+
+            if (instrumentMapping.ContainsKey(id))
+            {
+                logger.LogWarning("Skipping seed instrument with source id {SourceId} because it is a duplicate.", id);
+                continue;
+            }
+
+            Instrument instrument = new()
+            {
+                Type = name,
+                Description = description
+            };
+
+            instrumentMapping.Add(id, instrument);
+            instrumentCount++;
+        }
+
+        logger.LogInformation("Processed {InstrumentCount} instruments from seed data", instrumentCount);
+        return instrumentMapping;
+    }
+
+    private static Dictionary<string, Genre> ProcessGenres(JsonElement genreRoot, ILogger<DbInitializer> logger)
+    {
+        Dictionary<string, Genre> genreMapping = new();
+        int genreCount = 0;
+
+        foreach (JsonElement obj in genreRoot.EnumerateArray())
+        {
+            string? id = TryGetStringProperty(obj, "id");
+            string? name = TryGetStringProperty(obj, "name");
+
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                logger.LogWarning("Skipping seed genre with no id.");
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                logger.LogWarning("Skipping seed genre with source id {SourceId} because it has no name.", id);
+                continue;
+            }
+
+            if (genreMapping.ContainsKey(id))
+            {
+                logger.LogWarning("Skipping seed genre with source id {SourceId} because it is a duplicate.", id);
+                continue;
+            }
+
+            Genre genre = new()
+            {
+                Name = name,
+                Description = TryGetStringProperty(obj, "description"),
+                Summary = TryGetStringProperty(obj, "summary"),
+                StartYear = ParseStartYear(obj),
+                IsSensitive = TryGetBoolProperty(obj, "isSensitive"),
+                SensitiveDescription = TryGetStringProperty(obj, "sensitiveDescription"),
+                PlaylistLink = TryGetStringProperty(obj, "playlistLink")
+            };
+
+            genreMapping.Add(id, genre);
+            genreCount++;
+        }
+
+        logger.LogInformation("Processed {GenreCount} genres from seed data", genreCount);
+        return genreMapping;
+    }
+
+    private static void ProcessGenreCountries(
+        JsonElement root,
+        Dictionary<string, Genre> genreMapping,
+        Dictionary<string, Country> countryMapping,
+        ILogger<DbInitializer> logger)
+    {
+        ProcessJoinTable(
+            root,
+            "genreCountry",
+            "genreId",
+            "countryId",
+            genreMapping,
+            countryMapping,
+            (genre, country) =>
+            {
+                if (!genre.Countries.Any(x => x.Id == country.Id))
+                {
+                    genre.Countries.Add(country);
+                }
+
+                if (!country.Genres.Any(x => x.Id == genre.Id))
+                {
+                    country.Genres.Add(genre);
+                }
+            },
+            logger);
+    }
+
+    private static void ProcessGenreInstruments(
+        JsonElement root,
+        Dictionary<string, Genre> genreMapping,
+        Dictionary<string, Instrument> instrumentMapping,
+        ILogger<DbInitializer> logger)
+    {
+        ProcessJoinTable(
+            root,
+            "genreInstrument",
+            "genreId",
+            "instrumentId",
+            genreMapping,
+            instrumentMapping,
+            (genre, instrument) =>
+            {
+                if (!genre.Instruments.Any(x => x.Id == instrument.Id))
+                {
+                    genre.Instruments.Add(instrument);
+                }
+
+                if (!instrument.Genres.Any(x => x.Id == genre.Id))
+                {
+                    instrument.Genres.Add(genre);
+                }
+            },
+            logger);
+    }
+
+    private static void ProcessGenreHierarchy(
+        JsonElement root,
+        Dictionary<string, Genre> genreMapping,
+        ILogger<DbInitializer> logger)
+    {
+        int relationshipCount = 0;
+
+        relationshipCount += ProcessGenreToGenreLinks(root, "genreHierarchy", "genreId", "subgenreId", genreMapping,
+            (genre, related) =>
+            {
+                if (!genre.SubGenres.Any(x => x.Id == related.Id))
+                {
+                    genre.SubGenres.Add(related);
+                    return true;
+                }
+
+                return false;
+            },
+            (genre, related) =>
+            {
+                if (!related.ParentGenres.Any(x => x.Id == genre.Id))
+                {
+                    related.ParentGenres.Add(genre);
+                    return true;
+                }
+
+                return false;
+            });
+
+        relationshipCount += ProcessGenreToGenreLinks(root, "genreSimilarity", "similarId1", "similarId2", genreMapping,
+            (genre, related) =>
+            {
+                if (!genre.SimilarGenres.Any(x => x.Id == related.Id))
+                {
+                    genre.SimilarGenres.Add(related);
+                    return true;
+                }
+
+                return false;
+            },
+            (genre, related) =>
+            {
+                if (!related.SimilarGenres.Any(x => x.Id == genre.Id))
+                {
+                    related.SimilarGenres.Add(genre);
+                    return true;
+                }
+
+                return false;
+            });
+
+        logger.LogInformation("Processed {RelationshipCount} genre relationships from seed data", relationshipCount);
+    }
+
+    private static void ProcessGenreAliases(JsonElement root, Dictionary<string, Genre> genreMapping, ILogger<DbInitializer> logger)
+    {
+        if (!root.TryGetProperty("genreAliases", out JsonElement genreAliases) || genreAliases.ValueKind != JsonValueKind.Array)
+        {
+            logger.LogInformation("No genre aliases found in seed data.");
+            return;
+        }
+
+        int aliasCount = 0;
+
+        foreach (JsonElement obj in genreAliases.EnumerateArray())
+        {
+            string? genreId = TryGetStringProperty(obj, "genreId");
+            string? aliasValue = TryGetStringProperty(obj, "alias");
+
+            if (string.IsNullOrWhiteSpace(genreId) ||
+                string.IsNullOrWhiteSpace(aliasValue) ||
+                !genreMapping.TryGetValue(genreId, out Genre? genre))
+            {
+                continue;
+            }
+
+            if (genre.Aliases.Any(x => string.Equals(x.Alias, aliasValue, StringComparison.OrdinalIgnoreCase)))
+            {
+                continue;
+            }
+
+            genre.Aliases.Add(new GenreAlias
+            {
+                Genre = genre,
+                GenreId = genre.Id,
+                Alias = aliasValue
+            });
+
+            aliasCount++;
+        }
+
+        logger.LogInformation("Processed {AliasCount} genre aliases from seed data", aliasCount);
+    }
+
+    private static void ProcessGenreSources(JsonElement root, Dictionary<string, Genre> genreMapping, ILogger<DbInitializer> logger)
+    {
+        if (!root.TryGetProperty("genreSources", out JsonElement genreSources) || genreSources.ValueKind != JsonValueKind.Array)
+        {
+            logger.LogInformation("No genre sources found in seed data.");
+            return;
+        }
+
+        int sourceCount = 0;
+
+        foreach (JsonElement obj in genreSources.EnumerateArray())
+        {
+            string? genreId = TryGetStringProperty(obj, "genreId");
+            string? sourceLink = TryGetStringProperty(obj, "sourceLink");
+
+            if (string.IsNullOrWhiteSpace(genreId) ||
+                string.IsNullOrWhiteSpace(sourceLink) ||
+                !genreMapping.TryGetValue(genreId, out Genre? genre))
+            {
+                continue;
+            }
+
+            if (genre.Sources.Any(x => string.Equals(x.SourceLink, sourceLink, StringComparison.OrdinalIgnoreCase)))
+            {
+                continue;
+            }
+
+            genre.Sources.Add(new GenreSource
+            {
+                Genre = genre,
+                GenreId = genre.Id,
+                SourceLink = sourceLink
+            });
+
+            sourceCount++;
+        }
+
+        logger.LogInformation("Processed {SourceCount} genre sources from seed data", sourceCount);
+    }
+
+    private static void ProcessJoinTable<TRelated>(
+        JsonElement root,
+        string tableName,
+        string genrePropertyName,
+        string relatedPropertyName,
+        Dictionary<string, Genre> genreMapping,
+        Dictionary<string, TRelated> relatedMapping,
+        Action<Genre, TRelated> linkAction,
+        ILogger<DbInitializer> logger)
+    {
+        if (!root.TryGetProperty(tableName, out JsonElement joinArray) || joinArray.ValueKind != JsonValueKind.Array)
+        {
+            logger.LogInformation("No {TableName} entries found in seed data.", tableName);
+            return;
+        }
+
+        int relationshipCount = 0;
+
+        foreach (JsonElement obj in joinArray.EnumerateArray())
+        {
+            string? genreId = TryGetStringProperty(obj, genrePropertyName);
+            string? relatedId = TryGetStringProperty(obj, relatedPropertyName);
+
+            if (string.IsNullOrWhiteSpace(genreId) ||
+                string.IsNullOrWhiteSpace(relatedId) ||
+                !genreMapping.TryGetValue(genreId, out Genre? genre) ||
+                !relatedMapping.TryGetValue(relatedId, out TRelated? related))
+            {
+                continue;
+            }
+
+            linkAction(genre, related);
+            relationshipCount++;
+        }
+
+        logger.LogInformation("Processed {RelationshipCount} {TableName} relationships from seed data", relationshipCount, tableName);
+    }
+
+    private static int ProcessGenreToGenreLinks(
+        JsonElement root,
+        string tableName,
+        string leftPropertyName,
+        string rightPropertyName,
+        Dictionary<string, Genre> genreMapping,
+        Func<Genre, Genre, bool> addLeftRelationship,
+        Func<Genre, Genre, bool> addRightRelationship)
+    {
+        if (!root.TryGetProperty(tableName, out JsonElement joinArray) || joinArray.ValueKind != JsonValueKind.Array)
+        {
+            return 0;
+        }
+
+        int relationshipCount = 0;
+
+        foreach (JsonElement obj in joinArray.EnumerateArray())
+        {
+            string? leftId = TryGetStringProperty(obj, leftPropertyName);
+            string? rightId = TryGetStringProperty(obj, rightPropertyName);
+
+            if (string.IsNullOrWhiteSpace(leftId) ||
+                string.IsNullOrWhiteSpace(rightId) ||
+                !genreMapping.TryGetValue(leftId, out Genre? leftGenre) ||
+                !genreMapping.TryGetValue(rightId, out Genre? rightGenre))
+            {
+                continue;
+            }
+
+            if (addLeftRelationship(leftGenre, rightGenre))
+            {
+                relationshipCount++;
+            }
+
+            if (addRightRelationship(leftGenre, rightGenre))
+            {
+                relationshipCount++;
+            }
+        }
+
+        return relationshipCount;
+    }
+
+    private static int? ParseStartYear(JsonElement element)
+    {
+        string? startDate = TryGetStringProperty(element, "startDate");
+
+        if (string.IsNullOrWhiteSpace(startDate))
+        {
+            return null;
+        }
+
+        return DateTime.TryParse(startDate, out DateTime parsedDate)
+            ? parsedDate.Year
+            : null;
+    }
+
+    private static bool TryGetBoolProperty(JsonElement element, string propertyName)
+    {
+        return element.TryGetProperty(propertyName, out JsonElement property)
+               && property.ValueKind is JsonValueKind.True or JsonValueKind.False
+               && property.GetBoolean();
+    }
+
+    private static string? TryGetStringProperty(JsonElement element, string propertyName)
+    {
+        if (!element.TryGetProperty(propertyName, out JsonElement property))
+        {
+            return null;
+        }
+
+        return property.ValueKind == JsonValueKind.Null ? null : property.GetString();
     }
 }
