@@ -78,6 +78,9 @@ const statusTone = computed(() => {
     <div class="flex items-center justify-between border-t border-border pt-4 text-[11px] text-[#4f587a]">
       <span>ID {{ props.genre.id }}</span>
       <span>{{ props.genre.contributorsCount ?? 0 }} contributors</span>
+    <UButton :to="`/genres/${props.genre.id}`" variant="link" class="text-aurora">
+      See Genre Detail →
+    </UButton>
     </div>
   </UCard>
 </template>
