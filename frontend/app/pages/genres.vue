@@ -135,15 +135,17 @@ const breadcrumbItems = computed(() =>
             :sensitivity-description="sensitivityDescription"
             :pageDescription="pageDescription"
           />
-
+        <div class = "flex flex-col gap-8">
           <CountryContributorsCard
             :contributors="contributors"
           />
-
           <SourceList/>
+          <InstrumentList/>
+        </div>
 
         </div>
       </section>
+
     </UContainer>
   </div>
 </template>
