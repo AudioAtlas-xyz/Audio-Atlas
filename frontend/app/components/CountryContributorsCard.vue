@@ -8,7 +8,7 @@ const props = defineProps<{
 const contributorRows = computed(() =>
   props.contributors.slice(0, 3).map(contributor => ({
     ...contributor,
-    genresLabel: formatGenreCount(contributor.genresCount ?? 0)
+    genresLabel: formatGenreCount(contributor.genreCount ?? 0)
   }))
 )
 
@@ -56,8 +56,6 @@ function formatGenreCount(count: number) {
       >
         <div class="flex min-w-0 items-center gap-3">
           <UAvatar
-            :src="contributor.avatarUrl"
-            :alt="contributor.username"
             :text="getContributorInitials(contributor)"
             size="sm"
             class="ring-1 ring-aurora"
@@ -70,9 +68,6 @@ function formatGenreCount(count: number) {
             >
               @{{ contributor.username }}
             </ULink>
-            <p v-if="contributor.displayName" class="truncate text-xs text-[#5d678c]">
-              {{ contributor.displayName }}
-            </p>
           </div>
         </div>
 

@@ -143,5 +143,11 @@ public class GenreRepository : IGenreRepository
     {
         return _dbcontext.Genres.ToList();
     }
-        
+
+    public ICollection<Genre> getGenresByAuthorId(Guid id)
+    {
+
+        return _dbcontext.Genres.Where(g => g.AuthorId == id).ToList();
+
+    }
 }   

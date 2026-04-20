@@ -19,6 +19,7 @@ public class CountryRepositoryTests : IClassFixture<TestService>
             Region = "Test Region",
             Continent = "Test Continent",
             Description = "Test Description",
+            isoCode = $"ISO-{Guid.NewGuid():N}"[..10],
             Genres = genres ?? new List<Genre>()
         };
     }

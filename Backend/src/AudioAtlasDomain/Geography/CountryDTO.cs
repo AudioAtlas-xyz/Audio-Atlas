@@ -1,3 +1,4 @@
+using AudioAtlas.Domain.Geography;
 using AudioAtlasDomain.Genres;
 
 namespace AudioAtlasDomain.Geography;
@@ -10,5 +11,6 @@ public class CountryDTO
     public string? Region { get; set; }
     public string? Continent { get; set; }
     public string? IsoCode { get; set; }
+    public ICollection<ContributorSummaryDTO> Contributors { get; set; } = new List<ContributorSummaryDTO>();
     public ICollection<GenreDTO> Genres { get; set; } = new List<GenreDTO>();
 }
