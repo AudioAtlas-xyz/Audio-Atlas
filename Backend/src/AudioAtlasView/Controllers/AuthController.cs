@@ -13,6 +13,7 @@ using AudioAtlasInfrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 
+
 [ApiController]
 [Route("api/auth")]
 public class AuthController : ControllerBase
@@ -25,6 +26,7 @@ public class AuthController : ControllerBase
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly IConfiguration _config;
+    private readonly string _frontendBaseUrl;
 
     public AuthController(
         AppDbContext dbContext,
@@ -36,6 +38,8 @@ public class AuthController : ControllerBase
         _userManager = userManager;
         _signInManager = signInManager;
         _config = config;
+
+        _frontendBaseUrl = config["Frontend:BaseUrl"] ?? "http://localhost:3000";
     }
 
     [AllowAnonymous]
@@ -75,17 +79,16 @@ public IActionResult GoogleLogin()
         info.LoginProvider,
         info.ProviderKey);
 
-        if (user != null)
-        {
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+       if (user != null)
+    {
+        await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            var existingToken = GenerateJwtToken(user);
-            return Ok(new
-            {
-                requiresOnboarding = false,
-                token = existingToken
-            });
-        }
+        var existingToken = GenerateJwtToken(user);
+
+        return Redirect(
+            $"{_frontendBaseUrl}/?newUser=false&token={Uri.EscapeDataString(existingToken)}"
+        );
+    }
 
         var email = info.Principal.FindFirst(ClaimTypes.Email)?.Value;
 
@@ -125,19 +128,12 @@ public IActionResult GoogleLogin()
         await _dbContext.SaveChangesAsync();
         await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-        return Ok(new
-        {
-            requiresOnboarding = true,
-            pendingRegistrationId = pendingRegistration.Id,
-            email = pendingRegistration.Email,
-            suggestedUsername = pendingRegistration.SuggestedUsername,
-            onboardingExpiresAtUtc = pendingRegistration.ExpiresAtUtc,
-            requiredPolicyVersions = new
-            {
-                privacyPolicy = CurrentPrivacyPolicyVersion,
-                contributionGuidelines = CurrentContributionGuidelinesVersion
-            }
-        });
+        return Redirect(
+            $"{_frontendBaseUrl}/?" +
+            $"newUser=true" +
+            $"&pendingRegistrationId={pendingRegistration.Id}" +
+            $"&suggestedUsername={Uri.EscapeDataString(pendingRegistration.SuggestedUsername)}"
+        );
     }
 
     [AllowAnonymous]
