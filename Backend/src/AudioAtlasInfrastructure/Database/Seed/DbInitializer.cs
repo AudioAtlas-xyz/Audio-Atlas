@@ -22,6 +22,9 @@ public class DbInitializer
             string path = Path.Combine(AppContext.BaseDirectory, "seeding.json");
             logger.LogInformation("Loading seed data from {SeedPath}", path);
 
+        ApplicationUser systemUser = await dbContext.Users
+            .FirstOrDefaultAsync(u => u.UserName == "system");
+
         if (systemUser == null)
         {
             systemUser = new ApplicationUser
