@@ -1,10 +1,13 @@
 <script setup>
 import { ref } from 'vue'
+import GlassButton from '@/components/GlassButton.vue'
+
+const config = useRuntimeConfig()
 
 const props = defineProps({
   pendingRegistrationId: {
     type: String,
-    required: true
+    required: false
   }
 })
 
@@ -14,7 +17,12 @@ const username = ref('')
 const acceptedTerms = ref(false)
 
 const finish = async () => {
-  const response = await $fetch('http://localhost:5000/api/auth/complete-onboarding', {
+  if (!props.pendingRegistrationId) {
+    console.error('Missing pendingRegistrationId')
+    return
+  }
+
+  const response = await $fetch(`${config.public.apiBase}/api/auth/complete-onboarding`, {
     method: 'POST',
     body: {
       pendingRegistrationId: props.pendingRegistrationId,
@@ -25,7 +33,6 @@ const finish = async () => {
   })
 
   localStorage.setItem('token', response.token)
-
   emit('finished')
 }
 </script>
@@ -64,17 +71,17 @@ const finish = async () => {
       </label>
 
       <div class="buttons">
-        <button class="cancel" @click="emit('close')">
-          ← Cancel
-        </button>
+        <GlassButton @click="emit('close')">
+          Cancel
+        </GlassButton>
 
-        <button
-          class="finish"
-          :disabled="!acceptedTerms"
+        <GlassButton
+          variant="primary"
+          :disabled="!acceptedTerms || username.length < 3 || username.length > 25"
           @click="finish"
         >
-          Finish →
-        </button>
+        Finish
+        </GlassButton>
       </div>
     </div>
   </div>

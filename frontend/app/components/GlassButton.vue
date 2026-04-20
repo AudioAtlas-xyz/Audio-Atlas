@@ -1,24 +1,34 @@
 <script setup>
-const emit = defineEmits(['click'])
-
-defineProps({
+const props = defineProps({
   tag: {
     type: String,
     default: 'button'
   },
   variant: {
     type: String,
-    default: 'glass' // glass | primary
+    default: 'glass'
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
 })
+
+const emit = defineEmits(['click'])
+
+const handleClick = (e) => {
+  if (props.disabled) return
+  emit('click', e)
+}
 </script>
 
 <template>
   <component
     :is="tag"
     class="glass-btn"
-    :class="variant"
-    @click="$emit('click')"
+    :class="[variant, { disabled }]"
+    :disabled="disabled"
+    @click="handleClick"
   >
     <slot />
   </component>
@@ -55,7 +65,7 @@ defineProps({
   background: rgba(141, 219, 230, 0.22);
 }
 
-/* PRIMARY VARIANT */
+/* PRIMARY */
 .glass-btn.primary {
   background-color: #3DE8C8;
   color: #02070a;
@@ -69,5 +79,19 @@ defineProps({
 
 .glass-btn.primary:active {
   transform: translateY(0);
+}
+
+/* 🔥 DISABLED STATE */
+.glass-btn.disabled,
+.glass-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.glass-btn.disabled:hover {
+  background: inherit;
+  border-color: inherit;
+  color: inherit;
 }
 </style>

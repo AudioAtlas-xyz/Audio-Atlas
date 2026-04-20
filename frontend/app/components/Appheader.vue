@@ -1,7 +1,9 @@
 <script setup>
 import GlassPanel from '@/components/GlassPanel.vue'
 import GlassButton from '@/components/GlassButton.vue'
+import { useAuth } from '@/composables/useAuth'
 
+const { user, logout } = useAuth()
 const emit = defineEmits(['login'])
 </script>
 
@@ -24,13 +26,22 @@ const emit = defineEmits(['login'])
 
       <!-- RIGHT -->
       <div class="right">
-        <GlassButton
-          variant="primary"
-          @click="() => { console.log('CLICK'); $emit('login') }">
-          Sign in
-        </GlassButton>
-      </div>
+        <template v-if="user">
+          <span class="user-email">{{ user.email }}</span>
 
+          <GlassButton @click="logout">
+          Logout
+          </GlassButton>
+        </template>
+
+          <GlassButton
+          v-else
+          variant="primary"
+          @click="$emit('login')"
+          >
+            Sign in
+          </GlassButton>
+      </div>
     </GlassPanel>
   </header>
 </template>
@@ -92,6 +103,8 @@ const emit = defineEmits(['login'])
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 /* BRAND */

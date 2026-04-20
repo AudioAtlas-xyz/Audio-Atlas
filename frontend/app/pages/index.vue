@@ -7,7 +7,9 @@ import LoginModal from './../components/LoginModal.vue'
 import UsernameModal from './../components/UsernameModal.vue'
 import SuccessModal from './../components/SuccessModal.vue'
 import { useScrollIntro } from './../composables/useScrollIntro'
+import { useAuth } from '@/composables/useAuth'
 
+const { user, fetchUser } = useAuth()
 const { progress, finished } = useScrollIntro()
 
 const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
@@ -67,6 +69,8 @@ onMounted(() => {
   if (newUser === 'false') {
     showSuccessModal.value = true
   }
+
+  fetchUser()
 })
 </script>
 
@@ -83,9 +87,10 @@ onMounted(() => {
 
     <UsernameModal
       v-if="showUsernameModal"
-      :pending-registration-id="route.query.pendingRegistrationId"
+      :pending-registration-id="String(route.query.pendingRegistrationId || '')"
       @close="showUsernameModal = false"
       @finished="handleUsernameFinished"
+      console.log(route.query)
     />
 
     <SuccessModal

@@ -28,12 +28,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
-        connectionString,
-        
-        sqlOptions =>
-        {
-            sqlOptions.EnableRetryOnFailure();
-        }));
+        connectionString));
 
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
@@ -189,7 +184,6 @@ using (var scope = app.Services.CreateScope())
     app.Logger.LogInformation("Database migration and seed completed.");
     ViewDebugger.DebugToFile(ctx);
 }
-
 
 if (app.Environment.IsDevelopment())
 {
