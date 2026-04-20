@@ -36,6 +36,7 @@ public class Genre
     /// "What makes this genre distinct from others?"
     /// </summary>
     public string? Description { get; set; }
+    public string? Summary { get; set; }
 
     /// <summary>
     /// Approximate year the genre originated.

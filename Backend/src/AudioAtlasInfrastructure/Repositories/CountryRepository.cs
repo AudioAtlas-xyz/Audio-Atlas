@@ -30,6 +30,7 @@ public class CountryRepository : ICountryRepository
         return _dbcontext.Countries
             .Where(c => c.Id == id)
             .Include(c => c.Genres)
+            .ThenInclude(g => g.Author)
             .Single();
     }
 

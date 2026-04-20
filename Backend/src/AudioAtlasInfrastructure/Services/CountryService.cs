@@ -1,49 +1,74 @@
+using AudioAtlas.Domain.Geography;
 using AudioAtlasApplication.Repositories;
 using AudioAtlasApplication.Services;
 using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Geography;
-using AudioAtlasInfrastructure.Repositories;
+using AudioAtlasDomain.Users;
+using Microsoft.Extensions.Logging;
 
 namespace AudioAtlasInfrastructure.Services;
 
 public class CountryService : ICountryService
 {
     private readonly ICountryRepository _countryRepository;
-    
-    /// <summary>
-    /// Initialises a new instance of CountryService class
-    /// </summary>
-    /// <param name="countryRepository"> Repository used for retrieving country related data in the database </param>
-    public CountryService(ICountryRepository countryRepository)
+    private readonly IGenreRepository _genreRepository;
+    private readonly ILogger<CountryService> _logger;
+
+    public CountryService(ICountryRepository countryRepository, IGenreRepository genreRepository, ILogger<CountryService> logger)
     {
         _countryRepository = countryRepository;
+        _genreRepository = genreRepository;
+        _logger = logger;
     }
-    
-    /// <summary>
-    /// Takes a country and converts it into a CountryDTO
-    /// </summary>
-    /// <param name="id"> The ID corresponding to a country </param>
-    /// <returns> A CountryDTO based on a specific country </returns>
+
     public CountryDTO getCountryById(Guid id)
     {
         Country country = _countryRepository.getCountryByID(id);
+
+        List<GenreDTO> genreDTOs = new List<GenreDTO>();
+        List<ContributorSummaryDTO> contributors = new List<ContributorSummaryDTO>();
+        HashSet<ApplicationUser> addedUsers = new HashSet<ApplicationUser>();
+
+        foreach (Genre genre in country.Genres)
+        {
+            genreDTOs.Add(new GenreDTO
+            {
+                Id = genre.Id,
+                Name = genre.Name,
+                Summary = genre.Summary
+            });
+
+
+            ApplicationUser? user = genre.Author;
+
+
+
+            if (user != null && !addedUsers.Contains(user))
+            {
+
+                int genreCount = _genreRepository.getGenresByAuthorId(user.Id).Count;
+                contributors.Add(new ContributorSummaryDTO
+                {
+                    id = user.Id.ToString(),
+                    username = user.UserName,
+                    genreCount = genreCount
+                });
+
+                addedUsers.Add(user);
+            }
+
+        }
 
         return new CountryDTO
         {
             Id = country.Id,
             Name = country.Name,
             Description = country.Description,
-            Submissions = country.Submissions,
             Region = country.Region,
             Continent = country.Continent,
-
-            // Make DTOs instead of Genre objects
-            Genres = country.Genres.Select(g => new GenreDTO
-            {
-                Name = g.Name,
-                Id = g.Id
-            }).ToList()
+            IsoCode = country.isoCode,
+            Genres = genreDTOs,
+            Contributors = contributors
         };
-
     }
 }
