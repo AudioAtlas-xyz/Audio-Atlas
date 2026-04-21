@@ -3,9 +3,7 @@ import type { NestedGenre } from './nestedgenre'
 export interface ContributorSummary {
   id: string
   username: string
-  displayName?: string
-  avatarUrl?: string
-  genresCount?: number
+  genreCount?: number
 }
 
 export interface Country {
