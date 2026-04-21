@@ -1,15 +1,16 @@
-<script setup>
-import { computed } from 'vue'
+<script setup lang="ts">
+import { computed, ref } from 'vue'
 import Globe from './../components/Globe.vue'
 import AppHeader from './../components/Appheader.vue'
 import { useScrollIntro } from './../composables/useScrollIntro'
 
 const { progress, finished } = useScrollIntro()
+const demoCountryId = '06d584ed-80a4-40e4-b7e7-fd1a499e9e05'
 
 const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
 const settledPov = { lat: 16, lng: 0, altitude: 2.15 }
 
-const easeOut = (t) => 1 - Math.pow(1 - t, 3)
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
 
 const eased = computed(() => easeOut(finished.value ? 1 : progress.value))
 
@@ -33,6 +34,16 @@ const pageStyle = computed(() => {
 const handleLogin = () => {
   console.log('Login clicked')
 }
+
+const selectedCountryId = ref<string | null>(null)
+
+const closeCountryPanel = () => {
+  selectedCountryId.value = null
+}
+
+const openDemoCountryPanel = () => {
+  selectedCountryId.value = demoCountryId
+}
 </script>
 
 <template>
@@ -44,6 +55,15 @@ const handleLogin = () => {
       :visible="finished"
       @login="handleLogin"
     />
+
+    <UButton
+      class="demo-panel-button"
+      color="neutral"
+      variant="solid"
+      @click="openDemoCountryPanel"
+    >
+      open dk
+    </UButton>
 
     <div class="globe-layer">
       <ClientOnly>
@@ -57,6 +77,13 @@ const handleLogin = () => {
         </div>
       </ClientOnly>
     </div>
+
+    <CountryPanel
+      v-if="selectedCountryId"
+      :country-id="selectedCountryId"
+      :open="Boolean(selectedCountryId)"
+      @close="closeCountryPanel"
+    />
 
     <div class="hero-title">
       <p class="eyebrow">
@@ -126,6 +153,13 @@ html.globe-intro-complete body {
   will-change: transform, opacity;
 }
 
+.demo-panel-button {
+  position: fixed;
+  top: 5.5rem;
+  right: 1.5rem;
+  z-index: 11;
+}
+
 .eyebrow {
   margin: 0 0 0.9rem;
   color: #8ddbe6;
@@ -151,6 +185,11 @@ h1 {
 }
 
 @media (max-width: 720px) {
+  .demo-panel-button {
+    top: 4.75rem;
+    right: 1rem;
+  }
+
   .hero-title {
     top: 16vh;
     width: min(24rem, calc(100% - 2rem));

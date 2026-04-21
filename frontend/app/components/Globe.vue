@@ -43,6 +43,8 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['country-click'])
+
 const setControlsEnabled = (enabled) => {
   const controls = globeInstance?.controls?.()
   if (!controls) return
@@ -133,10 +135,15 @@ onMounted(async () => {
         )
     })
     .onPolygonClick((feature) => {
-      console.log('Clicked polygon:', getCountryName(feature), getCountryIso(feature))
+      const isoCode = getCountryIso(feature)
+      const name = getCountryName(feature)
+
+      console.log('Clicked polygon:', name, isoCode)
+      emit('country-click', { isoCode, name })
     })
     .onPointClick((d) => {
       console.log('Clicked tiny country marker:', d.name, d.iso)
+      emit('country-click', { isoCode: d.iso, name: d.name })
     })
     .polygonsTransitionDuration(250)
     .pointsTransitionDuration(0)
