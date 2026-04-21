@@ -72,15 +72,13 @@ const statusTone = computed(() => {
     </template>
 
     <p class="text-sm leading-7 text-[#8b94b5]">
-      {{ summary }}
+      {{ props.genre.summary || 'No Genre summary loaded' }}
     </p>
 
     <div class="flex items-center justify-between border-t border-border pt-4 text-[11px] text-[#4f587a]">
-      <span>ID {{ props.genre.id }}</span>
-      <span>{{ props.genre.contributorsCount ?? 0 }} contributors</span>
     <UButton :to="`/genres/${props.genre.id}`" variant="link" class="text-aurora">
       See Genre Detail →
-    </UButton>
+    </UButton>  
     </div>
   </UCard>
 </template>

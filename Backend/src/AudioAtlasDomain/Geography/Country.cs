@@ -25,7 +25,7 @@ namespace AudioAtlasDomain.Geography
         public string Name { get; set; } = null!;
         public string Region { get; set; } = null!;
         public string Continent { get; set; } = null!;
-
+        public string isoCode {  get; set; } = null!;
 
 
         /// <summary>

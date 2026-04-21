@@ -12,4 +12,5 @@ public interface IGenreRepository
     public string getDescription(Guid id);
     public ICollection<Genre> getRelated(Guid id);
     public ICollection<Genre> getAllGenres();
+    public ICollection<Genre> getGenresByAuthorId(Guid id);
 }
