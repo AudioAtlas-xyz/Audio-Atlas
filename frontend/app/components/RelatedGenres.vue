@@ -65,7 +65,7 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
   width: 100%;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 6px;
   text-align: left;
   font-size: 12px;
