@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Genre } from '~/types/genre'
-import SourceList from "~/components/SourceList.vue";
+import SourceList from '~/components/SourceList.vue';
 
 type GenrePageData = Genre
 
@@ -39,6 +39,10 @@ const isSensitive = computed(()=> genre.value?.isSensitive ?? false)
 const sensitivityDescription = computed(() => {genre.value?.sensitiveDescription ?? undefined})
 const countries = computed(()=> genre.value?.countries?? [])
 const contributors = computed(() => genre.value?.contributors ?? [])
+const sources = computed(() => genre.value?.sources ?? [])
+const parentGenres = computed (() => genre.value?.parentGenres ?? [])
+const similarGenres = computed(() => genre.value?.similarGenres ?? [])
+const subGenres = computed (() => genre.value?.subGenres ?? [])
 
 //for genrepanel (try ID: 01bce686-c704-4fd3-bb5b-0ea301a8b0fc)
 const relatedCount = computed(()=> {
@@ -134,6 +138,9 @@ const breadcrumbItems = computed(() =>
             :is-sensitive="true"
             :sensitivity-description="sensitivityDescription"
             :pageDescription="pageDescription"
+            :similar-genres="similarGenres"
+            :sub-genres="subGenres"
+            :parent-genres="parentGenres"
           />
         <div class = "flex flex-col gap-8">
           <CountryContributorsCard

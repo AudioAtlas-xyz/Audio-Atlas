@@ -1,8 +1,13 @@
 ﻿<script setup lang="ts">
-const { isSensitive, sensitivityDescription, pageDescription } = defineProps<{
+import type {Genre} from "~/types/genre";
+
+const { isSensitive, sensitivityDescription, pageDescription, similarGenres, parentGenres, subGenres } = defineProps<{
   isSensitive: boolean
   sensitivityDescription?: string
   pageDescription: string
+  similarGenres: Genre[]
+  parentGenres: Genre[]
+  subGenres: Genre[]
 }>()
 </script>
 
@@ -33,125 +38,13 @@ const { isSensitive, sensitivityDescription, pageDescription } = defineProps<{
         </div>
       </div>
       <div :class="$style.sectiondivider" />
-      <div :class="$style.relatedgenres">
-        <div :class="$style.parentgenrecard">
-          <div :class="$style.parentgenre">
-            <div :class="$style.span">
-              <div :class="$style.cardTitle">PareNT GENRES</div>
-            </div>
-            <div :class="$style.a" />
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-        </div>
-        <div :class="$style.parentgenrecard">
-          <div :class="$style.parentgenre">
-            <div :class="$style.span">
-              <div :class="$style.cardTitle">SUB GENRES</div>
-            </div>
-            <div :class="$style.a" />
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-        </div>
-        <div :class="$style.parentgenrecard">
-          <div :class="$style.divsideCardHead2">
-            <div :class="$style.span3">
-              <div :class="$style.cardTitle">SIMILAR GENRES</div>
-            </div>
-            <div :class="$style.span4" />
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-          <div :class="$style.prosecard">
-            <div :class="$style.titleAndDescription">
-              <div :class="$style.title">Genre name</div>
-              <div :class="$style.loremIpsumDolor">Genre Countries</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div :class="$style.contributorprofilelink">
-        <div :class="$style.seemorerelatedgenres">See more...</div>
-      </div>
+
+      <RelatedGenres
+      :parent-genres="parentGenres"
+      :similar-genres="similarGenres"
+      :sub-genres="subGenres"
+      />
+
     </div>
     <div v-if=false :class="$style.divsidebar">
       <div :class="$style.sourcelist">
