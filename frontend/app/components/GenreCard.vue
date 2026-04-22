@@ -24,7 +24,7 @@ const countryBadges = computed(() => {
 
 <template>
   <UCard
-    class="border border-border bg-surface shadow-none"
+    class="border border-border bg-surface shadow-none w-full"
     :ui="{
       header: 'border-b border-border bg-surface-2 px-4 py-3',
       body: 'space-y-4 px-4 py-4',
