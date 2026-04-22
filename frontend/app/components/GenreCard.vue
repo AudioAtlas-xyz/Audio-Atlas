@@ -1,15 +1,24 @@
 ﻿<script setup lang="ts">
 import type { Genre } from '~/types/genre'
+import type { Country } from '~/types/country'
 
 const props = defineProps<{
   genre: Genre
 }>()
 
+console.log('🎵 GenreCard:', props.genre.name)
+console.log('   Countries:', props.genre.countries)
+console.log('   Countries length:', props.genre.countries?.length)
+
 const metaItems = computed(() =>
   [props.genre.aliases?.[0]].filter((value): value is string => Boolean(value))
 )
 
-const countries = computed (() => props.genre.countries)
+const countries = computed(()=> props.genre.countries ?? [])
+
+const countryBadges = computed(() => {
+  return countries.value.map(country => country.name)
+})
 
 </script>
 
@@ -45,9 +54,19 @@ const countries = computed (() => props.genre.countries)
       </div>
     </template>
 
-    <p class="text-sm leading-7 text-[#8b94b5]">
-      {{ props.genre.countries || 'No countries loaded' }}
-    </p>
+    <div class="text-sm leading-7 text-[#8b94b5]">
+      <div class="flex flex-wrap items-center gap-2">
+        <UBadge
+          v-for="country in countryBadges"
+          :key="country"
+          color="neutral"
+          variant="outline"
+          class="rounded-full border-[#7a84a8] px-2 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-space-50"
+          >
+          {{ country }}
+        </UBadge>
+      </div>
+    </div>
 
     <div class="flex items-center justify-between border-t border-border pt-4 text-[11px] text-[#4f587a]">
       <UButton :to="`/genres?genreId=${props.genre.id}`" variant="link" class="text-aurora">
