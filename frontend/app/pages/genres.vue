@@ -131,7 +131,7 @@ const breadcrumbItems = computed(() =>
           <GenrePanel
             :related-count="relatedCount"
             :contributor-count="contributorsCount"
-            instrument-count="0"
+            :instrument-count="instruments.length.toString()"
           />
         </div>
       </section>
