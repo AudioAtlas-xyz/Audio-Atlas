@@ -42,3 +42,4 @@ const { breadCrumbItems, badges, name } = defineProps<{
       </div>
     </div>
 </template>
+
