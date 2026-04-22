@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
 import Globe from './../components/Globe.vue'
 import AppHeader from './../components/Appheader.vue'
@@ -43,20 +43,19 @@ const handleCountryClick = async (country) => {
   selectedCountryData.value = null
   selectedCountryError.value = null
 
-  console.log(country.isoA3)
-
-  /*
-  try {
-    selectedCountryData.value = await $fetch(
-      `http://localhost:5085/api/countries/by-iso/${country.isoA3}`
-    )
-
-  } catch (error) {
-    selectedCountryError.value = error
-    console.error(`Could not load country data for ${country.isoA3}`, error)
+  if (typeof country === 'string') {
+    selectedCountryId.value = country
+    return
   }
-    */
+
+  selectedCountryId.value = country.isoA3
 }
+const selectedCountryId = ref<string | null>(null)
+
+const closeCountryPanel = () => {
+  selectedCountryId.value = null
+}
+
 </script>
 
 <template>
@@ -80,6 +79,15 @@ const handleCountryClick = async (country) => {
     </div>
 
     <!-- GLOBE-->
+    <UButton
+      class="demo-panel-button"
+      color="neutral"
+      variant="solid"
+      @click="handleCountryClick('06d584ed-80a4-40e4-b7e7-fd1a499e9e05')"
+    >
+      open dk
+    </UButton>
+
     <div class="globe-layer">
       <ClientOnly>
         <div class="globe-motion">
@@ -94,6 +102,19 @@ const handleCountryClick = async (country) => {
       </ClientOnly>
     </div>
 
+    <CountryPanel
+      v-if="selectedCountryId"
+      :country-id="selectedCountryId"
+      :open="Boolean(selectedCountryId)"
+      @close="closeCountryPanel"
+    />
+
+    <div class="hero-title">
+      <p class="eyebrow">
+        explorable by map <br> growable by community
+      </p>
+      <h1>Audio Atlas</h1>
+    </div>
 
 
 
@@ -158,6 +179,13 @@ html.globe-intro-complete body {
   will-change: transform, opacity;
 }
 
+.demo-panel-button {
+  position: fixed;
+  top: 5.5rem;
+  right: 1.5rem;
+  z-index: 11;
+}
+
 .eyebrow {
   margin: 0 0 0.9rem;
   color: #8ddbe6;
@@ -183,6 +211,11 @@ h1 {
 }
 
 @media (max-width: 720px) {
+  .demo-panel-button {
+    top: 4.75rem;
+    right: 1rem;
+  }
+
   .hero-title {
     top: 16vh;
     width: min(24rem, calc(100% - 2rem));

@@ -21,9 +21,32 @@ public class CountryService : ICountryService
         _logger = logger;
     }
 
+    public CountryDTO getCountry(string key)
+    {
+        if (Guid.TryParse(key, out Guid id))
+        {
+            return getCountryById(id);
+        }
+
+        return getCountryByIsoCode(key);
+    }
+
     public CountryDTO getCountryById(Guid id)
     {
         Country country = _countryRepository.getCountryByID(id);
+
+        return toCountryDTO(country);
+    }
+
+    public CountryDTO getCountryByIsoCode(string isoCode)
+    {
+        Country country = _countryRepository.getCountryByIsoCode(isoCode);
+
+        return toCountryDTO(country);
+    }
+
+    private CountryDTO toCountryDTO(Country country)
+    {
 
         List<GenreDTO> genreDTOs = new List<GenreDTO>();
         List<ContributorSummaryDTO> contributors = new List<ContributorSummaryDTO>();

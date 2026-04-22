@@ -49,11 +49,11 @@ namespace AudioAtlasView.Controllers
             return _countryRepository.getGenres(id);
         }
         
-        // GET: api/countries/{id}
-        [HttpGet("{id}")]
-        public CountryDTO Getter(Guid id)
+        // GET: api/countries/{key}
+        [HttpGet("{key}")]
+        public CountryDTO Getter(string key)
         {
-            return _countryService.getCountryById(id);
+            return _countryService.getCountry(key);
         }
 
         // POST api/<ViewController>
