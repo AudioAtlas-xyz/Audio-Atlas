@@ -14,7 +14,7 @@ const { isSensitive, sensitivityDescription, pageDescription, similarGenres, par
 <template>
   <div :class="$style.genreinfo">
     <div :class="$style.divcontent">
-      <div v-if= isSensitive :class="$style.culturalsensitivitynotice">
+      <div v-if="isSensitive" :class="$style.culturalsensitivitynotice">
         <div :class="$style.spansensIconmargin">
           <div :class="$style.symbol">◎</div>
         </div>
