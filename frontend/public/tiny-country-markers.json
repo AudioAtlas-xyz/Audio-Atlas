@@ -1,34 +1,234 @@
 [
-  { "name": "Singapore", "iso": "SG", "lat": 1.3521, "lng": 103.8198 },
-  { "name": "Luxembourg", "iso": "LU", "lat": 49.8153, "lng": 6.1296 },
-  { "name": "Malta", "iso": "MT", "lat": 35.9375, "lng": 14.3754 },
-  { "name": "Monaco", "iso": "MC", "lat": 43.7384, "lng": 7.4246 },
-  { "name": "Liechtenstein", "iso": "LI", "lat": 47.166, "lng": 9.5554 },
-  { "name": "San Marino", "iso": "SM", "lat": 43.9424, "lng": 12.4578 },
-  { "name": "Andorra", "iso": "AD", "lat": 42.5063, "lng": 1.5218 },
-  { "name": "Vatican City", "iso": "VA", "lat": 41.9029, "lng": 12.4534 },
-  { "name": "Bahrain", "iso": "BH", "lat": 26.0667, "lng": 50.5577 },
-  { "name": "Barbados", "iso": "BB", "lat": 13.1939, "lng": -59.5432 },
-  { "name": "Antigua and Barbuda", "iso": "AG", "lat": 17.0608, "lng": -61.7964 },
-  { "name": "Saint Kitts and Nevis", "iso": "KN", "lat": 17.3578, "lng": -62.783 },
-  { "name": "Dominica", "iso": "DM", "lat": 15.415, "lng": -61.371 },
-  { "name": "Grenada", "iso": "GD", "lat": 12.1165, "lng": -61.679 },
-  { "name": "Saint Lucia", "iso": "LC", "lat": 13.9094, "lng": -60.9789 },
-  { "name": "Saint Vincent and the Grenadines", "iso": "VC", "lat": 12.9843, "lng": -61.2872 },
-  { "name": "Mauritius", "iso": "MU", "lat": -20.3484, "lng": 57.5522 },
-  { "name": "Seychelles", "iso": "SC", "lat": -4.6796, "lng": 55.492 },
-  { "name": "Comoros", "iso": "KM", "lat": -11.875, "lng": 43.8722 },
-  { "name": "Maldives", "iso": "MV", "lat": 3.2028, "lng": 73.2207 },
-  { "name": "Marshall Islands", "iso": "MH", "lat": 7.1315, "lng": 171.1845 },
-  { "name": "Micronesia", "iso": "FM", "lat": 7.4256, "lng": 150.5508 },
-  { "name": "Palau", "iso": "PW", "lat": 7.515, "lng": 134.5825 },
-  { "name": "Nauru", "iso": "NR", "lat": -0.5228, "lng": 166.9315 },
-  { "name": "Tuvalu", "iso": "TV", "lat": -7.1095, "lng": 177.6493 },
-  { "name": "Kiribati", "iso": "KI", "lat": 1.8709, "lng": -157.363 },
-  { "name": "Samoa", "iso": "WS", "lat": -13.759, "lng": -172.1046 },
-  { "name": "Tonga", "iso": "TO", "lat": -21.179, "lng": -175.1982 },
-  { "name": "Vanuatu", "iso": "VU", "lat": -15.3767, "lng": 166.9592 },
-  { "name": "Solomon Islands", "iso": "SB", "lat": -9.6457, "lng": 160.1562 },
-  { "name": "Cape Verde", "iso": "CV", "lat": 16.5388, "lng": -23.0418 },
-  { "name": "São Tomé and Príncipe", "iso": "ST", "lat": 0.1864, "lng": 6.6131 }
+  {
+    "name": "Andorra",
+    "iso": "AD",
+    "iso_a2": "AD",
+    "iso_a3": "AND",
+    "lat": 42.5063,
+    "lng": 1.5218
+  },
+  {
+    "name": "Antigua and Barbuda",
+    "iso": "AG",
+    "iso_a2": "AG",
+    "iso_a3": "ATG",
+    "lat": 17.0608,
+    "lng": -61.7964
+  },
+  {
+    "name": "Bahrain",
+    "iso": "BH",
+    "iso_a2": "BH",
+    "iso_a3": "BHR",
+    "lat": 26.0667,
+    "lng": 50.5577
+  },
+  {
+    "name": "Barbados",
+    "iso": "BB",
+    "iso_a2": "BB",
+    "iso_a3": "BRB",
+    "lat": 13.1939,
+    "lng": -59.5432
+  },
+  {
+    "name": "Cabo Verde",
+    "iso": "CV",
+    "iso_a2": "CV",
+    "iso_a3": "CPV",
+    "lat": 16.5388,
+    "lng": -23.0418
+  },
+  {
+    "name": "Comoros",
+    "iso": "KM",
+    "iso_a2": "KM",
+    "iso_a3": "COM",
+    "lat": -11.875,
+    "lng": 43.8722
+  },
+  {
+    "name": "Dominica",
+    "iso": "DM",
+    "iso_a2": "DM",
+    "iso_a3": "DMA",
+    "lat": 15.415,
+    "lng": -61.371
+  },
+  {
+    "name": "Grenada",
+    "iso": "GD",
+    "iso_a2": "GD",
+    "iso_a3": "GRD",
+    "lat": 12.1165,
+    "lng": -61.679
+  },
+  {
+    "name": "Kiribati",
+    "iso": "KI",
+    "iso_a2": "KI",
+    "iso_a3": "KIR",
+    "lat": 1.8709,
+    "lng": -157.363
+  },
+  {
+    "name": "Liechtenstein",
+    "iso": "LI",
+    "iso_a2": "LI",
+    "iso_a3": "LIE",
+    "lat": 47.166,
+    "lng": 9.5554
+  },
+  {
+    "name": "Maldives",
+    "iso": "MV",
+    "iso_a2": "MV",
+    "iso_a3": "MDV",
+    "lat": 3.2028,
+    "lng": 73.2207
+  },
+  {
+    "name": "Malta",
+    "iso": "MT",
+    "iso_a2": "MT",
+    "iso_a3": "MLT",
+    "lat": 35.9375,
+    "lng": 14.3754
+  },
+  {
+    "name": "Marshall Islands",
+    "iso": "MH",
+    "iso_a2": "MH",
+    "iso_a3": "MHL",
+    "lat": 7.1315,
+    "lng": 171.1845
+  },
+  {
+    "name": "Mauritius",
+    "iso": "MU",
+    "iso_a2": "MU",
+    "iso_a3": "MUS",
+    "lat": -20.3484,
+    "lng": 57.5522
+  },
+  {
+    "name": "Micronesia",
+    "iso": "FM",
+    "iso_a2": "FM",
+    "iso_a3": "FSM",
+    "lat": 7.4256,
+    "lng": 150.5508
+  },
+  {
+    "name": "Monaco",
+    "iso": "MC",
+    "iso_a2": "MC",
+    "iso_a3": "MCO",
+    "lat": 43.7384,
+    "lng": 7.4246
+  },
+  {
+    "name": "Nauru",
+    "iso": "NR",
+    "iso_a2": "NR",
+    "iso_a3": "NRU",
+    "lat": -0.5228,
+    "lng": 166.9315
+  },
+  {
+    "name": "Palau",
+    "iso": "PW",
+    "iso_a2": "PW",
+    "iso_a3": "PLW",
+    "lat": 7.515,
+    "lng": 134.5825
+  },
+  {
+    "name": "Saint Kitts and Nevis",
+    "iso": "KN",
+    "iso_a2": "KN",
+    "iso_a3": "KNA",
+    "lat": 17.3578,
+    "lng": -62.783
+  },
+  {
+    "name": "Saint Lucia",
+    "iso": "LC",
+    "iso_a2": "LC",
+    "iso_a3": "LCA",
+    "lat": 13.9094,
+    "lng": -60.9789
+  },
+  {
+    "name": "Saint Vincent and the Grenadines",
+    "iso": "VC",
+    "iso_a2": "VC",
+    "iso_a3": "VCT",
+    "lat": 12.9843,
+    "lng": -61.2872
+  },
+  {
+    "name": "Samoa",
+    "iso": "WS",
+    "iso_a2": "WS",
+    "iso_a3": "WSM",
+    "lat": -13.759,
+    "lng": -172.1046
+  },
+  {
+    "name": "San Marino",
+    "iso": "SM",
+    "iso_a2": "SM",
+    "iso_a3": "SMR",
+    "lat": 43.9424,
+    "lng": 12.4578
+  },
+  {
+    "name": "Sao Tome and Principe",
+    "iso": "ST",
+    "iso_a2": "ST",
+    "iso_a3": "STP",
+    "lat": 0.1864,
+    "lng": 6.6131
+  },
+  {
+    "name": "Seychelles",
+    "iso": "SC",
+    "iso_a2": "SC",
+    "iso_a3": "SYC",
+    "lat": -4.6796,
+    "lng": 55.492
+  },
+  {
+    "name": "Singapore",
+    "iso": "SG",
+    "iso_a2": "SG",
+    "iso_a3": "SGP",
+    "lat": 1.3521,
+    "lng": 103.8198
+  },
+  {
+    "name": "Tonga",
+    "iso": "TO",
+    "iso_a2": "TO",
+    "iso_a3": "TON",
+    "lat": -21.179,
+    "lng": -175.1982
+  },
+  {
+    "name": "Tuvalu",
+    "iso": "TV",
+    "iso_a2": "TV",
+    "iso_a3": "TUV",
+    "lat": -7.1095,
+    "lng": 177.6493
+  },
+  {
+    "name": "Vatican City",
+    "iso": "VA",
+    "iso_a2": "VA",
+    "iso_a3": "VAT",
+    "lat": 41.9029,
+    "lng": 12.4534
+  }
 ]

@@ -20,6 +20,7 @@ let lastPovKey = ''
 let lastWidth = 0
 let lastHeight = 0
 
+
 const props = defineProps({
   introComplete: {
     type: Boolean,
@@ -43,6 +44,8 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['country-click'])
+
 const setControlsEnabled = (enabled) => {
   const controls = globeInstance?.controls?.()
   if (!controls) return
@@ -54,7 +57,7 @@ const setControlsEnabled = (enabled) => {
   controls.autoRotateSpeed = 0.4
 }
 
-const povKey = (pov) => `${pov.lat}|${pov.lng}|${pov.altitude}`
+const povKey = pov => `${pov.lat}|${pov.lng}|${pov.altitude}`
 
 onMounted(async () => {
   const Globe = (await import('globe.gl')).default
@@ -73,13 +76,13 @@ onMounted(async () => {
   const polygonAltitude = 0.006
   const hoverPolygonAltitude = 0.016
 
-  const getCountryIso = feature => feature.properties.iso_a2
+  const getCountryIso = feature => feature.properties.iso_a3
   const getCountryName = feature => feature.properties.admin ?? feature.properties.name
   const getCountryPopulation = feature => feature.properties.pop_est
 
   const features = countries.features.filter((f) => {
     const iso = getCountryIso(f)
-    return iso && iso !== 'AQ' && iso !== '-99'
+    return iso && iso !== 'ATA' && iso !== '-99'
   })
 
   features.forEach((feat) => {
@@ -97,6 +100,10 @@ onMounted(async () => {
 
   const initialPov = props.pointOfView ?? props.initialPointOfView
   lastPovKey = povKey(initialPov)
+
+  const emitCountryClick = (country) => {
+    emit('country-click', country)
+  }
 
   globeInstance = Globe()(globeDiv.value)
     .globeImageUrl('/2_no_clouds_8k.jpg')
@@ -122,7 +129,7 @@ onMounted(async () => {
     .pointRadius(0.26)
     .pointResolution(8)
     .pointColor(() => 'rgba(120, 216, 255, 0.42)')
-    .pointLabel(d => `<b>${d.name} (${d.iso})</b>`)
+    .pointLabel(d => `<b>${d.name} (${d.iso_a3})</b>`)
     .onPolygonHover((hoverD) => {
       globeInstance
         .polygonAltitude(d => (d === hoverD ? hoverPolygonAltitude : polygonAltitude))
@@ -133,10 +140,16 @@ onMounted(async () => {
         )
     })
     .onPolygonClick((feature) => {
-      console.log('Clicked polygon:', getCountryName(feature), getCountryIso(feature))
+      emitCountryClick({
+        name: getCountryName(feature),
+        isoA3: getCountryIso(feature)
+      })
     })
     .onPointClick((d) => {
-      console.log('Clicked tiny country marker:', d.name, d.iso)
+      emitCountryClick({
+        name: d.name,
+        isoA3: d.iso_a3
+      })
     })
     .polygonsTransitionDuration(250)
     .pointsTransitionDuration(0)
@@ -144,7 +157,7 @@ onMounted(async () => {
     .globeOffset(props.globeOffset)
 
   setControlsEnabled(props.introComplete)
-  
+
   const controls = globeInstance.controls()
   controls.autoRotate = !props.introComplete
   controls.autoRotateSpeed = 0.4
