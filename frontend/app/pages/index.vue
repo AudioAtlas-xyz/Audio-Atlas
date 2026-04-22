@@ -1,5 +1,5 @@
-<script setup>
-import { computed } from 'vue'
+<script setup lang="ts">
+import { computed, ref } from 'vue'
 import Globe from './../components/Globe.vue'
 import AppHeader from './../components/Appheader.vue'
 import { useScrollIntro } from './../composables/useScrollIntro'
@@ -9,7 +9,7 @@ const { progress, finished } = useScrollIntro()
 const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
 const settledPov = { lat: 16, lng: 0, altitude: 2.15 }
 
-const easeOut = (t) => 1 - Math.pow(1 - t, 3)
+const easeOut = t => 1 - Math.pow(1 - t, 3)
 
 const eased = computed(() => easeOut(finished.value ? 1 : progress.value))
 
@@ -33,6 +33,29 @@ const pageStyle = computed(() => {
 const handleLogin = () => {
   console.log('Login clicked')
 }
+
+const selectedCountry = ref(null)
+const selectedCountryData = ref(null)
+const selectedCountryError = ref(null)
+
+const handleCountryClick = async (country) => {
+  selectedCountry.value = country
+  selectedCountryData.value = null
+  selectedCountryError.value = null
+
+  if (typeof country === 'string') {
+    selectedCountryId.value = country
+    return
+  }
+
+  selectedCountryId.value = country.isoA3
+}
+const selectedCountryId = ref<string | null>(null)
+
+const closeCountryPanel = () => {
+  selectedCountryId.value = null
+}
+
 </script>
 
 <template>
@@ -40,11 +63,22 @@ const handleLogin = () => {
     class="landing-page"
     :style="pageStyle"
   >
-    <Appheader
+
+    <!-- HEADER -->
+    <AppHeader
       :visible="finished"
       @login="handleLogin"
     />
 
+    <!-- TITLE HERO SECTION-->
+    <div class="hero-title">
+      <p class="eyebrow">
+        explorable by map <br> growable by community
+      </p>
+      <h1>Audio Atlas</h1>
+    </div>
+
+    <!-- GLOBE-->
     <div class="globe-layer">
       <ClientOnly>
         <div class="globe-motion">
@@ -53,10 +87,19 @@ const handleLogin = () => {
             :initial-point-of-view="landingPov"
             :point-of-view="globePov"
             :globe-offset="globeOffset"
+            @country-click="handleCountryClick"
           />
         </div>
       </ClientOnly>
     </div>
+
+    <!-- SIDE PANEL -->
+    <CountryPanel
+      v-if="selectedCountryId"
+      :country-id="selectedCountryId"
+      :open="Boolean(selectedCountryId)"
+      @close="closeCountryPanel"
+    />
 
     <div class="hero-title">
       <p class="eyebrow">
@@ -65,10 +108,12 @@ const handleLogin = () => {
       <h1>Audio Atlas</h1>
     </div>
 
-    <div
-      class="scroll-spacer"
-      aria-hidden="true"
-    />
+
+
+
+
+
+
   </main>
 </template>
 
@@ -126,6 +171,13 @@ html.globe-intro-complete body {
   will-change: transform, opacity;
 }
 
+.demo-panel-button {
+  position: fixed;
+  top: 5.5rem;
+  right: 1.5rem;
+  z-index: 11;
+}
+
 .eyebrow {
   margin: 0 0 0.9rem;
   color: #8ddbe6;
@@ -151,6 +203,11 @@ h1 {
 }
 
 @media (max-width: 720px) {
+  .demo-panel-button {
+    top: 4.75rem;
+    right: 1rem;
+  }
+
   .hero-title {
     top: 16vh;
     width: min(24rem, calc(100% - 2rem));
