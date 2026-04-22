@@ -39,10 +39,14 @@ const isSensitive = computed(()=> genre.value?.isSensitive ?? false)
 const sensitivityDescription = computed(() => {genre.value?.sensitiveDescription ?? undefined})
 const countries = computed(()=> genre.value?.countries?? [])
 const contributors = computed(() => genre.value?.contributors ?? [])
+
 const sources = computed(() => genre.value?.sources ?? [])
+
 const parentGenres = computed (() => genre.value?.parentGenres ?? [])
 const similarGenres = computed(() => genre.value?.similarGenres ?? [])
 const subGenres = computed (() => genre.value?.subGenres ?? [])
+
+const instruments = computed (() => genre.value?.instruments ?? [])
 
 //for genrepanel (try ID: 01bce686-c704-4fd3-bb5b-0ea301a8b0fc)
 const relatedCount = computed(()=> {
@@ -146,8 +150,13 @@ const breadcrumbItems = computed(() =>
           <CountryContributorsCard
             :contributors="contributors"
           />
-          <SourceList/>
-          <InstrumentList/>
+          <SourceList
+            :sources="sources"
+          />
+
+          <InstrumentList
+            :instrument="instruments"
+          />
         </div>
 
         </div>

@@ -1,45 +1,56 @@
 <script setup lang="ts">
+import type { GenreSource } from "~/types/genre";
 
+const props = defineProps<{
+  sources: GenreSource[]
+}>()
 
+const sourceRows = computed(() =>
+  props.sources.slice(0, 5)
+)
 </script>
 
 <template>
-  <div :class="$style.sourcelist">
-    <div :class="$style.divsideCardHead">
-      <div :class="$style.span">
-        <div :class="$style.cardTitle">Sources</div>
+  <UCard
+    class="border border-border bg-surface shadow-none"
+    :ui="{
+      header: 'border-b border-border bg-surface-2 px-4 py-3',
+      body: 'px-0 py-0',
+      footer: 'hidden'
+    }"
+  >
+    <template #header>
+      <div class="flex items-center justify-between">
+        <p class="text-sm text-space-50">
+          Sources
+        </p>
+        <p class="font-mono text-[11px] text-[#373d5a]">
+          {{ props.sources.length }}
+        </p>
       </div>
+    </template>
+
+    <div v-if="sourceRows.length" class="divide-y divide-border">
+      <div
+        v-for="(source, index) in sourceRows"
+        :key="index"
+        class="flex items-center justify-between gap-3 px-4 py-3"
+      >
+          <div class="min-w-0">
+            <ULink
+              :to="source.sourceLink"
+              class="truncate font-mono text-[11px] tracking-[0.12em] text-aurora hover:text-aurora"
+            >
+              {{ source.sourceLink }}
+            </ULink>
+          </div>
+        </div>
+
+      </div>
+    <div v-else class="px-4 py-5 text-sm text-[#6f789b]">
+      Sources will appear here if available.
     </div>
-    <div :class="$style.divsideCardBody">
-      <div :class="$style.div">
-        <div :class="$style.source">
-          <span>Stewart, J. (2004). </span>
-          <span :class="$style.afropop">Afropop!</span>
-          <span> Heinemann.</span>
-        </div>
-      </div>
-      <div :class="$style.div2">
-        <div :class="$style.source">
-          <span>Allen, T. (2013). </span>
-          <span :class="$style.afropop">Tony Allen: An Autobiography.</span>
-          <span> Duke<br/>UP.</span>
-        </div>
-      </div>
-      <div :class="$style.div2">
-        <div :class="$style.source">
-          <span>Veal, M. (2000). </span>
-          <span :class="$style.afropop">Fela: The Life and Times of an<br/>African Musical Icon.</span>
-        </div>
-      </div>
-      <div :class="$style.div4">
-        <div :class="$style.source4">
-          <span>Moore, C. (1982). </span>
-          <span :class="$style.afropop">Fela Fela: This Bitch of a Life.<br/></span>
-          <span>Allison & Busby.</span>
-        </div>
-      </div>
-    </div>
-  </div>
+  </UCard>
 </template>
 <style  module>.sourcelist {
   width: 100%;
