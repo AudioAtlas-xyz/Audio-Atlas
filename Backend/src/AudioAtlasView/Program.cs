@@ -219,25 +219,10 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-<<<<<<< HEAD
 //app.UseHttpsRedirection();
 
 app.UseCors("AllowFrontend");
 
-=======
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-    app.UseCors("FrontendDev");
-}
-else
-{
-    app.UseHttpsRedirection();
-}
-
-app.MapControllers();
->>>>>>> e77d3f93639e7c7d214d81e92ddc143219b9dd81
 app.UseAuthentication();
 app.UseAuthorization();
 
