@@ -57,7 +57,9 @@ public class GenreRepository : IGenreRepository
             .Include(g => g.SimilarGenres)
             .Include(g => g.SubGenres)
             .Include(g => g.Aliases)
+            .Include(g => g.Sources)
             .Include(g => g.Countries)
+            .Include(g => g.Instruments)
             .Where(g => g.Id == id)
             .Single();
 
@@ -141,5 +143,11 @@ public class GenreRepository : IGenreRepository
     {
         return _dbcontext.Genres.ToList();
     }
-        
+
+    public ICollection<Genre> getGenresByAuthorId(Guid id)
+    {
+
+        return _dbcontext.Genres.Where(g => g.AuthorId == id).ToList();
+
+    }
 }   

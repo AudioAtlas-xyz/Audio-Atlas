@@ -177,11 +177,18 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var ctx = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    var seedLogger = scope.ServiceProvider.GetRequiredService<ILogger<DbInitializer>>();
+    var services = scope.ServiceProvider;
+
+    var ctx = services.GetRequiredService<AppDbContext>();
+    var seedLogger = services.GetRequiredService<ILogger<DbInitializer>>();
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+
     app.Logger.LogInformation("Running database migration and seed.");
-    ctx.Database.Migrate(); // works fine on ubuntu. bitchass
-    DbInitializer.SeedDatabase(ctx, seedLogger);
+
+    ctx.Database.Migrate();
+
+    await DbInitializer.SeedDatabase(ctx, userManager, seedLogger);
+
     app.Logger.LogInformation("Database migration and seed completed.");
     ViewDebugger.DebugToFile(ctx);
 }

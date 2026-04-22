@@ -1,16 +1,13 @@
 using AudioAtlasApplication.Repositories;
+using AudioAtlasDomain.Users;
 using AudioAtlasInfrastructure.Database;
-using AudioAtlasInfrastructure.Repositories;
 using AudioAtlasInfrastructure.Database.Seed;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
+using AudioAtlasInfrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace AudioAtlasTestServices;
 
@@ -21,6 +18,7 @@ public class TestService : IDisposable
     private readonly IServiceScope _serviceScope;
     private readonly ServiceProvider _serviceProvider;
     private readonly ILogger<DbInitializer> _logger;
+    private readonly UserManager<ApplicationUser> _userManager;
     
     public AppDbContext _context { get; }
     public ICountryRepository  _countryRepository { get; }
@@ -36,6 +34,10 @@ public class TestService : IDisposable
         
         services.AddDbContext<AppDbContext>(o => o.UseSqlite(_connection));
         services.AddLogging();
+        services
+            .AddIdentityCore<ApplicationUser>()
+            .AddRoles<IdentityRole<Guid>>()
+            .AddEntityFrameworkStores<AppDbContext>();
 
         services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<IGenreRepository, GenreRepository>();
@@ -44,15 +46,16 @@ public class TestService : IDisposable
         
         _serviceScope = _serviceProvider.CreateScope();
         
-        _logger = _serviceScope.ServiceProvider.GetService<ILogger<DbInitializer>>();
+        _logger = _serviceScope.ServiceProvider.GetRequiredService<ILogger<DbInitializer>>();
         _context = _serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
+        _userManager = _serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         
         _countryRepository = _serviceScope.ServiceProvider.GetRequiredService<ICountryRepository>();
         _genreRepository = _serviceScope.ServiceProvider.GetRequiredService<IGenreRepository>();
         
         _context.Database.EnsureCreated();
         
-        DbInitializer.SeedDatabase(_context, _logger);
+        DbInitializer.SeedDatabase(_context, _userManager, _logger).GetAwaiter().GetResult();
     }
 
     public void Dispose()
