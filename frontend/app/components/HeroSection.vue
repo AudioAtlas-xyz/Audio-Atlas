@@ -2,7 +2,7 @@
 const { breadCrumbItems, badges, name } = defineProps<{
   breadCrumbItems: Array<{ label: string, to: string, active?: boolean }>
   badges: string[]
-  name: string
+  name: string | undefined
 }>()
 </script>
 

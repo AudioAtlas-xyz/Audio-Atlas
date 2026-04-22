@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxtjs/google-fonts'
   ],
+
   googleFonts: {
     families: {
       'Space Grotesk': [300, 400, 500, 600],
@@ -14,25 +15,16 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-   vite: {
+  vite: {
     optimizeDeps: {
       include: [
         'globe.gl',
         '@vue/devtools-core',
         '@vue/devtools-kit',
-        'three',
+        'three'
       ]
     }
   },
-
-  googleFonts: {
-    families: {
-      'Space Grotesk': [300, 400, 500, 600],
-      'Space Mono': [400, 700]
-    }
-  },
-
-  css: ['~/assets/css/main.css'],
 
   devtools: {
     enabled: true
@@ -51,6 +43,20 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
-  }
+  },
 
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://localhost:5085/api'
+    }
+  },
+
+  nitro: {
+    devProxy: {
+      '/api': {
+        target: 'http://localhost:5085/api',
+        changeOrigin: true
+      }
+    }
+  }
 })
