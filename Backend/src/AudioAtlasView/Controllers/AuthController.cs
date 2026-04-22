@@ -135,9 +135,10 @@ public class AuthController : ControllerBase
         await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
         return Redirect(
-            $"{_frontendBaseUrl}/#newUser=true" +
-            $"&pendingRegistrationId={pendingRegistration.Id}" +
-            $"&suggestedUsername={Uri.EscapeDataString(pendingRegistration.SuggestedUsername)}"
+        $"{_frontendBaseUrl}/auth/callback" +
+        $"?newUser=true" +
+        $"&pendingRegistrationId={pendingRegistration.Id}" +
+        $"&suggestedUsername={Uri.EscapeDataString(pendingRegistration.SuggestedUsername)}"
         );
     }
 
@@ -254,7 +255,7 @@ public class AuthController : ControllerBase
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Email, user.Email!),
-            new Claim(ClaimTypes.Name, user.UserName!) // 👈 added
+            new Claim(ClaimTypes.Name, user.UserName!)
         };
 
         var token = new JwtSecurityToken(

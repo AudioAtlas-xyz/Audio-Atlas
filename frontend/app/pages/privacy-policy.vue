@@ -1,3 +1,10 @@
+<script setup>
+import { useHead } from '#imports'
+
+useHead({
+  title: 'Privacy Policy - Audio Atlas'
+})
+</script>
 <template>
   <main class="legal-page">
     <div class="legal-container">
