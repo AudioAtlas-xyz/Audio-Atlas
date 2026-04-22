@@ -56,17 +56,29 @@ public class GenreService : IGenreService
             SubGenres = genre.SubGenres.Select(subGenre => new GenreDTO
             {
                 Id = subGenre.Id,
-                Name = subGenre.Name
+                Name = subGenre.Name,
+                Countries = subGenre.Countries.Select(country => new CountryDTO{
+                    Id = country.Id,
+                    Name = country.Name,
+                }).ToList()
             }).ToList(),
             ParentGenres = genre.ParentGenres.Select(parentGenre => new GenreDTO
             {
                 Id = parentGenre.Id,
-                Name = parentGenre.Name
+                Name = parentGenre.Name,
+                Countries = parentGenre.Countries.Select(country => new CountryDTO{
+                    Id = country.Id,
+                    Name = country.Name,
+                }).ToList()
             }).ToList(),
             SimilarGenres = genre.SimilarGenres.Select(similarGenre => new GenreDTO
             {
                 Id = similarGenre.Id,
-                Name = similarGenre.Name
+                Name = similarGenre.Name,
+                Countries = similarGenre.Countries.Select(country => new CountryDTO{
+                    Id = country.Id,
+                    Name = country.Name, 
+                }).ToList()
             }).ToList()
         };
     }
