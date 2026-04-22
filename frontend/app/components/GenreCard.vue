@@ -6,10 +6,6 @@ const props = defineProps<{
   genre: Genre
 }>()
 
-console.log('🎵 GenreCard:', props.genre.name)
-console.log('   Countries:', props.genre.countries)
-console.log('   Countries length:', props.genre.countries?.length)
-
 const metaItems = computed(() =>
   [props.genre.aliases?.[0]].filter((value): value is string => Boolean(value))
 )
