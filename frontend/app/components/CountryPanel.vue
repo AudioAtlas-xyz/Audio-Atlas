@@ -9,6 +9,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['close'])
 const config = useRuntimeConfig()
+const countryPageHref = computed(() => `/CountryPage?countryId=${props.countryId}`)
 
 const data = ref<Country | null>(null)
 const pending = ref(false)
@@ -100,9 +101,9 @@ const errorMessage = computed(() => {
           <div v-else-if="data" class="space-y-6">
             <section class="space-y-3">
               <div class="flex items-start justify-between gap-4">
-                <h3 class="text-3xl font-bold text-space-50">
+                <NuxtLink :to="countryPageHref" class="text-3xl font-bold text-space-50 transition hover:text-[#8ddbe6]">
                   {{ data.name }}
-                </h3>
+                </NuxtLink>
                 <UBadge v-if="data.continent" color="neutral" variant="soft">
                   {{ data.continent }}
                 </UBadge>
@@ -137,7 +138,7 @@ const errorMessage = computed(() => {
                 color="neutral"
                 variant="soft"
                 title="No genres yet"
-                description="No genres have been returned for this country yet."
+                description="No genres have been added for this country yet."
               />
 
               <div v-else class="grid gap-3">

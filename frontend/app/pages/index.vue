@@ -5,7 +5,6 @@ import AppHeader from './../components/Appheader.vue'
 import { useScrollIntro } from './../composables/useScrollIntro'
 
 const { progress, finished } = useScrollIntro()
-const demoCountryId = '06d584ed-80a4-40e4-b7e7-fd1a499e9e05'
 
 const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
 const settledPov = { lat: 16, lng: 0, altitude: 2.15 }
@@ -41,9 +40,10 @@ const closeCountryPanel = () => {
   selectedCountryId.value = null
 }
 
-const openDemoCountryPanel = () => {
-  selectedCountryId.value = demoCountryId
+const handleCountryClick = (countryId: string) => {
+  selectedCountryId.value = countryId
 }
+
 </script>
 
 <template>
@@ -60,7 +60,7 @@ const openDemoCountryPanel = () => {
       class="demo-panel-button"
       color="neutral"
       variant="solid"
-      @click="openDemoCountryPanel"
+      @click="handleCountryClick('06d584ed-80a4-40e4-b7e7-fd1a499e9e05')"
     >
       open dk
     </UButton>
@@ -73,6 +73,7 @@ const openDemoCountryPanel = () => {
             :initial-point-of-view="landingPov"
             :point-of-view="globePov"
             :globe-offset="globeOffset"
+            @country-click="handleCountryClick"
           />
         </div>
       </ClientOnly>
