@@ -1,24 +1,33 @@
-<script setup>
+<script setup lang="ts">
 import { useHead } from '#imports'
 
+/**
+ * Set page title for Contribution Guidelines
+ */
 useHead({
   title: 'Contribution Guidelines - Audio Atlas'
 })
 </script>
 
 <template>
+  <!-- Main page wrapper -->
   <main class="legal-page">
     <div class="legal-container">
+
+      <!-- Page title -->
       <h1>Contribution Guidelines</h1>
 
+      <!-- Metadata -->
       <p class="meta">
         Last updated: March 2026
       </p>
 
+      <!-- Intro quote -->
       <blockquote>
         Thank you for helping build the living map of the world's music.
       </blockquote>
 
+      <!-- Code of Conduct -->
       <section>
         <h2>Code of Conduct</h2>
         <p>
@@ -29,9 +38,11 @@ useHead({
         </p>
       </section>
 
+      <!-- Contribution methods -->
       <section>
         <h2>How to Contribute</h2>
 
+        <!-- Genre data -->
         <h3>Contributing Genre Data</h3>
         <p>
           You can contribute either through the website contribution form or directly through the GitHub repository.
@@ -45,6 +56,7 @@ useHead({
           <li>Instruments where applicable</li>
         </ul>
 
+        <!-- Code contribution -->
         <h3>Contributing Code</h3>
         <ol>
           <li>Check existing issues</li>
@@ -56,6 +68,7 @@ useHead({
         </ol>
       </section>
 
+      <!-- Pull request guidelines -->
       <section>
         <h2>Pull Request Process</h2>
         <ul>
@@ -67,6 +80,7 @@ useHead({
         </ul>
       </section>
 
+      <!-- Cultural sensitivity -->
       <section>
         <h2>Cultural Sensitivity Guidelines</h2>
         <p>
@@ -83,6 +97,7 @@ useHead({
         </ul>
       </section>
 
+      <!-- Licensing -->
       <section>
         <h2>Licensing & Copyright</h2>
 
@@ -106,6 +121,7 @@ useHead({
         </table>
       </section>
 
+      <!-- Maintainers -->
       <section>
         <h2>Maintainers</h2>
         <ul>
@@ -115,14 +131,18 @@ useHead({
 
         <p>
           Contact:
-          <a href="mailto:projectaudioatlas@gmail.com">projectaudioatlas@gmail.com</a>
+          <a href="mailto:projectaudioatlas@gmail.com">
+            projectaudioatlas@gmail.com
+          </a>
         </p>
       </section>
+
     </div>
   </main>
 </template>
 
 <style scoped>
+/* Page background and layout */
 .legal-page {
   min-height: 100vh;
   background: #02070a;
@@ -130,6 +150,7 @@ useHead({
   padding: 2rem 1.5rem 4rem;
 }
 
+/* Centered content container */
 .legal-container {
   max-width: 900px;
   margin: 0 auto;
@@ -140,16 +161,19 @@ useHead({
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
+/* Main heading */
 h1 {
   margin-top: 0;
   font-size: 2.5rem;
 }
 
+/* Metadata text */
 .meta {
   color: #8a92b8;
   margin-bottom: 2rem;
 }
 
+/* Highlighted quote */
 blockquote {
   margin: 0 0 2rem;
   padding: 1rem 1.25rem;
@@ -158,35 +182,42 @@ blockquote {
   color: #d6fff5;
 }
 
+/* Section spacing */
 section {
   margin-top: 2rem;
 }
 
+/* Section titles */
 h2 {
   color: #44f0c4;
   margin-bottom: 0.75rem;
 }
 
+/* Subsection titles */
 h3 {
   margin-top: 1.5rem;
   color: #eef2ff;
 }
 
+/* Text styling */
 p,
 li {
   line-height: 1.7;
   color: #d7ddff;
 }
 
+/* Lists */
 ul,
 ol {
   padding-left: 1.5rem;
 }
 
+/* Links */
 a {
   color: #8b8dff;
 }
 
+/* Table styling */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -204,4 +235,3 @@ th {
   background: rgba(120, 150, 255, 0.08);
 }
 </style>
-

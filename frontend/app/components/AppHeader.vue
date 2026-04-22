@@ -1,34 +1,42 @@
-<script setup>
+<script setup lang="ts">
 import GlassPanel from '@/components/GlassPanel.vue'
 import GlassButton from '@/components/GlassButton.vue'
 import { useAuth } from '@/composables/useAuth'
 
+/**
+ * Access global auth state and logout action
+ */
+const { user, logout } = useAuth()
 
-const auth = useAuth()
-const user = auth.user
-const logout = auth.logout
-const emit = defineEmits(['login'])
+/**
+ * Emit login event (used to open login modal in parent)
+ */
+const emit = defineEmits<{
+  (e: 'login'): void
+}>()
 </script>
 
 <template>
+  <!-- Fixed application header -->
   <header class="app-header">
     <GlassPanel class="nav-panel">
 
-      <!-- LEFT -->
+      <!-- Left: brand -->
       <div class="left">
         <NuxtLink to="/" class="brand">
           Audio Atlas
         </NuxtLink>
       </div>
 
-      <!-- CENTER -->
+      <!-- Center: navigation links -->
       <nav class="nav-links">
         <NuxtLink to="/explore">Explore</NuxtLink>
         <NuxtLink to="/about">About</NuxtLink>
       </nav>
 
-      <!-- RIGHT -->
+      <!-- Right: auth controls -->
       <div class="right">
+        <!-- Authenticated user -->
         <template v-if="user">
           <span class="user-email">
             {{ user.username || user.email }}
@@ -39,32 +47,33 @@ const emit = defineEmits(['login'])
           </GlassButton>
         </template>
 
-          <GlassButton
+        <!-- Guest user -->
+        <GlassButton
           v-else
           variant="primary"
-          @click="$emit('login')"
-          >
-            Sign in
-          </GlassButton>
+          @click="emit('login')"
+        >
+          Sign in
+        </GlassButton>
       </div>
     </GlassPanel>
   </header>
 </template>
 
 <style scoped>
+/* Fixed header container */
 .app-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-
   z-index: 50;
 
   display: flex;
   justify-content: center;
 }
 
-/* Container */
+/* Navigation panel wrapper */
 .nav-panel {
   display: flex;
   align-items: center;
@@ -77,14 +86,14 @@ const emit = defineEmits(['login'])
   border-bottom: 1px solid rgba(141, 219, 230, 0.15);
 }
 
-/* LEFT */
+/* Left section (brand) */
 .left {
   flex: 1;
   display: flex;
   justify-content: flex-start;
 }
 
-/* CENTER */
+/* Center section (navigation) */
 .nav-links {
   flex: 1;
   display: flex;
@@ -92,6 +101,7 @@ const emit = defineEmits(['login'])
   gap: 2rem;
 }
 
+/* Navigation link styling */
 .nav-links :deep(a) {
   font-size: 0.9rem;
   color: #8ddbe6;
@@ -103,7 +113,7 @@ const emit = defineEmits(['login'])
   opacity: 0.7;
 }
 
-/* RIGHT */
+/* Right section (auth controls) */
 .right {
   flex: 1;
   display: flex;
@@ -112,7 +122,7 @@ const emit = defineEmits(['login'])
   gap: 0.75rem;
 }
 
-/* BRAND */
+/* Brand styling */
 .brand {
   padding: 0.4rem 0.8rem;
   border-radius: 10px;

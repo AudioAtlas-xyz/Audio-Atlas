@@ -1,35 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 
+/**
+ * Initialize user session on app load
+ */
 const { fetchUser } = useAuth()
 
 onMounted(async () => {
-  const rawHash = window.location.hash
-
-  if (rawHash) {
-    const params = new URLSearchParams(rawHash.slice(1))
-
-    const token = params.get('token')
-    const newUser = params.get('newUser')
-
-    if (token) {
-      localStorage.setItem('token', token)
-
-      if (newUser === 'false') {
-        localStorage.setItem('showLoginBanner', 'true')
-      }
-
-      if (newUser === 'true') {
-        localStorage.setItem('showUsernameModal', 'true')
-      }
-
-      window.history.replaceState(null, '', '/')
-
-      return
-    }
-  }
-
   await fetchUser()
 })
 </script>

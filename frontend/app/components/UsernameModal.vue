@@ -1,39 +1,68 @@
-<script setup>
+<script setup lang="ts">
 import { ref, watch, computed, onMounted, nextTick } from 'vue'
 import GlassButton from '@/components/GlassButton.vue'
+import { useAuth } from '@/composables/useAuth'
 
+/**
+ * Runtime config (API base URL)
+ */
 const config = useRuntimeConfig()
 
-const props = defineProps({
-  pendingRegistrationId: {
-    type: String,
-    required: false
-  }
-})
+/**
+ * Global auth state
+ */
+const {
+  pendingRegistrationId,
+  suggestedUsername,
+  fetchUser
+} = useAuth()
 
+/**
+ * Emits
+ */
 const emit = defineEmits(['close', 'finished'])
 
+/**
+ * Local state
+ */
 const username = ref('')
 const acceptedGuidelines = ref(false)
 const acceptedPrivacy = ref(false)
 const loading = ref(false)
-const usernameStatus = ref('idle')
 
-const inputRef = ref(null)
+const usernameStatus = ref<
+  'idle' | 'checking' | 'available' | 'taken' | 'invalid'
+>('idle')
 
-let debounceTimeout = null
+/**
+ * Input ref (auto focus)
+ */
+const inputRef = ref<HTMLInputElement | null>(null)
 
+/**
+ * Debounce handler
+ */
+let debounceTimeout: ReturnType<typeof setTimeout> | null = null
+
+/**
+ * Initialize username from global state
+ */
 onMounted(async () => {
-  const saved = localStorage.getItem('suggestedUsername')
-  if (saved) username.value = saved
+  if (suggestedUsername.value) {
+    username.value = suggestedUsername.value
+  }
 
   await nextTick()
   inputRef.value?.focus()
 })
 
+/**
+ * Validate username with debounce
+ */
 watch(username, (value) => {
-  clearTimeout(debounceTimeout)
+  if (debounceTimeout) clearTimeout(debounceTimeout)
 
+  // basic validation
   if (!value || value.length < 3 || value.length > 20) {
     usernameStatus.value = 'invalid'
     return
@@ -43,9 +72,12 @@ watch(username, (value) => {
     try {
       usernameStatus.value = 'checking'
 
-      const res = await $fetch(`${config.public.apiBase}/api/auth/check-username`, {
-        params: { username: value }
-      })
+      const res = await $fetch<{ available: boolean }>(
+        `${config.public.backendBaseUrl}/api/auth/check-username`,
+        {
+          params: { username: value }
+        }
+      )
 
       usernameStatus.value = res.available ? 'available' : 'taken'
     } catch {
@@ -54,6 +86,9 @@ watch(username, (value) => {
   }, 400)
 })
 
+/**
+ * UI helpers
+ */
 const statusText = computed(() => {
   switch (usernameStatus.value) {
     case 'checking': return 'Checking username...'
@@ -66,55 +101,67 @@ const statusText = computed(() => {
 
 const statusClass = computed(() => ({
   success: usernameStatus.value === 'available',
-  error: usernameStatus.value === 'taken' || usernameStatus.value === 'invalid'
+  error:
+    usernameStatus.value === 'taken' ||
+    usernameStatus.value === 'invalid'
 }))
 
-const hasAcceptedAll = computed(() => {
-  return acceptedGuidelines.value && acceptedPrivacy.value
-})
+const hasAcceptedAll = computed(() =>
+  acceptedGuidelines.value && acceptedPrivacy.value
+)
 
-const canSubmit = computed(() => {
-  return (
-    !loading.value &&
-    hasAcceptedAll.value &&
-    usernameStatus.value === 'available'
-  )
-})
+const canSubmit = computed(() =>
+  !loading.value &&
+  hasAcceptedAll.value &&
+  usernameStatus.value === 'available'
+)
 
+/**
+ * Complete onboarding
+ */
 const finish = async () => {
-  const id =
-    props.pendingRegistrationId ||
-    localStorage.getItem('pendingRegistrationId')
+  const id = pendingRegistrationId.value
 
-  if (!canSubmit.value || !id) {
-    console.log('BLOCKED:', {
-      canSubmit: canSubmit.value,
-      id
-    })
-    return
-  }
+  if (!canSubmit.value || !id) return
 
   try {
     loading.value = true
 
-    const response = await $fetch(`${config.public.apiBase}/api/auth/complete-onboarding`, {
-      method: 'POST',
-      body: {
-        pendingRegistrationId: id,
-        username: username.value,
-        acceptedContributionGuidelines: acceptedGuidelines.value,
-        acceptedPrivacyPolicy: acceptedPrivacy.value
+    const response = await $fetch<{ token: string }>(
+      `${config.public.backendBaseUrl}/api/auth/complete-onboarding`,
+      {
+        method: 'POST',
+        body: {
+          pendingRegistrationId: id,
+          username: username.value,
+          acceptedContributionGuidelines: acceptedGuidelines.value,
+          acceptedPrivacyPolicy: acceptedPrivacy.value
+        }
       }
-    })
+    )
 
+    /**
+     * Save token
+     */
     localStorage.setItem('token', response.token)
 
-    localStorage.removeItem('pendingRegistrationId')
-    localStorage.removeItem('suggestedUsername')
+    /**
+     * 🔥 Sync UI with backend (CRITICAL FIX)
+     */
+    await fetchUser()
 
+    /**
+     * Clear onboarding state
+     */
+    pendingRegistrationId.value = null
+    suggestedUsername.value = null
+
+    /**
+     * Notify parent
+     */
     emit('finished')
   } catch (err) {
-    console.error('ONBOARDING ERROR:', err)
+    console.error('Onboarding failed:', err)
   } finally {
     loading.value = false
   }
@@ -122,7 +169,12 @@ const finish = async () => {
 </script>
 
 <template>
-  <div class="overlay" role="dialog" aria-modal="true" @click.self="emit('close')">
+  <div
+    class="overlay"
+    role="dialog"
+    aria-modal="true"
+    @click.self="emit('close')"
+  >
     <div class="modal">
       <button class="close" @click="emit('close')">×</button>
 
@@ -139,7 +191,10 @@ const finish = async () => {
 
       <div class="status-wrapper">
         <p class="status" :class="statusClass">
-          <span v-if="usernameStatus === 'checking'" class="spinner"></span>
+          <span
+            v-if="usernameStatus === 'checking'"
+            class="spinner"
+          />
           {{ statusText }}
         </p>
       </div>
@@ -160,7 +215,8 @@ const finish = async () => {
           <span>
             I agree to the
             <a href="/privacy-policy" target="_blank" class="link-green">
-              Privacy Policy              </a>
+              Privacy Policy
+            </a>
           </span>
         </label>
       </div>

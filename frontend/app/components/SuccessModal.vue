@@ -1,8 +1,12 @@
-<script setup>
+<script setup lang="ts">
+/**
+ * Emits event for closing the modal
+ */
 const emit = defineEmits(['close'])
 </script>
 
 <template>
+  <!-- Overlay background (click outside to close) -->
   <div
     class="overlay"
     role="dialog"
@@ -10,6 +14,7 @@ const emit = defineEmits(['close'])
     @click.self="emit('close')"
   >
     <div class="modal">
+      <!-- Close button -->
       <button
         class="close"
         aria-label="Close"
@@ -18,8 +23,10 @@ const emit = defineEmits(['close'])
         ×
       </button>
 
+      <!-- Success indicator -->
       <div class="checkmark">✓</div>
 
+      <!-- Success message -->
       <h2>Account created</h2>
       <p>You’re ready to explore Audio Atlas.</p>
     </div>
@@ -27,6 +34,7 @@ const emit = defineEmits(['close'])
 </template>
 
 <style scoped>
+/* Fullscreen overlay with blur background */
 .overlay {
   position: fixed;
   inset: 0;
@@ -41,6 +49,7 @@ const emit = defineEmits(['close'])
   animation: fadeIn 0.2s ease;
 }
 
+/* Modal container */
 .modal {
   position: relative;
   width: 420px;
@@ -56,6 +65,7 @@ const emit = defineEmits(['close'])
   animation: scaleIn 0.2s ease;
 }
 
+/* Close button styling */
 .close {
   position: absolute;
   top: 1rem;
@@ -67,6 +77,7 @@ const emit = defineEmits(['close'])
   cursor: pointer;
 }
 
+/* Animated success checkmark */
 .checkmark {
   width: 54px;
   height: 54px;
@@ -83,21 +94,25 @@ const emit = defineEmits(['close'])
   animation: popIn 0.25s ease;
 }
 
+/* Title */
 h2 {
   margin: 0 0 0.5rem;
   font-size: 1.4rem;
 }
 
+/* Subtitle text */
 p {
   margin: 0;
   color: #6b7395;
 }
 
+/* Fade-in animation */
 @keyframes fadeIn {
   from { opacity: 0 }
   to { opacity: 1 }
 }
 
+/* Scale-in animation */
 @keyframes scaleIn {
   from {
     transform: scale(0.95);
@@ -109,6 +124,7 @@ p {
   }
 }
 
+/* Checkmark pop animation */
 @keyframes popIn {
   from {
     transform: scale(0.6);

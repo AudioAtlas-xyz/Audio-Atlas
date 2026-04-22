@@ -1,13 +1,14 @@
-<script setup>
-defineProps({
-  username: {
-    type: String,
-    default: ''
-  }
-})
+<script setup lang="ts">
+/**
+ * Props: username to display in welcome banner
+ */
+const { username } = defineProps<{
+  username?: string
+}>()
 </script>
 
 <template>
+  <!-- Banner shown only if username is provided -->
   <div v-if="username" class="banner">
     Welcome back, {{ username }} 👋
   </div>

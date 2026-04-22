@@ -1,23 +1,84 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import Globe from '@/components/Globe.vue'
 import AppHeader from '@/components/AppHeader.vue'
 import CountryPanel from '@/components/CountryPanel.vue'
+import LoginModal from '@/components/LoginModal.vue'
+import UsernameModal from '@/components/UsernameModal.vue'
+import SuccessModal from '@/components/SuccessModal.vue'
+import LoginBanner from '@/components/LoginBanner.vue'
+import { useRoute } from 'vue-router'
 import { useScrollIntro } from '@/composables/useScrollIntro'
+import { useAuth } from '@/composables/useAuth'
 import { useHead } from '#imports'
 
+/**
+ * Page metadata
+ */
 useHead({
   title: 'Audio Atlas',
   meta: [
     { name: 'description', content: 'Explore music genres around the world' }
   ]
 })
+ const route = useRoute()
 
+
+/**
+ * Auth state (GLOBAL)
+ */
+const {
+  user,
+  fetchUser,
+  showLoginBanner,
+  showUsernameModal,
+  pendingRegistrationId
+} = useAuth()
+
+/**
+ * Fetch user on load (VERY important)
+ */
+
+onMounted(async () => {
+
+  const newUser = route.query.newUser
+  const pendingId = route.query.pendingRegistrationId
+  const suggested = route.query.suggestedUsername
+
+  if (newUser === 'true' && pendingId) {
+    showUsernameModal.value = true
+    pendingRegistrationId.value = String(pendingId)
+  }
+
+  if (newUser === 'false') {
+    showLoginBanner.value = true
+  }
+
+  await fetchUser()
+
+  window.history.replaceState({}, '', '/')
+})
+
+/**
+ * Scroll intro animation
+ */
 const { progress, finished } = useScrollIntro()
 
+/**
+ * Local UI state
+ */
+const showLoginModal = ref(false)
+const showSuccessModal = ref(false)
+
+/**
+ * Globe positions
+ */
 const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
 const settledPov = { lat: 54, lng: 12, altitude: 2.2 }
 
+/**
+ * Easing
+ */
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
 
 const eased = computed(() => {
@@ -25,15 +86,28 @@ const eased = computed(() => {
   return easeOut(easeOut(t))
 })
 
-const globeOffset = computed(() => {
+/**
+ * Globe offset
+ */
+const globeOffset = computed<[number, number]>(() => {
   if (process.server) return [0, 0]
-  return [0, Math.round((1 - eased.value) * window.innerHeight * 0.14)]
+
+  return [
+    0,
+    Math.round((1 - eased.value) * window.innerHeight * 0.14)
+  ]
 })
 
+/**
+ * Camera POV
+ */
 const globePov = computed(() =>
   finished.value ? settledPov : landingPov
 )
 
+/**
+ * Hero animation
+ */
 const pageStyle = computed(() => {
   const p = finished.value ? 1 : progress.value
 
@@ -43,20 +117,29 @@ const pageStyle = computed(() => {
   }
 })
 
-// LOGIN
+/**
+ * Login modal trigger
+ */
 const handleLogin = () => {
-  console.log('Login clicked')
+  showLoginModal.value = true
 }
 
-// COUNTRY STATE
+/**
+ * Username flow finished
+ */
+const handleUsernameFinished = () => {
+  showUsernameModal.value = false
+  showSuccessModal.value = true
+}
+
+/**
+ * Country state
+ */
 const selectedCountryId = ref<string | null>(null)
 
-const handleCountryClick = (country: any) => {
-  if (typeof country === 'string') {
-    selectedCountryId.value = country
-  } else {
-    selectedCountryId.value = country.isoA3
-  }
+const handleCountryClick = (country: { isoA3: string } | string) => {
+  selectedCountryId.value =
+    typeof country === 'string' ? country : country.isoA3
 }
 
 const closeCountryPanel = () => {
@@ -67,13 +150,19 @@ const closeCountryPanel = () => {
 <template>
   <main class="landing-page" :style="pageStyle">
 
-    <!-- HEADER -->
+    <!-- Header -->
     <AppHeader
       :visible="finished"
       @login="handleLogin"
     />
 
-    <!-- HERO -->
+    <!-- Login banner -->
+    <LoginBanner
+      v-if="showLoginBanner && user"
+      :username="user.username || user.email"
+    />
+
+    <!-- Hero -->
     <div class="hero-title">
       <p class="eyebrow">
         explorable by map <br>
@@ -82,7 +171,7 @@ const closeCountryPanel = () => {
       <h1>Audio Atlas</h1>
     </div>
 
-    <!-- GLOBE -->
+    <!-- Globe -->
     <div class="globe-layer">
       <ClientOnly>
         <div class="globe-motion">
@@ -97,7 +186,7 @@ const closeCountryPanel = () => {
       </ClientOnly>
     </div>
 
-    <!-- SIDE PANEL -->
+    <!-- Country panel -->
     <CountryPanel
       v-if="selectedCountryId"
       :country-id="selectedCountryId"
@@ -105,7 +194,28 @@ const closeCountryPanel = () => {
       @close="closeCountryPanel"
     />
 
-    <div class="scroll-spacer" aria-hidden="true" />
+    <div class="scroll-spacer" />
+
+    <!-- Login modal -->
+    <LoginModal
+      v-if="showLoginModal"
+      @close="showLoginModal = false"
+    />
+
+    <!-- Username onboarding (CRITICAL FIX) -->
+    <UsernameModal
+      v-if="showUsernameModal && pendingRegistrationId"
+      @close="showUsernameModal = false"
+
+      @finished="handleUsernameFinished"
+    />
+
+    <!-- Success modal -->
+    <SuccessModal
+      v-if="showSuccessModal"
+      @close="showSuccessModal = false"
+    />
+
 
   </main>
 </template>
@@ -163,7 +273,6 @@ html.globe-intro-complete body {
   opacity: var(--title-opacity);
   pointer-events: none;
   text-align: center;
-  will-change: transform, opacity;
 }
 
 .eyebrow {
@@ -181,22 +290,9 @@ h1 {
   font-size: 6.5rem;
   font-weight: 850;
   line-height: 0.88;
-  text-shadow: 0 1.5rem 4rem rgba(5, 23, 22, 0.7);
 }
 
 .scroll-spacer {
   height: 185vh;
-  pointer-events: none;
-}
-
-@media (max-width: 720px) {
-  .hero-title {
-    top: 16vh;
-    width: min(24rem, calc(100% - 2rem));
-  }
-
-  h1 {
-    font-size: 4rem;
-  }
 }
 </style>

@@ -1,42 +1,78 @@
-<script setup>
+<script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router'
 import { useHead } from '#imports'
+import { onMounted } from 'vue'
+import { useAuth } from '@/composables/useAuth'
 
+/**
+ * Router utilities
+ */
 const router = useRouter()
 const route = useRoute()
 
+/**
+ * Page metadata
+ */
 useHead({
   title: 'Signing in...'
 })
 
-if (process.client) {
-  const token = route.query.token
-  const newUser = route.query.newUser
-  const pendingRegistrationId = route.query.pendingRegistrationId
-  const suggestedUsername = route.query.suggestedUsername
+/**
+ * Access auth composable
+ */
+const {
+  fetchUser,
+  triggerLoginBanner,
+  openUsernameModal
+} = useAuth()
 
+/**
+ * Handle OAuth redirect
+ */
+onMounted(async () => {
+  const token = route.query.token as string | undefined
+  const newUser = route.query.newUser as string | undefined
+  const pendingId = route.query.pendingRegistrationId as string | undefined
+  const suggested = route.query.suggestedUsername as string | undefined
+
+  /**
+   * Save JWT
+   */
   if (token) {
     localStorage.setItem('token', token)
   }
 
+  /**
+   * Load user immediately
+   */
+  await fetchUser()
+
+  /**
+   * Existing user
+   */
   if (newUser === 'false') {
-    localStorage.setItem('showLoginBanner', 'true')
+    triggerLoginBanner()
   }
 
+  /**
+   * New user (onboarding)
+   */
   if (newUser === 'true') {
-    localStorage.setItem('showUsernameModal', 'true')
+    openUsernameModal(pendingId || null, suggested || null)}
 
-    if (pendingRegistrationId) {
-      localStorage.setItem('pendingRegistrationId', pendingRegistrationId)
-    }
+  /**
+   * Redirect
+   */
+  router.replace({
+  path: '/',
+  query: route.query
+})
 
-    if (suggestedUsername) {
-      localStorage.setItem('suggestedUsername', suggestedUsername)
-    }
-  }
-
-  window.history.replaceState({}, '', '/')
-
-  router.replace('/')
-}
+})
 </script>
+
+<template>
+  <div class="auth-callback">
+    <p>Signing you in...</p>
+  </div>
+</template>

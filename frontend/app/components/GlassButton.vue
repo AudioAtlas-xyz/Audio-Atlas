@@ -1,42 +1,53 @@
-<script setup>
-const props = defineProps({
-  tag: {
-    type: String,
-    default: 'button'
-  },
-  variant: {
-    type: String,
-    default: 'glass'
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  }
-})
+<script setup lang="ts">
+import type { Component } from 'vue'
 
-const emit = defineEmits(['click'])
+/**
+ * Props for flexible button component
+ * - tag: HTML tag or component (defaults to button)
+ * - variant: visual style (e.g. "glass", "primary")
+ * - disabled: disables interaction
+ */
+const props = defineProps<{
+  tag?: string | Component
+  variant?: string
+  disabled?: boolean
+}>()
 
-const handleClick = (e) => {
+/**
+ * Emit click event to parent
+ */
+const emit = defineEmits<{
+  (e: 'click', event: MouseEvent): void
+}>()
+
+/**
+ * Handle click:
+ * Prevent emitting if disabled
+ */
+const handleClick = (e: MouseEvent) => {
   if (props.disabled) return
   emit('click', e)
 }
 </script>
 
 <template>
+  <!-- Dynamic button element -->
   <component
-    :is="tag"
+    :is="props.tag || 'button'"
     class="glass-btn"
-    :class="[variant, { disabled: props.disabled }]"
-    :disabled="props.disabled"
-    :type="tag === 'button' ? 'button' : undefined"
+    :class="[props.variant || 'glass', { disabled: props.disabled }]"
+    :disabled="props.tag === 'button' ? props.disabled : undefined"
+    :type="props.tag === 'button' ? 'button' : undefined"
     :aria-disabled="props.disabled"
     @click="handleClick"
   >
+    <!-- Button content -->
     <slot />
   </component>
 </template>
 
 <style scoped>
+/* Base glass button style */
 .glass-btn {
   padding: 0.35rem 0.85rem;
   border: 1px solid rgba(141, 219, 230, 0.25);
@@ -57,17 +68,19 @@ const handleClick = (e) => {
     opacity 0.15s ease;
 }
 
+/* Hover state */
 .glass-btn:hover {
   background: rgba(141, 219, 230, 0.16);
   border-color: rgba(141, 219, 230, 0.4);
   color: #b5eaf2;
 }
 
+/* Active state */
 .glass-btn:active {
   background: rgba(141, 219, 230, 0.22);
 }
 
-/* PRIMARY */
+/* Primary variant */
 .glass-btn.primary {
   background-color: #3DE8C8;
   color: #02070a;
@@ -83,7 +96,7 @@ const handleClick = (e) => {
   transform: translateY(0);
 }
 
-/* DISABLED */
+/* Disabled state */
 .glass-btn.disabled,
 .glass-btn:disabled {
   opacity: 0.4;
