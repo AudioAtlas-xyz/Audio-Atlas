@@ -35,6 +35,22 @@ public class CountryRepository : ICountryRepository
     }
 
     /// <summary>
+    /// Retrieves a country from the database based on ISO 3166-1 alpha-3 code.
+    /// </summary>
+    /// <param name="isoCode"> ISO 3166-1 alpha-3 country code </param>
+    /// <returns> The country corresponding to the ISO code </returns>
+    public Country getCountryByIsoCode(string isoCode)
+    {
+        string normalizedIsoCode = isoCode.Trim().ToUpperInvariant();
+
+        return _dbcontext.Countries
+            .Where(c => c.isoCode.ToUpper() == normalizedIsoCode)
+            .Include(c => c.Genres)
+            .ThenInclude(g => g.Author)
+            .Single();
+    }
+
+    /// <summary>
     /// Retrieves all countries and their corresponding genre count from the database
     /// </summary>
     /// <returns> A dictionary of countries mapping to corresponding genre count </returns>

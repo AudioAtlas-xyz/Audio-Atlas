@@ -172,6 +172,22 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddAuthorization();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontendDev", policy =>
+    {
+        policy.WithOrigins(
+                "http://localhost:3000",
+                "http://127.0.0.1:3000",
+                "http://localhost:3001",
+                "http://127.0.0.1:3001",
+                "http://localhost:3002",
+                "http://127.0.0.1:3002"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 
 var app = builder.Build();
@@ -203,10 +219,25 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+<<<<<<< HEAD
 //app.UseHttpsRedirection();
 
 app.UseCors("AllowFrontend");
 
+=======
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.UseCors("FrontendDev");
+}
+else
+{
+    app.UseHttpsRedirection();
+}
+
+app.MapControllers();
+>>>>>>> e77d3f93639e7c7d214d81e92ddc143219b9dd81
 app.UseAuthentication();
 app.UseAuthorization();
 

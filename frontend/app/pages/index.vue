@@ -1,15 +1,24 @@
-<script setup>
-import { computed } from 'vue'
+<script setup lang="ts">
+import { computed, ref } from 'vue'
 import Globe from '@/components/Globe.vue'
+import AppHeader from '@/components/AppHeader.vue'
+import CountryPanel from '@/components/CountryPanel.vue'
 import { useScrollIntro } from '@/composables/useScrollIntro'
 import { useHead } from '#imports'
+
+useHead({
+  title: 'Audio Atlas',
+  meta: [
+    { name: 'description', content: 'Explore music genres around the world' }
+  ]
+})
 
 const { progress, finished } = useScrollIntro()
 
 const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
 const settledPov = { lat: 54, lng: 12, altitude: 2.2 }
 
-const easeOut = (t) => 1 - Math.pow(1 - t, 3)
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
 
 const eased = computed(() => {
   const t = finished.value ? 1 : progress.value
@@ -34,16 +43,46 @@ const pageStyle = computed(() => {
   }
 })
 
-useHead({
-  title: 'Audio Atlas',
-  meta: [
-    { name: 'description', content: 'Explore music genres around the world' }
-  ]
-})
+// LOGIN
+const handleLogin = () => {
+  console.log('Login clicked')
+}
+
+// COUNTRY STATE
+const selectedCountryId = ref<string | null>(null)
+
+const handleCountryClick = (country: any) => {
+  if (typeof country === 'string') {
+    selectedCountryId.value = country
+  } else {
+    selectedCountryId.value = country.isoA3
+  }
+}
+
+const closeCountryPanel = () => {
+  selectedCountryId.value = null
+}
 </script>
 
 <template>
   <main class="landing-page" :style="pageStyle">
+
+    <!-- HEADER -->
+    <AppHeader
+      :visible="finished"
+      @login="handleLogin"
+    />
+
+    <!-- HERO -->
+    <div class="hero-title">
+      <p class="eyebrow">
+        explorable by map <br>
+        growable by community
+      </p>
+      <h1>Audio Atlas</h1>
+    </div>
+
+    <!-- GLOBE -->
     <div class="globe-layer">
       <ClientOnly>
         <div class="globe-motion">
@@ -52,21 +91,22 @@ useHead({
             :initial-point-of-view="landingPov"
             :point-of-view="globePov"
             :globe-offset="globeOffset"
+            @country-click="handleCountryClick"
           />
         </div>
       </ClientOnly>
     </div>
 
-    <div class="hero-title">
-      <p class="eyebrow">
-        explorable by map <br>
-        growable by community
-      </p>
-
-      <h1>Audio Atlas</h1>
-    </div>
+    <!-- SIDE PANEL -->
+    <CountryPanel
+      v-if="selectedCountryId"
+      :country-id="selectedCountryId"
+      :open="Boolean(selectedCountryId)"
+      @close="closeCountryPanel"
+    />
 
     <div class="scroll-spacer" aria-hidden="true" />
+
   </main>
 </template>
 
