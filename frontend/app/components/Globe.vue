@@ -20,6 +20,7 @@ let lastPovKey = ''
 let lastWidth = 0
 let lastHeight = 0
 
+
 const props = defineProps({
   introComplete: {
     type: Boolean,
