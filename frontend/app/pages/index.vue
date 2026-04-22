@@ -79,15 +79,6 @@ const closeCountryPanel = () => {
     </div>
 
     <!-- GLOBE-->
-    <UButton
-      class="demo-panel-button"
-      color="neutral"
-      variant="solid"
-      @click="handleCountryClick('06d584ed-80a4-40e4-b7e7-fd1a499e9e05')"
-    >
-      open dk
-    </UButton>
-
     <div class="globe-layer">
       <ClientOnly>
         <div class="globe-motion">
@@ -102,6 +93,7 @@ const closeCountryPanel = () => {
       </ClientOnly>
     </div>
 
+    <!-- SIDE PANEL -->
     <CountryPanel
       v-if="selectedCountryId"
       :country-id="selectedCountryId"
