@@ -6,9 +6,9 @@ const props = defineProps<{
 }>()
 
 const contributorRows = computed(() =>
-  props.contributors.slice(0, 3).map(contributor => ({
+  props.contributors.slice(0, 5).map(contributor => ({
     ...contributor,
-    genresLabel: formatGenreCount(contributor.genresCount ?? 0)
+    genresLabel: formatGenreCount(contributor.genreCount ?? 0)
   }))
 )
 

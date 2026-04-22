@@ -54,10 +54,15 @@ public class GenreRepository : IGenreRepository
     {
         return _dbcontext.Genres
             .Include(g => g.ParentGenres)
+                .ThenInclude(pg => pg.Countries)
             .Include(g => g.SimilarGenres)
+                .ThenInclude(sim => sim.Countries)
             .Include(g => g.SubGenres)
+                .ThenInclude(sg => sg.Countries)
             .Include(g => g.Aliases)
+            .Include(g => g.Sources)
             .Include(g => g.Countries)
+            .Include(g => g.Instruments)
             .Where(g => g.Id == id)
             .Single();
 
@@ -141,5 +146,11 @@ public class GenreRepository : IGenreRepository
     {
         return _dbcontext.Genres.ToList();
     }
-        
+
+    public ICollection<Genre> getGenresByAuthorId(Guid id)
+    {
+
+        return _dbcontext.Genres.Where(g => g.AuthorId == id).ToList();
+
+    }
 }   

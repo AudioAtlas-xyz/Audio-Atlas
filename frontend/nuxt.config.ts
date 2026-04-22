@@ -24,6 +24,16 @@ export default defineNuxtConfig({
       ]
     }
   },
+
+  googleFonts: {
+    families: {
+      'Space Grotesk': [300, 400, 500, 600],
+      'Space Mono': [400, 700]
+    }
+  },
+
+  css: ['~/assets/css/main.css'],
+
   devtools: {
     enabled: true
   },

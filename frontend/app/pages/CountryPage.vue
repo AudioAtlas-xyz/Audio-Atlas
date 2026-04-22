@@ -15,12 +15,12 @@ const countryId = computed(() => {
 })
 
 //Her henter vi dataen fra backend API. I skal lave en DTO som matcher 1-1 med JSON respons. Så Kan Nuxt selv mappe respons to objektet.
-//På denne måde kan i så refere til values på et objekt, istedet for json strings. DTO'en skal angives i både useAsyncData og i $fetch 
+//På denne måde kan i så refere til values på et objekt, istedet for json strings. DTO'en skal angives i både useAsyncData og i $fetch
 const { data, pending, error } = await useAsyncData<Country | null>(
   //nedenstående string er en nøgle. Når vi henter data, cacher vi det hos klienten under denne nøgle. Hvis klienten
   //Forespørger samme land igen, henter vi ikke fra API'et, men henter fra cache. Så undgår vi stress på backend
   'country-page',
-  
+
   //Async kald her er nødvendigt for at få et promise (pending objektet). Uden async kald står frontend aktivt og venter,
   //og loader ingen visuelle elementer.
   async () => {
@@ -107,7 +107,7 @@ useHead(() => ({
               <USkeleton class="h-4 w-40 rounded-md bg-surface-2" />
             </div>
           </div>
-          
+
           <CountryHeroSection
             v-else-if="country"
             :location-badges="locationBadges"
