@@ -36,7 +36,7 @@ const pageDescription = computed(() => {
 const name = computed(() => genre.value?.name)
 const startYear = computed(()=> genre.value?.startYear)
 const isSensitive = computed(()=> genre.value?.isSensitive ?? false)
-const sensitivityDescription = computed(() => {genre.value?.sensitiveDescription ?? undefined})
+const sensitivityDescription = computed(() => genre.value?.sensitiveDescription)
 const countries = computed(()=> genre.value?.countries?? [])
 const contributors = computed(() => genre.value?.contributors ?? [])
 
