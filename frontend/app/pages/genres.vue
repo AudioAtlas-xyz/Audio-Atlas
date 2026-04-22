@@ -139,7 +139,7 @@ const breadcrumbItems = computed(() =>
       <section class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-8 sm:px-10 lg:py-10">
         <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
           <GenreInfo
-            :is-sensitive="true"
+            :is-sensitive="isSensitive"
             :sensitivity-description="sensitivityDescription"
             :pageDescription="pageDescription"
             :similar-genres="similarGenres"
