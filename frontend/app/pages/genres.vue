@@ -33,7 +33,7 @@ const pageDescription = computed(() => {
 
   return genre.value.description
 })
-const name = computed(() => genre.value.name)
+const name = computed(() => genre.value?.name)
 const startYear = computed(()=> genre.value?.startYear)
 const isSensitive = computed(()=> genre.value?.isSensitive ?? false)
 const sensitivityDescription = computed(() => {genre.value?.sensitiveDescription ?? undefined})
