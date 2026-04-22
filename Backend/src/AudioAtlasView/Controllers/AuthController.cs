@@ -188,8 +188,6 @@ public IActionResult GoogleLogin()
         if (existingUser != null)
             return Conflict(new { message = "Username is already in use." });
 
-        await using var transaction = await _dbContext.Database.BeginTransactionAsync();
-
         var user = new ApplicationUser
         {
             UserName = request.Username,
@@ -215,7 +213,6 @@ public IActionResult GoogleLogin()
 
         _dbContext.PendingExternalRegistrations.Remove(pendingRegistration);
         await _dbContext.SaveChangesAsync();
-        await transaction.CommitAsync();
 
         var token = GenerateJwtToken(user);
 

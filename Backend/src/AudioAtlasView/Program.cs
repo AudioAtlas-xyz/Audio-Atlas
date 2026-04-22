@@ -31,7 +31,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         connectionString));
 
 builder.Services
-    .AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
+    .AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>}
+
     {
         options.SignIn.RequireConfirmedAccount = false;
         options.User.RequireUniqueEmail = true;
