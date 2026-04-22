@@ -1,104 +1,49 @@
 <script setup>
-import { computed, ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import Globe from './../components/Globe.vue'
-import AppHeader from '../components/Appheader.vue'
-import LoginModal from './../components/LoginModal.vue'
-import UsernameModal from './../components/UsernameModal.vue'
-import SuccessModal from './../components/SuccessModal.vue'
-import { useScrollIntro } from './../composables/useScrollIntro'
-import { useAuth } from '@/composables/useAuth'
+import { computed } from 'vue'
+import Globe from '@/components/Globe.vue'
+import { useScrollIntro } from '@/composables/useScrollIntro'
+import { useHead } from '#imports'
 
-const { user, fetchUser } = useAuth()
 const { progress, finished } = useScrollIntro()
 
 const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
-const settledPov = { lat: 16, lng: 0, altitude: 2.15 }
+const settledPov = { lat: 54, lng: 12, altitude: 2.2 }
 
 const easeOut = (t) => 1 - Math.pow(1 - t, 3)
-const eased = computed(() => easeOut(finished.value ? 1 : progress.value))
+
+const eased = computed(() => {
+  const t = finished.value ? 1 : progress.value
+  return easeOut(easeOut(t))
+})
 
 const globeOffset = computed(() => {
-  if (process.client) {
-    return [0, Math.round((1 - eased.value) * window.innerHeight * 0.14)]
-  }
-  return [0, 0]
+  if (process.server) return [0, 0]
+  return [0, Math.round((1 - eased.value) * window.innerHeight * 0.14)]
 })
 
 const globePov = computed(() =>
-  finished.value ? { ...settledPov } : { ...landingPov }
+  finished.value ? settledPov : landingPov
 )
 
 const pageStyle = computed(() => {
   const p = finished.value ? 1 : progress.value
+
   return {
-    '--title-opacity': Math.max(0, 1 - p * 1.55).toFixed(3),
+    '--title-opacity': Math.max(0, 1 - p * 1.55),
     '--title-lift': `${Math.round(p * -88)}px`
   }
 })
 
-const showLoginModal = ref(false)
-const showUsernameModal = ref(false)
-const showSuccessModal = ref(false)
-
-const route = useRoute()
-
-const handleLogin = () => {
-  showLoginModal.value = true
-}
-
-const handleUsernameFinished = () => {
-  showUsernameModal.value = false
-  showSuccessModal.value = true
-}
-
-onMounted(() => {
-  const token = route.query.token
-
-  if (typeof token === 'string') {
-    localStorage.setItem('token', token)
-    showLoginModal.value = false
-  }
-
-  const newUser = route.query.newUser
-
-  if (newUser === 'true') {
-    showUsernameModal.value = true
-  }
-
-  if (newUser === 'false') {
-    showSuccessModal.value = true
-  }
-
-  fetchUser()
+useHead({
+  title: 'Audio Atlas',
+  meta: [
+    { name: 'description', content: 'Explore music genres around the world' }
+  ]
 })
 </script>
 
 <template>
   <main class="landing-page" :style="pageStyle">
-
-    <AppHeader @login="handleLogin" />
-
-    <!-- ALL MODALS HERE -->
-    <LoginModal
-      v-if="showLoginModal"
-      @close="showLoginModal = false"
-    />
-
-    <UsernameModal
-      v-if="showUsernameModal"
-      :pending-registration-id="String(route.query.pendingRegistrationId || '')"
-      @close="showUsernameModal = false"
-      @finished="handleUsernameFinished"
-      console.log(route.query)
-    />
-
-    <SuccessModal
-      v-if="showSuccessModal"
-      @close="showSuccessModal = false"
-    />
-
-    <!-- Globe stays behind everything -->
     <div class="globe-layer">
       <ClientOnly>
         <div class="globe-motion">
@@ -156,8 +101,7 @@ html.globe-intro-complete body {
   z-index: 1;
   inset: 0;
   overflow: hidden;
-
-  pointer-events: none; /* 👈 prevents blocking UI */
+  pointer-events: auto;
 
   background:
     radial-gradient(circle at 50% 12%, rgba(98, 194, 210, 0.2), transparent 34rem),

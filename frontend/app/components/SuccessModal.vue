@@ -3,14 +3,25 @@ const emit = defineEmits(['close'])
 </script>
 
 <template>
-  <div class="overlay" @click.self="emit('close')">
+  <div
+    class="overlay"
+    role="dialog"
+    aria-modal="true"
+    @click.self="emit('close')"
+  >
     <div class="modal">
-      <button class="close" @click="emit('close')">×</button>
+      <button
+        class="close"
+        aria-label="Close"
+        @click="emit('close')"
+      >
+        ×
+      </button>
 
       <div class="checkmark">✓</div>
 
-      <h2>Account created successfully!</h2>
-      <p>Discover music genres now!</p>
+      <h2>Account created</h2>
+      <p>You’re ready to explore Audio Atlas.</p>
     </div>
   </div>
 </template>
@@ -20,10 +31,14 @@ const emit = defineEmits(['close'])
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+
+  animation: fadeIn 0.2s ease;
 }
 
 .modal {
@@ -35,6 +50,10 @@ const emit = defineEmits(['close'])
   border: 1px solid rgba(120, 150, 255, 0.18);
   text-align: center;
   color: #eef2ff;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+  animation: scaleIn 0.2s ease;
 }
 
 .close {
@@ -60,6 +79,8 @@ const emit = defineEmits(['close'])
   justify-content: center;
   font-size: 1.4rem;
   font-weight: bold;
+
+  animation: popIn 0.25s ease;
 }
 
 h2 {
@@ -70,5 +91,32 @@ h2 {
 p {
   margin: 0;
   color: #6b7395;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 </style>

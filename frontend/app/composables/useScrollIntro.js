@@ -13,8 +13,9 @@ export function useScrollIntro({ scrollMultiplier = 0.85 } = {}) {
     progress.value = 1
 
     document.documentElement.classList.add('globe-intro-complete')
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-  }
+    requestAnimationFrame(() => {
+     window.scrollTo({ top: 0, left: 0 })
+    })  }
 
   const update = () => {
     if (finished.value) return
@@ -39,11 +40,13 @@ export function useScrollIntro({ scrollMultiplier = 0.85 } = {}) {
   }
 
   onMounted(() => {
+    if (process.server) return
+
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual'
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    window.scrollTo({ top: 0, left: 0 })
     document.documentElement.classList.remove('globe-intro-complete')
 
     update()
@@ -53,6 +56,8 @@ export function useScrollIntro({ scrollMultiplier = 0.85 } = {}) {
   })
 
   onBeforeUnmount(() => {
+    if (process.server) return
+
     document.documentElement.classList.remove('globe-intro-complete')
 
     window.removeEventListener('scroll', onScroll)

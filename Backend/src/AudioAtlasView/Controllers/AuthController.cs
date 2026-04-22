@@ -1,4 +1,4 @@
-namespace AudioAtlasView.Controllers;
+﻿namespace AudioAtlasView.Controllers;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Authorization;
 using AudioAtlasInfrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
-
 
 [ApiController]
 [Route("api/auth")]
@@ -42,60 +41,67 @@ public class AuthController : ControllerBase
         _frontendBaseUrl = config["Frontend:BaseUrl"] ?? "http://localhost:3000";
     }
 
+    // LOGIN
     [AllowAnonymous]
-[HttpGet("login/github")]
-public IActionResult GitHubLogin()
-{
-    var redirectUrl = Url.Action(nameof(ExternalCallback));
-    var properties = _signInManager.ConfigureExternalAuthenticationProperties(
-        "GitHub",
-        redirectUrl);
+    [HttpGet("login/github")]
+    public IActionResult GitHubLogin()
+    {
+        var redirectUrl = Url.Action(nameof(ExternalCallback), "Auth");
+        var properties = _signInManager.ConfigureExternalAuthenticationProperties("GitHub", redirectUrl);
 
-    return Challenge(properties, "GitHub");
-}
+        return Challenge(properties, "GitHub");
+    }
 
-[AllowAnonymous]
-[HttpGet("login/google")]
-public IActionResult GoogleLogin()
-{
-    var redirectUrl = Url.Action(nameof(ExternalCallback));
-    var properties = _signInManager.ConfigureExternalAuthenticationProperties(
-        "Google",
-        redirectUrl);
+    [AllowAnonymous]
+    [HttpGet("login/google")]
+    public IActionResult GoogleLogin()
+    {
+        var redirectUrl = Url.Action(nameof(ExternalCallback), "Auth");
+        var properties = _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
 
-    return Challenge(properties, "Google");
-}
+        return Challenge(properties, "Google");
+    }
+
+    // CALLBACK
 
     [AllowAnonymous]
     [HttpGet("external-callback")]
     public async Task<IActionResult> ExternalCallback()
     {
+        // Clean expired pending registrations
+        await _dbContext.PendingExternalRegistrations
+            .Where(x => x.ExpiresAtUtc <= DateTime.UtcNow)
+            .ExecuteDeleteAsync();
+
         var info = await _signInManager.GetExternalLoginInfoAsync();
 
         if (info == null)
             return Unauthorized();
 
         var user = await _userManager.FindByLoginAsync(
-        info.LoginProvider,
-        info.ProviderKey);
+            info.LoginProvider,
+            info.ProviderKey);
 
-       if (user != null)
-    {
-        await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+        // EXISTING USER
+        if (user != null)
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-        var existingToken = GenerateJwtToken(user);
+            var token = GenerateJwtToken(user);
 
-        return Redirect(
-            $"{_frontendBaseUrl}/?newUser=false&token={Uri.EscapeDataString(existingToken)}"
-        );
-    }
+            return Redirect(
+                $"{_frontendBaseUrl}/auth/callback?token={token}&newUser=false"
+            );
+        }
 
+        // NEW USER FLOW
         var email = info.Principal.FindFirst(ClaimTypes.Email)?.Value;
 
         if (string.IsNullOrWhiteSpace(email))
             return BadRequest("No verified email available from external provider.");
 
         var suggestedUsername = BuildSuggestedUsername(info.Principal.Identity?.Name ?? email);
+
         var pendingRegistration = await _dbContext.PendingExternalRegistrations
             .SingleOrDefaultAsync(x =>
                 x.LoginProvider == info.LoginProvider &&
@@ -129,23 +135,20 @@ public IActionResult GoogleLogin()
         await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
         return Redirect(
-            $"{_frontendBaseUrl}/?" +
-            $"newUser=true" +
+            $"{_frontendBaseUrl}/#newUser=true" +
             $"&pendingRegistrationId={pendingRegistration.Id}" +
             $"&suggestedUsername={Uri.EscapeDataString(pendingRegistration.SuggestedUsername)}"
         );
     }
+
+    // USERNAME CHECK
 
     [AllowAnonymous]
     [HttpGet("check-username")]
     public async Task<IActionResult> CheckUsername([FromQuery] string username)
     {
         if (string.IsNullOrWhiteSpace(username))
-            return BadRequest(new
-            {
-                available = false,
-                message = "Username is required."
-            });
+            return BadRequest(new { available = false, message = "Username is required." });
 
         if (!IsValidUsername(username))
             return Ok(new
@@ -165,15 +168,17 @@ public IActionResult GoogleLogin()
         });
     }
 
+    // COMPLETE ONBOARDING
+
     [AllowAnonymous]
     [HttpPost("complete-onboarding")]
     public async Task<IActionResult> CompleteOnboarding([FromBody] CompleteOnboardingRequest request)
     {
         if (!request.AcceptedContributionGuidelines || !request.AcceptedPrivacyPolicy)
-            return BadRequest("Contribution guidelines and privacy policy must both be accepted.");
+            return BadRequest("You must accept both policies.");
 
         if (!IsValidUsername(request.Username))
-            return BadRequest("Username must be 3-20 characters and contain only letters, numbers, or underscores.");
+            return BadRequest("Invalid username format.");
 
         var pendingRegistration = await _dbContext.PendingExternalRegistrations
             .SingleOrDefaultAsync(x => x.Id == request.PendingRegistrationId);
@@ -182,11 +187,11 @@ public IActionResult GoogleLogin()
             return NotFound("Pending registration not found.");
 
         if (pendingRegistration.ExpiresAtUtc <= DateTime.UtcNow)
-            return BadRequest("Pending registration has expired. Please restart OAuth login.");
+            return BadRequest("Registration expired.");
 
         var existingUser = await _userManager.FindByNameAsync(request.Username);
         if (existingUser != null)
-            return Conflict(new { message = "Username is already in use." });
+            return Conflict(new { message = "Username already in use." });
 
         var user = new ApplicationUser
         {
@@ -200,16 +205,14 @@ public IActionResult GoogleLogin()
 
         var createResult = await _userManager.CreateAsync(user);
         if (!createResult.Succeeded)
-            return BadRequest(new { errors = createResult.Errors });
+            return BadRequest(createResult.Errors);
 
         var loginInfo = new UserLoginInfo(
             pendingRegistration.LoginProvider,
             pendingRegistration.ProviderKey,
             pendingRegistration.ProviderDisplayName);
 
-        var addLoginResult = await _userManager.AddLoginAsync(user, loginInfo);
-        if (!addLoginResult.Succeeded)
-            return BadRequest(new { errors = addLoginResult.Errors });
+        await _userManager.AddLoginAsync(user, loginInfo);
 
         _dbContext.PendingExternalRegistrations.Remove(pendingRegistration);
         await _dbContext.SaveChangesAsync();
@@ -223,37 +226,35 @@ public IActionResult GoogleLogin()
         });
     }
 
-    [Authorize]
-    [HttpGet("protected")]
-    public IActionResult Protected()
-    {
-        return Ok("You are authenticated");
-    }
+    // AUTH TEST
 
     [Authorize]
     [HttpGet("me")]
     public IActionResult Me()
     {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        var email = User.FindFirst(ClaimTypes.Email)?.Value;
-
         return Ok(new
         {
-            userId,
-            email
+            userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
+            email = User.FindFirst(ClaimTypes.Email)?.Value,
+            username = User.FindFirst(ClaimTypes.Name)?.Value
         });
     }
+
+    // JWT
 
     private string GenerateJwtToken(ApplicationUser user)
     {
         var key = new SymmetricSecurityKey(
-        Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));        
+            Encoding.UTF8.GetBytes(_config["Jwt:Key"]!)
+        );
+
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var claims = new[]
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Email, user.Email!)
+            new Claim(ClaimTypes.Email, user.Email!),
+            new Claim(ClaimTypes.Name, user.UserName!) // 👈 added
         };
 
         var token = new JwtSecurityToken(
@@ -261,55 +262,55 @@ public IActionResult GoogleLogin()
             audience: _config["Jwt:Audience"],
             claims: claims,
             expires: DateTime.UtcNow.AddHours(1),
-            signingCredentials: creds);
+            signingCredentials: creds
+        );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+
+    // HELPERS
 
     private static bool IsValidUsername(string username)
         => UsernameRegex.IsMatch(username);
 
     private static string BuildSuggestedUsername(string input)
     {
-        var sanitizedBuilder = new StringBuilder();
-        var previousWasUnderscore = false;
+        var builder = new StringBuilder();
+        var prevUnderscore = false;
 
-        foreach (var character in input)
+        foreach (var c in input)
         {
-            if (char.IsLetterOrDigit(character))
+            if (char.IsLetterOrDigit(c))
             {
-                sanitizedBuilder.Append(character);
-                previousWasUnderscore = false;
+                builder.Append(c);
+                prevUnderscore = false;
             }
-            else if (!previousWasUnderscore && (character == '_' || character == '-' || character == '.' || char.IsWhiteSpace(character)))
+            else if (!prevUnderscore)
             {
-                sanitizedBuilder.Append('_');
-                previousWasUnderscore = true;
+                builder.Append('_');
+                prevUnderscore = true;
             }
         }
 
-        var sanitized = sanitizedBuilder.ToString().Trim('_');
+        var result = builder.ToString().Trim('_');
 
-        if (string.IsNullOrWhiteSpace(sanitized))
-            sanitized = "user";
+        if (string.IsNullOrWhiteSpace(result))
+            result = "user";
 
-        if (sanitized.Length < 3)
-            sanitized = $"{sanitized}user";
+        if (result.Length < 3)
+            result += "user";
 
-        if (sanitized.Length > 20)
-            sanitized = sanitized[..20];
+        if (result.Length > 20)
+            result = result[..20];
 
-        return sanitized;
+        return result;
     }
 }
 
 public sealed class CompleteOnboardingRequest
 {
     public Guid PendingRegistrationId { get; set; }
-
     public string Username { get; set; } = string.Empty;
-
     public bool AcceptedContributionGuidelines { get; set; }
-
     public bool AcceptedPrivacyPolicy { get; set; }
 }

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import GlassButton from '@/components/GlassButton.vue'
 
 const config = useRuntimeConfig()
@@ -15,32 +15,70 @@ const emit = defineEmits(['close', 'finished'])
 
 const username = ref('')
 const acceptedTerms = ref(false)
+const loading = ref(false)
+const usernameStatus = ref(null)
 
-const finish = async () => {
-  if (!props.pendingRegistrationId) {
-    console.error('Missing pendingRegistrationId')
+let debounceTimeout = null
+
+watch(username, (value) => {
+  usernameStatus.value = null
+
+  if (!value || value.length < 3 || value.length > 20) {
+    usernameStatus.value = 'invalid'
     return
   }
 
-  const response = await $fetch(`${config.public.apiBase}/api/auth/complete-onboarding`, {
-    method: 'POST',
-    body: {
-      pendingRegistrationId: props.pendingRegistrationId,
-      username: username.value,
-      acceptedContributionGuidelines: acceptedTerms.value,
-      acceptedPrivacyPolicy: acceptedTerms.value
-    }
-  })
+  clearTimeout(debounceTimeout)
 
-  localStorage.setItem('token', response.token)
-  emit('finished')
+  debounceTimeout = setTimeout(async () => {
+    try {
+      usernameStatus.value = 'checking'
+
+      const res = await $fetch(`${config.public.apiBase}/api/auth/check-username`, {
+        params: { username: value }
+      })
+
+      usernameStatus.value = res.available ? 'available' : 'taken'
+    } catch {
+      usernameStatus.value = 'invalid'
+    }
+  }, 400)
+})
+
+const finish = async () => {
+  if (
+    !props.pendingRegistrationId ||
+    loading.value ||
+    usernameStatus.value !== 'available'
+  ) return
+
+  try {
+    loading.value = true
+
+    const response = await $fetch(`${config.public.apiBase}/api/auth/complete-onboarding`, {
+      method: 'POST',
+      body: {
+        pendingRegistrationId: props.pendingRegistrationId,
+        username: username.value,
+        acceptedContributionGuidelines: acceptedTerms.value,
+        acceptedPrivacyPolicy: acceptedTerms.value
+      }
+    })
+
+    localStorage.setItem('token', response.token)
+    emit('finished')
+  } catch (err) {
+    console.error(err)
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
 <template>
-  <div class="overlay" @click.self="emit('close')">
+  <div class="overlay" role="dialog" aria-modal="true" @click.self="emit('close')">
     <div class="modal">
-      <button class="close" @click="emit('close')">×</button>
+      <button class="close" aria-label="Close" @click="emit('close')">×</button>
 
       <h2>Choose a username</h2>
 
@@ -51,8 +89,20 @@ const finish = async () => {
         class="username-input"
       >
 
-      <p class="status">
-        Username available.
+      <p class="status" v-if="usernameStatus === 'checking'">
+        Checking username...
+      </p>
+
+      <p class="status success" v-if="usernameStatus === 'available'">
+        Username available ✓
+      </p>
+
+      <p class="status error" v-if="usernameStatus === 'taken'">
+        Username is already taken
+      </p>
+
+      <p class="status error" v-if="usernameStatus === 'invalid'">
+        3–20 characters, letters/numbers/underscore only
       </p>
 
       <label class="checkbox-row">
@@ -60,13 +110,9 @@ const finish = async () => {
 
         <span>
           By creating an account, I agree to the
-          <a href="/contribution-guidelines" target="_blank">
-            contribution guidelines
-          </a>
+          <a href="/contribution-guidelines" target="_blank">contribution guidelines</a>
           and
-          <a href="/privacy-policy" target="_blank">
-            privacy policy
-          </a>.
+          <a href="/privacy-policy" target="_blank">privacy policy</a>.
         </span>
       </label>
 
@@ -77,10 +123,10 @@ const finish = async () => {
 
         <GlassButton
           variant="primary"
-          :disabled="!acceptedTerms || username.length < 3 || username.length > 25"
+          :disabled="loading || !acceptedTerms || usernameStatus !== 'available'"
           @click="finish"
         >
-        Finish
+          {{ loading ? 'Creating...' : 'Finish' }}
         </GlassButton>
       </div>
     </div>
@@ -92,6 +138,8 @@ const finish = async () => {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -105,7 +153,7 @@ const finish = async () => {
   border-radius: 18px;
   background: #050816;
   border: 1px solid rgba(120, 150, 255, 0.18);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   color: #eef2ff;
 }
 
@@ -146,7 +194,14 @@ h2 {
 .status {
   margin-top: 0.55rem;
   font-size: 0.75rem;
+}
+
+.status.success {
   color: #44f0c4;
+}
+
+.status.error {
+  color: #ff6b6b;
 }
 
 .checkbox-row {
@@ -173,30 +228,5 @@ h2 {
   display: flex;
   justify-content: space-between;
   margin-top: 1.5rem;
-}
-
-.cancel,
-.finish {
-  border: none;
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  font-size: 0.78rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.cancel {
-  background: #8b8dff;
-  color: #101322;
-}
-
-.finish {
-  background: #44f0c4;
-  color: #071117;
-}
-
-.finish:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
 }
 </style>

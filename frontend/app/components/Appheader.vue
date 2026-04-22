@@ -3,7 +3,10 @@ import GlassPanel from '@/components/GlassPanel.vue'
 import GlassButton from '@/components/GlassButton.vue'
 import { useAuth } from '@/composables/useAuth'
 
-const { user, logout } = useAuth()
+
+const auth = useAuth()
+const user = auth.user
+const logout = auth.logout
 const emit = defineEmits(['login'])
 </script>
 
@@ -27,10 +30,12 @@ const emit = defineEmits(['login'])
       <!-- RIGHT -->
       <div class="right">
         <template v-if="user">
-          <span class="user-email">{{ user.email }}</span>
+          <span class="user-email">
+            {{ user.username || user.email }}
+          </span>
 
           <GlassButton @click="logout">
-          Logout
+            Logout
           </GlassButton>
         </template>
 

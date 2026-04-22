@@ -31,15 +31,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         connectionString));
 
 builder.Services
-    .AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>}
-
+    .AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
     {
         options.SignIn.RequireConfirmedAccount = false;
         options.User.RequireUniqueEmail = true;
     })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
-
 
 //Dependency injection HAS TO be here, or else mapping of controllers will crash.
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
@@ -64,7 +62,8 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(allowedOrigins!)
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 

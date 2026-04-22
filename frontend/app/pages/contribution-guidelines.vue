@@ -120,7 +120,7 @@
   min-height: 100vh;
   background: #02070a;
   color: #eef2ff;
-  padding: 4rem 1.5rem;
+  padding: 2rem 1.5rem 4rem;
 }
 
 .legal-container {

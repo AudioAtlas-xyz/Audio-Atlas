@@ -13,31 +13,42 @@ const loginWithGithub = () => {
 </script>
 
 <template>
-  <div class="overlay" @click.self="emit('close')">
+  <div
+    class="overlay"
+    role="dialog"
+    aria-modal="true"
+    @click.self="emit('close')"
+  >
     <div class="modal">
-      <button class="close" @click="emit('close')">×</button>
+      <button
+        class="close"
+        aria-label="Close"
+        @click="emit('close')"
+      >
+        ×
+      </button>
 
-      <h2>Log In</h2>
+      <h2>Log in</h2>
       <p>Log in to contribute</p>
 
       <button class="oauth-button" @click="loginWithGoogle">
-        Log in with Google
+        Continue with Google
       </button>
 
       <button class="oauth-button github" @click="loginWithGithub">
-        Log in with GitHub
+        Continue with GitHub
       </button>
     </div>
   </div>
 </template>
 
 <style scoped>
-/* Overlay (background blur + fade) */
 .overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +57,6 @@ const loginWithGithub = () => {
   animation: fadeIn 0.2s ease;
 }
 
-/* Modal (pop-in animation) */
 .modal {
   width: 420px;
   padding: 2rem;
@@ -58,10 +68,11 @@ const loginWithGithub = () => {
   flex-direction: column;
   gap: 1rem;
 
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
   animation: scaleIn 0.2s ease;
 }
 
-/* Close button */
 .close {
   position: absolute;
   top: 1rem;
@@ -73,7 +84,6 @@ const loginWithGithub = () => {
   cursor: pointer;
 }
 
-/* Buttons */
 .oauth-button {
   padding: 0.9rem;
   border-radius: 10px;
@@ -91,13 +101,15 @@ const loginWithGithub = () => {
   opacity: 0.9;
 }
 
-/* Optional GitHub style variant */
+.oauth-button:active {
+  transform: translateY(0);
+}
+
 .oauth-button.github {
   background: #24292e;
   color: white;
 }
 
-/* Animations */
 @keyframes fadeIn {
   from { opacity: 0 }
   to { opacity: 1 }

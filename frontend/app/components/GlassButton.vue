@@ -26,8 +26,10 @@ const handleClick = (e) => {
   <component
     :is="tag"
     class="glass-btn"
-    :class="[variant, { disabled }]"
-    :disabled="disabled"
+    :class="[variant, { disabled: props.disabled }]"
+    :disabled="props.disabled"
+    :type="tag === 'button' ? 'button' : undefined"
+    :aria-disabled="props.disabled"
     @click="handleClick"
   >
     <slot />
@@ -81,7 +83,7 @@ const handleClick = (e) => {
   transform: translateY(0);
 }
 
-/* 🔥 DISABLED STATE */
+/* DISABLED */
 .glass-btn.disabled,
 .glass-btn:disabled {
   opacity: 0.4;

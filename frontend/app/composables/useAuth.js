@@ -1,29 +1,55 @@
-import { ref } from 'vue'
+export const useAuth = () => {
+  const user = useState('auth_user', () => null)
 
-const user = ref(null)
+  const parseJwt = (token) => {
+    try {
+      return JSON.parse(atob(token.split('.')[1]))
+    } catch {
+      return null
+    }
+  }
 
-const fetchUser = async () => {
-  const token = localStorage.getItem('token')
-  if (!token) return
+  const isExpired = (token) => {
+    if (!token) return true
 
-  try {
-    user.value = await $fetch('http://localhost:5000/api/auth/me', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  } catch {
+    const payload = parseJwt(token)
+    if (!payload?.exp) return true
+
+    return payload.exp < Date.now() / 1000
+  }
+
+  const fetchUser = async () => {
+    if (process.server) return
+
+    const token = localStorage.getItem('token')
+    const config = useRuntimeConfig()
+
+    if (!token || isExpired(token)) {
+      logout()
+      return
+    }
+
+    try {
+      user.value = await $fetch(`${config.public.apiBase}/api/auth/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+    } catch {
+      logout()
+    }
+  }
+
+  const logout = () => {
+    if (process.client) {
+      localStorage.removeItem('token')
+    }
     user.value = null
   }
-}
 
-const logout = () => {
-  localStorage.removeItem('token')
-  user.value = null
+  return {
+    user,
+    fetchUser,
+    logout
+  }
 }
-
-export const useAuth = () => ({
-  user,
-  fetchUser,
-  logout
-})
