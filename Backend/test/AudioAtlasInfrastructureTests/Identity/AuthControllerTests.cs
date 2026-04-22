@@ -10,6 +10,9 @@ using AudioAtlasInfrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
+
 
 namespace AudioAtlasInfrastructureTests.Identity;
 
@@ -612,6 +615,274 @@ public async Task ExternalCallback_WhenUserAlreadyExists_ReturnsRedirectWithToke
     Assert.Contains("http://localhost:3000/auth/callback", redirect.Url);
     Assert.Contains("newUser=false", redirect.Url);
     Assert.Contains("token=", redirect.Url);
+}
+
+private static Mock<SignInManager<ApplicationUser>> CreateSignInManager(
+    UserManager<ApplicationUser> userManager)
+{
+    var contextAccessor = new Mock<IHttpContextAccessor>();
+    var claimsFactory = new Mock<IUserClaimsPrincipalFactory<ApplicationUser>>();
+
+    return new Mock<SignInManager<ApplicationUser>>(
+        userManager,
+        contextAccessor.Object,
+        claimsFactory.Object,
+        null!,
+        null!,
+        null!,
+        null!);
+}
+
+private static AuthController CreateController(
+    AppDbContext dbContext,
+    UserManager<ApplicationUser> userManager,
+    SignInManager<ApplicationUser> signInManager,
+    string frontendUrl)
+{
+    var config = new ConfigurationBuilder()
+        .AddInMemoryCollection(new Dictionary<string, string?>
+        {
+            { "Frontend:BaseUrl", frontendUrl },
+            { "Jwt:Key", "super_secret_test_key_that_is_long_enough_12345" },
+            { "Jwt:Issuer", "AudioAtlas" },
+            { "Jwt:Audience", "AudioAtlasUsers" }
+        })
+        .Build();
+
+    var controller = new AuthController(
+        dbContext,
+        userManager,
+        signInManager,
+        config);
+
+    var authService = new Mock<IAuthenticationService>();
+
+    var services = new ServiceCollection();
+    services.AddSingleton(authService.Object);
+
+    controller.ControllerContext = new ControllerContext
+    {
+        HttpContext = new DefaultHttpContext
+        {
+            RequestServices = services.BuildServiceProvider()
+        }
+    };
+
+    return controller;
+}
+
+    [Theory]
+[InlineData("")]
+public async Task CompleteOnboarding_WhenUsernameIsNullOrEmpty_ReturnsBadRequest(string? username)
+{
+    var controller = new AuthController(
+        null!,
+        null!,
+        null!,
+        new ConfigurationBuilder().Build());
+
+    var request = new CompleteOnboardingRequest
+    {
+        Username = username,
+        AcceptedContributionGuidelines = true,
+        AcceptedPrivacyPolicy = true
+    };
+
+    var result = await controller.CompleteOnboarding(request);
+
+    Assert.IsType<BadRequestObjectResult>(result);
+}
+
+[Fact]
+public async Task CompleteOnboarding_WhenCreateUserFails_ReturnsBadRequest()
+{
+    var options = new DbContextOptionsBuilder<AppDbContext>()
+        .UseInMemoryDatabase(Guid.NewGuid().ToString())
+        .Options;
+
+    using var dbContext = new AppDbContext(options);
+
+    var pendingId = Guid.NewGuid();
+
+    dbContext.PendingExternalRegistrations.Add(new PendingExternalRegistration
+    {
+        Id = pendingId,
+        Email = "test@test.com",
+        LoginProvider = "Google",
+        ProviderKey = "123",
+        ProviderDisplayName = "Google",
+        SuggestedUsername = "newuser",
+        CreatedAtUtc = DateTime.UtcNow,
+        ExpiresAtUtc = DateTime.UtcNow.AddMinutes(10)
+    });
+
+    await dbContext.SaveChangesAsync();
+
+    var store = new Mock<IUserStore<ApplicationUser>>();
+
+    var userManager = new Mock<UserManager<ApplicationUser>>(
+        store.Object,
+        null!, null!, null!, null!, null!, null!, null!, null!);
+
+    userManager
+        .Setup(x => x.FindByNameAsync("newuser"))
+        .ReturnsAsync((ApplicationUser?)null);
+
+    userManager
+        .Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>()))
+        .ReturnsAsync(IdentityResult.Failed(new IdentityError
+        {
+            Description = "Create failed"
+        }));
+
+    var controller = new AuthController(
+        dbContext,
+        userManager.Object,
+        null!,
+        new ConfigurationBuilder().Build());
+
+    var result = await controller.CompleteOnboarding(new CompleteOnboardingRequest
+    {
+        PendingRegistrationId = pendingId,
+        Username = "newuser",
+        AcceptedContributionGuidelines = true,
+        AcceptedPrivacyPolicy = true
+    });
+
+    Assert.IsType<BadRequestObjectResult>(result);
+}
+
+[Fact]
+public async Task CompleteOnboarding_WhenAddLoginFails_StillReturnsToken()
+{
+    var options = new DbContextOptionsBuilder<AppDbContext>()
+        .UseInMemoryDatabase(Guid.NewGuid().ToString())
+        .Options;
+
+    using var dbContext = new AppDbContext(options);
+
+    var pendingId = Guid.NewGuid();
+
+    dbContext.PendingExternalRegistrations.Add(new PendingExternalRegistration
+    {
+        Id = pendingId,
+        Email = "test@test.com",
+        LoginProvider = "Google",
+        ProviderKey = "123",
+        ProviderDisplayName = "Google",
+        SuggestedUsername = "newuser",
+        CreatedAtUtc = DateTime.UtcNow,
+        ExpiresAtUtc = DateTime.UtcNow.AddMinutes(10)
+    });
+
+    await dbContext.SaveChangesAsync();
+
+    var store = new Mock<IUserStore<ApplicationUser>>();
+
+    var userManager = new Mock<UserManager<ApplicationUser>>(
+        store.Object,
+        null!, null!, null!, null!, null!, null!, null!, null!);
+
+    userManager
+        .Setup(x => x.FindByNameAsync("newuser"))
+        .ReturnsAsync((ApplicationUser?)null);
+
+    userManager
+        .Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>()))
+        .ReturnsAsync(IdentityResult.Success);
+
+    userManager
+        .Setup(x => x.AddLoginAsync(
+            It.IsAny<ApplicationUser>(),
+            It.IsAny<UserLoginInfo>()))
+        .ReturnsAsync(IdentityResult.Failed(new IdentityError
+        {
+            Description = "Add login failed"
+        }));
+
+    var config = new ConfigurationBuilder()
+        .AddInMemoryCollection(new Dictionary<string, string?>
+        {
+            { "Jwt:Key", "super_secret_test_key_that_is_long_enough_12345" },
+            { "Jwt:Issuer", "AudioAtlas" },
+            { "Jwt:Audience", "AudioAtlasUsers" }
+        })
+        .Build();
+
+    var controller = new AuthController(
+        dbContext,
+        userManager.Object,
+        null!,
+        config);
+
+    var result = await controller.CompleteOnboarding(new CompleteOnboardingRequest
+    {
+        PendingRegistrationId = pendingId,
+        Username = "newuser",
+        AcceptedContributionGuidelines = true,
+        AcceptedPrivacyPolicy = true
+    });
+
+    var okResult = Assert.IsType<OkObjectResult>(result);
+
+    Assert.NotNull(okResult.Value);
+
+    var responseText = okResult.Value.ToString();
+
+    Assert.Contains("token", responseText);
+}
+
+[Fact]
+public async Task ExternalCallback_WhenUserDoesNotExist_CreatesPendingRegistration()
+{
+    var connection = new Microsoft.Data.Sqlite.SqliteConnection("Filename=:memory:");
+    await connection.OpenAsync();
+
+    var options = new DbContextOptionsBuilder<AppDbContext>()
+        .UseSqlite(connection)
+        .Options;
+
+    using var dbContext = new AppDbContext(options);
+    await dbContext.Database.EnsureCreatedAsync();
+
+    var store = new Mock<IUserStore<ApplicationUser>>();
+
+    var userManager = new Mock<UserManager<ApplicationUser>>(
+        store.Object,
+        null!, null!, null!, null!, null!, null!, null!, null!);
+
+    userManager
+        .Setup(x => x.FindByLoginAsync("Google", "123"))
+        .ReturnsAsync((ApplicationUser?)null);
+
+    var signInManager = CreateSignInManager(userManager.Object);
+
+    signInManager
+        .Setup(x => x.GetExternalLoginInfoAsync(null))
+        .ReturnsAsync(new ExternalLoginInfo(
+            new ClaimsPrincipal(
+                new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.Email, "test@test.com"),
+                    new Claim(ClaimTypes.Name, "Cool User")
+                })),
+            "Google",
+            "123",
+            "Google"));
+
+    var controller = CreateController(
+        dbContext,
+        userManager.Object,
+        signInManager.Object,
+        "http://localhost:3000");
+
+    var result = await controller.ExternalCallback();
+
+    var redirect = Assert.IsType<RedirectResult>(result);
+
+    Assert.NotNull(redirect.Url);
+    Assert.Contains("newUser=true", redirect.Url);
+    Assert.Single(dbContext.PendingExternalRegistrations);
 }
 
 }

@@ -1,12 +1,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using Moq;
 using Xunit;
 using AudioAtlasView.Controllers;
 using AudioAtlasDomain.Users;
-using AudioAtlasInfrastructure.Database;
 
 namespace AudioAtlasInfrastructureTests.Identity;
 
@@ -32,7 +29,7 @@ public class JwtServiceTests
             signInManager: null!,
             config: config);
 
-       var user = new ApplicationUser
+        var user = new ApplicationUser
         {
             Id = Guid.NewGuid(),
             Email = "test@test.com",
@@ -59,5 +56,9 @@ public class JwtServiceTests
         Assert.Contains(jwt.Claims, c =>
             c.Type == System.Security.Claims.ClaimTypes.NameIdentifier &&
             c.Value == user.Id.ToString());
+
+        Assert.Equal("AudioAtlas", jwt.Issuer);
+
+        Assert.Contains("AudioAtlasUsers", jwt.Audiences);
     }
 }
