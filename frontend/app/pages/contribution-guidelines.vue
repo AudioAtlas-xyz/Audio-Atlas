@@ -1,3 +1,10 @@
+<script setup>
+import { useHead } from '#imports'
+
+useHead({
+  title: 'Contribution Guidelines - Audio Atlas'
+})
+</script>
 
 <template>
   <main class="legal-page">

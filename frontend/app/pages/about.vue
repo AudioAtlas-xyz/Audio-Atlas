@@ -1,4 +1,9 @@
 <script setup>
+import { useHead } from '#imports'
+
+useHead({
+  title: 'About - Audio Atlas'
+})
 </script>
 
 <template>
@@ -10,7 +15,10 @@
       <section>
         <h2>Audio Atlas</h2>
         <p>
-          Audio Atlas is an interactive, community-driven map of the world’s music. It connects genres across countries, cultures, and histories, and makes musical discovery visual, explorable, and collaborative.        </p>
+          Audio Atlas is an interactive, community-driven map of the world’s music.
+          It connects genres across countries, cultures, and histories, and makes
+          musical discovery visual, explorable, and collaborative.
+        </p>
       </section>
 
       <section>
@@ -18,24 +26,37 @@
 
         <h3>Discover</h3>
         <p>
-          Browse the interactive globe. Click a country to see its genres. Dive into any genre to learn about its history, sound, instruments, and connections to other genres.
+          Browse the interactive globe. Click a country to see its genres. Dive into any genre
+          to learn about its history, sound, instruments, and connections to other genres.
         </p>
 
         <h3>Contribute</h3>
         <p>
-          Create a free account with GitHub or Google. Submit genres using our structured form. Submissions are reviewed for quality and cultural sensitivity before going live.
+          Create a free account with GitHub or Google.
+          Read our
+          <NuxtLink to="/contribution-guidelines" class="link-green">
+            Contribution Guidelines
+          </NuxtLink>
+          and
+          <NuxtLink to="/privacy-policy" class="link-green">
+            Privacy Policy
+          </NuxtLink>.
+          Then submit genres using our structured form.
+          Submissions are reviewed for quality and cultural sensitivity before going live.
         </p>
 
         <h3>Connect</h3>
         <p>
-          Follow genre-to-genre links to trace how music styles influence each other across borders. Explore predecessors, sub-genres, and related genres worldwide.
+          Follow genre-to-genre links to trace how music styles influence each other across borders.
+          Explore predecessors, sub-genres, and related genres worldwide.
         </p>
       </section>
 
       <section>
         <h2>Open Source</h2>
         <p>
-          Audio Atlas is fully open source. The code is licensed under MIT, and all contributed content is licensed under CC BY-SA 4.0.
+          Audio Atlas is fully open source. The code is licensed under MIT,
+          and all contributed content is licensed under CC BY-SA 4.0.
         </p>
         <p>
           We believe knowledge about the world’s music should be freely accessible.
@@ -46,8 +67,9 @@
             href="https://github.com/AudioAtlas-xyz/Audio-Atlas"
             target="_blank"
             rel="noopener noreferrer"
+            class="link-green"
           >
-            View on GitHub →
+            View on GitHub ↗
           </a>
         </p>
       </section>
@@ -59,7 +81,7 @@
         </p>
 
         <p>
-          <a href="mailto:projectaudioatlas@gmail.com">
+          <a href="mailto:projectaudioatlas@gmail.com" class="link-green">
             projectaudioatlas@gmail.com
           </a>
         </p>
@@ -113,12 +135,21 @@ p {
   color: #d7ddff;
 }
 
+/* Default links */
 a {
-  color: #8b8dff;
   text-decoration: none;
 }
 
-a:hover {
-  opacity: 0.7;
+/* Consistent clickable green links */
+.link-green {
+  color: #44f0c4;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease, text-decoration 0.2s ease;
+}
+
+.link-green:hover {
+  opacity: 0.85;
+  text-decoration: underline;
 }
 </style>
