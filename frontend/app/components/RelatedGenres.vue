@@ -114,38 +114,6 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
   box-sizing: border-box;
   flex-shrink: 0;
 }
-.prosecard {
-  width: 192px;
-  height: 78px;
-  background-color: #0d0f1a;
-  border: 1px solid #1c2038;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 24px;
-}
-.titleAndDescription {
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-  flex-shrink: 0;
-}
-.title {
-  align-self: stretch;
-  position: relative;
-  line-height: 16px;
-  font-weight: 600;
-}
-.loremIpsumDolor {
-  align-self: stretch;
-  position: relative;
-  line-height: 20px;
-  font-family: 'Space Grotesk';
-  color: #252c48;
-}
 .divsideCardHead2 {
   align-self: stretch;
   border-bottom: 1px solid #1c2038;

@@ -11,7 +11,7 @@ const genreId = computed(() => {
 })
 
   const { data, pending, error } = await useAsyncData<GenrePageData | null>(
-    'genre-page',
+    () => `genre-page`,
     async () => {
       if (!genreId.value) {
         return null
