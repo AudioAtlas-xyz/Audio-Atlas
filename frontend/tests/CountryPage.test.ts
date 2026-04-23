@@ -152,7 +152,7 @@ describe('CountryPage', () => {
     const contributors = JSON.parse(wrapper.get('[data-test="contributors-props"]').text())
 
     expect(__getFetchCalls()).toEqual([
-      `http://localhost:5085/api/countries/${country.id}`
+      `/api/countries/${country.id}`
     ])
     expect(heroProps).toEqual({
       locationBadges: ['Americas', 'South America'],
@@ -224,7 +224,7 @@ describe('CountryPage', () => {
     const alerts = wrapper.findAll('[data-test="alert"]').map(node => node.text())
 
     expect(__getFetchCalls()).toEqual([
-      'http://localhost:5085/api/countries/broken-country'
+      '/api/countries/broken-country'
     ])
     expect(alerts).toContain('Could not load country data|Backend unavailable')
     expect(alerts).toContain('No genres documented yet|No genre data has been returned yet.')

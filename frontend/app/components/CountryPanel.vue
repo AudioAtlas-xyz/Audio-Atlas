@@ -24,7 +24,7 @@ const loadCountry = async () => {
   error.value = null
 
   try {
-    data.value = await $fetch<Country>(`${config.public.backendBaseUrl}/api/countries/${props.countryId}`)
+    data.value = await $fetch<Country>(`${config.public.apiBase}/countries/${props.countryId}`)
   }
   catch (caughtError) {
     data.value = null

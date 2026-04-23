@@ -73,7 +73,7 @@ watch(username, (value) => {
       usernameStatus.value = 'checking'
 
       const res = await $fetch<{ available: boolean }>(
-        `${config.public.backendBaseUrl}/api/auth/check-username`,
+        `${config.public.apiBase}/auth/check-username`,
         {
           params: { username: value }
         }
@@ -128,7 +128,7 @@ const finish = async () => {
     loading.value = true
 
     const response = await $fetch<{ token: string }>(
-      `${config.public.backendBaseUrl}/api/auth/complete-onboarding`,
+      `${config.public.apiBase}/auth/complete-onboarding`,
       {
         method: 'POST',
         body: {

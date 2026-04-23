@@ -17,7 +17,7 @@ export default defineConfig({
           vue: ['computed']
         },
         {
-          '#imports': ['useRoute', 'useAsyncData', 'useHead', '$fetch']
+          '#imports': ['useRoute', 'useRuntimeConfig', 'useAsyncData', 'useHead', '$fetch']
         }
       ]
     })

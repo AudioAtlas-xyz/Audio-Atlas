@@ -1,9 +1,4 @@
 export default defineNuxtConfig({
-  runtimeConfig: {
-    public: {
-      backendBaseUrl: 'http://localhost:5085'
-    }
-  },
   modules: [
     '@nuxt/ui',
     '@nuxt/eslint',
@@ -46,6 +41,15 @@ export default defineNuxtConfig({
         commaDangle: 'never',
         braceStyle: '1tbs'
       }
+    }
+  },
+
+  runtimeConfig: {
+    apiProxyTarget: process.env.NODE_ENV === 'production'
+      ? ''
+      : 'http://localhost:5085',
+    public: {
+      apiBase: '/api'
     }
   }
 })
