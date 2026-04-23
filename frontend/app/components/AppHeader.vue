@@ -1,0 +1,144 @@
+<script setup lang="ts">
+import GlassPanel from '@/components/GlassPanel.vue'
+import GlassButton from '@/components/GlassButton.vue'
+import { useAuth } from '@/composables/useAuth'
+
+/**
+ * Access global auth state and logout action
+ */
+const { user, logout } = useAuth()
+
+/**
+ * Emit login event (used to open login modal in parent)
+ */
+const emit = defineEmits<{
+  (e: 'login'): void
+}>()
+</script>
+
+<template>
+  <!-- Fixed application header -->
+  <header class="app-header">
+    <GlassPanel class="nav-panel">
+
+      <!-- Left: brand -->
+      <div class="left">
+        <NuxtLink to="/" class="brand">
+          Audio Atlas
+        </NuxtLink>
+      </div>
+
+      <!-- Center: navigation links -->
+      <nav class="nav-links">
+        <NuxtLink to="/explore">Explore</NuxtLink>
+        <NuxtLink to="/about">About</NuxtLink>
+      </nav>
+
+      <!-- Right: auth controls -->
+      <div class="right">
+        <!-- Authenticated user -->
+        <template v-if="user">
+          <span class="user-email">
+            {{ user.username || user.email }}
+          </span>
+
+          <GlassButton @click="logout">
+            Logout
+          </GlassButton>
+        </template>
+
+        <!-- Guest user -->
+        <GlassButton
+          v-else
+          variant="primary"
+          @click="emit('login')"
+        >
+          Sign in
+        </GlassButton>
+      </div>
+    </GlassPanel>
+  </header>
+</template>
+
+<style scoped>
+/* Fixed header container */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+
+  display: flex;
+  justify-content: center;
+}
+
+/* Navigation panel wrapper */
+.nav-panel {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  max-width: 90rem;
+  height: 3.5rem;
+  padding: 0 3rem;
+
+  border-bottom: 1px solid rgba(141, 219, 230, 0.15);
+}
+
+/* Left section (brand) */
+.left {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Center section (navigation) */
+.nav-links {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Navigation link styling */
+.nav-links :deep(a) {
+  font-size: 0.9rem;
+  color: #8ddbe6;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.nav-links :deep(a:hover) {
+  opacity: 0.7;
+}
+
+/* Right section (auth controls) */
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Brand styling */
+.brand {
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #3DE8C8;
+  text-decoration: none;
+
+  text-shadow: 0 0 10px rgba(61, 232, 200, 0.3);
+
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.brand:hover {
+  background: rgba(255, 255, 255, 0.05);
+  opacity: 0.9;
+}
+</style>

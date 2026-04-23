@@ -8,7 +8,11 @@ defineProps({
 </script>
 
 <template>
-  <component :is="tag" class="glass-panel">
+  <component
+    :is="tag"
+    class="glass-panel"
+    v-bind="$attrs"
+  >
     <slot />
   </component>
 </template>
@@ -27,5 +31,16 @@ defineProps({
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.35),
     inset 0 0.5px 0 rgba(255, 255, 255, 0.08);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+.glass-panel:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 6px 28px rgba(0, 0, 0, 0.4),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.1);
 }
 </style>

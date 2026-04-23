@@ -24,5 +24,25 @@ namespace AudioAtlasDomain.Users
         /// </summary>
         public ICollection<Genre> FavoriteGenres { get; set; } = new List<Genre>();
 
+        /// <summary>
+        /// The UTC timestamp when the user accepted the privacy policy.
+        /// </summary>
+        public DateTime? AcceptedPrivacyPolicyAtUtc { get; set; }
+
+        /// <summary>
+        /// The accepted privacy policy version identifier.
+        /// </summary>
+        public string? AcceptedPrivacyPolicyVersion { get; set; }
+
+        /// <summary>
+        /// The UTC timestamp when the user accepted the contribution guidelines.
+        /// </summary>
+        public DateTime? AcceptedContributionGuidelinesAtUtc { get; set; }
+
+        /// <summary>
+        /// The accepted contribution guidelines version identifier.
+        /// </summary>
+        public string? AcceptedContributionGuidelinesVersion { get; set; }
+
     }
 }

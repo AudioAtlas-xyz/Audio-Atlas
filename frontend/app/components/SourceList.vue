@@ -1,16 +1,24 @@
 <script setup lang="ts">
-import type { GenreSource } from "~/types/genre";
+import { computed } from 'vue'
+import type { GenreSource } from '~/types/genre'
 
+/**
+ * Props: list of sources related to a genre
+ */
 const props = defineProps<{
   sources: GenreSource[]
 }>()
 
-const sourceRows = computed(() =>
-  props.sources.slice(0, 5)
-)
+/**
+ * Limit displayed sources to first 5 entries
+ */
+const sourceRows = computed(() => {
+  return props.sources.slice(0, 5)
+})
 </script>
 
 <template>
+  <!-- Card container -->
   <UCard
     class="border border-border bg-surface shadow-none"
     :ui="{
@@ -19,6 +27,7 @@ const sourceRows = computed(() =>
       footer: 'hidden'
     }"
   >
+    <!-- Header -->
     <template #header>
       <div class="flex items-center justify-between">
         <p class="text-sm text-space-50">
@@ -30,29 +39,37 @@ const sourceRows = computed(() =>
       </div>
     </template>
 
+    <!-- Source list -->
     <div v-if="sourceRows.length" class="divide-y divide-border">
       <div
         v-for="(source, index) in sourceRows"
         :key="index"
         class="flex items-center justify-between gap-3 px-4 py-3"
       >
-          <div class="min-w-0">
-            <ULink
-              :to="source.sourceLink"
-              class="truncate font-mono text-[11px] tracking-[0.12em] text-aurora hover:text-aurora"
-            >
-              {{ source.sourceLink }}
-            </ULink>
-          </div>
+        <div class="min-w-0">
+          <ULink
+            :to="source.sourceLink"
+            class="truncate font-mono text-[11px] tracking-[0.12em] text-aurora hover:text-aurora"
+          >
+            {{ source.sourceLink }}
+          </ULink>
         </div>
-
       </div>
+    </div>
+
+    <!-- Empty state -->
     <div v-else class="px-4 py-5 text-sm text-[#6f789b]">
       Sources will appear here if available.
     </div>
   </UCard>
 </template>
-<style  module>.sourcelist {
+
+<style module>
+/**
+ * Legacy styles (currently unused in template)
+ * Can be removed if not referenced elsewhere
+ */
+.sourcelist {
   width: 100%;
   position: relative;
   border-radius: 6px;
@@ -68,69 +85,4 @@ const sourceRows = computed(() =>
   color: #373d5a;
   font-family: 'Space Mono';
 }
-.divsideCardHead {
-  align-self: stretch;
-  border-bottom: 1px solid #1c2038;
-  display: flex;
-  align-items: center;
-  padding: 9.6px 16px;
-}
-.span {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.cardTitle {
-  position: relative;
-  letter-spacing: 1.25px;
-  text-transform: uppercase;
-}
-.divsideCardBody {
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 8px 16px;
-  font-size: 11.8px;
-  color: #7a84a8;
-  font-family: 'Space Grotesk';
-}
-.div {
-  align-self: stretch;
-  border-bottom: 1px solid #1c2038;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 4.6px 0px 5.7px;
-}
-.source {
-  position: relative;
-  line-height: 20.13px;
-  font-weight: 300;
-}
-.afropop {
-  color: #e4e8f5;
-}
-.div2 {
-  align-self: stretch;
-  border-bottom: 1px solid #1c2038;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 4.7px 0px 5.8px;
-}
-.div4 {
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 4.7px 0px 5.8px;
-}
-.source4 {
-  align-self: stretch;
-  position: relative;
-  line-height: 20.13px;
-  font-weight: 300;
-}
-
 </style>

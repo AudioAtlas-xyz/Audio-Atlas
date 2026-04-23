@@ -1,84 +1,177 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import Globe from './../components/Globe.vue'
-import AppHeader from './../components/Appheader.vue'
-import { useScrollIntro } from './../composables/useScrollIntro'
+import { computed, ref, onMounted } from 'vue'
+import Globe from '@/components/Globe.vue'
+import AppHeader from '@/components/AppHeader.vue'
+import CountryPanel from '@/components/CountryPanel.vue'
+import LoginModal from '@/components/LoginModal.vue'
+import UsernameModal from '@/components/UsernameModal.vue'
+import SuccessModal from '@/components/SuccessModal.vue'
+import LoginBanner from '@/components/LoginBanner.vue'
+import { useRoute } from 'vue-router'
+import { useScrollIntro } from '@/composables/useScrollIntro'
+import { useAuth } from '@/composables/useAuth'
+import { useHead } from '#imports'
 
+/**
+ * Page metadata
+ */
+useHead({
+  title: 'Audio Atlas',
+  meta: [
+    { name: 'description', content: 'Explore music genres around the world' }
+  ]
+})
+ const route = useRoute()
+
+
+/**
+ * Auth state (GLOBAL)
+ */
+const {
+  user,
+  fetchUser,
+  showLoginBanner,
+  showUsernameModal,
+  pendingRegistrationId
+} = useAuth()
+
+/**
+ * Fetch user on load (VERY important)
+ */
+
+onMounted(async () => {
+
+  const newUser = route.query.newUser
+  const pendingId = route.query.pendingRegistrationId
+  const suggested = route.query.suggestedUsername
+
+  if (newUser === 'true' && pendingId) {
+    showUsernameModal.value = true
+    pendingRegistrationId.value = String(pendingId)
+  }
+
+  if (newUser === 'false') {
+    showLoginBanner.value = true
+  }
+
+  await fetchUser()
+
+  window.history.replaceState({}, '', '/')
+})
+
+/**
+ * Scroll intro animation
+ */
 const { progress, finished } = useScrollIntro()
 
+/**
+ * Local UI state
+ */
+const showLoginModal = ref(false)
+const showSuccessModal = ref(false)
+
+/**
+ * Globe positions
+ */
 const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
-const settledPov = { lat: 16, lng: 0, altitude: 2.15 }
+const settledPov = { lat: 54, lng: 12, altitude: 2.2 }
 
-const easeOut = t => 1 - Math.pow(1 - t, 3)
+/**
+ * Easing
+ */
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
 
-const eased = computed(() => easeOut(finished.value ? 1 : progress.value))
+const eased = computed(() => {
+  const t = finished.value ? 1 : progress.value
+  return easeOut(easeOut(t))
+})
 
-const globeOffset = computed(() => [
-  0,
-  Math.round((1 - eased.value) * window.innerHeight * 0.14)
-])
+/**
+ * Globe offset
+ */
+const globeOffset = computed<[number, number]>(() => {
+  if (process.server) return [0, 0]
 
+  return [
+    0,
+    Math.round((1 - eased.value) * window.innerHeight * 0.14)
+  ]
+})
+
+/**
+ * Camera POV
+ */
 const globePov = computed(() =>
-  finished.value ? { ...settledPov } : { ...landingPov }
+  finished.value ? settledPov : landingPov
 )
 
+/**
+ * Hero animation
+ */
 const pageStyle = computed(() => {
   const p = finished.value ? 1 : progress.value
+
   return {
-    '--title-opacity': Math.max(0, 1 - p * 1.55).toFixed(3),
+    '--title-opacity': Math.max(0, 1 - p * 1.55),
     '--title-lift': `${Math.round(p * -88)}px`
   }
 })
 
+/**
+ * Login modal trigger
+ */
 const handleLogin = () => {
-  console.log('Login clicked')
+  showLoginModal.value = true
 }
 
-const selectedCountry = ref(null)
-const selectedCountryData = ref(null)
-const selectedCountryError = ref(null)
-
-const handleCountryClick = async (country) => {
-  selectedCountry.value = country
-  selectedCountryData.value = null
-  selectedCountryError.value = null
-
-  if (typeof country === 'string') {
-    selectedCountryId.value = country
-    return
-  }
-
-  selectedCountryId.value = country.isoA3
+/**
+ * Username flow finished
+ */
+const handleUsernameFinished = () => {
+  showUsernameModal.value = false
+  showSuccessModal.value = true
 }
+
+/**
+ * Country state
+ */
 const selectedCountryId = ref<string | null>(null)
+
+const handleCountryClick = (country: { isoA3: string } | string) => {
+  selectedCountryId.value =
+    typeof country === 'string' ? country : country.isoA3
+}
 
 const closeCountryPanel = () => {
   selectedCountryId.value = null
 }
-
 </script>
 
 <template>
-  <main
-    class="landing-page"
-    :style="pageStyle"
-  >
+  <main class="landing-page" :style="pageStyle">
 
-    <!-- HEADER -->
+    <!-- Header -->
     <AppHeader
       :visible="finished"
       @login="handleLogin"
     />
 
-    <!-- TITLE HERO SECTION-->
+    <!-- Login banner -->
+    <LoginBanner
+      v-if="showLoginBanner && user"
+      :username="user.username || user.email"
+    />
+
+    <!-- Hero -->
     <div class="hero-title">
       <p class="eyebrow">
-        explorable by map <br> growable by community
+        explorable by map <br>
+        growable by community
       </p>
       <h1>Audio Atlas</h1>
     </div>
 
-    <!-- GLOBE-->
+    <!-- Globe -->
     <div class="globe-layer">
       <ClientOnly>
         <div class="globe-motion">
@@ -93,7 +186,7 @@ const closeCountryPanel = () => {
       </ClientOnly>
     </div>
 
-    <!-- SIDE PANEL -->
+    <!-- Country panel -->
     <CountryPanel
       v-if="selectedCountryId"
       :country-id="selectedCountryId"
@@ -101,17 +194,27 @@ const closeCountryPanel = () => {
       @close="closeCountryPanel"
     />
 
-    <div class="hero-title">
-      <p class="eyebrow">
-        explorable by map <br> growable by community
-      </p>
-      <h1>Audio Atlas</h1>
-    </div>
+    <div class="scroll-spacer" />
 
+    <!-- Login modal -->
+    <LoginModal
+      v-if="showLoginModal"
+      @close="showLoginModal = false"
+    />
 
+    <!-- Username onboarding (CRITICAL FIX) -->
+    <UsernameModal
+      v-if="showUsernameModal && pendingRegistrationId"
+      @close="showUsernameModal = false"
 
+      @finished="handleUsernameFinished"
+    />
 
-
+    <!-- Success modal -->
+    <SuccessModal
+      v-if="showSuccessModal"
+      @close="showSuccessModal = false"
+    />
 
 
   </main>
@@ -148,6 +251,8 @@ html.globe-intro-complete body {
   z-index: 1;
   inset: 0;
   overflow: hidden;
+  pointer-events: auto;
+
   background:
     radial-gradient(circle at 50% 12%, rgba(98, 194, 210, 0.2), transparent 34rem),
     linear-gradient(180deg, #02070a 0%, #071512 100%);
@@ -168,14 +273,6 @@ html.globe-intro-complete body {
   opacity: var(--title-opacity);
   pointer-events: none;
   text-align: center;
-  will-change: transform, opacity;
-}
-
-.demo-panel-button {
-  position: fixed;
-  top: 5.5rem;
-  right: 1.5rem;
-  z-index: 11;
 }
 
 .eyebrow {
@@ -193,28 +290,9 @@ h1 {
   font-size: 6.5rem;
   font-weight: 850;
   line-height: 0.88;
-  letter-spacing: 0;
-  text-shadow: 0 1.5rem 4rem rgba(5, 23, 22, 0.7);
 }
 
 .scroll-spacer {
   height: 185vh;
-  pointer-events: none;
-}
-
-@media (max-width: 720px) {
-  .demo-panel-button {
-    top: 4.75rem;
-    right: 1rem;
-  }
-
-  .hero-title {
-    top: 16vh;
-    width: min(24rem, calc(100% - 2rem));
-  }
-
-  h1 {
-    font-size: 4rem;
-  }
 }
 </style>

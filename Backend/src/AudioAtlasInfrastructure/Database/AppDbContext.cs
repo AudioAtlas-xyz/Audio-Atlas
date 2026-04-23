@@ -73,6 +73,11 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid
     public DbSet<RejectedSubmission> RejectedSubmissions => Set<RejectedSubmission>();
 
     /// <summary>
+    /// Pending external logins that still need onboarding completion.
+    /// </summary>
+    public DbSet<PendingExternalRegistration> PendingExternalRegistrations => Set<PendingExternalRegistration>();
+
+    /// <summary>
     /// Configures the entity model and applies all configurations
     /// defined within the current assembly.
     /// 

@@ -10,8 +10,17 @@ using AudioAtlasInfrastructure.Repositories;
 using AudioAtlasInfrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;  
+using System.Text.Json;
 [assembly: ApiController]
 var builder = WebApplication.CreateBuilder(args);
+
+Console.WriteLine(builder.Environment.EnvironmentName);
+
 builder.Services.AddOpenApi();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
@@ -19,11 +28,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
-        connectionString,
-        sqlOptions =>
-        {
-            sqlOptions.EnableRetryOnFailure();
-        }));
+        connectionString));
 
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
@@ -33,10 +38,6 @@ builder.Services
     })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
-
-
-
-builder.Services.AddOpenApi();
 
 //Dependency injection HAS TO be here, or else mapping of controllers will crash.
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
@@ -49,23 +50,125 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization();
+
+var allowedOrigins = builder.Configuration
+    .GetSection("Cors:AllowedOrigins")
+    .Get<string[]>() ?? throw new Exception("CORS AllowedOrigins not configured");
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("FrontendDev", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins(
-                "http://localhost:3000",
-                "http://127.0.0.1:3000",
-                "http://localhost:3001",
-                "http://127.0.0.1:3001",
-                "http://localhost:3002",
-                "http://127.0.0.1:3002"
-            )
+        policy
+            .WithOrigins(allowedOrigins!)
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
+});
+
+var jwtKey = builder.Configuration["Jwt:Key"]
+    ?? throw new Exception("JWT Key not configured");
+    
+var key = Encoding.UTF8.GetBytes(jwtKey);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,
+
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+})
+.AddGoogle(options =>
+{
+    options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
+    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+
+    options.CallbackPath = "/signin-google";
+
+    options.Scope.Add("email");
+    options.Scope.Add("profile");
+
+    options.SignInScheme = IdentityConstants.ExternalScheme;
+})
+.AddOAuth("GitHub", options =>
+{
+    options.ClientId = builder.Configuration["Authentication:GitHub:ClientId"]!;
+    options.ClientSecret = builder.Configuration["Authentication:GitHub:ClientSecret"]!;
+
+    options.CallbackPath = "/signin-github";
+
+    options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
+    options.TokenEndpoint = "https://github.com/login/oauth/access_token";
+    options.UserInformationEndpoint = "https://api.github.com/user";
+
+    options.Scope.Add("user:email");
+
+    options.SignInScheme = IdentityConstants.ExternalScheme;
+    options.SaveTokens = true;
+
+    options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+    options.ClaimActions.MapJsonKey(ClaimTypes.Name, "login");
+    options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+
+    options.Events.OnCreatingTicket = async context =>
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, context.Options.UserInformationEndpoint);
+        request.Headers.Authorization =
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", context.AccessToken);
+        request.Headers.Accept.Add(
+            new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+        request.Headers.UserAgent.ParseAdd("AudioAtlas");
+
+        var response = await context.Backchannel.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+
+        var user = System.Text.Json.JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+
+        context.RunClaimActions(user.RootElement);
+
+        if (!context.Identity!.HasClaim(claim => claim.Type == ClaimTypes.Email))
+        {
+            var emailRequest = new HttpRequestMessage(HttpMethod.Get, "https://api.github.com/user/emails");
+            emailRequest.Headers.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", context.AccessToken);
+            emailRequest.Headers.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            emailRequest.Headers.UserAgent.ParseAdd("AudioAtlas");
+
+            var emailResponse = await context.Backchannel.SendAsync(emailRequest);
+            emailResponse.EnsureSuccessStatusCode();
+
+            using var emailDocument = JsonDocument.Parse(await emailResponse.Content.ReadAsStringAsync());
+            var primaryVerifiedEmail = emailDocument.RootElement
+                .EnumerateArray()
+                .FirstOrDefault(email =>
+                    email.TryGetProperty("primary", out var primary) &&
+                    primary.GetBoolean() &&
+                    email.TryGetProperty("verified", out var verified) &&
+                    verified.GetBoolean() &&
+                    email.TryGetProperty("email", out _));
+
+            if (primaryVerifiedEmail.ValueKind != JsonValueKind.Undefined &&
+                primaryVerifiedEmail.TryGetProperty("email", out var emailValue))
+            {
+                context.Identity.AddClaim(new Claim(ClaimTypes.Email, emailValue.GetString()!));
+            }
+        }
+    };
 });
 
 var app = builder.Build();
@@ -88,7 +191,6 @@ using (var scope = app.Services.CreateScope())
     ViewDebugger.DebugToFile(ctx);
 }
 
-
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -98,19 +200,13 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-    app.UseCors("FrontendDev");
-}
-else
-{
-    app.UseHttpsRedirection();
-}
+//app.UseHttpsRedirection();
 
-app.MapControllers();
+app.UseCors("AllowFrontend");
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();
