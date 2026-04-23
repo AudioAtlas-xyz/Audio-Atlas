@@ -55,14 +55,9 @@ export const useAuth = () => {
       return
     }
 
-    if (!config.public.backendBaseUrl) {
-      console.error('Missing backendBaseUrl')
-      return
-    }
-
     try {
       user.value = await $fetch<AuthUser>(
-        `${config.public.backendBaseUrl}/api/auth/me`,
+        `${config.public.apiBase}/auth/me`,
         {
           headers: {
             Authorization: `Bearer ${token}`

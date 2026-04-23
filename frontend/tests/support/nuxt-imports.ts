@@ -15,6 +15,11 @@ let asyncDataOverride: AsyncDataResult<unknown> | null = null
 let fetchCalls: string[] = []
 let headEntries: Array<Record<string, unknown>> = []
 let fetchImplementation = async <T>(_url: string): Promise<T> => null as T
+let runtimeConfig = {
+  public: {
+    apiBase: '/api'
+  }
+}
 
 export function __resetNuxtMocks() {
   routeState = {
@@ -25,6 +30,11 @@ export function __resetNuxtMocks() {
   fetchCalls = []
   headEntries = []
   fetchImplementation = async <T>(_url: string): Promise<T> => null as T
+  runtimeConfig = {
+    public: {
+      apiBase: '/api'
+    }
+  }
 }
 
 export function __setRoute(query: Record<string, unknown>, fullPath = '/CountryPage') {
@@ -47,8 +57,16 @@ export function __getHeadEntries() {
   return [...headEntries]
 }
 
+export function __setRuntimeConfig(config: typeof runtimeConfig) {
+  runtimeConfig = config
+}
+
 export function useRoute() {
   return routeState
+}
+
+export function useRuntimeConfig() {
+  return runtimeConfig
 }
 
 export async function useAsyncData<T>(

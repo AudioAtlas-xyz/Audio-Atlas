@@ -5,24 +5,27 @@ import SourceList from '~/components/SourceList.vue';
 type GenrePageData = Genre
 
 const route = useRoute()
+const config = useRuntimeConfig()
+
 const genreId = computed(() => {
   const rawGenreId = route.query.genreId
   return typeof rawGenreId === 'string' && rawGenreId.length > 0 ? rawGenreId : undefined
 })
 
-  const { data, pending, error } = await useAsyncData<GenrePageData | null>(
-    'genre-page',
-    async () => {
-      if (!genreId.value) {
-        return null
-      }
+const { data, pending, error } = await useAsyncData<Genre | null>(
+  () => `genre-page-${genreId.value ?? 'missing'}`,
+  async () => {
+    if (!genreId.value) {
+      return null
+    }
 
-      return $fetch<GenrePageData>(`http://localhost:5085/api/genres/${genreId.value}`)
-    },
-    {
-      watch: [genreId],
-      default: () => null
-    })
+    return $fetch<Genre>(`${config.public.apiBase}/genres/${genreId.value}`)
+  },
+  {
+    watch: [genreId],
+    default: () => null
+  }
+)
 
 const genre = computed(() => data.value)
 //copied from countryPage
