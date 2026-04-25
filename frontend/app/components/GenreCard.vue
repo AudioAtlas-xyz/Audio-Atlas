@@ -13,7 +13,7 @@ const metaItems = computed(() =>
 const countries = computed(()=> props.genre.countries ?? [])
 
 const countryBadges = computed(() => {
-  return countries.value.map(country => country.name)
+  return countries.value.map(country => country)
 })
 
 </script>
@@ -54,12 +54,14 @@ const countryBadges = computed(() => {
       <div class="flex flex-wrap items-center gap-2">
         <UBadge
           v-for="country in countryBadges"
-          :key="country"
+          :key="country.name"
           color="neutral"
           variant="outline"
           class="rounded-full border-[#7a84a8] px-2 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-space-50"
           >
-          {{ country }}
+          <UButton :to="`/CountryPage?countryId=${country.id}`" variant="link" class="text-aurora">
+          {{ country.name }}
+          </UButton>
         </UBadge>
       </div>
     </div>
