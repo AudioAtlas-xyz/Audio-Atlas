@@ -49,7 +49,7 @@ const sourceRows = computed(() => {
         <div class="min-w-0">
           <ULink
             :to="source.sourceLink"
-            class="truncate font-mono text-[11px] tracking-[0.12em] text-aurora hover:text-aurora"
+            class="block break-all font-mono text-[11px] tracking-[0.12em] text-aurora hover:text-aurora"
           >
             {{ source.sourceLink }}
           </ULink>

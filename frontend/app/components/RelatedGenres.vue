@@ -89,8 +89,8 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
   align-items: center;
   padding: 9.6px 16px;
   gap: 126.5px;
-  font-size: 9px;
-  color: #373d5a;
+  font-size: 0.7rem;
+  color: #7a84a8;
   font-family: 'Space Mono';
 }
 .span {
@@ -122,8 +122,8 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
   justify-content: space-between;
   padding: 9.6px 16px;
   gap: 20px;
-  font-size: 9px;
-  color: #373d5a;
+  font-size: 0.7rem;
+  color: #7a84a8;
   font-family: 'Space Mono';
 }
 .span3 {

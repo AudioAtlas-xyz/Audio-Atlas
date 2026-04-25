@@ -29,18 +29,13 @@ const { relatedCount, contributorCount, instrumentCount } = defineProps<{
           </div>
         </div>
       </div>
-      <div :class="$style.divheroActions">
-        <NuxtLink to="/" :class="$style.contributeAGenreButton">
-          <div :class="$style.text">Suggest Edits</div>
-        </NuxtLink>
-      </div>
     </div>
   </div>
 </template>
 
 <style module>.divheroLeft {
   width: 100%;
-  height: 8.138rem;
+  height: 5.138rem;
   position: relative;
   text-align: left;
   font-size: 2.975rem;
@@ -96,39 +91,6 @@ const { relatedCount, contributorCount, instrumentCount } = defineProps<{
   font-size: 0.75rem;
   line-height: 1.25rem;
   font-family: Space_Grotesk;
-  color: #252c48;
-}
-.divheroActions {
-  position: absolute;
-  top: 7rem;
-  left: 0rem;
-  width: 41.55rem;
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  flex-shrink: 0;
-  text-align: center;
-  font-size: 0.819rem;
-  color: #07080f;
-}
-.contributeAGenreButton {
-  border-radius: 3px;
-  background-color: #3de8c8;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0.712rem 1.5rem;
-}
-
-.contributeAGenreButton:hover {
-  background-color: #4AF7D7;
-}
-
-.text {
-  position: relative;
-  letter-spacing: 0.39px;
-  font-weight: 500;
+  color: #7a84a8;
 }
 </style>

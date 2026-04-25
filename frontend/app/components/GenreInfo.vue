@@ -45,8 +45,8 @@ const { isSensitive, sensitivityDescription, pageDescription, similarGenres, par
       :sub-genres="subGenres"
       />
 
+      </div>
     </div>
-  </div>
 </template>
 <style  module>
 .genreinfo {
@@ -57,7 +57,7 @@ const { isSensitive, sensitivityDescription, pageDescription, similarGenres, par
   grid-template-columns: 1fr 320px;
   gap: 3rem;
   padding-left: 2.5rem;
-  padding-right: 2.5rem;
+                          padding-right: 2.5rem;
   padding-top: 2rem;
   padding-bottom: 3rem;
   text-align: left;
@@ -139,7 +139,7 @@ const { isSensitive, sensitivityDescription, pageDescription, similarGenres, par
   padding: 0rem 0rem 0.5rem;
   gap: 0.681rem;
   font-size: 0.863rem;
-  color: #7a84a8;
+  color: #FFFFFF;
 }
 .overview {
   align-self: stretch;
@@ -148,8 +148,8 @@ const { isSensitive, sensitivityDescription, pageDescription, similarGenres, par
   flex-direction: column;
   align-items: flex-start;
   padding: 0rem 0rem 0.5rem;
-  font-size: 0.581rem;
-  color: #373d5a;
+  font-size: 0.7rem;
+  color: #7a84a8;
   font-family: 'Space Mono';
 }
 .sectionTitle {
@@ -161,6 +161,7 @@ const { isSensitive, sensitivityDescription, pageDescription, similarGenres, par
   position: relative;
   line-height: 1.591rem;
   font-weight: 300;
+  font-size: 0.875rem;
 }
 .sectiondivider {
   align-self: stretch;
