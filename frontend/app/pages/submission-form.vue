@@ -4,6 +4,10 @@ import type {Genre} from "~/types/genre";
 
 const { data } = await useFetch<Country[]>('/api/countries/all')
 
+const state = reactive({
+  countries: []
+})
+
 const countryNames = computed(() =>
   data.value?.map(c => ({
     label: c.name,
@@ -11,13 +15,13 @@ const countryNames = computed(() =>
   })) ?? []
 )
 
-const form = useTemplateRef('form')
+const form = useTemplateRef('form' )
 </script>
 
 <template>
   <Stepper></Stepper>
   <div :class="$style.genreidentityformcard">
-    <UForm ref="form" />
+    <UForm ref="form" :state="state" />
     <UContainer style="padding: 3rem;">
     <div :class="$style.identity">Identity</div>
     <h1>Name this genre and tell us where it comes from.</h1>
@@ -32,7 +36,10 @@ const form = useTemplateRef('form')
       </UFormField>
 
       <UFormField label="COUNTRY / COUNTRIES OF ORIGIN" field="name" required>
-        <SubmissionSelectMenu :itemList ="countryNames" class="w-full"/>
+        <SubmissionSelectMenu
+          v-model="state.countries"
+          :itemList ="countryNames"
+          class="w-full"/>
       </UFormField>
 
     </UContainer>
