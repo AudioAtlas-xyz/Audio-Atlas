@@ -1,25 +1,16 @@
 <script setup lang="ts">
-import { reactive, useTemplateRef } from 'vue'
-import * as z from 'zod'
-import type { FormSubmitEvent } from '@nuxt/ui'
-
-const props =
-
-const items = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
-const value = ref('Backlog')
 
 
-const schema = z.object({
-  selectMenuMultiple: z.any().refine(values => !!values?.find((option: any) => option.value === 'option-2'), {
-    message: 'Option 2 must be included'
-  })
-})
+const props = defineProps<{
+  itemList: string[]
+}>()
 
+const value1 = ref<string[]>([])
 
 </script>
 
 <template>
-  <USelectMenu v-model="value" :items="items" />
+  <USelectMenu v-model="value1" multiple :items="itemList" />
 </template>
 
 <style scoped>
