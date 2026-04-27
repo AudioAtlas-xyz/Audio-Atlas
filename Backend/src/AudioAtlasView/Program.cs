@@ -180,12 +180,13 @@ using (var scope = app.Services.CreateScope())
     var ctx = services.GetRequiredService<AppDbContext>();
     var seedLogger = services.GetRequiredService<ILogger<DbInitializer>>();
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
 
     app.Logger.LogInformation("Running database migration and seed.");
 
     ctx.Database.Migrate();
 
-    await DbInitializer.SeedDatabase(ctx, userManager, seedLogger);
+    await DbInitializer.SeedDatabase(ctx, userManager, roleManager, seedLogger);
 
     app.Logger.LogInformation("Database migration and seed completed.");
     ViewDebugger.DebugToFile(ctx);
