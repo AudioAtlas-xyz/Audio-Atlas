@@ -15,10 +15,36 @@ public class GenreService : IGenreService
         _genreRepository = genreRepository;
     }
 
-    public GenreDTO getGenre(Guid id)
+    public ICollection<GenreDTO> GetAllGenres()
+    {
+        return _genreRepository.getAllGenres().Select(g => CreateDTO(g)).ToList();
+    }
+
+    public GenreDTO? GetGenre(Guid id)
     {
         Genre genre = _genreRepository.getGenre(id);
 
+        if(genre != null)
+        {
+            return CreateDTO(genre);
+        }
+
+        return null;
+        
+    }
+
+    public async Task<ICollection<GenreDTO>> SearchForGenres(string keyword)
+    {
+        List<GenreDTO> genres = (await _genreRepository.SearchForGenres(keyword)).Select(g => CreateDTO(g)).ToList();
+
+        genres.Sort();
+
+        return genres;
+    }
+
+
+    public GenreDTO CreateDTO(Genre genre)
+    {
         return new GenreDTO
         {
             Id = genre.Id,
@@ -57,7 +83,8 @@ public class GenreService : IGenreService
             {
                 Id = subGenre.Id,
                 Name = subGenre.Name,
-                Countries = subGenre.Countries.Select(country => new CountryDTO{
+                Countries = subGenre.Countries.Select(country => new CountryDTO
+                {
                     Id = country.Id,
                     Name = country.Name,
                 }).ToList()
@@ -66,7 +93,8 @@ public class GenreService : IGenreService
             {
                 Id = parentGenre.Id,
                 Name = parentGenre.Name,
-                Countries = parentGenre.Countries.Select(country => new CountryDTO{
+                Countries = parentGenre.Countries.Select(country => new CountryDTO
+                {
                     Id = country.Id,
                     Name = country.Name,
                 }).ToList()
@@ -75,9 +103,10 @@ public class GenreService : IGenreService
             {
                 Id = similarGenre.Id,
                 Name = similarGenre.Name,
-                Countries = similarGenre.Countries.Select(country => new CountryDTO{
+                Countries = similarGenre.Countries.Select(country => new CountryDTO
+                {
                     Id = country.Id,
-                    Name = country.Name, 
+                    Name = country.Name,
                 }).ToList()
             }).ToList()
         };
