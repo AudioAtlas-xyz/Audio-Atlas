@@ -101,7 +101,10 @@ public class DbInitializerTests
             UserName = "system",
             Email = "system@audioatlas.com",
             EmailConfirmed = true,
-            SecurityStamp = Guid.NewGuid().ToString()
+            SecurityStamp = Guid.NewGuid().ToString(),
+            LockoutEnabled = true,
+            LockoutEnd = DateTimeOffset.MaxValue,
+            IsSystemUser = true
         };
 
         IdentityResult createResult = await harness.UserManager.CreateAsync(existingSystemUser);
