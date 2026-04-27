@@ -2,10 +2,10 @@
 import type { Country } from '~/types/country'
 import type {Genre} from "~/types/genre";
 
-const { data } = await useFetch<Country[]>('api/countries/all')
+const { data } = await useFetch<Country[]>('/api/countries/all')
 
 const countryNames = computed(() =>
-  data.value?.countries?.map(c => ({
+  data.value?.map(c => ({
     label: c.name,
     value: c.name
   })) ?? []
