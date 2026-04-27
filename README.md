@@ -6,15 +6,29 @@ Audio Atlas is an open-source, community-powered platform for discovering and
 documenting music genres across cultures. Explore an interactive map, learn about
 genres from every corner of the world, and contribute your own knowledge.
 
-> This project is being developed as part of the Industrial Software Engineering
-> course at IT University of Copenhagen (ITU), Spring 2025.
+## What it does
+Music is one of humanity's most diverse cultural expressions but most discovery
+tools are built around algorithms that push you toward what you already know. 
+Audio Atlas is different. Pick a region on the map. Find genres you've never heard of.
+Click through to understand the cultural roots, the sound, the history. 
+Then contribute: if you know something we don't, add it.
+The goal is a living, community-maintained atlas of the world's music 
+that is accurate, growing, and genuinely global.
+
 
 ## Status
 
-🚧 **Pre-development** — Kickoff workshop completed. Architecture decisions confirmed.
-Preparing for User Story Mapping and Sprint 1.
+✅ **MVP in development** — Core architecture in place, frontend and backend active, prototype live.
 
-## Tech Stack (Confirmed)
+| Area | Status |
+|-------|-----------|
+| Interactive map (frontend) | ✅ Implemented |
+| Genre data model + API | ✅ Implemented |
+| User authentication | ✅ Implemented|
+| Community contribution flow | ✅ Implemented |
+| Mobile optimisation | 🔄 Planned |
+
+## Tech Stack
 | Layer | Technology |
 |-------|-----------|
 | Frontend | React 18 + Vite + Leaflet + React-Leaflet |
@@ -24,13 +38,22 @@ Preparing for User Story Mapping and Sprint 1.
 | AI | External API (rule-based first) |
 | Deployment | Netlify/Cloudflare (frontend) + Azure/Render (backend) |
 
-## Prototype
+## Roadmap
 
-Explore the early prototype: [audio-atlas-global-m-jjc7.bolt.host](https://audio-atlas-global-m-jjc7.bolt.host)
+MVP
+> 1. Interactive map with genre pins by region
+> 2. Genre detail pages (name, origin, description, audio examples)
+> 3. User auth + contribution submission
+
+Post-MVP
+> 4. Community moderation and review flow
+> 5. Genre relationship graph (influences, descendants)
+> 6. Playlist and audio integration
+> 7. Mobile-first redesign
+> 8. API for third-party developers
 
 ## Installation of Prerequisites
 Look in Backend/README.md and Frontend/README.md
-
 
 ## Licensing
 
@@ -65,8 +88,3 @@ getting started.
 - **Andreas John-Holaus** - Developer
 - **Philip Bay Quorning** - Developer
 - **Freja Skakke Jørgensen** - Developer
-
-## Links
- 
-- [Product Vision Document](#) *(Link coming soon)*
-- [Project Board](#) *(Link coming soon)*
