@@ -9,6 +9,7 @@ export interface Genre {
   id: string
   name: string
   description?: string
+  summary?: string
   startYear?: number
   isSensitive:boolean
   playlistLink?: string

@@ -3,40 +3,31 @@ import GlassPanel from '@/components/GlassPanel.vue'
 import GlassButton from '@/components/GlassButton.vue'
 import { useAuth } from '@/composables/useAuth'
 
-/**
- * Access global auth state and logout action
- */
 const { user, logout } = useAuth()
 
-/**
- * Emit login event (used to open login modal in parent)
- */
 const emit = defineEmits<{
   (e: 'login'): void
 }>()
+
 </script>
 
 <template>
-  <!-- Fixed application header -->
   <header class="app-header">
     <GlassPanel class="nav-panel">
-
-      <!-- Left: brand -->
       <div class="left">
         <NuxtLink to="/" class="brand">
           Audio Atlas
         </NuxtLink>
       </div>
 
-      <!-- Center: navigation links -->
       <nav class="nav-links">
         <NuxtLink to="/explore">Explore</NuxtLink>
         <NuxtLink to="/about">About</NuxtLink>
       </nav>
 
-      <!-- Right: auth controls -->
       <div class="right">
-        <!-- Authenticated user -->
+        <SearchBar />
+
         <template v-if="user">
           <span class="user-email">
             {{ user.username || user.email }}
@@ -47,7 +38,6 @@ const emit = defineEmits<{
           </GlassButton>
         </template>
 
-        <!-- Guest user -->
         <GlassButton
           v-else
           variant="primary"
@@ -61,7 +51,6 @@ const emit = defineEmits<{
 </template>
 
 <style scoped>
-/* Fixed header container */
 .app-header {
   position: fixed;
   top: 0;
@@ -73,7 +62,6 @@ const emit = defineEmits<{
   justify-content: center;
 }
 
-/* Navigation panel wrapper */
 .nav-panel {
   display: flex;
   align-items: center;
@@ -86,22 +74,20 @@ const emit = defineEmits<{
   border-bottom: 1px solid rgba(141, 219, 230, 0.15);
 }
 
-/* Left section (brand) */
 .left {
   flex: 1;
   display: flex;
   justify-content: flex-start;
 }
 
-/* Center section (navigation) */
 .nav-links {
   flex: 1;
   display: flex;
+  align-items: center;
   justify-content: center;
   gap: 2rem;
 }
 
-/* Navigation link styling */
 .nav-links :deep(a) {
   font-size: 0.9rem;
   color: #8ddbe6;
@@ -113,7 +99,6 @@ const emit = defineEmits<{
   opacity: 0.7;
 }
 
-/* Right section (auth controls) */
 .right {
   flex: 1;
   display: flex;
@@ -122,7 +107,6 @@ const emit = defineEmits<{
   gap: 0.75rem;
 }
 
-/* Brand styling */
 .brand {
   padding: 0.4rem 0.8rem;
   border-radius: 10px;
