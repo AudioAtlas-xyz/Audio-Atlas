@@ -82,6 +82,14 @@ public class AuthController : ControllerBase
             info.LoginProvider,
             info.ProviderKey);
 
+
+        //If malicious user is trying to access the system user, block it.
+        if(user != null && user.IsSystemUser)
+        {
+            return Unauthorized();
+        } 
+
+
         // EXISTING USER
         if (user != null)
         {

@@ -18,9 +18,9 @@ public class DbInitializerTests
         using var harness = new DbInitializerTestHarness();
         SeedCounts expected = ReadSeedCounts();
 
-        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.Logger);
+        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Logger);
 
-        ApplicationUser? systemUser = await harness.Context.Users.SingleOrDefaultAsync(u => u.UserName == "system");
+        ApplicationUser? systemUser = await harness.Context.Users.SingleOrDefaultAsync(u => u.UserName == "System");
 
         Assert.NotNull(systemUser);
         Assert.Equal(expected.CountryCount, await harness.Context.Countries.CountAsync());
@@ -30,12 +30,35 @@ public class DbInitializerTests
     }
 
     [Fact]
+    public async Task SeedDatabase_seeds_empty_database_with_expected_roles()
+    {
+        using var harness = new DbInitializerTestHarness();
+        SeedCounts expected = ReadSeedCounts();
+
+        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Logger);
+
+        string[] ExpectedRoleNames = ["Admin", "Banned", "Curator"];
+        
+        List<IdentityRole<Guid>> ActualRoles = await harness.Context.Roles.ToListAsync();
+
+        Assert.NotNull(ActualRoles);
+        Assert.True(ActualRoles.Any());
+        Assert.Equal(expected.RoleCount, ActualRoles.Count);
+
+        foreach (IdentityRole<Guid> role in ActualRoles)
+        {
+            Assert.True(ExpectedRoleNames.Contains(role.Name));
+        }
+    }
+
+
+    [Fact]
     public async Task SeedDatabase_builds_expected_relationship_graph_from_seed_files()
     {
         using var harness = new DbInitializerTestHarness();
         SeedCounts expected = ReadSeedCounts();
 
-        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.Logger);
+        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Logger);
 
         List<AudioAtlasDomain.Genres.Genre> genres = await harness.Context.Genres
             .Include(g => g.Author)
@@ -84,17 +107,21 @@ public class DbInitializerTests
         IdentityResult createResult = await harness.UserManager.CreateAsync(existingSystemUser);
         Assert.True(createResult.Succeeded, string.Join(", ", createResult.Errors.Select(e => e.Description)));
 
-        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.Logger);
+        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Logger);
 
-        List<ApplicationUser> users = await harness.Context.Users.Where(u => u.UserName == "system").ToListAsync();
+        string? normalizedSystemUserName = harness.UserManager.NormalizeName("System");
+        List<ApplicationUser> users = await harness.Context.Users
+            .Where(u => u.NormalizedUserName == normalizedSystemUserName)
+            .ToListAsync();
 
         Assert.Single(users);
         Assert.Equal(existingSystemUser.Id, users[0].Id);
+        Assert.True(users[0].IsSystemUser);
         Assert.All(await harness.Context.Genres.Select(g => g.AuthorId).ToListAsync(), authorId => Assert.Equal(existingSystemUser.Id, authorId));
     }
 
     [Fact]
-    public async Task SeedDatabase_skips_seeding_when_domain_data_already_exists()
+    public async Task SeedDatabase_skips_domain_seed_when_domain_data_already_exists()
     {
         using var harness = new DbInitializerTestHarness();
 
@@ -108,12 +135,12 @@ public class DbInitializerTests
         });
         await harness.Context.SaveChangesAsync();
 
-        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.Logger);
+        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Logger);
 
         Assert.Equal(1, await harness.Context.Countries.CountAsync());
         Assert.Empty(await harness.Context.Instruments.ToListAsync());
         Assert.Empty(await harness.Context.Genres.ToListAsync());
-        Assert.Empty(await harness.Context.Users.Where(u => u.UserName == "system").ToListAsync());
+        Assert.NotNull(await harness.UserManager.FindByNameAsync("System"));
     }
 
     private static SeedCounts ReadSeedCounts()
@@ -143,7 +170,8 @@ public class DbInitializerTests
             CountDistinctPairs(genreRoot, "genreCountry", "genreId", "countryId"),
             CountDistinctPairs(genreRoot, "genreInstrument", "genreId", "instrumentId"),
             CountDistinctPairs(genreRoot, "genreHierarchy", "genreId", "subgenreId"),
-            CountDistinctPairs(genreRoot, "genreSimilarity", "similarId1", "similarId2"));
+            CountDistinctPairs(genreRoot, "genreSimilarity", "similarId1", "similarId2"),
+            3);
     }
 
     private static int CountDistinctPairs(JsonElement root, string propertyName, string leftPropertyName, string rightPropertyName)
@@ -210,7 +238,8 @@ public class DbInitializerTests
         int GenreCountryCount,
         int GenreInstrumentCount,
         int GenreHierarchyCount,
-        int GenreSimilarityCount);
+        int GenreSimilarityCount,
+        int RoleCount);
 
     private sealed class DbInitializerTestHarness : IDisposable
     {
@@ -236,6 +265,7 @@ public class DbInitializerTests
 
             Context = _scope.ServiceProvider.GetRequiredService<AppDbContext>();
             UserManager = _scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            RoleManager = _scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
             Logger = _scope.ServiceProvider.GetRequiredService<ILogger<DbInitializer>>();
 
             Context.Database.EnsureCreated();
@@ -243,6 +273,8 @@ public class DbInitializerTests
 
         public AppDbContext Context { get; }
         public UserManager<ApplicationUser> UserManager { get; }
+
+        public RoleManager<IdentityRole<Guid>> RoleManager { get; }
         public ILogger<DbInitializer> Logger { get; }
 
         public void Dispose()
