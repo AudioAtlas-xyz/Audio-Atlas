@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { Country } from '~/types/country'
 import type {Genre} from "~/types/genre";
+import Stepper from '../components/submission/Stepper.vue';
+const step = ref(1);
 
 const { data } = await useFetch<Country[]>('/api/countries/all')
 
@@ -19,7 +21,7 @@ const form = useTemplateRef('form' )
 </script>
 
 <template>
-  <Stepper></Stepper>
+  <Stepper :current-state="step" />
   <div :class="$style.genreidentityformcard">
     <UForm ref="form" :state="state" />
     <UContainer style="padding: 3rem;">
