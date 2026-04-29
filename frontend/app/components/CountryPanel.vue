@@ -104,15 +104,7 @@ const errorMessage = computed(() => {
                 <NuxtLink :to="countryPageHref" class="text-3xl font-bold text-space-50 transition hover:text-[#8ddbe6]">
                   {{ data.name }}
                 </NuxtLink>
-                <UBadge v-if="data.continent" color="neutral" variant="soft">
-                  {{ data.continent }}
-                </UBadge>
               </div>
-
-              <p class="text-sm leading-6 text-[#b9c6df]">
-                {{ data.description || 'No description has been added for this country yet.' }}
-              </p>
-
               <div v-if="data.region || data.continent" class="flex flex-wrap gap-2">
                 <UBadge v-if="data.region" color="neutral" variant="soft">
                   {{ data.region }}
@@ -121,6 +113,11 @@ const errorMessage = computed(() => {
                   {{ data.continent }}
                 </UBadge>
               </div>
+              <p class="text-sm leading-6 text-[#b9c6df]">
+                {{ data.description || 'No description has been added for this country yet.' }}
+              </p>
+
+
             </section>
 
             <section class="space-y-3">
