@@ -4,11 +4,11 @@ const emit = defineEmits(['close'])
 const config = useRuntimeConfig()
 
 const loginWithGoogle = () => {
-  window.location.href = `${config.public.apiBase}/auth/login/google`
+  window.location.href = `${config.public.backendBaseUrl}/api/auth/login/google`
 }
 
 const loginWithGithub = () => {
-  window.location.href = `${config.public.apiBase}/auth/login/github`
+  window.location.href = `${config.public.backendBaseUrl}/api/auth/login/github`
 }
 </script>
 
