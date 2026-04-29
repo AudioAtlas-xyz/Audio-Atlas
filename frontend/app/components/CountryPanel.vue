@@ -132,10 +132,14 @@ const errorMessage = computed(() => {
               />
 
               <div v-else class="grid gap-3">
-                <UCard
+                <NuxtLink
                   v-for="genre in data.genres"
                   :key="genre.id"
+                  :to="`/genres?genreId=${genre.id}`"
                   class="border border-border bg-surface shadow-none"
+                >
+                <UCard
+
                 >
                   <div class="space-y-2">
                     <h5 class="text-base font-semibold text-space-50">
@@ -144,10 +148,23 @@ const errorMessage = computed(() => {
                     <p v-if="genre.summary || genre.description" class="text-sm leading-6 text-[#b9c6df]">
                       {{ genre.summary || genre.description }}
                     </p>
+
                   </div>
                 </UCard>
+                </NuxtLink>
               </div>
             </section>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-4 bg-bg border-t border-border">
+            <NuxtLink :to="countryPageHref" class="block">
+              <UButton
+                block
+                color="secondary"
+                class="w-full bg-aurora text-bg"
+              >
+                Open Country Page →
+              </UButton>
+            </NuxtLink>
           </div>
         </div>
       </div>
