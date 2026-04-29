@@ -99,7 +99,7 @@ const errorMessage = computed(() => {
                 <UButton icon="i-heroicons-x-mark" variant="ghost" color="neutral" @click="emit('close')" />
               </div>
               <div v-if="data.region || data.continent" class="flex flex-wrap gap-2">
-                <UBadge v-if="data.region" color="neutral" variant="soft">
+                <UBadge v-if="data.region" variant="subtle" color="neutral" class="bg-black border-white text-white">
                   {{ data.region }}
                 </UBadge>
                 <UBadge v-if="data.continent" color="neutral" variant="subtle">
@@ -136,9 +136,11 @@ const errorMessage = computed(() => {
                   v-for="genre in data.genres"
                   :key="genre.id"
                   :to="`/genres?genreId=${genre.id}`"
-                  class="border border-border bg-surface shadow-none"
+                  class="block transition-all duration-200 hover:-translate-y-0.5 hover:border-[#8ddbe6] hover:shadow-[0_0_15px_rgba(141,219,230,0.15)]"
                 >
-                <UCard
+                <!--class="border border-border bg-surface shadow-none"-->
+
+                <UCard class="border border-border bg-surface shadow-none transition-all duration-200 hover:border-aurora hover:text-aurora hover:bg-aurora-dim"
 
                 >
                   <div class="space-y-2">
