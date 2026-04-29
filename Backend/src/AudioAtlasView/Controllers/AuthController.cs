@@ -41,7 +41,8 @@ public class AuthController : ControllerBase
         _frontendBaseUrl = config["Frontend:BaseUrl"] ?? "http://localhost:3000";
     }
 
-    // LOGIN
+    // ================= LOGIN =================
+
     [AllowAnonymous]
     [HttpGet("login/github")]
     public IActionResult GitHubLogin()
@@ -62,13 +63,12 @@ public class AuthController : ControllerBase
         return Challenge(properties, "Google");
     }
 
-    // CALLBACK
+    // ================= CALLBACK =================
 
     [AllowAnonymous]
     [HttpGet("external-callback")]
     public async Task<IActionResult> ExternalCallback()
     {
-        // Clean expired pending registrations
         await _dbContext.PendingExternalRegistrations
             .Where(x => x.ExpiresAtUtc <= DateTime.UtcNow)
             .ExecuteDeleteAsync();
@@ -82,13 +82,8 @@ public class AuthController : ControllerBase
             info.LoginProvider,
             info.ProviderKey);
 
-
-        //If malicious user is trying to access the system user, block it.
-        if(user != null && user.IsSystemUser)
-        {
+        if (user != null && user.IsSystemUser)
             return Unauthorized();
-        } 
-
 
         // EXISTING USER
         if (user != null)
@@ -97,12 +92,10 @@ public class AuthController : ControllerBase
 
             var token = GenerateJwtToken(user);
 
-            return Redirect(
-                $"{_frontendBaseUrl}/auth/callback?token={token}&newUser=false"
-            );
+            return Redirect($"{_frontendBaseUrl}/auth/callback?token={token}&newUser=false");
         }
 
-        // NEW USER FLOW
+        // NEW USER
         var email = info.Principal.FindFirst(ClaimTypes.Email)?.Value;
 
         if (string.IsNullOrWhiteSpace(email))
@@ -143,14 +136,14 @@ public class AuthController : ControllerBase
         await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
         return Redirect(
-        $"{_frontendBaseUrl}/auth/callback" +
-        $"?newUser=true" +
-        $"&pendingRegistrationId={pendingRegistration.Id}" +
-        $"&suggestedUsername={Uri.EscapeDataString(pendingRegistration.SuggestedUsername)}"
+            $"{_frontendBaseUrl}/auth/callback" +
+            $"?newUser=true" +
+            $"&pendingRegistrationId={pendingRegistration.Id}" +
+            $"&suggestedUsername={Uri.EscapeDataString(pendingRegistration.SuggestedUsername)}"
         );
     }
 
-    // USERNAME
+    // ================= USERNAME =================
 
     [AllowAnonymous]
     [HttpGet("check-username")]
@@ -182,7 +175,6 @@ public class AuthController : ControllerBase
         public string Username { get; set; } = string.Empty;
     }
 
-    // CHANGE USERNAME
     [Authorize]
     [HttpPut("username")]
     public async Task<IActionResult> UpdateUsername([FromBody] UpdateUsernameRequest request)
@@ -207,20 +199,15 @@ public class AuthController : ControllerBase
         if (existingUser != null && existingUser.Id != user.Id)
             return Conflict("Username already in use.");
 
-        await _userManager.SetUserNameAsync(user, request.Username);
+        var result = await _userManager.SetUserNameAsync(user, request.Username);
 
-        var result = await _userManager.UpdateAsync(user);
         if (!result.Succeeded)
             return BadRequest(result.Errors);
 
-        return Ok(new
-        {
-            username = user.UserName
-        });
+        return Ok(new { username = user.UserName });
     }
 
-
-    // COMPLETE ONBOARDING
+    // ================= COMPLETE ONBOARDING =================
 
     [AllowAnonymous]
     [HttpPost("complete-onboarding")]
@@ -249,6 +236,7 @@ public class AuthController : ControllerBase
         {
             UserName = request.Username,
             Email = pendingRegistration.Email,
+            Provider = pendingRegistration.LoginProvider.ToLower(), // ✅ SET PROVIDER
             AcceptedPrivacyPolicyAtUtc = DateTime.UtcNow,
             AcceptedPrivacyPolicyVersion = CurrentPrivacyPolicyVersion,
             AcceptedContributionGuidelinesAtUtc = DateTime.UtcNow,
@@ -278,21 +266,32 @@ public class AuthController : ControllerBase
         });
     }
 
-    // AUTH TEST
+    // ================= ME =================
 
     [Authorize]
     [HttpGet("me")]
-    public IActionResult Me()
+    public async Task<IActionResult> Me()
     {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (userId == null)
+            return Unauthorized();
+
+        var user = await _userManager.FindByIdAsync(userId);
+
+        if (user == null)
+            return NotFound();
+
         return Ok(new
         {
-            userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
-            email = User.FindFirst(ClaimTypes.Email)?.Value,
-            username = User.FindFirst(ClaimTypes.Name)?.Value
+            userId = user.Id,
+            email = user.Email,
+            username = user.UserName,
+            provider = user.Provider // ✅ FIXED
         });
     }
 
-    // JWT
+    // ================= JWT =================
 
     private string GenerateJwtToken(ApplicationUser user)
     {
@@ -320,7 +319,7 @@ public class AuthController : ControllerBase
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    // HELPERS
+    // ================= HELPERS =================
 
     private static bool IsValidUsername(string username)
         => UsernameRegex.IsMatch(username);

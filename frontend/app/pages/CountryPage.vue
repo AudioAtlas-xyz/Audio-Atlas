@@ -5,7 +5,7 @@ const route = useRoute()
 const { api } = useApi()
 
 /**
- * Extract countryId safely from query
+ * Extract countryId
  */
 const countryId = computed(() => {
   const raw = route.query.countryId

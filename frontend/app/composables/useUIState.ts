@@ -9,7 +9,7 @@ export const useUIState = () => {
     showAccount.value = false
   }
 
-  // ✅ onboarding state
+  // onboarding state
   const pendingRegistrationId = useState<string | null>('ui_pending_id', () => null)
   const suggestedUsername = useState<string | null>('ui_suggested_username', () => null)
 
@@ -18,7 +18,6 @@ export const useUIState = () => {
     suggestedUsername.value = username
   }
 
-  // ✅ optional banner (you’re already using it)
   const showLoginBanner = useState<boolean>('ui_login_banner', () => false)
 
   const triggerLoginBanner = () => {

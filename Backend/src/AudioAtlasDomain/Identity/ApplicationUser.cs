@@ -56,5 +56,15 @@ namespace AudioAtlasDomain.Users
         /// </summary>
         public bool IsDeletedPlaceholder { get; set; } = false;
 
+        /// <summary>
+        /// The OAuth provider used to create this account.
+        /// 
+        /// Example values:
+        /// - "google"
+        /// - "github"
+        /// 
+        /// Used for displaying connected account status in the UI.
+        /// </summary>
+        public string? Provider { get; set; }
     }
 }
