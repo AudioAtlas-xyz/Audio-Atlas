@@ -33,7 +33,7 @@ const emit = defineEmits<{
         <template v-if="user">
           <span
             class="user-name"
-            @click="open('account')"
+            @click="openAccount"
           >
             {{ user.username || user.email }}
           </span>
@@ -55,8 +55,8 @@ const emit = defineEmits<{
   </header>
 
   <AccountDetails
-    :open="state === 'account'"
-    @close="close"
+    :open="showAccount"
+    @close="closeAccount"
   />
 </template>
 
