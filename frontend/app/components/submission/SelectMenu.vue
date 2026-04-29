@@ -1,13 +1,38 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
+const search = ref('')
 
 const props = defineProps<{
-  itemList: { label: string; value: string }[]
-  modelValue: { label: string; value: string }[]
+  itemList: string[]
+  modelValue: string[]
 }>()
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: { label: string; value: string }[]): void
+  (e: 'update:modelValue', value: string[]): void
 }>()
+
+const addTag = () => {
+  const value = search.value.trim()
+  if (!value) return
+
+  const exists = props.modelValue.includes(value)
+  if (exists) return
+
+  emit('update:modelValue', [
+    ...props.modelValue,
+    value
+  ])
+
+  search.value = ''
+}
+
+const removeTag = (val: string) => {
+  emit(
+    'update:modelValue',
+    props.modelValue
+  )
+}
 
 
 </script>
@@ -15,9 +40,13 @@ const emit = defineEmits<{
 <template>
   <USelectMenu
     :items="props.itemList"
-    :model-value="props.modelValue"
+    :model-value="props.modelValue  "
+    v-model:search="search"
     @update:model-value="emit('update:modelValue', $event)"
+    @keyup.enter="addTag"
     multiple
+    creatable
+    chips
   />
 </template>
 

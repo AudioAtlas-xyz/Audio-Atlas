@@ -1,14 +1,27 @@
 <script setup lang="ts">
 import type { Country } from '~/types/country'
 import type {Genre} from "~/types/genre";
+ //npm install @johmun/vue-tags-input
 import Stepper from '../components/submission/Stepper.vue';
+import SubmissionHeader from "~/components/submission/SubmissionHeader.vue";
 const step = ref(1);
 
-const { data } = await useFetch<Country[]>('/api/countries/all')
+const { data: countriesData } = await useFetch<Country[]>('/api/countries/all')
+const { data: genresData } = await useFetch<Genre[]>('/api/genres')
 
 const state = reactive({
   countries: []
 })
+
+const genrestate = reactive({
+  genresEvolvedfrom: [],
+  genresRiseTo: [],
+  simiargenres: []
+})
+
+const genreNames = computed(() =>
+  genresData.value?.map(c => c.name) ?? []
+)
 
 function nextStep() {
   currentStep.value++
@@ -19,19 +32,32 @@ function prevStep() {
 }
 
 const countryNames = computed(() =>
-  data.value?.map(c => ({
-    label: c.name,
-    value: c.name
-  })) ?? []
+  countriesData.value?.map(c => c.name) ?? []
 )
 
 //refs (reactive)
 const currentStep = ref(1)
 const sensitive = ref(false)
 
+const submissionData = reactive ({
+  // Step 1 fields:
+  genreName: '',
+  aliases: [], //may need to be changed to GenreAlias[]
+  origin: [], //names right now and not country objects
+  //Step 2 fields:
+
+})
+
 </script>
 
 <template>
+
+  <h1> Temporary text just to see if the data gets submitted </h1>
+  <p> Current Genre Name: {{submissionData.genreName}}</p>
+  <p> Current Aliases given: {{submissionData.aliases}}</p>
+  <p> Current Origin(s): {{submissionData.origin}}</p>
+
+  <SubmissionHeader/>
   <div v-if="currentStep === 1">
   <Stepper :current-state="currentStep" />
     <div :class="$style.genreidentityformcard">
@@ -41,27 +67,26 @@ const sensitive = ref(false)
 
         <div :class="$style.formFields">
           <UFormField label="GENRE NAME" required>
-            <UInput placeholder="e.g Afrobeats" class="w-full"/>
+            <UInput v-model="submissionData.genreName" placeholder="e.g Afrobeats" class="w-full"/>
             <h1> Name of the genre. </h1>
           </UFormField>
 
-
           <UFormField label="ALIASES" hint="(Optional)">
-            <UInput placeholder="Add an alias and press enter" class="w-full"></UInput>
+            <UInputTags v-model="submissionData.aliases" placeholder="Add an alias and press enter" class="w-full"/>
             <h1> Alternative names, transliterations or regional names. </h1>
           </UFormField>
 
 
           <UFormField label="COUNTRY / COUNTRIES OF ORIGIN" field="name" required>
             <SubmissionSelectMenu
-              v-model="state.countries"
+              v-model="submissionData.origin"
               :itemList ="countryNames"
               class="w-full"/>
             <h1> Select all countries where this genre originated - not just where it became popular. </h1>
           </UFormField>
         </div>
-        <div :class="$style.buttonRow" style="color: #3de8c8">
-          <UButton @click="nextStep">
+        <div :class="$style.buttonAlone">
+          <UButton @click="nextStep" style="background-color: #3DE8C8">
             Next: About
             <UIcon name="i-heroicons-arrow-right-20-solid" />
           </UButton>
@@ -109,12 +134,12 @@ const sensitive = ref(false)
           </UFormField>
         </div>
         <div :class="$style.buttonRow" style="color: #3de8c8">
-          <UButton @click="prevStep">
+          <UButton @click="prevStep" style="background-color: #8899FF">
             <UIcon name="i-heroicons-arrow-left-20-solid" />
             Back
           </UButton>
 
-          <UButton @click="nextStep">
+          <UButton @click="nextStep" style="background-color: #3DE8C8">
             Next: Connections
             <UIcon name="i-heroicons-arrow-right-20-solid" />
           </UButton>
@@ -123,6 +148,65 @@ const sensitive = ref(false)
       </UContainer>
     </div>
   </div>
+
+  <div v-if="currentStep === 3">
+    <Stepper :current-state="currentStep" />
+    <div :class="$style.genreidentityformcard">
+      <UForm ref="form" :state="state" />
+      <UContainer style="padding: 3rem;">
+        <div :class="$style.identity">Connections</div>
+        <h1>Link this genre to others and add your sources. All fields are optional. </h1>
+
+        <div :class="$style.formFields">
+        <UFormField label="EVOLVED FROM" field="name">
+          <SubmissionSelectMenu
+            v-model="genrestate.genresEvolvedfrom"
+            :itemList="genreNames"
+            class="w-full"/>
+          <h1>Genres this one grew out of or was heavily influenced by.</h1>
+        </UFormField>
+
+        <UFormField label="GAVE RISE TO" field="name">
+          <SubmissionSelectMenu
+            v-model="genrestate.genresRiseTo"
+            :itemList ="genreNames"
+            class="w-full"/>
+          <h1>Genres that branched off or emerged from this one.</h1>
+        </UFormField>
+
+        <UFormField label="SIMILAR TO" field="name">
+          <SubmissionSelectMenu
+            v-model="genrestate.simiargenres"
+            :itemList ="genreNames"
+            class="w-full"/>
+          <h1>Genres with a similar sound, feel, or cultural context.</h1>
+        </UFormField>
+
+        <UFormField label="SOURCES">
+          <UInput placeholder="https://..." style="color: #7a84a8" class="w-full"/>
+          <h1>Wikipedia, academic papers, news articles, documentaries - anything that supports your submission. </h1>
+        </UFormField>
+
+        <div :class="$style.contributorprofilelink">
+          <div :class="$style.addanothersourcelink">+ Add another source</div>
+        </div>
+        </div>
+
+        <div :class="$style.buttonRow">
+          <UButton @click="prevStep" style="background-color: #8899FF">
+            <UIcon name="i-heroicons-arrow-left-20-solid" />
+            Back
+          </UButton>
+
+          <UButton @click="nextStep" style="background-color: #3DE8C8">
+            Submit for review
+          </UButton>
+        </div>
+      </UContainer>
+    </div>
+
+  </div>
+
 </template>
 
 <style module>
@@ -165,6 +249,13 @@ h1 {
 .buttonRow {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-top: 7rem;
+}
+
+.buttonAlone {
+  display: flex;
+  justify-content: right;
   align-items: center;
   margin-top: 7rem;
 }
