@@ -65,6 +65,6 @@ namespace AudioAtlasDomain.Users
         /// 
         /// Used for displaying connected account status in the UI.
         /// </summary>
-        public string? Provider { get; set; }
+        public string? Provider { get; set; } = null!;
     }
 }
