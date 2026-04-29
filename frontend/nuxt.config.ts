@@ -44,14 +44,23 @@ export default defineNuxtConfig({
     }
   },
 
+  nitro: {
+    devProxy: {
+      '/api': {
+        target: 'http://localhost:5085',
+        changeOrigin: true
+      }
+    }
+  },
+
   runtimeConfig: {
     apiProxyTarget: process.env.NODE_ENV === 'production'
       ? ''
       : 'http://localhost:5085',
 
-  public: {
-    apiBase: '/api',
-    backendBaseUrl: 'http://localhost:5085' 
+    public: {
+      apiBase: '/api',
+      backendBaseUrl: 'http://localhost:5085'
     }
   }
 })
