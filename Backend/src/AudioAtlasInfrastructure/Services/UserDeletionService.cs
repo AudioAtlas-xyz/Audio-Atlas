@@ -1,7 +1,10 @@
-using AudioAtlasDomain.Users;
 using AudioAtlasApplication.Repositories;
 using AudioAtlasApplication.Services;
+using AudioAtlasDomain.Genres;
+using AudioAtlasDomain.Users;
+using AudioAtlasInfrastructure.Database;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace AudioAtlasInfrastructure.Services;
@@ -11,16 +14,20 @@ public class UserDeletionService : IUserDeletionService
 	private readonly UserManager<ApplicationUser> _userManager;
 	private readonly IGenreRepository _genreRepository;
 	private readonly ILogger<UserDeletionService> _logger;
+    private readonly AppDbContext _dbContext;
 
-	public UserDeletionService(
+
+    public UserDeletionService(
 		UserManager<ApplicationUser> userManager,
 		IGenreRepository genreRepository,
-		ILogger<UserDeletionService> logger)
+		ILogger<UserDeletionService> logger,
+		AppDbContext dbContext)
 	{
 		_userManager = userManager;
 		_genreRepository = genreRepository;
 		_logger = logger;
-	}
+        _dbContext = dbContext;
+    }
 
 	public async Task<bool> DeleteUserAsync(Guid userId)
 		{
@@ -53,8 +60,10 @@ public class UserDeletionService : IUserDeletionService
 			genre.AuthorId = deletedPlaceholder.Id;
 		}
 
-		// Deletes the user
-		IdentityResult result = await _userManager.DeleteAsync(user);
+        await _dbContext.SaveChangesAsync();
+
+        // Deletes the user
+        IdentityResult result = await _userManager.DeleteAsync(user);
 
 		if (!result.Succeeded)
 		{
