@@ -70,17 +70,9 @@ const errorMessage = computed(() => {
   >
     <template #body>
       <div class="min-h-full bg-bg text-space-50">
-        <div class="flex items-center justify-between border-b border-border bg-surface px-6 py-4">
-          <div>
-            <p class="text-[11px] uppercase tracking-[0.18em] text-[#8ddbe6]">
-              Country
-            </p>
-            <h2 class="mt-1 text-xl font-bold text-space-50">
-              Details
-            </h2>
-          </div>
-          <UButton icon="i-heroicons-x-mark" variant="ghost" color="neutral" @click="emit('close')" />
-        </div>
+      <!--  <div class="flex items-center justify-between border-b border-border bg-surface px-6 py-4">-->
+
+        <!--</div>-->
 
         <div class="space-y-6 p-6">
           <div v-if="pending" class="space-y-4">
@@ -104,6 +96,7 @@ const errorMessage = computed(() => {
                 <NuxtLink :to="countryPageHref" class="text-3xl font-bold text-space-50 transition hover:text-[#8ddbe6]">
                   {{ data.name }}
                 </NuxtLink>
+                <UButton icon="i-heroicons-x-mark" variant="ghost" color="neutral" @click="emit('close')" />
               </div>
               <div v-if="data.region || data.continent" class="flex flex-wrap gap-2">
                 <UBadge v-if="data.region" color="neutral" variant="soft">
