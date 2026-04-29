@@ -23,9 +23,7 @@ public class UserDeletionService : IUserDeletionService
 	}
 
 	public async Task<bool> DeleteUserAsync(Guid userId)
-	{
-		public async Task<bool> DeleteUserAsync(Guid userId)
-	{
+		{
 		_logger.LogInformation("Starting account deletion for user {UserId}", userId);
 
 		// Finds the user to delete
