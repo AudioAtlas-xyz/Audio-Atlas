@@ -150,7 +150,7 @@ public class AuthController : ControllerBase
         );
     }
 
-    // USERNAME CHECK
+    // USERNAME
 
     [AllowAnonymous]
     [HttpGet("check-username")]
@@ -176,6 +176,49 @@ public class AuthController : ControllerBase
                 : "Username is already in use."
         });
     }
+
+    public class UpdateUsernameRequest
+    {
+        public string Username { get; set; } = string.Empty;
+    }
+
+    // CHANGE USERNAME
+    [Authorize]
+    [HttpPut("username")]
+    public async Task<IActionResult> UpdateUsername([FromBody] UpdateUsernameRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.Username))
+            return BadRequest("Username is required.");
+
+        request.Username = request.Username.Trim();
+
+        if (!IsValidUsername(request.Username))
+            return BadRequest("Invalid username format.");
+
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userId == null)
+            return Unauthorized();
+
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user == null)
+            return NotFound();
+
+        var existingUser = await _userManager.FindByNameAsync(request.Username);
+        if (existingUser != null && existingUser.Id != user.Id)
+            return Conflict("Username already in use.");
+
+        await _userManager.SetUserNameAsync(user, request.Username);
+
+        var result = await _userManager.UpdateAsync(user);
+        if (!result.Succeeded)
+            return BadRequest(result.Errors);
+
+        return Ok(new
+        {
+            username = user.UserName
+        });
+    }
+
 
     // COMPLETE ONBOARDING
 

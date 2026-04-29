@@ -1,77 +1,170 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import GlassPanel from '@/components/GlassPanel.vue'
-import GlassButton from '@/components/GlassButton.vue'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { useAuth } from '@/composables/useAuth'
+import { useApi } from '@/composables/useApi'
 
-const props = defineProps<{
-  open: boolean
-}>()
-
-const emit = defineEmits<{
-  (e: 'close'): void
-}>()
+const props = defineProps<{ open: boolean }>()
+const emit = defineEmits<{ (e: 'close'): void }>()
 
 const { user, logout } = useAuth()
+const { api } = useApi()
 
-const username = ref(user.value?.username || '')
+const username = ref('')
 
-watch(() => props.open, (val) => {
-  if (val) {
-    username.value = user.value?.username || ''
+const status = ref<'idle' | 'checking' | 'available' | 'taken' | 'error'>('idle')
+const message = ref('')
+
+watch(
+  () => props.open,
+  (val) => {
+    if (val) {
+      username.value = user.value?.username || ''
+      status.value = 'idle'
+      message.value = ''
+    }
+  },
+  { immediate: true }
+)
+
+/**
+ * Debounce username check
+ */
+let timeout: ReturnType<typeof setTimeout> | null = null
+
+watch(username, (val) => {
+  if (!val) {
+    status.value = 'idle'
+    return
   }
+
+  if (timeout) clearTimeout(timeout)
+
+  timeout = setTimeout(async () => {
+    status.value = 'checking'
+
+    try {
+      const res = await api<{ available: boolean; message: string }>(
+        `/auth/check-username?username=${val}`
+      )
+
+      status.value = res.available ? 'available' : 'taken'
+      message.value = res.message
+    } catch {
+      status.value = 'error'
+      message.value = 'Error checking username'
+    }
+  }, 300)
 })
 
-function close() {
-  emit('close')
+/**
+ * Save username
+ */
+const save = async () => {
+  if (status.value === 'taken' || status.value === 'checking') return
+
+  try {
+    const res = await api<{ username: string }>(
+      `/auth/username`,
+      {
+        method: 'PUT',
+        body: {
+          username: username.value
+        }
+      }
+    )
+
+    if (user.value) {
+      user.value.username = res.username
+    }
+
+    close()
+  } catch (err: any) {
+    console.error(err)
+    status.value = 'error'
+    message.value = err?.data || 'Failed to update username'
+  }
 }
 
-function save() {
-  // TODO: hook to API
-  console.log('save username:', username.value)
+const close = () => emit('close')
+
+const handleKey = (e: KeyboardEvent) => {
+  if (e.key === 'Escape') close()
 }
+
+onMounted(() => window.addEventListener('keydown', handleKey))
+onUnmounted(() => window.removeEventListener('keydown', handleKey))
 </script>
 
 <template>
   <transition name="fade">
     <div v-if="open" class="overlay" @click.self="close">
-      <GlassPanel class="modal">
+      <div class="modal">
         <h2 class="title">Account details</h2>
 
-        <!-- USERNAME -->
+        <div class="divider" />
+
+        <!-- Username -->
         <div class="section">
-          <label>USERNAME</label>
+          <label>Username</label>
+
           <input v-model="username" class="input" />
+
+          <p v-if="status === 'checking'" class="hint">
+            Checking...
+          </p>
+
+          <p v-else-if="status === 'available'" class="hint success">
+            {{ message }}
+          </p>
+
+          <p v-else-if="status === 'taken'" class="hint error">
+            {{ message }}
+          </p>
+
+          <p v-else-if="status === 'error'" class="hint error">
+            {{ message }}
+          </p>
         </div>
 
-        <!-- CONNECTED ACCOUNTS -->
+        <div class="divider" />
+
+        <!-- Connected -->
         <div class="section">
           <p class="section-title">Connected accounts</p>
 
           <div class="account-row">
-            <span>GitHub</span>
-            <span class="muted">@{{ user?.username }}</span>
-            <GlassButton size="sm">Connected</GlassButton>
+            <span class="provider">GitHub</span>
+            <span class="muted">@{{ user?.username || '—' }}</span>
+            <button class="connected">Connected</button>
           </div>
 
           <div class="account-row">
-            <span>Google</span>
-            <span class="muted">{{ user?.email }}</span>
-            <GlassButton size="sm">Connected</GlassButton>
+            <span class="provider">Google</span>
+            <span class="muted">{{ user?.email || '—' }}</span>
+            <button class="connected">Connected</button>
           </div>
         </div>
 
-        <!-- ACTIONS -->
-        <div class="actions">
-          <GlassButton @click="save">
-            Save changes
-          </GlassButton>
+        <div class="divider" />
 
-          <GlassButton variant="danger" @click="logout">
+        <!-- Actions -->
+        <div class="actions">
+          <button
+            class="save"
+            :disabled="status === 'checking' || status === 'taken'"
+            @click="save"
+          >
+            Save changes
+          </button>
+
+          <button
+            class="delete"
+            @click="() => { logout(); close() }"
+          >
             Delete Account
-          </GlassButton>
+          </button>
         </div>
-      </GlassPanel>
+      </div>
     </div>
   </transition>
 </template>
@@ -81,87 +174,138 @@ function save() {
   position: fixed;
   inset: 0;
   z-index: 100;
-
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-
-  padding-top: 6rem;
-
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(6px);
+  align-items: center;
+  background: rgba(2, 6, 18, 0.55);
+  backdrop-filter: blur(12px);
 }
 
 .modal {
   width: 100%;
   max-width: 720px;
-
-  padding: 1.5rem 2rem;
-
+  padding: 1.75rem 2rem;
+  border-radius: 18px;
+  background:
+    radial-gradient(
+      1200px 400px at 50% -200px,
+      rgba(61, 232, 200, 0.06),
+      transparent
+    ),
+    #040713;
+  border: 1px solid rgba(141, 219, 230, 0.08);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.35rem;
 }
 
 .title {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #e6faff;
+  color: #e8f6fb;
 }
 
 .section {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .section-title {
-  color: #9fdbe6;
+  color: #8ec7d2;
   font-size: 0.9rem;
 }
 
-label {
-  font-size: 0.75rem;
-  color: #7fbac6;
-  letter-spacing: 0.08em;
+.provider {
+  font-weight: 500;
+  color: #dffaff;
+}
+
+.muted {
+  color: #6f9ea7;
+  font-size: 0.85rem;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(141, 219, 230, 0.08);
 }
 
 .input {
-  height: 2.5rem;
-  border-radius: 10px;
-  padding: 0 0.75rem;
+  height: 2.6rem;
+  border-radius: 12px;
+  padding: 0 0.9rem;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(141, 219, 230, 0.15);
+  color: #dffaff;
+}
 
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(141, 219, 230, 0.2);
+.input:focus {
+  outline: none;
+  border-color: rgba(61, 232, 200, 0.5);
+  box-shadow: 0 0 0 1px rgba(61, 232, 200, 0.25);
+}
 
-  color: white;
+.hint {
+  font-size: 0.75rem;
+}
+
+.success {
+  color: #3de8c8;
+}
+
+.error {
+  color: #ff6b6b;
 }
 
 .account-row {
   display: grid;
-  grid-template-columns: 1fr auto auto;
-  align-items: center;
-
-  padding: 0.6rem 0.75rem;
-  border-radius: 10px;
-
-  background: rgba(255, 255, 255, 0.03);
+  grid-template-columns: 1fr 1fr auto;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(141, 219, 230, 0.06);
 }
 
-.muted {
-  color: #7aaeb8;
-  font-size: 0.85rem;
+.connected {
+  background: transparent;
+  border: 1px solid #3de8c8;
+  color: #3de8c8;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
 }
 
 .actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 0.5rem;
+}
+
+.save {
+  background: #3de8c8;
+  color: #02211c;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+}
+
+.save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.delete {
+  background: #c94b5b;
+  color: white;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.18s ease;
 }
 
 .fade-enter-from,

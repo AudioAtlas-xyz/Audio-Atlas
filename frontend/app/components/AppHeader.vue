@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import GlassPanel from '@/components/GlassPanel.vue'
 import GlassButton from '@/components/GlassButton.vue'
+import AccountDetails from '@/components/AccountDetails.vue'
 import { useAuth } from '@/composables/useAuth'
+import { useUIState } from '@/composables/useUIState'
 
 const { user, logout } = useAuth()
+const { showAccount, openAccount, closeAccount } = useUIState()
 
 const emit = defineEmits<{
   (e: 'login'): void
 }>()
-
 </script>
 
 <template>
@@ -29,7 +31,10 @@ const emit = defineEmits<{
         <SearchBar />
 
         <template v-if="user">
-          <span class="user-email">
+          <span
+            class="user-name"
+            @click="open('account')"
+          >
             {{ user.username || user.email }}
           </span>
 
@@ -48,6 +53,11 @@ const emit = defineEmits<{
       </div>
     </GlassPanel>
   </header>
+
+  <AccountDetails
+    :open="state === 'account'"
+    @close="close"
+  />
 </template>
 
 <style scoped>
@@ -105,6 +115,13 @@ const emit = defineEmits<{
   justify-content: flex-end;
   align-items: center;
   gap: 0.75rem;
+}
+
+/* 👇 renamed + clickable */
+.user-name {
+  cursor: pointer;
+  color: #8ddbe6;
+  font-size: 0.9rem;
 }
 
 .brand {

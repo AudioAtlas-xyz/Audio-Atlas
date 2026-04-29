@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { relatedCount, contributorCount, instrumentCount } = defineProps<{
+const props = defineProps<{
   relatedCount: string
   contributorCount: string
   instrumentCount: string
@@ -8,127 +8,104 @@ const { relatedCount, contributorCount, instrumentCount } = defineProps<{
 
 <template>
   <div :class="$style.genrepanel">
-    <div :class="$style.divheroLeft">
+    <div :class="$style.wrapper">
+
       <div :class="$style.genrestats">
         <div :class="$style.prosecard">
-          <div :class="$style.titleAndDescription">
-            <b :class="$style.title">{{relatedCount}}</b>
-            <div :class="$style.loremIpsumDolor">Related Genres</div>
-          </div>
+          <b :class="$style.title">{{ props.relatedCount }}</b>
+          <span :class="$style.label">Related Genres</span>
         </div>
+
         <div :class="$style.prosecard">
-          <div :class="$style.titleAndDescription">
-            <b :class="$style.title">{{contributorCount}}</b>
-            <div :class="$style.loremIpsumDolor">Contributors</div>
-          </div>
+          <b :class="$style.title">{{ props.contributorCount }}</b>
+          <span :class="$style.label">Contributors</span>
         </div>
+
         <div :class="$style.prosecard">
-          <div :class="$style.titleAndDescription">
-            <b :class="$style.title">{{instrumentCount}}</b>
-            <div :class="$style.loremIpsumDolor">Instruments</div>
-          </div>
+          <b :class="$style.title">{{ props.instrumentCount }}</b>
+          <span :class="$style.label">Instruments</span>
         </div>
       </div>
-      <div :class="$style.divheroActions">
-        <NuxtLink to="/" :class="$style.contributeAGenreButton">
-          <div :class="$style.text">Suggest Edits</div>
+
+      <div :class="$style.actions">
+        <NuxtLink to="/" :class="$style.button">
+          Suggest Edits
         </NuxtLink>
       </div>
+
     </div>
   </div>
 </template>
 
-<style module>.divheroLeft {
+<style module>
+.genrepanel {
   width: 100%;
-  height: 8.138rem;
-  position: relative;
-  text-align: left;
-  font-size: 2.975rem;
-  color: #e4e8f5;
-  font-family: 'Space Grotesk';
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .genrestats {
-  position: absolute;
-  width: fit-content;
-  right: 27.3rem;
-  left: 0.375rem;
-  border-radius: 4px;
+  display: flex;
+  gap: 1rem;
+
   border: 1px solid #1c2038;
-  box-sizing: border-box;
-  height: 5rem;
+  border-radius: 10px;
+
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 1.875rem;
-  font-family: DM_Sans;
+  background: rgba(255, 255, 255, 0.02);
 }
+
 .prosecard {
-  height: 6.25rem;
-  width: 12rem;
-  background-color: #0d0f1a;
-  border: 1px solid #1c2038;
-  box-sizing: border-box;
+  flex: 1;
+
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 1.5rem;
-  flex-shrink: 0;
-}
-.titleAndDescription {
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.25rem;
-  flex-shrink: 0;
-}
-.title {
-  align-self: stretch;
-  position: relative;
-  line-height: 2.25rem;
-}
-.loremIpsumDolor {
-  align-self: stretch;
-  position: relative;
-  font-size: 0.75rem;
-  line-height: 1.25rem;
-  font-family: Space_Grotesk;
-  color: #252c48;
-}
-.divheroActions {
-  position: absolute;
-  top: 7rem;
-  left: 0rem;
-  width: 41.55rem;
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  flex-shrink: 0;
-  text-align: center;
-  font-size: 0.819rem;
-  color: #07080f;
-}
-.contributeAGenreButton {
-  border-radius: 3px;
-  background-color: #3de8c8;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 0.712rem 1.5rem;
+
+  padding: 1.25rem;
+
+  border-right: 1px solid #1c2038;
 }
 
-.contributeAGenreButton:hover {
-  background-color: #4AF7D7;
+.prosecard:last-child {
+  border-right: none;
 }
 
-.text {
-  position: relative;
-  letter-spacing: 0.39px;
+.title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #e4e8f5;
+}
+
+.label {
+  font-size: 0.75rem;
+  color: #6f789b;
+  margin-top: 0.2rem;
+  letter-spacing: 0.04em;
+}
+
+.actions {
+  display: flex;
+}
+
+.button {
+  background: #3de8c8;
+  color: #02211c;
+
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+
+  font-size: 0.85rem;
   font-weight: 500;
+
+  transition: all 0.15s ease;
+}
+
+.button:hover {
+  background: #4af7d7;
 }
 </style>

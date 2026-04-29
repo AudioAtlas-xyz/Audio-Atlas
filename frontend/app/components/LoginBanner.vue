@@ -1,23 +1,40 @@
 <script setup lang="ts">
-/**
- * Props: username to display in welcome banner
- */
-const { username } = defineProps<{
+import { ref, watch } from 'vue'
+
+const props = defineProps<{
   username?: string
 }>()
+
+const visible = ref(false)
+
+watch(
+  () => props.username,
+  (val) => {
+    if (!val) return
+
+    visible.value = true
+
+    // auto-hide after 3s
+    setTimeout(() => {
+      visible.value = false
+    }, 3000)
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
-  <!-- Banner shown only if username is provided -->
-  <div v-if="username" class="banner">
-    Welcome back, {{ username }} 👋
-  </div>
+  <transition name="fade">
+    <div v-if="visible" class="banner">
+      Welcome back, {{ props.username }} 👋
+    </div>
+  </transition>
 </template>
 
 <style scoped>
 .banner {
   position: fixed;
-  top: 5rem;
+  top: 5.5rem;
   left: 50%;
   transform: translateX(-50%);
 
@@ -35,19 +52,22 @@ const { username } = defineProps<{
   -webkit-backdrop-filter: blur(10px);
 
   z-index: 1000;
-
-  animation: fadeIn 0.25s ease;
   pointer-events: none;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -10px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
+/* animation */
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.25s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: translate(-50%, -10px);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translate(-50%, -10px);
 }
 </style>

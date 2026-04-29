@@ -7,13 +7,15 @@ import LoginModal from '@/components/LoginModal.vue'
 import UsernameModal from '@/components/UsernameModal.vue'
 import SuccessModal from '@/components/SuccessModal.vue'
 import LoginBanner from '@/components/LoginBanner.vue'
-import { useRoute } from 'vue-router'
+
+import { useRoute, useRouter } from 'vue-router'
 import { useScrollIntro } from '@/composables/useScrollIntro'
 import { useAuth } from '@/composables/useAuth'
+import { useUIState } from '@/composables/useUIState'
 import { useHead } from '#imports'
 
 /**
- * Page metadata
+ * Page meta
  */
 useHead({
   title: 'Audio Atlas',
@@ -21,64 +23,67 @@ useHead({
     { name: 'description', content: 'Explore music genres around the world' }
   ]
 })
- const route = useRoute()
 
+const route = useRoute()
+const router = useRouter()
 
 /**
- * Auth state (GLOBAL)
+ * Auth
+ */
+const { user, fetchUser } = useAuth()
+
+/**
+ * UI State
  */
 const {
-  user,
-  fetchUser,
+  pendingRegistrationId,
+  suggestedUsername,
+  openOnboarding,
   showLoginBanner,
-  showUsernameModal,
-  pendingRegistrationId
-} = useAuth()
+  triggerLoginBanner
+} = useUIState()
 
 /**
- * Fetch user on load (VERY important)
+ * Init auth + onboarding
  */
-
 onMounted(async () => {
+  const newUser = route.query.newUser as string | undefined
+  const pendingId = route.query.pendingRegistrationId as string | undefined
+  const suggested = route.query.suggestedUsername as string | undefined
 
-  const newUser = route.query.newUser
-  const pendingId = route.query.pendingRegistrationId
-  const suggested = route.query.suggestedUsername
-
-  if (newUser === 'true' && pendingId) {
-    showUsernameModal.value = true
-    pendingRegistrationId.value = String(pendingId)
+  // New user → onboarding
+  if (newUser === 'true') {
+    openOnboarding(pendingId || null, suggested || null)
   }
 
+  // Existing user → banner
   if (newUser === 'false') {
-    showLoginBanner.value = true
+    triggerLoginBanner()
   }
 
   await fetchUser()
 
-  window.history.replaceState({}, '', '/')
+  // Clean URL
+  router.replace('/')
 })
 
 /**
- * Scroll intro animation
+ * Scroll intro
  */
 const { progress, finished } = useScrollIntro()
 
 /**
- * Local UI state
+ * Local UI
  */
 const showLoginModal = ref(false)
 const showSuccessModal = ref(false)
 
 /**
- * Globe positions
+ * Globe setup
  */
 const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
 const settledPov = { lat: 54, lng: 12, altitude: 2.2 }
 
-/**
- * Easing
- */
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
 
 const eased = computed(() => {
@@ -86,9 +91,6 @@ const eased = computed(() => {
   return easeOut(easeOut(t))
 })
 
-/**
- * Globe offset
- */
 const globeOffset = computed<[number, number]>(() => {
   if (process.server) return [0, 0]
 
@@ -98,16 +100,10 @@ const globeOffset = computed<[number, number]>(() => {
   ]
 })
 
-/**
- * Camera POV
- */
 const globePov = computed(() =>
   finished.value ? settledPov : landingPov
 )
 
-/**
- * Hero animation
- */
 const pageStyle = computed(() => {
   const p = finished.value ? 1 : progress.value
 
@@ -118,22 +114,20 @@ const pageStyle = computed(() => {
 })
 
 /**
- * Login modal trigger
+ * Actions
  */
 const handleLogin = () => {
   showLoginModal.value = true
 }
 
-/**
- * Username flow finished
- */
 const handleUsernameFinished = () => {
-  showUsernameModal.value = false
+  pendingRegistrationId.value = null
+  suggestedUsername.value = null
   showSuccessModal.value = true
 }
 
 /**
- * Country state
+ * Country panel
  */
 const selectedCountryId = ref<string | null>(null)
 
@@ -202,11 +196,10 @@ const closeCountryPanel = () => {
       @close="showLoginModal = false"
     />
 
-    <!-- Username onboarding (CRITICAL FIX) -->
+    <!-- Username onboarding -->
     <UsernameModal
-      v-if="showUsernameModal && pendingRegistrationId"
-      @close="showUsernameModal = false"
-
+      v-if="pendingRegistrationId"
+      @close="pendingRegistrationId = null"
       @finished="handleUsernameFinished"
     />
 
@@ -215,7 +208,6 @@ const closeCountryPanel = () => {
       v-if="showSuccessModal"
       @close="showSuccessModal = false"
     />
-
 
   </main>
 </template>
@@ -230,12 +222,6 @@ body,
   padding: 0;
   overflow-x: hidden;
   background: #02070a;
-}
-
-html.globe-intro-complete,
-html.globe-intro-complete body {
-  height: 100%;
-  overflow: hidden;
 }
 </style>
 
