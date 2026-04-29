@@ -68,6 +68,6 @@ public class UserDeletionService : IUserDeletionService
 		}
 
 		_logger.LogInformation("Successfully deleted account for user {UserId}", userId);
-		return true
+		return true;
 	}
 }
