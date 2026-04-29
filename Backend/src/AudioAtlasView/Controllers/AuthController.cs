@@ -287,7 +287,7 @@ public class AuthController : ControllerBase
             userId = user.Id,
             email = user.Email,
             username = user.UserName,
-            provider = user.Provider // ✅ FIXED
+            provider = user.Provider
         });
     }
 

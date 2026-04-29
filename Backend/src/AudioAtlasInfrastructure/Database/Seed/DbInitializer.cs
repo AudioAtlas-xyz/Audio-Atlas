@@ -13,8 +13,7 @@ public class DbInitializer
 {
     private static string[] roles = ["Admin", "Banned", "Curator"];
     private static string SystemUserName = "System";
-    private static string DeletedUserName = "Deleted User";
-
+    private static string DeletedUserName = "DeletedUser";
     public static async Task SeedDatabase(AppDbContext dbContext, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, ILogger<DbInitializer> logger)
     {
         logger.LogInformation("Creating System User with username: {SystemUsername}", SystemUserName);

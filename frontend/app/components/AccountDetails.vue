@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 import { useApi } from '@/composables/useApi'
 
@@ -13,6 +13,9 @@ const username = ref('')
 
 const status = ref<'idle' | 'checking' | 'available' | 'taken' | 'error'>('idle')
 const message = ref('')
+
+const isGitHubConnected = computed(() => user.value?.provider === 'GitHub')
+const isGoogleConnected = computed(() => user.value?.provider === 'Google')
 
 watch(
   () => props.open,
@@ -128,20 +131,32 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey))
 
         <div class="divider" />
 
-        <!-- Connected -->
+        <!-- Connected accounts -->
         <div class="section">
           <p class="section-title">Connected accounts</p>
 
+          <!-- GitHub -->
           <div class="account-row">
             <span class="provider">GitHub</span>
             <span class="muted">@{{ user?.username || '—' }}</span>
-            <button class="connected">Connected</button>
+
+            <button
+              :class="isGitHubConnected ? 'connected' : 'disconnected'"
+            >
+              {{ isGitHubConnected ? 'Connected' : 'Disconnected' }}
+            </button>
           </div>
 
+          <!-- Google -->
           <div class="account-row">
             <span class="provider">Google</span>
             <span class="muted">{{ user?.email || '—' }}</span>
-            <button class="connected">Connected</button>
+
+            <button
+              :class="isGoogleConnected ? 'connected' : 'disconnected'"
+            >
+              {{ isGoogleConnected ? 'Connected' : 'Disconnected' }}
+            </button>
           </div>
         </div>
 
@@ -274,6 +289,15 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey))
   background: transparent;
   border: 1px solid #3de8c8;
   color: #3de8c8;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
+}
+
+.disconnected {
+  background: transparent;
+  border: 1px solid rgba(141, 219, 230, 0.2);
+  color: #6f9ea7;
   border-radius: 999px;
   padding: 0.35rem 0.9rem;
   font-size: 0.8rem;

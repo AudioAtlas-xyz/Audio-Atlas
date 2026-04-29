@@ -250,6 +250,9 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsDeletedPlaceholder")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsSystemUser")
                         .HasColumnType("bit");
 
@@ -275,6 +278,9 @@ namespace AudioAtlas.Infrastructure.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Provider")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
