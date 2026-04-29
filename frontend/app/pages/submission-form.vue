@@ -96,8 +96,8 @@ const submissionData = reactive ({
   <p> Current Aliases given: {{submissionData.aliases}}</p>
   <p> Current Origin(s): {{submissionData.origin}}</p>
 
-  <SubmissionHeader/>
   <div v-if="currentStep === 1">
+    <SubmissionHeader/>
   <Stepper :current-state="currentStep" />
     <div :class="$style.genreidentityformcard">
       <UContainer style="padding: 3rem;">
@@ -142,6 +142,7 @@ const submissionData = reactive ({
   </div>
 
   <div v-if="currentStep === 2">
+    <SubmissionHeader/>
     <Stepper :current-state="currentStep" />
     <div :class="$style.genreidentityformcard">
       <UContainer style="padding: 3rem;">
@@ -199,6 +200,7 @@ const submissionData = reactive ({
   </div>
 
   <div v-if="currentStep === 3">
+    <SubmissionHeader/>
     <Stepper :current-state="currentStep" />
     <div :class="$style.genreidentityformcard">
       <UForm ref="form" :state="state" />
@@ -269,27 +271,62 @@ const submissionData = reactive ({
     <div :class="$style.genreidentityformcard">
       <UForm ref="form" :state="state" />
       <UContainer style="padding: 3rem;">
-        <div :class="$style.reviewHeadline">Review & submit</div>
+        <div :class="$style.identity">Review & submit</div>
         <h1>Check everything looks right before submitting for curator review. </h1>
-        <div :class="$style.headerSection">
-          <div :class="$style.reviewSubject">IDENTITY</div>
-          <div :class="$style.subjectName">Genre name</div>
+
+        <div: class = "$style.formFields">
+          <div :class="$style.reviewStepWrapper">
+            <div :class="$style.reviewSubject">IDENTITY</div>
+            <div :class="$style.subjectName">Genre name</div>
+            <div :class="$style.genreNames">Afrobeats</div>
+            <div :class="$style.subjectName">Aliases</div>
+            <div :class="$style.subjectName">Countries of origin</div>
+            </div>
+
+          <USeparator orientation="horizontal" class="my-8" />
+
+          <div :class="$style.reviewStepWrapper">
+            <div :class="$style.reviewSubject">ABOUT</div>
+            <div :class="$style.subjectName">Description</div>
+            <div :class="$style.subjectName">Instruments</div>
+            <div :class="$style.subjectName">Playlist</div>
+          </div>
+
+          <USeparator orientation="horizontal" class="my-8" />
+
+          <div :class="$style.reviewStepWrapper">
+            <div :class="$style.reviewSubject">CONNECTIONS</div>
+            <div :class="$style.subjectName">Evolved from</div>
+            <div :class="$style.subjectName"> Gave rise to </div>
+            <div :class="$style.subjectName">Similar to </div>
+            <div :class="$style.subjectName">Sources </div>
+
+          </div>
+        </div:>
+
+        <USeparator orientation="horizontal" class="my-8" />
+
+        <div :class="$style.licensenotice">
+          <div :class="$style.rectangle" />
+          <div :class="$style.bySubmittingYour">By submitting, your contribution will be licensed under CC BY-NC-SA 4.0 and attributed to your Audio Atlas account. Submissions are reviewed by curators before appearing on the map.</div>
         </div>
 
-        <div :class="$style.buttonRow">
-          <UButton @click="prevStep" style="background-color: #8899FF">
-            <UIcon name="i-heroicons-arrow-left-20-solid" />
-            Back
-          </UButton>
+         <USeparator orientation="horizontal" class="my-8" />
 
-          <UButton @click="nextStep" style="background-color: #3DE8C8">
-            Submit for review
-          </UButton>
-        </div>
+         <div :class="$style.buttonRow2" style="color: #3de8c8">
+            <UButton @click="prevStep" style="background-color: #8899FF">
+              <UIcon name="i-heroicons-arrow-left-20-solid" />
+              Back
+            </UButton>
+
+            <UButton type="submit" style="background-color: #3DE8C8">
+              Submit for review
+            </UButton>
+          </div>
+
       </UContainer>
     </div>
   </div>
-
 </template>
 
 <style module>
@@ -308,16 +345,6 @@ const submissionData = reactive ({
   margin: 2rem auto 0 auto;
 }
 .identity {
-  width: 4.813rem;
-  position: relative;
-  font-size: 1.25rem;
-  font-weight: 500;
-  font-family: 'Space Grotesk';
-  color: #e4e8f5;
-  text-align: left;
-  display: inline-block;
-}
-.reviewHeadline {
   width: auto;
   position: relative;
   font-size: 1.25rem;
@@ -327,6 +354,7 @@ const submissionData = reactive ({
   text-align: left;
   display: inline-block;
 }
+
 .reviewSubject {
   width: 57px;
   height: 13px;
@@ -357,17 +385,24 @@ h1 {
   margin-top: 7rem;
 }
 
+.buttonRow2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+
+}
+
 .buttonAlone {
   display: flex;
   justify-content: right;
   align-items: center;
   margin-top: 7rem;
 }
-
-.headerSection {
+.reviewStepWrapper {
   display: flex;
-  flex-direction: column; /* This stacks them vertically */
-  gap: 8px;               /* This creates the specific space between them */
+  flex-direction: column;
+  gap: 8px;
   margin-bottom: 16px;
 }
 
@@ -380,11 +415,59 @@ h1 {
 }
 
 .subjectName {
-  width: 63px;
+  width: auto;
   height: 14px;
   font-size: 11px;
   font-family: 'Space Grotesk';
   color: #373d5a;
+}
+
+.genreNames{
+  width: 616px;
+  height: 20px;
+  position: relative;
+  font-size: 13px;
+  line-height: 175%;
+  font-weight: 300;
+  font-family: 'Space Grotesk';
+  color: #7a84a8;
+  text-align: left;
+  display: inline-block;
+
+}
+
+.licensenotice {
+width: 100%;
+height: 68px;
+position: relative;
+border-radius: 3px;
+background-color: #131624;
+border: 1px solid #1c2038;
+box-sizing: border-box;
+overflow: hidden;
+text-align: left;
+font-size: 11px;
+color: #7a84a8;
+font-family: 'Space Grotesk';
+}
+
+.rectangle {
+position: absolute;
+top: 0px;
+left: 0px;
+background-color: #3de8c8;
+width: 3px;
+height: 68px;
+}
+.bySubmittingYour {
+position: absolute;
+top: 12px;
+left: 16px;
+line-height: 178%;
+font-weight: 300;
+display: inline-block;
+width: 584px;
+height: 20px;
 }
 
 </style>
