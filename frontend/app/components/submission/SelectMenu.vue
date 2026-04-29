@@ -3,36 +3,18 @@ import { ref } from 'vue'
 
 const search = ref('')
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   itemList: string[]
   modelValue: string[]
-}>()
+}>(), {
+  modelValue: () => []
+})
+
+
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string[]): void
 }>()
-
-const addTag = () => {
-  const value = search.value.trim()
-  if (!value) return
-
-  const exists = props.modelValue.includes(value)
-  if (exists) return
-
-  emit('update:modelValue', [
-    ...props.modelValue,
-    value
-  ])
-
-  search.value = ''
-}
-
-const removeTag = (val: string) => {
-  emit(
-    'update:modelValue',
-    props.modelValue
-  )
-}
 
 
 </script>
@@ -43,7 +25,6 @@ const removeTag = (val: string) => {
     :model-value="props.modelValue  "
     v-model:search="search"
     @update:model-value="emit('update:modelValue', $event)"
-    @keyup.enter="addTag"
     multiple
     creatable
     chips
