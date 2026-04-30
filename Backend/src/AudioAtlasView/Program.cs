@@ -44,6 +44,7 @@ builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<IUserDeletionService, UserDeletionService>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
