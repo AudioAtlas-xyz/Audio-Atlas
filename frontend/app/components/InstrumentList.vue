@@ -30,13 +30,13 @@ const props = defineProps<{
     <div v-if="instrument.length" class="divide-y divide-border">
       <div
         v-for="it in instrument"
-        :key="it.name"
+        :key="it.type"
         class="flex items-center justify-between gap-3 px-4 py-3"
       >
         <div class="flex min-w-0 items-center gap-3">
 
           <div class="min-w-0">
-            {{ it.name }}
+            {{ it.type }}
           </div>
         </div>
       </div>
