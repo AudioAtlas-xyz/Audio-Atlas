@@ -14,8 +14,13 @@ const username = ref('')
 const status = ref<'idle' | 'checking' | 'available' | 'taken' | 'error'>('idle')
 const message = ref('')
 
-const isGitHubConnected = computed(() => user.value?.provider === 'GitHub')
-const isGoogleConnected = computed(() => user.value?.provider === 'Google')
+const isGoogleConnected = computed(() =>
+  user.value?.provider?.toLowerCase() === 'google'
+)
+
+const isGitHubConnected = computed(() =>
+  user.value?.provider?.toLowerCase() === 'github'
+)
 
 watch(
   () => props.open,
@@ -29,9 +34,6 @@ watch(
   { immediate: true }
 )
 
-/**
- * Debounce username check
- */
 let timeout: ReturnType<typeof setTimeout> | null = null
 
 watch(username, (val) => {
@@ -138,7 +140,8 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey))
           <!-- GitHub -->
           <div class="account-row">
             <span class="provider">GitHub</span>
-            <span class="muted">@{{ user?.username || '—' }}</span>
+            <span class="muted">{{ isGitHubConnected ? user?.username : 'Not signed in' }}
+</span>
 
             <button
               :class="isGitHubConnected ? 'connected' : 'disconnected'"
@@ -150,7 +153,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey))
           <!-- Google -->
           <div class="account-row">
             <span class="provider">Google</span>
-            <span class="muted">{{ user?.email || '—' }}</span>
+            <span class="muted">{{ isGoogleConnected ? user?.email : 'Not signed in' }}</span>
 
             <button
               :class="isGoogleConnected ? 'connected' : 'disconnected'"
@@ -278,7 +281,9 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey))
 
 .account-row {
   display: grid;
-  grid-template-columns: 1fr 1fr auto;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 1rem;
   padding: 0.75rem 1rem;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.025);
@@ -296,8 +301,8 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey))
 
 .disconnected {
   background: transparent;
-  border: 1px solid rgba(141, 219, 230, 0.2);
-  color: #6f9ea7;
+  border: 1px solid #ff6b6b;
+  color: #ff6b6b;
   border-radius: 999px;
   padding: 0.35rem 0.9rem;
   font-size: 0.8rem;
