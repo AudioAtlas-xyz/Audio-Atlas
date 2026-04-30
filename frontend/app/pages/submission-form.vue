@@ -5,10 +5,12 @@ import * as z from 'zod'
  //npm install @johmun/vue-tags-input
 import Stepper from '../components/submission/Stepper.vue';
 import SubmissionHeader from "~/components/submission/SubmissionHeader.vue";
+import type {Instrument} from "~/types/instrument";
 const step = ref(1);
 
 const { data: countriesData } = await useFetch<Country[]>('/api/countries/all')
 const { data: genresData } = await useFetch<Genre[]>('/api/genres')
+const { data: instrumentData } = await useFetch<Instrument[]>('/api/instruments')
 
 const state = reactive({
   countries: []
@@ -65,6 +67,10 @@ const countryNames = computed(() =>
   countriesData.value?.map(c => c.name) ?? []
 )
 
+const instrumentNames = computed(() =>
+  instrumentData.value?.map(c => c.type) ?? []
+)
+
 //refs (reactive)
 const currentStep = ref(1)
 const sensitive = ref(false)
@@ -95,6 +101,15 @@ const submissionData = reactive ({
   <p> Current Genre Name: {{submissionData.genreName}}</p>
   <p> Current Aliases given: {{submissionData.aliases}}</p>
   <p> Current Origin(s): {{submissionData.origin}}</p>
+  <p> Current Description: {{submissionData.description}}</p>
+  <p> Current Instruments: {{submissionData.instruments}}</p>
+  <p> Current Playlist: {{submissionData.playlist}}</p>
+  <p> Sensitivity info: {{submissionData.sensitive}}</p>
+  <p> Sensitive Description: {{submissionData.sensitiveDescription}}</p>
+  <p> Evolved from: {{submissionData.evolvedFrom}}</p>
+  <p> Gave rise to: {{submissionData.gaveRiseTo}}</p>
+  <p> Similar to: {{submissionData.similarTo}}</p>
+  <p> Sources: {{submissionData.sources}}</p>
 
   <div v-if="currentStep === 1">
     <SubmissionHeader/>
@@ -162,8 +177,8 @@ const submissionData = reactive ({
 
             <UFormField label="INSTRUMENTS" name="instruments" hint="(Optional)">
               <SubmissionSelectMenu
-                v-model="state.countries"
-                :itemList ="countryNames"
+                v-model="submissionData.instruments"
+                :itemList ="instrumentNames"
                 class="w-full"/>
               <h1>Traditional and modern instruments associated with this genre</h1>
             </UFormField>
