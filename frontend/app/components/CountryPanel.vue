@@ -59,7 +59,6 @@ const errorMessage = computed(() => {
 <template>
   <USlideover
     :open="open"
-    title="Country Details"
     :close="false"
     :ui="{
       overlay: 'z-[120]',
@@ -93,16 +92,16 @@ const errorMessage = computed(() => {
           <div v-else-if="data" class="space-y-6">
             <section class="space-y-3">
               <div class="flex items-start justify-between gap-4">
-                <NuxtLink :to="countryPageHref" class="text-3xl font-bold text-space-50 transition hover:text-[#8ddbe6]">
+                <NuxtLink :to="countryPageHref" class="text-3xl font-bold text-space-50 transition hover:text-aurora">
                   {{ data.name }}
                 </NuxtLink>
-                <UButton icon="i-heroicons-x-mark" variant="ghost" color="neutral" @click="emit('close')" />
+                <UButton icon="i-heroicons-x-mark" variant="ghost" @click="emit('close')" class="text-aurora"/>
               </div>
               <div v-if="data.region || data.continent" class="flex flex-wrap gap-2">
                 <UBadge v-if="data.region" variant="subtle" color="neutral" class="bg-black border-white text-white">
                   {{ data.region }}
                 </UBadge>
-                <UBadge v-if="data.continent" color="neutral" variant="subtle">
+                <UBadge v-if="data.continent" variant="subtle" color="neutral" class="bg-black border-white text-white">
                   {{ data.continent }}
                 </UBadge>
               </div>
