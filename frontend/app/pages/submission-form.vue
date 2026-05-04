@@ -292,19 +292,51 @@ const submissionData = reactive ({
         <div: class = "$style.formFields">
           <div :class="$style.reviewStepWrapper">
             <div :class="$style.reviewSubject">IDENTITY</div>
-            <div :class="$style.subjectName">Genre name</div>
-            <div :class="$style.genreNames">Afrobeats</div>
+            <div :class="$style.subjectName">Genre Name</div>
+            <div :class = "$style.genreNames">{{submissionData.genreName}}</div>
+
             <div :class="$style.subjectName">Aliases</div>
-            <div :class="$style.subjectName">Countries of origin</div>
+            <div :class="$style.wrapper">
+              <span
+                v-for="(item, index) in submissionData.aliases"
+                :key="index"
+                :class="$style.chip"
+                >
+                {{ item }}
+                </span>
             </div>
+
+            <div :class="$style.subjectName">Countries of origin</div>
+            <div :class="$style.wrapper">
+              <span
+                v-for="(item, index) in submissionData.origin"
+                :key="index"
+                :class="$style.chip"
+                >
+                {{ item }}
+                </span>
+            </div>
+          </div>
 
           <USeparator orientation="horizontal" class="my-8" />
 
           <div :class="$style.reviewStepWrapper">
             <div :class="$style.reviewSubject">ABOUT</div>
             <div :class="$style.subjectName">Description</div>
+            <div :class = "$style.subjectName">{{submissionData.description}}</div>
             <div :class="$style.subjectName">Instruments</div>
+            <div :class="$style.wrapper">
+              <span
+                v-for="(item, index) in submissionData.instruments"
+                :key="index"
+                :class="$style.chip"
+                >
+                {{ item }}
+                </span>
+            </div>
+
             <div :class="$style.subjectName">Playlist</div>
+            <div :class = "$style.subjectName">{{submissionData.playlist}}</div>
           </div>
 
           <USeparator orientation="horizontal" class="my-8" />
@@ -312,9 +344,37 @@ const submissionData = reactive ({
           <div :class="$style.reviewStepWrapper">
             <div :class="$style.reviewSubject">CONNECTIONS</div>
             <div :class="$style.subjectName">Evolved from</div>
+            <div :class="$style.wrapper">
+              <span
+                v-for="(item, index) in submissionData.evolvedFrom"
+                :key="index"
+                :class="$style.chip"
+                >
+                {{ item }}
+                </span>
+            </div>
             <div :class="$style.subjectName"> Gave rise to </div>
+            <div :class="$style.wrapper">
+              <span
+                v-for="(item, index) in submissionData.gaveRiseTo"
+                :key="index"
+                :class="$style.chip"
+                >
+                {{ item }}
+                </span>
+            </div>
             <div :class="$style.subjectName">Similar to </div>
+            <div :class="$style.wrapper">
+              <span
+                v-for="(item, index) in submissionData.similarTo"
+                :key="index"
+                :class="$style.chip"
+                >
+                {{ item }}
+                </span>
+            </div>
             <div :class="$style.subjectName">Sources </div>
+            <div :class = "$style.subjectName">{{submissionData.sources}}</div>
 
           </div>
         </div:>
@@ -389,7 +449,7 @@ h1 {
 .formFields {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;  /* Adjust this value for more/less space */
+  gap: 1.5rem;
   margin-top: 1.5rem;
 }
 
@@ -483,6 +543,33 @@ font-weight: 300;
 display: inline-block;
 width: 584px;
 height: 20px;
+}
+
+.chip {
+width: fit-content;
+padding: 0 12px;
+height: 24px;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+border-radius: 12px;
+background-color: rgba(136, 153, 255, 0.12);
+border: 1px solid #8899ff;
+box-sizing: border-box;
+overflow: hidden;
+text-align: left;
+font-size: 11px;
+color: #8899ff;
+font-family: 'Space Grotesk';
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
 }
 
 </style>
