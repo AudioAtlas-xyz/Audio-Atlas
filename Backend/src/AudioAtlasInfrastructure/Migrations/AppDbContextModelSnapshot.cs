@@ -168,9 +168,6 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.Property<DateOnly?>("EndDate")
                         .HasColumnType("date");
 
-                    b.Property<bool>("IsRejected")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsSensitive")
                         .HasColumnType("bit");
 
@@ -182,6 +179,9 @@ namespace AudioAtlas.Infrastructure.Migrations
 
                     b.Property<DateOnly?>("StartDate")
                         .HasColumnType("date");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -250,6 +250,12 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsDeletedPlaceholder")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSystemUser")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -272,6 +278,9 @@ namespace AudioAtlas.Infrastructure.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Provider")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

@@ -1,4 +1,5 @@
-﻿using AudioAtlasDomain.Genres;
+using AudioAtlasDomain.Enums;
+using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.Users;
 
@@ -69,12 +70,9 @@ public class Submission
     public string? PlaylistLink { get; set; }
 
     /// <summary>
-    /// Indicates whether the submission has been rejected.
-    /// 
-    /// If true, additional details should be available
-    /// in the associated RejectedSubmission entity.
+    /// Represents the current moderation state of the submission.
     /// </summary>
-    public bool IsRejected { get; set; }
+    public SubmissionStatus Status { get; set; } = SubmissionStatus.Pending;
 
     /// <summary>
     /// Proposed alternative names for the genre.

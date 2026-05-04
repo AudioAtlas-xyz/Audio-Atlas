@@ -42,9 +42,12 @@ builder.Services
 //Dependency injection HAS TO be here, or else mapping of controllers will crash.
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<ISubmissionRepository, SubmissionRepository>();
 builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IInstrumentRepository, InstrumentRepository>();
+builder.Services.AddScoped<IUserDeletionService, UserDeletionService>();
+builder.Services.AddScoped<ISubmissionService, SubmissionService>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -181,12 +184,13 @@ using (var scope = app.Services.CreateScope())
     var ctx = services.GetRequiredService<AppDbContext>();
     var seedLogger = services.GetRequiredService<ILogger<DbInitializer>>();
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
 
     app.Logger.LogInformation("Running database migration and seed.");
 
     ctx.Database.Migrate();
 
-    await DbInitializer.SeedDatabase(ctx, userManager, seedLogger);
+    await DbInitializer.SeedDatabase(ctx, userManager, roleManager, seedLogger);
 
     app.Logger.LogInformation("Database migration and seed completed.");
     ViewDebugger.DebugToFile(ctx);

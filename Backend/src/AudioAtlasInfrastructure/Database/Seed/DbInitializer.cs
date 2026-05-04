@@ -11,46 +11,28 @@ namespace AudioAtlasInfrastructure.Database.Seed;
 
 public class DbInitializer
 {
-    public static async Task SeedDatabase(AppDbContext dbContext, UserManager<ApplicationUser> userManager,ILogger<DbInitializer> logger)
+    private static string[] roles = ["Admin", "Banned", "Curator"];
+    private static string SystemUserName = "System";
+    private static string DeletedUserName = "DeletedUser";
+    public static async Task SeedDatabase(AppDbContext dbContext, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, ILogger<DbInitializer> logger)
     {
+        logger.LogInformation("Creating System User with username: {SystemUsername}", SystemUserName);
+
+        ApplicationUser systemUser = await CreateStaticUserAsync(SystemUserName, dbContext, userManager, logger);
+
+        logger.LogInformation("Creating System User with username: {DeletedUserName}", DeletedUserName);
+
+        ApplicationUser DeletedUser = await CreateStaticUserAsync(DeletedUserName, dbContext, userManager, logger, isDeletedPlaceholder: true);
+
+        logger.LogInformation("Creating Roles: {roles}", "[" + string.Join(", ", roles) + "]");
+
+        await CreateRolesAsync(roles, roleManager, logger);
+
         if (dbContext.Instruments.Any() || dbContext.Genres.Any() || dbContext.Countries.Any())
         {
             logger.LogWarning("Skipping seeding as database contains data.");
             return;
         }
-
-            string path = Path.Combine(AppContext.BaseDirectory, "seeding.json");
-            logger.LogInformation("Loading seed data from {SeedPath}", path);
-
-        ApplicationUser systemUser = await dbContext.Users
-            .FirstOrDefaultAsync(u => u.UserName == "system");
-
-        if (systemUser == null)
-        {
-            systemUser = new ApplicationUser
-            {
-                UserName = "system",
-                Email = "system@audioatlas.com",
-                EmailConfirmed = true,
-                SecurityStamp = Guid.NewGuid().ToString()
-            };
-
-            // Create without password using a bypass
-            var result = await userManager.CreateAsync(systemUser);
-
-            if (!result.Succeeded)
-            {
-                foreach (var error in result.Errors)
-                {
-                    logger.LogError("Identity error: {Code} - {Description}", error.Code, error.Description);
-                }
-
-                throw new Exception($"Could not create system user: {string.Join(", ", result.Errors.Select(e => e.Description))}");
-            }
-
-            await dbContext.SaveChangesAsync();
-        }
-
 
         string countryPath = GetSeedFilePath("countrySeeding.json");
         string instrumentPath = GetSeedFilePath("instrumentSeeding.json");
@@ -92,6 +74,74 @@ public class DbInitializer
 
             dbContext.SaveChanges();
         }
+    }
+
+    private static async Task CreateRolesAsync(string[] roles, RoleManager<IdentityRole<Guid>> roleManager, ILogger<DbInitializer> logger)
+    {
+        foreach (var roleName in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(roleName))
+            {
+                var result = await roleManager.CreateAsync(new IdentityRole<Guid>
+                {
+                    Name = roleName
+                });
+
+                foreach (var error in result.Errors)
+                {
+                    logger.LogError("Role error trying to create {RoleName}: {Code} - {Description}", roleName, error.Code, error.Description);
+                }
+            }
+        }
+    }
+
+    private static async Task<ApplicationUser> CreateStaticUserAsync(string username, AppDbContext dbContext, UserManager<ApplicationUser> userManager, ILogger<DbInitializer> logger, bool isDeletedPlaceholder = false)
+    {
+        ApplicationUser? staticUser = await userManager.FindByNameAsync(username);
+
+        if (staticUser == null)
+        {
+            staticUser = new ApplicationUser
+            {
+                UserName = username,
+                Email = $"{username.ToLowerInvariant()}@audioatlas.com",
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                LockoutEnabled = true,
+                LockoutEnd = DateTimeOffset.MaxValue,
+                IsSystemUser = !isDeletedPlaceholder,
+                IsDeletedPlaceholder = isDeletedPlaceholder
+            };
+
+            // Create without password using a bypass
+            var result = await userManager.CreateAsync(staticUser);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    logger.LogError("Identity error: {Code} - {Description}", error.Code, error.Description);
+                }
+
+                throw new Exception($"Could not create {username}: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+            }
+
+            await dbContext.SaveChangesAsync();
+        }
+        else if (!staticUser.IsSystemUser && !isDeletedPlaceholder)
+        {
+            staticUser.IsSystemUser = true;
+            await dbContext.SaveChangesAsync();
+        }
+        else if (!staticUser.IsDeletedPlaceholder && isDeletedPlaceholder)
+        {
+            staticUser.IsDeletedPlaceholder = true;
+            await dbContext.SaveChangesAsync();
+        }
+
+
+        return staticUser;  
+
     }
 
     private static string GetSeedFilePath(string fileName)

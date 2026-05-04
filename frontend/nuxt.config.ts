@@ -48,8 +48,10 @@ export default defineNuxtConfig({
     apiProxyTarget: process.env.NODE_ENV === 'production'
       ? ''
       : 'http://localhost:5085',
+
     public: {
-      apiBase: '/api'
+      apiBase: 'http://localhost:5085/api',
+      backendBaseUrl: 'http://localhost:5085'
     }
   }
 })

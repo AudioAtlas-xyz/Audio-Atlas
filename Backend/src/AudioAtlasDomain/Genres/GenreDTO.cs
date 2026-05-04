@@ -3,7 +3,7 @@ using AudioAtlasDomain.MusicMetadata;
 
 namespace AudioAtlasDomain.Genres;
 
-public class GenreDTO
+public class GenreDTO : IComparable<GenreDTO>
 {
     public Guid Id { get; set; }
     public Guid? AuthorId { get; set; }
@@ -21,4 +21,15 @@ public class GenreDTO
     public ICollection<GenreDTO> SimilarGenres { get; set; } = new List<GenreDTO>();
     public ICollection<GenreDTO> SubGenres { get; set; } = new List<GenreDTO>();
     public ICollection<GenreDTO> ParentGenres { get; set; } = new List<GenreDTO>();
+
+    public int CompareTo(GenreDTO? other)
+    {
+        if(other == null)
+        {
+            return -1;
+        }
+
+        return Name.CompareTo(other.Name);
+
+    }
 }
