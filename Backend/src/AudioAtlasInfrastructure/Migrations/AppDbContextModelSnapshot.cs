@@ -168,12 +168,6 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.Property<DateOnly?>("EndDate")
                         .HasColumnType("date");
 
-                    b.Property<bool>("IsRejected")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsSensitive")
                         .HasColumnType("bit");
 
@@ -185,6 +179,9 @@ namespace AudioAtlas.Infrastructure.Migrations
 
                     b.Property<DateOnly?>("StartDate")
                         .HasColumnType("date");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

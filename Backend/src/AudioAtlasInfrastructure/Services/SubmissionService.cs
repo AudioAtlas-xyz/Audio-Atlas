@@ -1,6 +1,7 @@
 using AudioAtlasApplication.DTOs;
 using AudioAtlasApplication.Repositories;
 using AudioAtlasApplication.Services;
+using AudioAtlasDomain.Enums;
 using AudioAtlasDomain.Submissions;
 
 namespace AudioAtlasInfrastructure.Services;
@@ -132,6 +133,7 @@ public class SubmissionService : ISubmissionService
             Description = normalizedDescription,
             IsSensitive = request.IsSensitive,
             PlaylistLink = normalizedPlaylistLink,
+            Status = SubmissionStatus.Pending,
             Aliases = normalizedAliases.Select(alias => new SubmissionAlias
             {
                 Alias = alias
@@ -181,8 +183,7 @@ public class SubmissionService : ISubmissionService
     {
         var submission = await getPendingSubmissionOrThrowAsync(submissionId, cancellationToken);
 
-        submission.IsApproved = true;
-        submission.IsRejected = false;
+        submission.Status = SubmissionStatus.Approved;
         submission.RejectedSubmission = null;
 
         await _submissionRepository.saveChangesAsync(cancellationToken);
@@ -204,8 +205,7 @@ public class SubmissionService : ISubmissionService
             throw new InvalidOperationException($"reason: Rejection reason must be at most {MaxRejectReasonLength} characters.");
         }
 
-        submission.IsRejected = true;
-        submission.IsApproved = false;
+        submission.Status = SubmissionStatus.Rejected;
 
         if (submission.RejectedSubmission is null)
         {
@@ -329,12 +329,12 @@ public class SubmissionService : ISubmissionService
             throw new InvalidOperationException("submissionId: Submission not found.");
         }
 
-        if (submission.IsApproved)
+        if (submission.Status == SubmissionStatus.Approved)
         {
             throw new InvalidOperationException("submissionId: Submission has already been approved.");
         }
 
-        if (submission.IsRejected)
+        if (submission.Status == SubmissionStatus.Rejected)
         {
             throw new InvalidOperationException("submissionId: Submission has already been rejected.");
         }
