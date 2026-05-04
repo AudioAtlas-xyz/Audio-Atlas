@@ -80,6 +80,8 @@ onMounted(async () => {
   const getCountryName = feature => feature.properties.admin ?? feature.properties.name
   const getCountryPopulation = feature => feature.properties.pop_est
 
+  const countryGenreCount = new Map([['USA', 120], ['DNK', 25], ['FRA', 60]])
+
   const features = countries.features.filter((f) => {
     const iso = getCountryIso(f)
     return iso && iso !== 'ATA' && iso !== '-99'
@@ -121,6 +123,7 @@ onMounted(async () => {
     .polygonLabel(feature => `
       <b>${getCountryName(feature)} (${getCountryIso(feature)}):</b><br/>
       Population: <i>${getCountryPopulation(feature)?.toLocaleString?.() ?? getCountryPopulation(feature)}</i>
+
     `)
     .pointsData(tinyCountries)
     .pointLat(d => d.lat)
