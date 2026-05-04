@@ -4,9 +4,11 @@ using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Submissions;
 using AudioAtlasDomain.Users;
 using AudioAtlasInfrastructure.Database;
-using AudioAtlasInfrastructure.Repositories;
 using AudioAtlasInfrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using InfrastructureCountryRepository = AudioAtlasInfrastructure.Repositories.CountryRepository;
+using InfrastructureGenreRepository = AudioAtlasInfrastructure.Repositories.GenreRepository;
+using InfrastructureSubmissionRepository = AudioAtlasInfrastructure.Repositories.SubmissionRepository;
 
 namespace AudioAtlasInfrastructureTests;
 
@@ -48,9 +50,9 @@ public class SubmissionServiceTests
         dbContext.Genres.Add(relatedGenre);
         await dbContext.SaveChangesAsync();
 
-        var submissionRepository = new SubmissionRepository(dbContext);
-        var countryRepository = new CountryRepository(dbContext);
-        var genreRepository = new GenreRepository(dbContext);
+        var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
+        var countryRepository = new InfrastructureCountryRepository(dbContext);
+        var genreRepository = new InfrastructureGenreRepository(dbContext);
         var service = new SubmissionService(countryRepository, genreRepository, submissionRepository);
 
         var command = new CreateSubmissionRequest
@@ -98,9 +100,9 @@ public class SubmissionServiceTests
             .Options;
 
         using var dbContext = new AppDbContext(options);
-        var submissionRepository = new SubmissionRepository(dbContext);
-        var countryRepository = new CountryRepository(dbContext);
-        var genreRepository = new GenreRepository(dbContext);
+        var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
+        var countryRepository = new InfrastructureCountryRepository(dbContext);
+        var genreRepository = new InfrastructureGenreRepository(dbContext);
         var service = new SubmissionService(countryRepository, genreRepository, submissionRepository);
 
         var command = new CreateSubmissionRequest
@@ -125,9 +127,9 @@ public class SubmissionServiceTests
             .Options;
 
         using var dbContext = new AppDbContext(options);
-        var submissionRepository = new SubmissionRepository(dbContext);
-        var countryRepository = new CountryRepository(dbContext);
-        var genreRepository = new GenreRepository(dbContext);
+        var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
+        var countryRepository = new InfrastructureCountryRepository(dbContext);
+        var genreRepository = new InfrastructureGenreRepository(dbContext);
         var service = new SubmissionService(countryRepository, genreRepository, submissionRepository);
 
         var command = new CreateSubmissionRequest
@@ -205,9 +207,9 @@ public class SubmissionServiceTests
 
         await dbContext.SaveChangesAsync();
 
-        var submissionRepository = new SubmissionRepository(dbContext);
-        var countryRepository = new CountryRepository(dbContext);
-        var genreRepository = new GenreRepository(dbContext);
+        var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
+        var countryRepository = new InfrastructureCountryRepository(dbContext);
+        var genreRepository = new InfrastructureGenreRepository(dbContext);
         var service = new SubmissionService(countryRepository, genreRepository, submissionRepository);
 
         var submissions = await service.getPendingAsync();
@@ -244,9 +246,9 @@ public class SubmissionServiceTests
         await dbContext.SaveChangesAsync();
 
         var service = new SubmissionService(
-            new CountryRepository(dbContext),
-            new GenreRepository(dbContext),
-            new SubmissionRepository(dbContext));
+            new InfrastructureCountryRepository(dbContext),
+            new InfrastructureGenreRepository(dbContext),
+            new InfrastructureSubmissionRepository(dbContext));
 
         await service.approveAsync(submission.Id);
 
@@ -277,9 +279,9 @@ public class SubmissionServiceTests
         await dbContext.SaveChangesAsync();
 
         var service = new SubmissionService(
-            new CountryRepository(dbContext),
-            new GenreRepository(dbContext),
-            new SubmissionRepository(dbContext));
+            new InfrastructureCountryRepository(dbContext),
+            new InfrastructureGenreRepository(dbContext),
+            new InfrastructureSubmissionRepository(dbContext));
 
         await service.rejectAsync(submission.Id, new RejectSubmissionRequest
         {
