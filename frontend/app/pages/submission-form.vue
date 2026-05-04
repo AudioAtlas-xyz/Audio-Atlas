@@ -340,7 +340,7 @@ const submissionData = reactive ({
                 </button>
               </div>
             <div :class="$style.subjectName">Description</div>
-            <div :class = "$style.subjectName">{{submissionData.description}}</div>
+            <div :class = "$style.textfield">{{submissionData.description}}</div>
             <div :class="$style.subjectName">Instruments</div>
             <div :class="$style.wrapper">
               <span
@@ -352,7 +352,7 @@ const submissionData = reactive ({
                 </span>
             </div>
 
-            <div :class="$style.subjectName">Playlist</div>
+            <div :class="$style.textfield">Playlist</div>
             <div :class = "$style.subjectName">{{submissionData.playlist}}</div>
           </div>
 
@@ -395,7 +395,7 @@ const submissionData = reactive ({
                 {{ item }}
                 </span>
             </div>
-            <div :class="$style.subjectName">Sources </div>
+            <div :class="$style.textfield">Sources </div>
             <div :class = "$style.subjectName">{{submissionData.sources}}</div>
 
           </div>
@@ -469,6 +469,7 @@ h1 {
 }
 
 .formFields {
+
   gap: 1.5rem;
   margin-top: 1.5rem;
 }
@@ -537,7 +538,6 @@ h1 {
 
 .textfield {
   width: 100%;
-  max-width: 616px;
   height: auto;
   min-height: 20px;
   position: relative;
