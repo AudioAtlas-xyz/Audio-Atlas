@@ -33,12 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AudioAtlasApplication\AudioAtlasApplication.csproj" />
-    <ProjectReference Include="..\AudioAtlasDomain\AudioAtlasDomain.csproj" />
-    <ProjectReference Include="..\AudioAtlasInfrastructure\AudioAtlasInfrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="..\AudioAtlasInfrastructure\resources\countrySeeding.json">
       <Link>countrySeeding.json</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
