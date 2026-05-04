@@ -66,6 +66,18 @@ public class GenreRepository : IGenreRepository
             .Single();
     }
 
+    public async Task<ICollection<Genre>> getGenresByIdsAsync(IReadOnlyCollection<Guid> ids, CancellationToken cancellationToken = default)
+    {
+        if (ids.Count == 0)
+        {
+            return Array.Empty<Genre>();
+        }
+
+        return await _dbcontext.Genres
+            .Where(genre => ids.Contains(genre.Id))
+            .ToListAsync(cancellationToken);
+    }
+
     /// <summary>
     /// Retrieves a list of aliases for a genre
     /// </summary>
