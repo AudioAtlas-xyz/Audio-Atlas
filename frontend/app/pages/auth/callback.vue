@@ -21,26 +21,30 @@ onMounted(async () => {
   const pendingId = route.query.pendingRegistrationId as string | undefined
   const suggested = route.query.suggestedUsername as string | undefined
 
-  // Save JWT
+  // Save JWT (might be a temporary onboarding token if newUser === 'true').
   if (token) {
     localStorage.setItem('token', token)
   }
 
-  // Load user
-  await fetchUser()
-
-  // Existing user
-  if (newUser === 'false') {
-    const name = user.value?.username || ''
-    triggerAppBanner(`Welcome back, ${name} 👋`)
-}
-
-  // New user
   if (newUser === 'true') {
+    // New user: do NOT call fetchUser here. The token we just saved is a
+    // temporary onboarding token; /auth/me would reject it and useAuth.fetchUser
+    // would call logout(), wiping the token before UsernameModal can post to
+    // /auth/complete-onboarding. The "Welcome, ${user} 👋" banner is fired
+    // later by the SuccessModal close handler in layouts/default.vue.
     openOnboarding(pendingId || null, suggested || null)
+  } else {
+    // Returning user: load profile, then greet by username (skip the banner
+    // entirely if the name is empty so we never render "Welcome back,  👋").
+    await fetchUser()
+
+    const name = user.value?.username
+    if (name) {
+      triggerAppBanner(`Welcome back, ${name} 👋`)
+    }
   }
 
-  // Clean redirect
+  // Strip query params so a refresh doesn't re-fire the banner / re-open onboarding.
   router.replace('/')
 })
 </script>

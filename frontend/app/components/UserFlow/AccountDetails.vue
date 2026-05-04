@@ -89,7 +89,10 @@ watch(username, (val) => {
 
     try {
       const res = await api<{ available: boolean; message: string }>(
-        `/auth/check-username?username=${val}`
+        `/auth/check-username`,
+        {
+          params: { username: val }
+        }
       )
 
       // Ignore outdated responses
