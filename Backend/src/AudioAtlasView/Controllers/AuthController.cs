@@ -90,7 +90,7 @@ public class AuthController : ControllerBase
         {
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            var token = GenerateJwtToken(user);
+            var token = await GenerateJwtToken(user);
 
             return Redirect($"{_frontendBaseUrl}/auth/callback?token={token}&newUser=false");
         }
@@ -257,7 +257,7 @@ public class AuthController : ControllerBase
         _dbContext.PendingExternalRegistrations.Remove(pendingRegistration);
         await _dbContext.SaveChangesAsync();
 
-        var token = GenerateJwtToken(user);
+        var token = await GenerateJwtToken(user);
 
         return Ok(new
         {
@@ -282,18 +282,30 @@ public class AuthController : ControllerBase
         if (user == null)
             return NotFound();
 
+        // Roles are stored in AspNetUserRoles; fetch them so the frontend
+        // can render role-aware UI without having to decode the JWT.
+        var roles = await _userManager.GetRolesAsync(user);
+
         return Ok(new
         {
             userId = user.Id,
             email = user.Email,
             username = user.UserName,
-            provider = user.Provider
+            provider = user.Provider,
+            roles
         });
     }
 
     // ================= JWT =================
 
-    private string GenerateJwtToken(ApplicationUser user)
+    /// <summary>
+    /// Issues a signed JWT for <paramref name="user"/>.
+    ///
+    /// Includes one <see cref="ClaimTypes.Role"/> claim per role assigned
+    /// in Identity, so <c>[Authorize(Roles = "Admin")]</c> works against
+    /// the bearer token without an extra DB lookup per request.
+    /// </summary>
+    private async Task<string> GenerateJwtToken(ApplicationUser user)
     {
         var key = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(_config["Jwt:Key"]!)
@@ -301,12 +313,20 @@ public class AuthController : ControllerBase
 
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
+        var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Email, user.Email!),
-            new Claim(ClaimTypes.Name, user.UserName!)
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Email, user.Email!),
+            new(ClaimTypes.Name, user.UserName!)
         };
+
+        // Role claims — one per role. The JWT bearer middleware reads
+        // these into `User.IsInRole(...)` automatically.
+        var roles = await _userManager.GetRolesAsync(user);
+        foreach (var role in roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
 
         var token = new JwtSecurityToken(
             issuer: _config["Jwt:Issuer"],
