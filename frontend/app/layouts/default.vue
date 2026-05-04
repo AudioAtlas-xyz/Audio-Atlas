@@ -1,118 +1,107 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import AppHeader from '@/components/AppHeader.vue'
-import LoginModal from '~/components/UserFlow/LoginModal.vue'
-import UsernameModal from '~/components/UserFlow/UsernameModal.vue'
-import SuccessModal from '~/components/UserFlow/SuccessModal.vue'
-import AppBanner from '@/components/Banners/AppBanner.vue'
-
+import LoginModal from '@/components/LoginModal.vue'
+import UsernameModal from '@/components/UsernameModal.vue'
+import SuccessModal from '@/components/SuccessModal.vue'
+import LoginBanner from '@/components/LoginBanner.vue'
+import { useRoute } from 'vue-router'
 import { useAuth } from '@/composables/useAuth'
-import { useUIState } from '@/composables/useUIState'
 
+/**
+ * Access current route (used for query params after OAuth)
+ */
+const route = useRoute()
+
+/**
+ * Auth composable providing user state and fetch method
+ */
 const { fetchUser, user } = useAuth()
 
-const {
-  bannerMessage,
-  pendingRegistrationId,
-  triggerAppBanner
-} = useUIState()
-
-// Login modal is layout-local: only opened by clicking "Sign in" in AppHeader.
+/**
+ * UI state for modals and banners
+ */
 const showLoginModal = ref(false)
+const showSuccessModal = ref(false)
+const showLoginBanner = ref(false)
+const showUsernameModal = ref(false)
 
-// Account-created success popup — shown after UsernameModal finishes onboarding.
-const showCreatedModal = ref(false)
-
-// Account-deleted success popup — shown after the delete-account confirm flow.
-const showDeletedModal = ref(false)
-
+/**
+ * Open login modal when user clicks "Sign in"
+ */
 const handleLogin = () => {
   showLoginModal.value = true
 }
 
 /**
- * UsernameModal emits `finished` once onboarding is complete. By then it has
- * already cleared `pendingRegistrationId`, so its v-if has unmounted it.
- * We just open the success popup here.
+ * Handle completion of username onboarding
  */
 const handleUsernameFinished = () => {
-  showCreatedModal.value = true
+  showUsernameModal.value = false
+  showSuccessModal.value = true
 }
 
 /**
- * Welcome banner is fired here (NOT inside UsernameModal) so it appears AFTER
- * SuccessModal closes — otherwise the banner would be hidden behind
- * SuccessModal's full-screen blurred backdrop.
+ * Initialize auth state and UI flags on mount
  */
-const handleCreatedClose = () => {
-  showCreatedModal.value = false
-
-  const username = user.value?.username
-  if (username) {
-    triggerAppBanner(`Welcome, ${username} 👋`)
-  }
-}
-
-/**
- * AccountDetails (rendered inside AppHeader) emits `account-deleted` once the
- * user confirms deletion and the API call succeeds. AppHeader forwards it up.
- */
-const handleAccountDeleted = () => {
-  showDeletedModal.value = true
-}
-
-const handleDeletedClose = () => {
-  showDeletedModal.value = false
-}
-
 onMounted(async () => {
+  // Fetch authenticated user from backend
   await fetchUser()
+
+  /**
+   * Show login success banner (for returning users)
+   */
+  if (localStorage.getItem('showLoginBanner') === 'true') {
+    showLoginBanner.value = true
+    localStorage.removeItem('showLoginBanner')
+
+    setTimeout(() => {
+      showLoginBanner.value = false
+    }, 3000)
+  }
+
+  /**
+   * Show username onboarding modal (for new users)
+   */
+  if (localStorage.getItem('showUsernameModal') === 'true') {
+    showUsernameModal.value = true
+    localStorage.removeItem('showUsernameModal')
+  }
 })
 </script>
 
 <template>
   <div>
-    <!-- Header (single instance for the whole app) -->
-    <AppHeader
-      @login="handleLogin"
-      @account-deleted="handleAccountDeleted"
+    <!-- Header with login trigger -->
+    <AppHeader @login="handleLogin" />
+
+    <!-- Login success banner -->
+    <LoginBanner
+      v-if="showLoginBanner && user"
+      :username="user ? (user.username || user.email) : 'there'"
     />
 
-    <!-- Global banner — always mounted; visibility & fade are driven by
-         `bannerMessage` going non-null / null inside AppBanner. -->
-    <AppBanner :message="bannerMessage" />
-
-    <!-- Login -->
+    <!-- Login modal -->
     <LoginModal
       v-if="showLoginModal"
       @close="showLoginModal = false"
     />
 
-    <!-- Username onboarding — bound DIRECTLY to the global pendingRegistrationId
-         so the modal closes the instant UsernameModal.finish() clears it. -->
+    <!-- Username onboarding modal for new users -->
     <UsernameModal
-      v-if="pendingRegistrationId"
-      @close="pendingRegistrationId = null"
+      v-if="showUsernameModal"
+      :pending-registration-id="String(route.query.pendingRegistrationId || '')"
+      @close="showUsernameModal = false"
       @finished="handleUsernameFinished"
     />
 
-    <!-- Account created -->
+    <!-- Success modal after onboarding -->
     <SuccessModal
-      v-if="showCreatedModal"
-      title="Account created"
-      message="You're ready to explore Audio Atlas."
-      @close="handleCreatedClose"
+      v-if="showSuccessModal"
+      @close="showSuccessModal = false"
     />
 
-    <!-- Account deleted -->
-    <SuccessModal
-      v-if="showDeletedModal"
-      title="Account deleted"
-      message="Your account has been permanently removed."
-      @close="handleDeletedClose"
-    />
-
-    <!-- Page -->
+    <!-- Main page content -->
     <main class="page-content">
       <slot />
     </main>

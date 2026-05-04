@@ -46,25 +46,5 @@ namespace AudioAtlasDomain.Users
 
         public bool IsSystemUser { get; set; } = false;
 
-        /// <summary>
-        /// Indicates that this is a placeholder account used to represent deleted users.
-        /// 
-        /// When a user deletes their account, their contributions are reassigned to this
-        /// placeholder so authorship records remain intact without exposing personal data.
-        /// 
-        /// This account cannot log in and should never be treated as a real user.
-        /// </summary>
-        public bool IsDeletedPlaceholder { get; set; } = false;
-
-        /// <summary>
-        /// The OAuth provider used to create this account.
-        /// 
-        /// Example values:
-        /// - "google"
-        /// - "github"
-        /// 
-        /// Used for displaying connected account status in the UI.
-        /// </summary>
-        public string? Provider { get; set; } = null!;
     }
 }

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import type { Country } from '~/types/country'
-import { useApi } from '@/composables/useApi'
 
 const props = defineProps<{
   countryId: string
@@ -9,31 +8,31 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['close'])
-
-const { api } = useApi()
-
+const config = useRuntimeConfig()
 const countryPageHref = computed(() => `/CountryPage?countryId=${props.countryId}`)
 
 const data = ref<Country | null>(null)
 const pending = ref(false)
 const error = ref<Error | null>(null)
 
-
 const loadCountry = async () => {
-  if (!props.countryId || !props.open) return
+  if (!props.countryId || !props.open) {
+    return
+  }
 
   pending.value = true
   error.value = null
 
   try {
-    data.value = await api<Country>(`/countries/${props.countryId}`)
-  } catch (caughtError: any) {
+    data.value = await $fetch<Country>(`${config.public.apiBase}/countries/${props.countryId}`)
+  }
+  catch (caughtError) {
     data.value = null
-    error.value =
-      caughtError instanceof Error
-        ? caughtError
-        : new Error('Error loading country details.')
-  } finally {
+    error.value = caughtError instanceof Error
+      ? caughtError
+      : new Error('Error loading country details.')
+  }
+  finally {
     pending.value = false
   }
 }
@@ -49,7 +48,10 @@ watch(
 )
 
 const errorMessage = computed(() => {
-  if (!error.value) return ''
+  if (!error.value) {
+    return ''
+  }
+
   return error.value.message || 'Error loading country details.'
 })
 </script>

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AudioAtlas.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,13 +30,6 @@ namespace AudioAtlas.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AcceptedPrivacyPolicyAtUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    AcceptedPrivacyPolicyVersion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    AcceptedContributionGuidelinesAtUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    AcceptedContributionGuidelinesVersion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    IsSystemUser = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeletedPlaceholder = table.Column<bool>(type: "bit", nullable: false),
-                    Provider = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -65,7 +58,6 @@ namespace AudioAtlas.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Region = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Continent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    isoCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -84,24 +76,6 @@ namespace AudioAtlas.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Instruments", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PendingExternalRegistrations",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    SuggestedUsername = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    CreatedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ExpiresAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PendingExternalRegistrations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -218,7 +192,6 @@ namespace AudioAtlas.Infrastructure.Migrations
                     AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
-                    Summary = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartYear = table.Column<int>(type: "int", nullable: true),
                     IsSensitive = table.Column<bool>(type: "bit", nullable: false),
                     PlaylistLink = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
@@ -636,12 +609,6 @@ namespace AudioAtlas.Infrastructure.Migrations
                 column: "SimilarGenreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PendingExternalRegistrations_LoginProvider_ProviderKey",
-                table: "PendingExternalRegistrations",
-                columns: new[] { "LoginProvider", "ProviderKey" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_SubmissionCountry_CountryId",
                 table: "SubmissionCountry",
                 column: "CountryId");
@@ -705,9 +672,6 @@ namespace AudioAtlas.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "GenreSources");
-
-            migrationBuilder.DropTable(
-                name: "PendingExternalRegistrations");
 
             migrationBuilder.DropTable(
                 name: "RejectedSubmissions");

@@ -1,23 +1,21 @@
 <script setup lang="ts">
-import { ref, watch, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, watch, computed, onMounted, nextTick } from 'vue'
 import GlassButton from '@/components/GlassButton.vue'
 import { useAuth } from '@/composables/useAuth'
-import { useApi } from '@/composables/useApi'
 
 /**
- * API
+ * Runtime config (API base URL)
  */
-const { api } = useApi()
+const config = useRuntimeConfig()
 
 /**
  * Global auth state
  */
-const { fetchUser } = useAuth()
-
 const {
   pendingRegistrationId,
-  suggestedUsername
-} = useUIState()
+  suggestedUsername,
+  fetchUser
+} = useAuth()
 
 /**
  * Emits
@@ -42,20 +40,12 @@ const usernameStatus = ref<
 const inputRef = ref<HTMLInputElement | null>(null)
 
 /**
- * Validation helpers
- */
-const isValidUsername = (val: string) =>
-  /^[a-zA-Z0-9_]{3,20}$/.test(val)
-
-/**
- * Debounce + race control
+ * Debounce handler
  */
 let debounceTimeout: ReturnType<typeof setTimeout> | null = null
-let currentRequest = 0
-let lastValue = ''
 
 /**
- * Initialize username
+ * Initialize username from global state
  */
 onMounted(async () => {
   if (suggestedUsername.value) {
@@ -64,53 +54,33 @@ onMounted(async () => {
 
   await nextTick()
   inputRef.value?.focus()
-
-  window.addEventListener('keydown', handleKey)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('keydown', handleKey)
 })
 
 /**
- * ESC close
- */
-const handleKey = (e: KeyboardEvent) => {
-  if (e.key === 'Escape') emit('close')
-}
-
-/**
- * Username validation
+ * Validate username with debounce
  */
 watch(username, (value) => {
   if (debounceTimeout) clearTimeout(debounceTimeout)
 
-  if (value === lastValue) return
-  lastValue = value
-
-  if (!isValidUsername(value)) {
+  // basic validation
+  if (!value || value.length < 3 || value.length > 20) {
     usernameStatus.value = 'invalid'
     return
   }
 
   debounceTimeout = setTimeout(async () => {
-    const requestId = ++currentRequest
-
     try {
       usernameStatus.value = 'checking'
 
-      const res = await api<{ available: boolean }>(
-        `/auth/check-username`,
+      const res = await $fetch<{ available: boolean }>(
+        `${config.public.apiBase}/auth/check-username`,
         {
           params: { username: value }
         }
       )
 
-      if (requestId !== currentRequest) return
-
       usernameStatus.value = res.available ? 'available' : 'taken'
     } catch {
-      if (requestId !== currentRequest) return
       usernameStatus.value = 'invalid'
     }
   }, 400)
@@ -151,13 +121,14 @@ const canSubmit = computed(() =>
  */
 const finish = async () => {
   const id = pendingRegistrationId.value
+
   if (!canSubmit.value || !id) return
 
   try {
     loading.value = true
 
-    const response = await api<{ token: string }>(
-      `/auth/complete-onboarding`,
+    const response = await $fetch<{ token: string }>(
+      `${config.public.apiBase}/auth/complete-onboarding`,
       {
         method: 'POST',
         body: {
@@ -169,16 +140,25 @@ const finish = async () => {
       }
     )
 
+    /**
+     * Save token
+     */
     localStorage.setItem('token', response.token)
 
+    /**
+     * 🔥 Sync UI with backend (CRITICAL FIX)
+     */
     await fetchUser()
 
+    /**
+     * Clear onboarding state
+     */
     pendingRegistrationId.value = null
     suggestedUsername.value = null
 
-    // NOTE: the "Welcome, @user 👋" banner is fired by the SuccessModal
-    // close handler in `layouts/default.vue`, NOT here. Firing it now would
-    // hide it behind SuccessModal's full-screen backdrop.
+    /**
+     * Notify parent
+     */
     emit('finished')
   } catch (err) {
     console.error('Onboarding failed:', err)
@@ -206,7 +186,7 @@ const finish = async () => {
         type="text"
         placeholder="e.g. xxAfrobeats67Xx"
         class="username-input"
-        @keyup.enter="canSubmit && finish()"
+        @keyup.enter="finish"
       >
 
       <div class="status-wrapper">

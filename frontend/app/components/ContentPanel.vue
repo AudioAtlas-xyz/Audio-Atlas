@@ -1,24 +1,14 @@
-<script setup lang="ts">
-import type { Country } from '~/types/country'
-import { useApi } from '@/composables/useApi'
+  <script setup lang="ts">
+    import type { Country } from '~/types/country'
 
-const route = useRoute()
-const { api } = useApi()
-
-const countryId = computed(() => route.query.country as string | undefined)
-
-const { data, pending, error } = await useAsyncData<Country | null>(
-  () => `country-${countryId.value}`,
-  async () => {
-    if (!countryId.value) return null
-
-    return api<Country>(`/countries/${countryId.value}`)
-  },
-  {
-    watch: [countryId]
-  }
-)
-</script>
+    const route = useRoute()
+    const config = useRuntimeConfig()
+    const countryId = computed(() => route.query.country as string | undefined)
+    const { data, pending, error } = await useAsyncData<Country>(
+      'country',
+      () => $fetch<Country>(`${config.public.apiBase}/countries/${countryId.value}`)
+    )
+  </script>
 
   <template>
     <slideover dismissable="true" title="Country Details" :open="true" @close="$emit('close')">

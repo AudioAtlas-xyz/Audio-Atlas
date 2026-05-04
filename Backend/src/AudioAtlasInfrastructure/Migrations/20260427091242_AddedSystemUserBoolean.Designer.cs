@@ -4,6 +4,7 @@ using AudioAtlasInfrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AudioAtlas.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260427091242_AddedSystemUserBoolean")]
+    partial class AddedSystemUserBoolean
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,6 +171,9 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.Property<DateOnly?>("EndDate")
                         .HasColumnType("date");
 
+                    b.Property<bool>("IsRejected")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsSensitive")
                         .HasColumnType("bit");
 
@@ -179,9 +185,6 @@ namespace AudioAtlas.Infrastructure.Migrations
 
                     b.Property<DateOnly?>("StartDate")
                         .HasColumnType("date");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
