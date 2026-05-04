@@ -13,7 +13,7 @@ const items = Array.from({ length: 30 }, (_, i) => ({
     <UScrollArea
       v-slot="{ item, index }"
       :items="items"
-      class="w-full h-96"
+      class="w-full h-125"
     >
       <UPageCard
         v-bind="item"
