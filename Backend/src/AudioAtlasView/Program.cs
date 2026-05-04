@@ -45,6 +45,7 @@ builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<ISubmissionRepository, SubmissionRepository>();
 builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<IUserDeletionService, UserDeletionService>();
 builder.Services.AddScoped<ISubmissionService, SubmissionService>();
 
 builder.Services.AddControllers()
