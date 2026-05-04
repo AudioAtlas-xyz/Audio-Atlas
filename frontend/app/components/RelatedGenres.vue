@@ -68,7 +68,7 @@ const sections = [
   padding: 0.6rem 1rem;
 
   font-size: 0.65rem;
-  color: #373d5a;
+  color: #8a93b8;
   font-family: 'Space Mono';
   letter-spacing: 0.1em;
   text-transform: uppercase;
