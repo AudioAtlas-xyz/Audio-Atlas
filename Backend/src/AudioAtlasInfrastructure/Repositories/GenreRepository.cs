@@ -161,8 +161,11 @@ public class GenreRepository : IGenreRepository
 
     public ICollection<Genre> getGenresByAuthorId(Guid id)
     {
-
         return _dbcontext.Genres.Where(g => g.AuthorId == id).ToList();
+    }
 
+    public async Task<ICollection<Genre>>SearchForGenres(string keyword)
+    {
+        return await _dbcontext.Genres.Include(g => g.Countries).Where(g => EF.Functions.Like(g.Name, $"%{keyword}%")).ToListAsync(); 
     }
 }   
