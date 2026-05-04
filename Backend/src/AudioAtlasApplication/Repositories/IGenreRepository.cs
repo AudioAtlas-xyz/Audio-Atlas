@@ -13,4 +13,6 @@ public interface IGenreRepository
     public ICollection<Genre> getRelated(Guid id);
     public ICollection<Genre> getAllGenres();
     public ICollection<Genre> getGenresByAuthorId(Guid id);
+    public Task<ICollection<Genre>> SearchForGenres(string keyword);
+
 }

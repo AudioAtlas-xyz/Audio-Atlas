@@ -10,27 +10,32 @@ namespace AudioAtlasView.Controllers
     [ApiController]
     public class GenresController : ControllerBase
     {
-        private readonly IGenreRepository _genreRepository;
         private readonly IGenreService _genreService;
 
-        public GenresController(IGenreRepository genreRepository, IGenreService genreService)
+        public GenresController(IGenreService genreService)
         {
-            _genreRepository = genreRepository;
             _genreService = genreService;
         }
         
         // GET: api/genres
         [HttpGet]
-        public ICollection<Genre> Get()
+        public ICollection<GenreDTO> Get()
         {
-            return _genreRepository.getAllGenres();
+            return _genreService.GetAllGenres();
         }
-        
+
+        // GET: api/genres/search/{keyword}
+        [HttpGet("search/{keyword}")]
+        public async Task<ICollection<GenreDTO>> Get(string keyword)
+        {
+            return await _genreService.SearchForGenres(keyword);
+        }
+
         // GET api/genres/{id}
         [HttpGet("{id}")]
-        public GenreDTO Get(Guid id)
+        public GenreDTO? Get(Guid id)
         {
-            return _genreService.getGenre(id);
+            return _genreService.GetGenre(id);
         }
 
         // POST api/<GenresController>

@@ -3,5 +3,10 @@ using AudioAtlasDomain.Genres;
 
 public interface IGenreService
 {
-    public GenreDTO getGenre(Guid id);
+    public GenreDTO? GetGenre(Guid id);
+
+    public ICollection<GenreDTO> GetAllGenres();
+
+    public Task<ICollection<GenreDTO>> SearchForGenres(string keyword);
+
 }

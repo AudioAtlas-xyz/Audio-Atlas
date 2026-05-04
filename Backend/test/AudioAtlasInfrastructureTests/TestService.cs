@@ -19,6 +19,7 @@ public class TestService : IDisposable
     private readonly ServiceProvider _serviceProvider;
     private readonly ILogger<DbInitializer> _logger;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly RoleManager<IdentityRole<Guid>> _roleManager;
     
     public AppDbContext _context { get; }
     public ICountryRepository  _countryRepository { get; }
@@ -49,13 +50,14 @@ public class TestService : IDisposable
         _logger = _serviceScope.ServiceProvider.GetRequiredService<ILogger<DbInitializer>>();
         _context = _serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
         _userManager = _serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        
+        _roleManager = _serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
         _countryRepository = _serviceScope.ServiceProvider.GetRequiredService<ICountryRepository>();
         _genreRepository = _serviceScope.ServiceProvider.GetRequiredService<IGenreRepository>();
         
         _context.Database.EnsureCreated();
         
-        DbInitializer.SeedDatabase(_context, _userManager, _logger).GetAwaiter().GetResult();
+        DbInitializer.SeedDatabase(_context, _userManager, _roleManager, _logger).GetAwaiter().GetResult();
     }
 
     public void Dispose()

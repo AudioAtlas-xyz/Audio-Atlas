@@ -44,5 +44,7 @@ namespace AudioAtlasDomain.Users
         /// </summary>
         public string? AcceptedContributionGuidelinesVersion { get; set; }
 
+        public bool IsSystemUser { get; set; } = false;
+
     }
 }
