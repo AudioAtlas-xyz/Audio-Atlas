@@ -12,8 +12,8 @@ useHead({
   title: 'Signing in...'
 })
 
-const { fetchUser } = useAuth()
-const { triggerLoginBanner, openOnboarding } = useUIState()
+const { user, fetchUser } = useAuth()
+const { triggerAppBanner, openOnboarding } = useUIState()
 
 onMounted(async () => {
   const token = route.query.token as string | undefined
@@ -31,8 +31,9 @@ onMounted(async () => {
 
   // Existing user
   if (newUser === 'false') {
-    triggerLoginBanner()
-  }
+    const name = user.value?.username || ''
+    triggerAppBanner(`Welcome back, ${name} 👋`)
+}
 
   // New user
   if (newUser === 'true') {

@@ -176,6 +176,9 @@ const finish = async () => {
     pendingRegistrationId.value = null
     suggestedUsername.value = null
 
+    // NOTE: the "Welcome, @user 👋" banner is fired by the SuccessModal
+    // close handler in `layouts/default.vue`, NOT here. Firing it now would
+    // hide it behind SuccessModal's full-screen backdrop.
     emit('finished')
   } catch (err) {
     console.error('Onboarding failed:', err)

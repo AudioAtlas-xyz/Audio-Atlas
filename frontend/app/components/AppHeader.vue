@@ -1,15 +1,28 @@
 <script setup lang="ts">
 import GlassPanel from '@/components/GlassPanel.vue'
 import GlassButton from '@/components/GlassButton.vue'
-import AccountDetails from '@/components/AccountDetails.vue'
+import AccountDetails from '@/components/UserFlow/AccountDetails.vue'
 import { useAuth } from '@/composables/useAuth'
 import { useUIState } from '@/composables/useUIState'
 
+// NOTE: <AppBanner /> is mounted ONCE in `layouts/default.vue`.
+// Don't render it here — it would double-stack with the layout copy.
+
 const { user, logout } = useAuth()
-const { showAccount, openAccount, closeAccount } = useUIState()
+const {
+  showAccount,
+  openAccount,
+  closeAccount,
+  triggerAppBanner
+} = useUIState()
+
+const handleUsernameUpdated = (u: string) => {
+  triggerAppBanner(`Username updated to ${u} ✨`)
+}
 
 const emit = defineEmits<{
   (e: 'login'): void
+  (e: 'account-deleted'): void
 }>()
 </script>
 
@@ -57,6 +70,8 @@ const emit = defineEmits<{
   <AccountDetails
     :open="showAccount"
     @close="closeAccount"
+    @username-updated="handleUsernameUpdated"
+    @account-deleted="emit('account-deleted')"
   />
 </template>
 

@@ -1,3 +1,7 @@
+// Module-level so the timer is shared across every useUIState() call,
+// preventing back-to-back banners from clobbering each other.
+let bannerTimeout: ReturnType<typeof setTimeout> | null = null
+
 export const useUIState = () => {
   const showAccount = useState<boolean>('ui_account', () => false)
 
@@ -18,13 +22,25 @@ export const useUIState = () => {
     suggestedUsername.value = username
   }
 
-  const showLoginBanner = useState<boolean>('ui_login_banner', () => false)
+  const showAppBanner = useState<boolean>('ui_app_banner', () => false)
+  const bannerMessage = useState<string | null>('ui_banner_message', () => null)
 
-  const triggerLoginBanner = () => {
-    showLoginBanner.value = true
+  const triggerAppBanner = (message: string) => {
+    // Cancel any banner that's still on screen so a fresh
+    // message gets a full 3 s, and the previous timer can't
+    // clear it early.
+    if (bannerTimeout) {
+      clearTimeout(bannerTimeout)
+      bannerTimeout = null
+    }
 
-    setTimeout(() => {
-      showLoginBanner.value = false
+    bannerMessage.value = message
+    showAppBanner.value = true
+
+    bannerTimeout = setTimeout(() => {
+      showAppBanner.value = false
+      bannerMessage.value = null
+      bannerTimeout = null
     }, 3000)
   }
 
@@ -37,7 +53,8 @@ export const useUIState = () => {
     suggestedUsername,
     openOnboarding,
 
-    showLoginBanner,
-    triggerLoginBanner
+    showAppBanner,
+    bannerMessage,
+    triggerAppBanner
   }
 }

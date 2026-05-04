@@ -1,32 +1,22 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-
-const props = defineProps<{
-  username?: string
+/**
+ * AppBanner is a "dumb" presentational component:
+ * - It renders whatever `message` is passed in.
+ * - When `message` becomes null/empty, the banner fades out.
+ *
+ * Auto-hide timing is owned by `useUIState.triggerAppBanner`,
+ * so this component does NOT run its own setTimeout. That avoids
+ * the double-timer race that previously cut off the fade animation.
+ */
+defineProps<{
+  message?: string | null
 }>()
-
-const visible = ref(false)
-
-watch(
-  () => props.username,
-  (val) => {
-    if (!val) return
-
-    visible.value = true
-
-    // auto-hide after 3s
-    setTimeout(() => {
-      visible.value = false
-    }, 3000)
-  },
-  { immediate: true }
-)
 </script>
 
 <template>
   <transition name="fade">
-    <div v-if="visible" class="banner">
-      Welcome back, {{ props.username }} 👋
+    <div v-if="message" class="banner">
+      {{ message }}
     </div>
   </transition>
 </template>

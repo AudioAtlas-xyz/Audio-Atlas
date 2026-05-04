@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, onMounted } from 'vue'
 import Globe from '@/components/Globe.vue'
-import AppHeader from '@/components/AppHeader.vue'
 import CountryPanel from '@/components/CountryPanel.vue'
-import LoginModal from '@/components/LoginModal.vue'
-import UsernameModal from '@/components/UsernameModal.vue'
-import SuccessModal from '@/components/SuccessModal.vue'
-import LoginBanner from '@/components/LoginBanner.vue'
 
 import { useRoute, useRouter } from 'vue-router'
 import { useScrollIntro } from '@/composables/useScrollIntro'
@@ -28,55 +23,49 @@ const route = useRoute()
 const router = useRouter()
 
 /**
- * Auth
+ * Auth — fetchUser is also called in default.vue's onMounted; calling here
+ * is a safety net for direct loads of `/?newUser=true` that bypass /auth/callback.
  */
-const { user, fetchUser } = useAuth()
+const { fetchUser } = useAuth()
 
 /**
- * UI State
+ * UI State — only `openOnboarding` is used here. AppHeader, LoginModal,
+ * UsernameModal, SuccessModal and AppBanner are all owned by `layouts/default.vue`.
+ * Don't render them here or you'll get duplicate instances.
  */
-const {
-  pendingRegistrationId,
-  suggestedUsername,
-  openOnboarding,
-  showLoginBanner,
-  triggerLoginBanner
-} = useUIState()
+const { openOnboarding } = useUIState()
 
 /**
  * Init auth + onboarding
+ *
+ * NOTE: Welcome banners are owned by `pages/auth/callback.vue` (returning users)
+ * and the SuccessModal close handler in `layouts/default.vue` (new users).
+ * This page must NOT fire `triggerAppBanner` on mount.
  */
 onMounted(async () => {
   const newUser = route.query.newUser as string | undefined
   const pendingId = route.query.pendingRegistrationId as string | undefined
   const suggested = route.query.suggestedUsername as string | undefined
 
-  // New user → onboarding
+  // Legacy fallback: if the backend ever redirects straight to `/?newUser=true`
+  // instead of through `/auth/callback`, kick off onboarding here.
   if (newUser === 'true') {
     openOnboarding(pendingId || null, suggested || null)
   }
 
-  // Existing user → banner
-  if (newUser === 'false') {
-    triggerLoginBanner()
-  }
-
+  // Fetch current session if we have a token.
   await fetchUser()
 
-  // Clean URL
-  router.replace('/')
+  // Strip auth-related query params so a refresh doesn't re-trigger onboarding.
+  if (route.query.newUser || route.query.pendingRegistrationId || route.query.suggestedUsername) {
+    router.replace('/')
+  }
 })
 
 /**
  * Scroll intro
  */
 const { progress, finished } = useScrollIntro()
-
-/**
- * Local UI
- */
-const showLoginModal = ref(false)
-const showSuccessModal = ref(false)
 
 /**
  * Globe setup
@@ -114,19 +103,6 @@ const pageStyle = computed(() => {
 })
 
 /**
- * Actions
- */
-const handleLogin = () => {
-  showLoginModal.value = true
-}
-
-const handleUsernameFinished = () => {
-  pendingRegistrationId.value = null
-  suggestedUsername.value = null
-  showSuccessModal.value = true
-}
-
-/**
  * Country panel
  */
 const selectedCountryId = ref<string | null>(null)
@@ -143,18 +119,6 @@ const closeCountryPanel = () => {
 
 <template>
   <main class="landing-page" :style="pageStyle">
-
-    <!-- Header -->
-    <AppHeader
-      :visible="finished"
-      @login="handleLogin"
-    />
-
-    <!-- Login banner -->
-    <LoginBanner
-      v-if="showLoginBanner && user"
-      :username="user.username || user.email"
-    />
 
     <!-- Hero -->
     <div class="hero-title">
@@ -189,25 +153,6 @@ const closeCountryPanel = () => {
     />
 
     <div class="scroll-spacer" />
-
-    <!-- Login modal -->
-    <LoginModal
-      v-if="showLoginModal"
-      @close="showLoginModal = false"
-    />
-
-    <!-- Username onboarding -->
-    <UsernameModal
-      v-if="pendingRegistrationId"
-      @close="pendingRegistrationId = null"
-      @finished="handleUsernameFinished"
-    />
-
-    <!-- Success modal -->
-    <SuccessModal
-      v-if="showSuccessModal"
-      @close="showSuccessModal = false"
-    />
 
   </main>
 </template>

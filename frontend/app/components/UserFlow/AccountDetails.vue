@@ -2,18 +2,32 @@
 import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 import { useApi } from '@/composables/useApi'
+import DeleteAccountConfirmModal from '@/components/UserFlow/DeleteAccountConfirmModal.vue'
 
 const props = defineProps<{ open: boolean }>()
-const emit = defineEmits<{ (e: 'close'): void }>()
+const emit = defineEmits<{
+  (e: 'close'): void
+  (e: 'username-updated', username: string): void
+  (e: 'account-deleted'): void
+}>()
 
 const { user, logout } = useAuth()
 const { api } = useApi()
 
+// Local editable username
 const username = ref('')
+// Store original username to avoid unnecessary updates
+const originalUsername = ref('')
 
+// Status for username validation UI
 const status = ref<'idle' | 'checking' | 'available' | 'taken' | 'error'>('idle')
 const message = ref('')
 
+// Delete state
+const deleting = ref(false)
+const showDeleteConfirm = ref(false)
+
+// Derived connection states
 const isGoogleConnected = computed(() =>
   user.value?.provider?.toLowerCase() === 'google'
 )
@@ -22,27 +36,53 @@ const isGitHubConnected = computed(() =>
   user.value?.provider?.toLowerCase() === 'github'
 )
 
+/**
+ * When modal opens:
+ * - Sync username from user
+ * - Reset validation state
+ */
 watch(
   () => props.open,
-  (val) => {
-    if (val) {
-      username.value = user.value?.username || ''
-      status.value = 'idle'
-      message.value = ''
-    }
+  (open) => {
+    if (!open) return
+
+    const current = user.value?.username || ''
+    username.value = current
+    originalUsername.value = current
+
+    status.value = 'idle'
+    message.value = ''
   },
   { immediate: true }
 )
 
+/**
+ * Debounced username availability check
+ * Includes race protection to avoid outdated responses overwriting state
+ */
 let timeout: ReturnType<typeof setTimeout> | null = null
+let requestId = 0
 
 watch(username, (val) => {
+  // Reset if empty
   if (!val) {
     status.value = 'idle'
+    message.value = ''
     return
   }
 
+  // Skip check if unchanged
+  if (val === originalUsername.value) {
+    status.value = 'idle'
+    message.value = ''
+    return
+  }
+
+  // Clear previous debounce
   if (timeout) clearTimeout(timeout)
+
+  // Track request to avoid race conditions
+  const currentRequest = ++requestId
 
   timeout = setTimeout(async () => {
     status.value = 'checking'
@@ -52,9 +92,14 @@ watch(username, (val) => {
         `/auth/check-username?username=${val}`
       )
 
+      // Ignore outdated responses
+      if (currentRequest !== requestId) return
+
       status.value = res.available ? 'available' : 'taken'
       message.value = res.message
     } catch {
+      if (currentRequest !== requestId) return
+
       status.value = 'error'
       message.value = 'Error checking username'
     }
@@ -62,27 +107,30 @@ watch(username, (val) => {
 })
 
 /**
- * Save username
+ * Save username if valid and changed
  */
 const save = async () => {
-  if (status.value === 'taken' || status.value === 'checking') return
+  if (
+    status.value === 'checking' ||
+    status.value === 'taken' ||
+    username.value === originalUsername.value
+  ) return
 
   try {
-    const res = await api<{ username: string }>(
-      `/auth/username`,
-      {
-        method: 'PUT',
-        body: {
-          username: username.value
-        }
-      }
-    )
+    const res = await api<{ username: string }>(`/auth/username`, {
+      method: 'PUT',
+      body: { username: username.value }
+    })
 
-    if (user.value) {
-      user.value.username = res.username
-    }
+    // Update local user state
+  if (user.value) {
+    user.value.username = res.username
+  }
 
-    close()
+  // emit event BEFORE closing
+  emit('username-updated', res.username)
+
+close()
   } catch (err: any) {
     console.error(err)
     status.value = 'error'
@@ -90,8 +138,57 @@ const save = async () => {
   }
 }
 
+/**
+ * Open the custom confirmation modal. The actual API call happens in
+ * `confirmDelete` once the user ticks the acknowledgement box and clicks
+ * Continue inside DeleteAccountConfirmModal.
+ */
+const requestDelete = () => {
+  if (deleting.value) return
+  showDeleteConfirm.value = true
+}
+
+const cancelDelete = () => {
+  if (deleting.value) return
+  showDeleteConfirm.value = false
+}
+
+/**
+ * Delete account permanently. Called by DeleteAccountConfirmModal's `confirm`
+ * event. On success: log out, close both modals, and emit `account-deleted`
+ * so the parent (AppHeader → default.vue) can show the "Account deleted"
+ * SuccessModal.
+ */
+const confirmDelete = async () => {
+  if (deleting.value) return
+  deleting.value = true
+
+  try {
+    await api('/user/delete', { method: 'DELETE' })
+
+    // Clear local session before tearing down the UI.
+    await logout()
+
+    showDeleteConfirm.value = false
+    emit('account-deleted')
+    close()
+  } catch (err) {
+    console.error(err)
+    // Keep the confirm modal open on failure so the user can retry or cancel.
+    alert('Failed to delete account')
+  } finally {
+    deleting.value = false
+  }
+}
+
+/**
+ * Emit close event
+ */
 const close = () => emit('close')
 
+/**
+ * Allow ESC to close modal
+ */
 const handleKey = (e: KeyboardEvent) => {
   if (e.key === 'Escape') close()
 }
@@ -114,21 +211,10 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey))
 
           <input v-model="username" class="input" />
 
-          <p v-if="status === 'checking'" class="hint">
-            Checking...
-          </p>
-
-          <p v-else-if="status === 'available'" class="hint success">
-            {{ message }}
-          </p>
-
-          <p v-else-if="status === 'taken'" class="hint error">
-            {{ message }}
-          </p>
-
-          <p v-else-if="status === 'error'" class="hint error">
-            {{ message }}
-          </p>
+          <p v-if="status === 'checking'" class="hint">Checking...</p>
+          <p v-else-if="status === 'available'" class="hint success">{{ message }}</p>
+          <p v-else-if="status === 'taken'" class="hint error">{{ message }}</p>
+          <p v-else-if="status === 'error'" class="hint error">{{ message }}</p>
         </div>
 
         <div class="divider" />
@@ -137,27 +223,24 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey))
         <div class="section">
           <p class="section-title">Connected accounts</p>
 
-          <!-- GitHub -->
           <div class="account-row">
             <span class="provider">GitHub</span>
-            <span class="muted">{{ isGitHubConnected ? user?.username : 'Not signed in' }}
-</span>
+            <span class="muted">
+              {{ isGitHubConnected ? user?.username : 'Not signed in' }}
+            </span>
 
-            <button
-              :class="isGitHubConnected ? 'connected' : 'disconnected'"
-            >
+            <button :class="isGitHubConnected ? 'connected' : 'disconnected'">
               {{ isGitHubConnected ? 'Connected' : 'Disconnected' }}
             </button>
           </div>
 
-          <!-- Google -->
           <div class="account-row">
             <span class="provider">Google</span>
-            <span class="muted">{{ isGoogleConnected ? user?.email : 'Not signed in' }}</span>
+            <span class="muted">
+              {{ isGoogleConnected ? user?.email : 'Not signed in' }}
+            </span>
 
-            <button
-              :class="isGoogleConnected ? 'connected' : 'disconnected'"
-            >
+            <button :class="isGoogleConnected ? 'connected' : 'disconnected'">
               {{ isGoogleConnected ? 'Connected' : 'Disconnected' }}
             </button>
           </div>
@@ -177,11 +260,22 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey))
 
           <button
             class="delete"
-            @click="() => { logout(); close() }"
+            :disabled="deleting"
+            @click="requestDelete"
           >
-            Delete Account
+            {{ deleting ? 'Deleting...' : 'Delete Account' }}
           </button>
         </div>
+
+        <!-- Destructive confirmation overlay. Mounted inside AccountDetails so
+             ESC / overlay-click on this modal doesn't unmount AccountDetails
+             underneath. The confirm modal sits at z-index 1100, above this one. -->
+        <DeleteAccountConfirmModal
+          v-if="showDeleteConfirm"
+          :loading="deleting"
+          @close="cancelDelete"
+          @confirm="confirmDelete"
+        />
       </div>
     </div>
   </transition>

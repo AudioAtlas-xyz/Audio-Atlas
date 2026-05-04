@@ -2,6 +2,21 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 /**
+ * Generic success popup. Caller supplies `title` and `message`; the layout
+ * (checkmark, blur backdrop, auto-close after 2 s) stays the same.
+ */
+withDefaults(
+  defineProps<{
+    title?: string
+    message?: string
+  }>(),
+  {
+    title: 'Success',
+    message: ''
+  }
+)
+
+/**
  * Emits event for closing the modal
  */
 const emit = defineEmits(['close'])
@@ -62,8 +77,8 @@ onUnmounted(() => {
       <div class="checkmark">✓</div>
 
       <!-- Success message -->
-      <h2 id="success-title">Account created</h2>
-      <p>You’re ready to explore Audio Atlas.</p>
+      <h2 id="success-title">{{ title }}</h2>
+      <p v-if="message">{{ message }}</p>
     </div>
   </div>
 </template>
