@@ -171,6 +171,9 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.Property<bool>("IsRejected")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsSensitive")
                         .HasColumnType("bit");
 

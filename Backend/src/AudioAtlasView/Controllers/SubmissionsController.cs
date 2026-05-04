@@ -19,6 +19,44 @@ public class SubmissionsController : ControllerBase
         _submissionService = submissionService;
     }
 
+    [HttpGet("pending")]
+    public async Task<ActionResult<ICollection<PendingSubmissionResponse>>> GetPending(CancellationToken cancellationToken)
+    {
+        var submissions = await _submissionService.getPendingAsync(cancellationToken);
+        return Ok(submissions);
+    }
+
+    [HttpPost("{id}/approve")]
+    public async Task<IActionResult> Approve(Guid id, CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _submissionService.approveAsync(id, cancellationToken);
+            return NoContent();
+        }
+        catch (InvalidOperationException exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
+    [HttpPost("{id}/reject")]
+    public async Task<IActionResult> Reject(
+        Guid id,
+        [FromBody] RejectSubmissionRequest request,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _submissionService.rejectAsync(id, request, cancellationToken);
+            return NoContent();
+        }
+        catch (InvalidOperationException exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
     [HttpPost]
     public async Task<ActionResult<CreateSubmissionResponse>> Post(
         [FromBody] CreateSubmissionRequest request,

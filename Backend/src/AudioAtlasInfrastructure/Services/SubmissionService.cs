@@ -11,6 +11,7 @@ public class SubmissionService : ISubmissionService
     private const int MaxAliasLength = 120;
     private const int MaxDescriptionLength = 4000;
     private const int MaxUrlLength = 2048;
+    private const int MaxRejectReasonLength = 2000;
 
     private readonly ICountryRepository _countryRepository;
     private readonly IGenreRepository _genreRepository;
@@ -150,6 +151,78 @@ public class SubmissionService : ISubmissionService
         return submission.Id;
     }
 
+    public async Task<ICollection<PendingSubmissionResponse>> getPendingAsync(CancellationToken cancellationToken = default)
+    {
+        var submissions = await _submissionRepository.getPendingAsync(cancellationToken);
+
+        return submissions
+            .Select(submission => new PendingSubmissionResponse
+            {
+                Id = submission.Id,
+                AccountId = submission.AccountId,
+                AccountUsername = submission.Account?.UserName,
+                NewGenreName = submission.NewGenreName,
+                StartDate = submission.StartDate,
+                EndDate = submission.EndDate,
+                Description = submission.Description,
+                IsSensitive = submission.IsSensitive,
+                PlaylistLink = submission.PlaylistLink,
+                Aliases = submission.Aliases.Select(alias => alias.Alias).ToList(),
+                SourceLinks = submission.Sources.Select(source => source.SourceLink).ToList(),
+                CountryIds = submission.Countries.Select(country => country.Id).ToList(),
+                SimilarGenreIds = submission.SimilarGenres.Select(genre => genre.Id).ToList(),
+                SubGenreIds = submission.SubGenres.Select(genre => genre.Id).ToList(),
+                PredecessorGenreIds = submission.PredecessorGenres.Select(genre => genre.Id).ToList()
+            })
+            .ToList();
+    }
+
+    public async Task approveAsync(Guid submissionId, CancellationToken cancellationToken = default)
+    {
+        var submission = await getPendingSubmissionOrThrowAsync(submissionId, cancellationToken);
+
+        submission.IsApproved = true;
+        submission.IsRejected = false;
+        submission.RejectedSubmission = null;
+
+        await _submissionRepository.saveChangesAsync(cancellationToken);
+    }
+
+    public async Task rejectAsync(Guid submissionId, RejectSubmissionRequest request, CancellationToken cancellationToken = default)
+    {
+        var submission = await getPendingSubmissionOrThrowAsync(submissionId, cancellationToken);
+
+        var normalizedReason = normalizeText(request.Reason);
+
+        if (string.IsNullOrWhiteSpace(normalizedReason))
+        {
+            throw new InvalidOperationException("reason: Rejection reason is required.");
+        }
+
+        if (normalizedReason.Length > MaxRejectReasonLength)
+        {
+            throw new InvalidOperationException($"reason: Rejection reason must be at most {MaxRejectReasonLength} characters.");
+        }
+
+        submission.IsRejected = true;
+        submission.IsApproved = false;
+
+        if (submission.RejectedSubmission is null)
+        {
+            submission.RejectedSubmission = new RejectedSubmission
+            {
+                SubmissionId = submission.Id,
+                Description = normalizedReason
+            };
+        }
+        else
+        {
+            submission.RejectedSubmission.Description = normalizedReason;
+        }
+
+        await _submissionRepository.saveChangesAsync(cancellationToken);
+    }
+
     //  checks if all IDs from the request in the database. Outputs which werent found. 
     private static void addMissingIdErrors(
         Dictionary<string, string[]> errors,
@@ -245,5 +318,27 @@ public class SubmissionService : ISubmissionService
         return string.Join(
             " | ",
             errors.SelectMany(error => error.Value.Select(message => $"{error.Key}: {message}")));
+    }
+
+    private async Task<Submission> getPendingSubmissionOrThrowAsync(Guid submissionId, CancellationToken cancellationToken)
+    {
+        var submission = await _submissionRepository.getByIdAsync(submissionId, cancellationToken);
+
+        if (submission is null)
+        {
+            throw new InvalidOperationException("submissionId: Submission not found.");
+        }
+
+        if (submission.IsApproved)
+        {
+            throw new InvalidOperationException("submissionId: Submission has already been approved.");
+        }
+
+        if (submission.IsRejected)
+        {
+            throw new InvalidOperationException("submissionId: Submission has already been rejected.");
+        }
+
+        return submission;
     }
 }

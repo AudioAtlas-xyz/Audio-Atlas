@@ -77,6 +77,11 @@ public class Submission
     public bool IsRejected { get; set; }
 
     /// <summary>
+    /// Indicates whether the submission has been approved.
+    /// </summary>
+    public bool IsApproved { get; set; }
+
+    /// <summary>
     /// Proposed alternative names for the genre.
     /// </summary>
     public ICollection<SubmissionAlias> Aliases { get; set; } = new List<SubmissionAlias>();
