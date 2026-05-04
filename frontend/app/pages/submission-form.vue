@@ -63,6 +63,12 @@ function prevStep() {
   currentStep.value--
 }
 
+type ValidStep = 1 | 2 | 3 | 4 | 5;
+
+function goToStep(step: ValidStep){
+  currentStep.value = step;
+}
+
 const countryNames = computed(() =>
   countriesData.value?.map(c => c.name) ?? []
 )
@@ -289,9 +295,15 @@ const submissionData = reactive ({
         <div :class="$style.identity">Review & submit</div>
         <h1>Check everything looks right before submitting for curator review. </h1>
 
-        <div: class = "$style.formFields">
+        <div :class = "$style.formFields">
           <div :class="$style.reviewStepWrapper">
-            <div :class="$style.reviewSubject">IDENTITY</div>
+            <div :class="$style.buttonRowheadline">
+              <div :class="$style.reviewSubject">IDENTITY</div>
+              <button type = "button" @click="goToStep(1)" :class="$style.editButton">
+                Edit
+              </button>
+            </div>
+
             <div :class="$style.subjectName">Genre Name</div>
             <div :class = "$style.genreNames">{{submissionData.genreName}}</div>
 
@@ -321,7 +333,12 @@ const submissionData = reactive ({
           <USeparator orientation="horizontal" class="my-8" />
 
           <div :class="$style.reviewStepWrapper">
-            <div :class="$style.reviewSubject">ABOUT</div>
+              <div :class="$style.buttonRowheadline">
+                <div :class="$style.reviewSubject">ABOUT</div>
+                <button type = "button" @click="goToStep(2)" :class="$style.editButton">
+                  Edit
+                </button>
+              </div>
             <div :class="$style.subjectName">Description</div>
             <div :class = "$style.subjectName">{{submissionData.description}}</div>
             <div :class="$style.subjectName">Instruments</div>
@@ -342,7 +359,12 @@ const submissionData = reactive ({
           <USeparator orientation="horizontal" class="my-8" />
 
           <div :class="$style.reviewStepWrapper">
-            <div :class="$style.reviewSubject">CONNECTIONS</div>
+             <div :class="$style.buttonRowheadline">
+              <div :class="$style.reviewSubject">CONNECTIONS</div>
+              <button type = "button" @click="goToStep(3)" :class="$style.editButton">
+                Edit
+              </button>
+            </div>
             <div :class="$style.subjectName">Evolved from</div>
             <div :class="$style.wrapper">
               <span
@@ -377,7 +399,7 @@ const submissionData = reactive ({
             <div :class = "$style.subjectName">{{submissionData.sources}}</div>
 
           </div>
-        </div:>
+        </div>
 
         <USeparator orientation="horizontal" class="my-8" />
 
@@ -447,8 +469,6 @@ h1 {
 }
 
 .formFields {
-  display: flex;
-  flex-direction: column;
   gap: 1.5rem;
   margin-top: 1.5rem;
 }
@@ -465,7 +485,12 @@ h1 {
   justify-content: space-between;
   align-items: center;
   margin-top: 2rem;
+}
 
+.buttonRowheadline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .buttonAlone {
@@ -474,11 +499,24 @@ h1 {
   align-items: center;
   margin-top: 7rem;
 }
+
+.editButton{
+  width: 23px;
+  height: 15px;
+  position: relative;
+  font-size: 12px;
+  font-family: 'Space Grotesk';
+  color: #3de8c8;
+  text-align: left;
+  display: inline-block;
+}
 .reviewStepWrapper {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 0px;
+  width: 100%;
+  align-items: stretch;
 }
 
 .reviewSubject {
@@ -496,6 +534,24 @@ h1 {
   font-family: 'Space Grotesk';
   color: #373d5a;
 }
+
+.textfield {
+  width: 100%;
+  max-width: 616px;
+  height: auto;
+  min-height: 20px;
+  position: relative;
+  font-size: 13px;
+  line-height: 175%;
+  font-weight: 300;
+  font-family: 'Space Grotesk';
+  color: #7a84a8;
+  text-align: left;
+  display: block;
+  word-wrap: break-word;
+}
+
+
 
 .genreNames{
   width: 616px;
