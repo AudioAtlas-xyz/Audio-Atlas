@@ -57,7 +57,7 @@ const { isSensitive, sensitivityDescription, pageDescription, similarGenres, par
   grid-template-columns: 1fr 320px;
   gap: 3rem;
   padding-left: 2.5rem;
-                          padding-right: 2.5rem;
+  padding-right: 2.5rem;
   padding-top: 2rem;
   padding-bottom: 3rem;
   text-align: left;

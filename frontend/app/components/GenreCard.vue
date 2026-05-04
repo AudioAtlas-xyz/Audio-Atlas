@@ -13,7 +13,7 @@ const metaItems = computed(() =>
 const countries = computed(()=> props.genre.countries ?? [])
 
 const countryBadges = computed(() => {
-  return countries.value.map(country => country)
+  return countries.value
 })
 
 </script>
@@ -54,7 +54,7 @@ const countryBadges = computed(() => {
       <div class="flex flex-wrap items-center gap-2">
         <UBadge
           v-for="country in countryBadges"
-          :key="country.name"
+          :key="country.id"
           color="neutral"
           variant="outline"
           class="rounded-full border-[#7a84a8] px-2 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-space-50"
