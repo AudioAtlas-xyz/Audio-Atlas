@@ -11,6 +11,9 @@ import {
   __setFetchImplementation,
   __setRoute
 } from './support/nuxt-imports'
+import { useAPI } from '~/composables/useApi'
+import { useAuth } from '~/composables/useAuth'
+import { useUIState } from '~/composables/useUIState'
 
 const HeroStub = defineComponent({
   name: 'CountryHeroSection',
