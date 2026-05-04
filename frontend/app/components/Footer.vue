@@ -1,35 +1,30 @@
 <script setup lang="ts">
-
 </script>
 
 <template>
-  <div data-⇅-orientation="Horizontal" data-◆-variant="Buttons" data-📏-size="xs" class="w-[991px] inline-flex justify-center items-center">
-
-    <NuxtLink to="/">
-      <div data-◆-slot="Icon" data-◆-variant="Link" data-👁️-avatarleading="true" data-👁️-avatartrailing="false" data-👁️-iconleading="false" data-👁️-icontrailing="false" data-👁️-label="true" data-👁️-square="False" data-📏-size="xs" data-🚦-state="Default" class="px-2 py-1 rounded-tl-md rounded-bl-md flex justify-start items-center gap-1">
-        <div class="justify-start text---ui-text-muted text-xs font-medium font-['Space_Grotesk'] leading-4">LICENCES</div>
-      </div>
+  <div class="inline-flex items-center rounded-md border border-border overflow-hidden">
+    
+    <NuxtLink
+      to="/licenses"
+      class="px-3 py-1 text-xs font-medium text-muted hover:bg-white/5 transition"
+    >
+      LICENSES
     </NuxtLink>
 
-    <NuxtLink to="/">
-      <div data-◆-slot="Icon" data-◆-variant="Link" data-👁️-avatarleading="true" data-👁️-avatartrailing="false" data-👁️-iconleading="false" data-👁️-icontrailing="false" data-👁️-label="true" data-👁️-square="False" data-📏-size="xs" data-🚦-state="Default" class="px-2 py-1 flex justify-start items-center gap-1">
-        <div class="justify-start text---ui-text-muted text-xs font-medium font-['Space_Grotesk'] leading-4">PRIVACY POLICY</div>
-      </div>
+    <NuxtLink
+      to="/privacy"
+      class="px-3 py-1 text-xs font-medium text-muted border-l border-border hover:bg-white/5 transition"
+    >
+      PRIVACY POLICY
     </NuxtLink>
 
-    <NuxtLink to="https://github.com/AudioAtlas-xyz/Audio-Atlas">
-      <div data-◆-slot="Icon" data-◆-variant="Link" data-👁️-avatarleading="true" data-👁️-avatartrailing="false" data-👁️-iconleading="false" data-👁️-icontrailing="false" data-👁️-label="true" data-👁️-square="False" data-📏-size="xs" data-🚦-state="Default" class="px-2 py-1 rounded-tr-md rounded-br-md flex justify-start items-center gap-1">
-        <div class="justify-start text---ui-text-muted text-xs font-medium font-['Space_Grotesk'] leading-4">GITHUB</div>
-      </div>
+    <NuxtLink
+      to="https://github.com/AudioAtlas-xyz/Audio-Atlas"
+      target="_blank"
+      class="px-3 py-1 text-xs font-medium text-muted border-l border-border hover:bg-white/5 transition"
+    >
+      GITHUB
     </NuxtLink>
-
 
   </div>
-
 </template>
-
-<style scoped>
-
-</style>
-
-

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { ContributorSummary } from '~/types/country'
 
 const props = defineProps<{
@@ -37,17 +38,19 @@ function formatGenreCount(count: number) {
       footer: 'hidden'
     }"
   >
+    <!-- HEADER -->
     <template #header>
       <div class="flex items-center justify-between">
         <p class="text-sm text-space-50">
           Contributors
         </p>
         <p class="font-mono text-[11px] text-[#373d5a]">
-          {{ props.contributors.length }}
+          {{ contributors.length }}
         </p>
       </div>
     </template>
 
+    <!-- LIST -->
     <div v-if="contributorRows.length" class="divide-y divide-border">
       <div
         v-for="contributor in contributorRows"
@@ -55,9 +58,8 @@ function formatGenreCount(count: number) {
         class="flex items-center justify-between gap-3 px-4 py-3"
       >
         <div class="flex min-w-0 items-center gap-3">
+          <!-- Avatar fallback (initials only) -->
           <UAvatar
-            :src="contributor.avatarUrl"
-            :alt="contributor.username"
             :text="getContributorInitials(contributor)"
             size="sm"
             class="ring-1 ring-aurora"
@@ -66,13 +68,10 @@ function formatGenreCount(count: number) {
           <div class="min-w-0">
             <ULink
               :to="`/contributors/${contributor.id}`"
-              class="truncate font-mono text-[11px] tracking-[0.12em] text-aurora hover:text-aurora"
+              class="truncate font-mono text-[11px] tracking-[0.12em] text-aurora"
             >
               @{{ contributor.username }}
             </ULink>
-            <p v-if="contributor.displayName" class="truncate text-xs text-[#5d678c]">
-              {{ contributor.displayName }}
-            </p>
           </div>
         </div>
 
@@ -82,6 +81,7 @@ function formatGenreCount(count: number) {
       </div>
     </div>
 
+    <!-- EMPTY -->
     <div v-else class="px-4 py-5 text-sm text-[#6f789b]">
       Contributors will appear here when the backend includes contributor summaries.
     </div>

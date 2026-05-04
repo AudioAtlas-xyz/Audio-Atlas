@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Genre } from '~/types/genre'
+import { useApi } from '@/composables/useApi'
 
-const config = useRuntimeConfig();
+const { api } = useApi()
 
 const searchTerm = ref('')
 const loading = ref(false)
@@ -25,8 +26,8 @@ watch(searchTerm, (value) => {
     loading.value = true
 
     try {
-      genres.value = await $fetch<Genre[]>(
-        `${config.public.apiBase}/genres/search/${encodeURIComponent(value)}`
+      genres.value = await api<Genre[]>(
+        `/genres/search/${encodeURIComponent(value)}`
       )
     } catch (error) {
       console.error('Search failed:', error)
@@ -61,7 +62,7 @@ watch(searchTerm, (value) => {
     >
         
 
-        <strong>{{ genre.name }} | {{ genre.countries[0]?.name }}</strong>
+        <strong>{{ genre.name }} | {{ genre.countries?.[0]?.name || 'Unknown' }}</strong>
         <span>{{ genre.summary }}</span>
     </NuxtLink>
     </div>

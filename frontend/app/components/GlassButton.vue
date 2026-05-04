@@ -1,112 +1,105 @@
 <script setup lang="ts">
 import type { Component } from 'vue'
 
-/**
- * Props for flexible button component
- * - tag: HTML tag or component (defaults to button)
- * - variant: visual style (e.g. "glass", "primary")
- * - disabled: disables interaction
- */
+type Variant = 'glass' | 'primary'
+type Size = 'sm' | 'md'
+
 const props = defineProps<{
   tag?: string | Component
-  variant?: string
+  variant?: Variant
+  size?: Size
   disabled?: boolean
 }>()
 
-/**
- * Emit click event to parent
- */
 const emit = defineEmits<{
   (e: 'click', event: MouseEvent): void
 }>()
 
-/**
- * Handle click:
- * Prevent emitting if disabled
- */
 const handleClick = (e: MouseEvent) => {
-  if (props.disabled) return
+  if (props.disabled) {
+    e.preventDefault()
+    return
+  }
   emit('click', e)
 }
 </script>
 
 <template>
-  <!-- Dynamic button element -->
   <component
     :is="props.tag || 'button'"
     class="glass-btn"
-    :class="[props.variant || 'glass', { disabled: props.disabled }]"
+    :class="[
+      props.variant || 'glass',
+      props.size || 'md',
+      { disabled: props.disabled }
+    ]"
     :disabled="props.tag === 'button' ? props.disabled : undefined"
     :type="props.tag === 'button' ? 'button' : undefined"
     :aria-disabled="props.disabled"
+    tabindex="0"
     @click="handleClick"
   >
-    <!-- Button content -->
     <slot />
   </component>
 </template>
 
 <style scoped>
-/* Base glass button style */
 .glass-btn {
-  padding: 0.35rem 0.85rem;
+  padding: 0.4rem 0.9rem;
   border: 1px solid rgba(141, 219, 230, 0.25);
-  border-radius: 0.45rem;
+  border-radius: 0.5rem;
+
   background: rgba(141, 219, 230, 0.08);
   color: #8ddbe6;
-  font-size: 0.76rem;
+
   font-weight: 600;
-  letter-spacing: 0.015em;
+  letter-spacing: 0.02em;
+
   cursor: pointer;
   white-space: nowrap;
 
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.15s ease,
-    opacity 0.15s ease;
+  transition: all 0.2s ease;
 }
 
-/* Hover state */
+.glass-btn.sm {
+  font-size: 0.72rem;
+  padding: 0.25rem 0.7rem;
+}
+
+.glass-btn.md {
+  font-size: 0.82rem;
+}
+
 .glass-btn:hover {
   background: rgba(141, 219, 230, 0.16);
   border-color: rgba(141, 219, 230, 0.4);
   color: #b5eaf2;
 }
 
-/* Active state */
 .glass-btn:active {
   background: rgba(141, 219, 230, 0.22);
 }
 
-/* Primary variant */
 .glass-btn.primary {
-  background-color: #3DE8C8;
-  color: #02070a;
+  background-color: #3de8c8;
+  color: #02211c;
   border: none;
 }
 
 .glass-btn.primary:hover {
-  opacity: 0.9;
-  transform: translateY(-3px);
+  transform: translateY(-2px);
+  filter: brightness(1.05);
 }
 
 .glass-btn.primary:active {
   transform: translateY(0);
 }
 
-/* Disabled state */
 .glass-btn.disabled,
 .glass-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+  pointer-events: none;
   transform: none;
-}
-
-.glass-btn.disabled:hover {
-  background: inherit;
-  border-color: inherit;
-  color: inherit;
 }
 </style>
