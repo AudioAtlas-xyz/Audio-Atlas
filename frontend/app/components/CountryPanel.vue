@@ -59,7 +59,6 @@ const errorMessage = computed(() => {
 <template>
   <USlideover
     :open="open"
-    title="Country Details"
     :close="false"
     :ui="{
       overlay: 'z-[120]',
@@ -70,17 +69,9 @@ const errorMessage = computed(() => {
   >
     <template #body>
       <div class="min-h-full bg-bg text-space-50">
-        <div class="flex items-center justify-between border-b border-border bg-surface px-6 py-4">
-          <div>
-            <p class="text-[11px] uppercase tracking-[0.18em] text-[#8ddbe6]">
-              Country
-            </p>
-            <h2 class="mt-1 text-xl font-bold text-space-50">
-              Details
-            </h2>
-          </div>
-          <UButton icon="i-heroicons-x-mark" variant="ghost" color="neutral" @click="emit('close')" />
-        </div>
+      <!--  <div class="flex items-center justify-between border-b border-border bg-surface px-6 py-4">-->
+
+        <!--</div>-->
 
         <div class="space-y-6 p-6">
           <div v-if="pending" class="space-y-4">
@@ -101,26 +92,24 @@ const errorMessage = computed(() => {
           <div v-else-if="data" class="space-y-6">
             <section class="space-y-3">
               <div class="flex items-start justify-between gap-4">
-                <NuxtLink :to="countryPageHref" class="text-3xl font-bold text-space-50 transition hover:text-[#8ddbe6]">
+                <NuxtLink :to="countryPageHref" class="text-3xl font-bold text-space-50 transition hover:text-aurora">
                   {{ data.name }}
                 </NuxtLink>
-                <UBadge v-if="data.continent" color="neutral" variant="soft">
+                <UButton icon="i-heroicons-x-mark" variant="ghost" @click="emit('close')" class="text-aurora"/>
+              </div>
+              <div v-if="data.region || data.continent" class="flex flex-wrap gap-2">
+                <UBadge v-if="data.region" variant="subtle" color="neutral" class="bg-black border-white text-white">
+                  {{ data.region }}
+                </UBadge>
+                <UBadge v-if="data.continent" variant="subtle" color="neutral" class="bg-black border-white text-white">
                   {{ data.continent }}
                 </UBadge>
               </div>
-
               <p class="text-sm leading-6 text-[#b9c6df]">
                 {{ data.description || 'No description has been added for this country yet.' }}
               </p>
 
-              <div v-if="data.region || data.continent" class="flex flex-wrap gap-2">
-                <UBadge v-if="data.region" color="neutral" variant="soft">
-                  {{ data.region }}
-                </UBadge>
-                <UBadge v-if="data.continent" color="neutral" variant="subtle">
-                  {{ data.continent }}
-                </UBadge>
-              </div>
+
             </section>
 
             <section class="space-y-3">
@@ -142,10 +131,16 @@ const errorMessage = computed(() => {
               />
 
               <div v-else class="grid gap-3">
-                <UCard
+                <NuxtLink
                   v-for="genre in data.genres"
                   :key="genre.id"
-                  class="border border-border bg-surface shadow-none"
+                  :to="`/genres?genreId=${genre.id}`"
+                  class="block transition-all duration-200 hover:-translate-y-0.5 hover:border-[#8ddbe6] hover:shadow-[0_0_15px_rgba(141,219,230,0.15)]"
+                >
+                <!--class="border border-border bg-surface shadow-none"-->
+
+                <UCard class="border border-border bg-surface shadow-none transition-all duration-200 hover:border-aurora hover:text-aurora hover:bg-aurora-dim"
+
                 >
                   <div class="space-y-2">
                     <h5 class="text-base font-semibold text-space-50">
@@ -154,10 +149,23 @@ const errorMessage = computed(() => {
                     <p v-if="genre.summary || genre.description" class="text-sm leading-6 text-[#b9c6df]">
                       {{ genre.summary || genre.description }}
                     </p>
+
                   </div>
                 </UCard>
+                </NuxtLink>
               </div>
             </section>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-4 bg-bg border-t border-border">
+            <NuxtLink :to="countryPageHref" class="block">
+              <UButton
+                block
+                color="secondary"
+                class="w-full bg-aurora text-bg"
+              >
+                Open Country Page →
+              </UButton>
+            </NuxtLink>
           </div>
         </div>
       </div>
