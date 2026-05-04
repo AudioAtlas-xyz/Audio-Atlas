@@ -1,18 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace AudioAtlas.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedSystemUserBoolean : Migration
+    public partial class AddSubmissionApprovalState : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<bool>(
-                name: "IsSystemUser",
-                table: "AspNetUsers",
+                name: "IsApproved",
+                table: "Submissions",
                 type: "bit",
                 nullable: false,
                 defaultValue: false);
@@ -22,8 +22,8 @@ namespace AudioAtlas.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "IsSystemUser",
-                table: "AspNetUsers");
+                name: "IsApproved",
+                table: "Submissions");
         }
     }
 }

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import type {Instrument} from "~/types/instrument";
+import type { Instrument } from "~/types/instrument"
 
 const props = defineProps<{
-  instrument: Instrument[]
+  instruments: Instrument[]
 }>()
-
 </script>
 
 <template>
@@ -16,32 +15,34 @@ const props = defineProps<{
       footer: 'hidden'
     }"
   >
+    <!-- HEADER -->
     <template #header>
       <div class="flex items-center justify-between">
         <p class="text-sm text-space-50">
           Instruments
         </p>
         <p class="font-mono text-[11px] text-[#373d5a]">
-          {{ props.instrument.length }}
+          {{ props.instruments.length }}
         </p>
       </div>
     </template>
 
-    <div v-if="instrument.length" class="divide-y divide-border">
+    <!-- LIST -->
+    <div v-if="props.instruments.length" class="divide-y divide-border">
       <div
-        v-for="it in instrument"
-        :key="it.name"
+        v-for="(it, i) in props.instruments"
+        :key="it.id || `${it.name}-${i}`"
         class="flex items-center justify-between gap-3 px-4 py-3"
       >
         <div class="flex min-w-0 items-center gap-3">
-
-          <div class="min-w-0">
+          <div class="min-w-0 truncate text-space-50">
             {{ it.name }}
           </div>
         </div>
       </div>
     </div>
 
+    <!-- EMPTY -->
     <div v-else class="px-4 py-5 text-sm text-[#6f789b]">
       Currently no instruments included for this genre.
     </div>
