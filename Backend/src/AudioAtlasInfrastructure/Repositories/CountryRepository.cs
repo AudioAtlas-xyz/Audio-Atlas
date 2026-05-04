@@ -34,6 +34,18 @@ public class CountryRepository : ICountryRepository
             .Single();
     }
 
+    public async Task<ICollection<Country>> getCountriesByIdsAsync(IReadOnlyCollection<Guid> ids, CancellationToken cancellationToken = default)
+    {
+        if (ids.Count == 0)
+        {
+            return Array.Empty<Country>();
+        }
+
+        return await _dbcontext.Countries
+            .Where(country => ids.Contains(country.Id))
+            .ToListAsync(cancellationToken);
+    }
+
     /// <summary>
     /// Retrieves a country from the database based on ISO 3166-1 alpha-3 code.
     /// </summary>
