@@ -2,13 +2,14 @@ using AudioAtlasApplication.Repositories;
 using AudioAtlasDomain.Genres;
 using AudioAtlasInfrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace AudioAtlasInfrastructure.Repositories;
 
 public class GenreRepository : IGenreRepository
 {
     readonly AppDbContext _dbcontext;
-
+    
     /// <summary>
     /// Initialises a new instance of GenreRepository class
     /// </summary>
@@ -17,11 +18,11 @@ public class GenreRepository : IGenreRepository
     {
         _dbcontext = appDbContext;
     }
-
+    
     /// <summary>
     /// Retrieves the description of a genre from the database
     /// </summary>
-    /// <param name="id"> Unique identifier for a specific genre </param>
+    /// <param name="genre"> Specific genre </param>
     /// <returns> The description of a specific genre or null </returns>
     public string getDescription(Guid id)
     {
@@ -34,7 +35,7 @@ public class GenreRepository : IGenreRepository
     /// <summary>
     /// Retrieves the name corresponding to the genre
     /// </summary>
-    /// <param name="id"> Unique identifier for a specific genre </param>
+    /// <param name="genre"> Specific genre </param>
     /// <returns> A string corresponding to the genres name </returns>
     public string getName(Guid id)
     {
@@ -64,6 +65,7 @@ public class GenreRepository : IGenreRepository
             .Include(g => g.Instruments)
             .Where(g => g.Id == id)
             .Single();
+
     }
 
     public async Task<ICollection<Genre>> getGenresByIdsAsync(IReadOnlyCollection<Guid> ids, CancellationToken cancellationToken = default)
@@ -81,7 +83,7 @@ public class GenreRepository : IGenreRepository
     /// <summary>
     /// Retrieves a list of aliases for a genre
     /// </summary>
-    /// <param name="id"> Unique identifier for a specific genre </param>
+    /// <param name="genre"> Specific genre </param>
     /// <returns> A collection of aliases corresponding to a specific genre </returns>
     public ICollection<GenreAlias> getAliases(Guid id)
     {
@@ -95,7 +97,7 @@ public class GenreRepository : IGenreRepository
     /// <summary>
     /// Retrieves the parent(s) of a specific genre
     /// </summary>
-    /// <param name="id"> Unique identifier for a specific genre </param>
+    /// <param name="genre"> Specific genre </param>
     /// <returns> A collection of parents corresponding to a specified genre </returns>
     public ICollection<Genre> getParents(Guid id)
     {
@@ -105,11 +107,11 @@ public class GenreRepository : IGenreRepository
             .Single()
             .ParentGenres;
     }
-
+    
     /// <summary>
     /// Retrieves the subgenre(s) of a specific genre
     /// </summary>
-    /// <param name="id"> Unique identifier for a specific genre </param>
+    /// <param name="genre"> Specific genre </param>
     /// <returns> A collection of subgenres corresponding to a specified genre </returns>
     public ICollection<Genre> getSubGenres(Guid id)
     {
@@ -119,11 +121,11 @@ public class GenreRepository : IGenreRepository
             .Single()
             .SubGenres;
     }
-
+    
     /// <summary>
     /// Retrieves the similar genre(s) of a specific genre
     /// </summary>
-    /// <param name="id"> Unique identifier for a specific genre </param>
+    /// <param name="genre"> Specific genre </param>
     /// <returns> A collection of similar genres corresponding to a specified genre </returns>
     public ICollection<Genre> getSimilarGenres(Guid id)
     {
@@ -137,7 +139,7 @@ public class GenreRepository : IGenreRepository
     /// <summary>
     /// Retrieves the related genre(s) to a specific genre
     /// </summary>
-    /// <param name="id"> Unique identifier for a specific genre </param>
+    /// <param name="genre"> Specific genre </param>
     /// <returns> A list with all related genres to a specific genre </returns>
     public ICollection<Genre> getRelated(Guid id)
     {
@@ -147,7 +149,7 @@ public class GenreRepository : IGenreRepository
             .SubGenres.Union(getParents(id)).Union(getSimilarGenres(id))
             .ToList();
     }
-
+    
     /// <summary>
     /// Retrieves all genres from the database
     /// </summary>
@@ -157,29 +159,13 @@ public class GenreRepository : IGenreRepository
         return _dbcontext.Genres.ToList();
     }
 
-    /// <summary>
-    /// Retrieves all genres authored by a specific user
-    /// </summary>
-    /// <param name="id"> Unique identifier for a specific user </param>
-    /// <returns> A list of genres authored by the user </returns>
     public ICollection<Genre> getGenresByAuthorId(Guid id)
     {
         return _dbcontext.Genres.Where(g => g.AuthorId == id).ToList();
     }
 
-    public async Task<ICollection<Genre>> SearchForGenres(string keyword)
+    public async Task<ICollection<Genre>>SearchForGenres(string keyword)
     {
-        return await _dbcontext.Genres
-            .Include(g => g.Countries)
-            .Where(g => EF.Functions.Like(g.Name, $"%{keyword}%"))
-            .ToListAsync();
+        return await _dbcontext.Genres.Include(g => g.Countries).Where(g => EF.Functions.Like(g.Name, $"%{keyword}%")).ToListAsync(); 
     }
-
-    /// <summary>
-    /// Persists all pending changes to the database
-    /// </summary>
-    public async Task SaveChangesAsync()
-    {
-        await _dbcontext.SaveChangesAsync();
-    }
-}
+}   

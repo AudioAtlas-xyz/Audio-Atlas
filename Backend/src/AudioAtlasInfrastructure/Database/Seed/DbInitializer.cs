@@ -13,16 +13,12 @@ public class DbInitializer
 {
     private static string[] roles = ["Admin", "Banned", "Curator"];
     private static string SystemUserName = "System";
-    private static string DeletedUserName = "DeletedUser";
+
     public static async Task SeedDatabase(AppDbContext dbContext, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, ILogger<DbInitializer> logger)
     {
         logger.LogInformation("Creating System User with username: {SystemUsername}", SystemUserName);
 
         ApplicationUser systemUser = await CreateStaticUserAsync(SystemUserName, dbContext, userManager, logger);
-
-        logger.LogInformation("Creating System User with username: {DeletedUserName}", DeletedUserName);
-
-        ApplicationUser DeletedUser = await CreateStaticUserAsync(DeletedUserName, dbContext, userManager, logger, isDeletedPlaceholder: true);
 
         logger.LogInformation("Creating Roles: {roles}", "[" + string.Join(", ", roles) + "]");
 
@@ -95,7 +91,7 @@ public class DbInitializer
         }
     }
 
-    private static async Task<ApplicationUser> CreateStaticUserAsync(string username, AppDbContext dbContext, UserManager<ApplicationUser> userManager, ILogger<DbInitializer> logger, bool isDeletedPlaceholder = false)
+    private static async Task<ApplicationUser> CreateStaticUserAsync(string username, AppDbContext dbContext, UserManager<ApplicationUser> userManager, ILogger<DbInitializer> logger)
     {
         ApplicationUser? staticUser = await userManager.FindByNameAsync(username);
 
@@ -109,8 +105,7 @@ public class DbInitializer
                 SecurityStamp = Guid.NewGuid().ToString(),
                 LockoutEnabled = true,
                 LockoutEnd = DateTimeOffset.MaxValue,
-                IsSystemUser = !isDeletedPlaceholder,
-                IsDeletedPlaceholder = isDeletedPlaceholder
+                IsSystemUser = true
             };
 
             // Create without password using a bypass
@@ -128,14 +123,9 @@ public class DbInitializer
 
             await dbContext.SaveChangesAsync();
         }
-        else if (!staticUser.IsSystemUser && !isDeletedPlaceholder)
+        else if (!staticUser.IsSystemUser)
         {
             staticUser.IsSystemUser = true;
-            await dbContext.SaveChangesAsync();
-        }
-        else if (!staticUser.IsDeletedPlaceholder && isDeletedPlaceholder)
-        {
-            staticUser.IsDeletedPlaceholder = true;
             await dbContext.SaveChangesAsync();
         }
 

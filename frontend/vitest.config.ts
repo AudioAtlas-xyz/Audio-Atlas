@@ -14,10 +14,10 @@ export default defineConfig({
       dts: false,
       imports: [
         {
-          vue: ['computed', 'ref']
+          vue: ['computed']
         },
         {
-          '#imports': ['useRoute', 'useRuntimeConfig', 'useAsyncData', 'useHead', 'useApi', 'useAuth', 'useUIState']
+          '#imports': ['useRoute', 'useRuntimeConfig', 'useAsyncData', 'useHead', '$fetch']
         }
       ]
     })

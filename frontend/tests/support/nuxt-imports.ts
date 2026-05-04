@@ -21,9 +21,6 @@ let runtimeConfig = {
   }
 }
 
-// Create a mock API function that can be controlled in tests
-let mockApiFunction = async <T>(_url: string): Promise<T> => null as T
-
 export function __resetNuxtMocks() {
   routeState = {
     query: {},
@@ -38,7 +35,6 @@ export function __resetNuxtMocks() {
       apiBase: '/api'
     }
   }
-  mockApiFunction = async <T>(_url: string): Promise<T> => null as T
 }
 
 export function __setRoute(query: Record<string, unknown>, fullPath = '/CountryPage') {
@@ -65,22 +61,12 @@ export function __setRuntimeConfig(config: typeof runtimeConfig) {
   runtimeConfig = config
 }
 
-export function __setMockApiFunction(fn: typeof mockApiFunction) {
-  mockApiFunction = fn
-}
-
 export function useRoute() {
   return routeState
 }
 
 export function useRuntimeConfig() {
   return runtimeConfig
-}
-
-export function useApi() {
-  return {
-    api: mockApiFunction
-  }
 }
 
 export async function useAsyncData<T>(

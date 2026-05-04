@@ -1,25 +1,30 @@
 <script setup lang="ts">
 import type { Country } from '~/types/country'
 
+//UseRoute() giver dig adgang til 'Route objekt.' Den indeholder path, query parameters, route params, full URL, navn på route.
+//Vi skal bruge dette object for at få adgang til query parametrene, for at se hvilket ID de har anvendt.
 const route = useRoute()
-const { api } = useApi()
+const config = useRuntimeConfig()
 
-/**
- * Extract countryId
- */
+
+//Her trækker vi selve countryId ud af query parametrene
 const countryId = computed(() => {
-  const raw = route.query.countryId
-  return typeof raw === 'string' && raw.length > 0 ? raw : undefined
+  //Vi kalder på countryId. Dermed SKAL query i URL være CountryPage?countryId=MIT_GUID (efter spørgsmålstegn)
+  const rawCountryId = route.query.countryId
+
+  //Vi tjekker om countryId er en string og indeholder noget tekst. Hvis ikke returnere vi undefined, da dette er en falsy som vi kan tjekke på senere.
+  return typeof rawCountryId === 'string' && rawCountryId.length > 0 ? rawCountryId : undefined
 })
 
-/**
- * Fetch country data
- */
+
 const { data, pending, error } = await useAsyncData<Country | null>(
-  'country-page',
+  () => `country-page-${countryId.value ?? 'missing'}`,
   async () => {
-    if (!countryId.value) return null
-    return api<Country>(`/countries/${countryId.value}`)
+    if (!countryId.value) {
+      return null
+    }
+
+    return $fetch<Country>(`${config.public.apiBase}/countries/${countryId.value}`)
   },
   {
     watch: [countryId],
@@ -27,65 +32,55 @@ const { data, pending, error } = await useAsyncData<Country | null>(
   }
 )
 
-/**
- * Derived state
- */
+//Data er et ref objekt. Her hiver vi værdierne ud af ref objektet fra responsen, så vi kan bruge dem individuelt.
+//Computed beregner en værdi ud fra en reactive state. Reactive state i nuxt betyder, at værdien kan ændre sig dynamisk under runtime.
+//Vi bruger dem her, fordi alle nedenstående værdier formentlig er null, da vi ikke har fået en respons endnu.
+//Så ved at bruge computed, vil variablerne nedenunder ændre sig til deres sande værdier så snart vi får en respons
+//Fra vores backend.
 const country = computed(() => data.value)
 const genres = computed(() => country.value?.genres ?? [])
 const contributors = computed(() => country.value?.contributors ?? [])
 const genreCount = computed(() => genres.value.length)
 
-/**
- * Breadcrumbs
- */
+//Vi laver en liste med alle vores regions og navne på lande. Lige nu er region sat til "/" som path, fordi vi ikke
+//Har en region path.
+//Denne er igen computed, så listen opdatere så snart vi har data fra vores backend dynamisk.
 const breadcrumbItems = computed(() =>
   [
     { label: 'Explore', to: '/' },
-    country.value?.region
-      ? { label: country.value.region, to: '/' }
-      : null,
-    country.value?.name
-      ? { label: country.value.name, to: route.fullPath, active: true }
-      : null
-  ].filter(Boolean) as Array<{ label: string; to: string; active?: boolean }>
+    country.value?.region ? { label: country.value.region, to: '/' } : null,
+    country.value?.name ? { label: country.value.name, to: route.fullPath, active: true } : null
+    //Filer boolean fjerne alle falsy elementer. I dette tilfælde ville det være null værdier.
+  ].filter(Boolean) as Array<{ label: string, to: string, active?: boolean }>
 )
 
-/**
- * Location badges
- */
+
+//Vi laver location badges. Dette er region og continent. Gør det samme som ovenstående, men filtrere på om string er empty.
 const locationBadges = computed(() =>
-  [country.value?.region, country.value?.continent].filter(
-    (v): v is string => Boolean(v)
-  )
+  [country.value?.region, country.value?.continent].filter((value): value is string => Boolean(value))
 )
 
-/**
- * Description fallback
- */
+//Viser page description. Har en default value.
 const pageDescription = computed(() => {
-  return country.value?.description?.trim()
-    ? country.value.description
-    : 'Country context from the Audio Atlas API will appear here once the backend payload is wired up.'
+  if (!country.value?.description?.trim()) {
+    return 'Country context from the Audio Atlas API will appear here once the backend payload is wired up.'
+  }
+
+  return country.value.description
 })
 
-/**
- * Dynamic page title
- */
+//Dette sætter titlen på selve browseren (det der står i tabben).
 useHead(() => ({
-  title: country.value?.name
-    ? `${country.value.name} | Audio Atlas`
-    : 'Country | Audio Atlas'
+  title: country.value?.name ? `${country.value.name} | Audio Atlas` : 'Country | Audio Atlas'
 }))
 </script>
 
 <template>
   <div class="bg-bg text-space-50">
     <UContainer class="px-0 sm:px-0">
-      <!-- HERO -->
       <section class="border-b border-border bg-bg">
         <div class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-8 sm:px-10 lg:px-[120px] lg:py-10">
 
-          <!-- LOADING -->
           <div v-if="pending" class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
             <div class="space-y-4">
               <USkeleton class="h-14 w-64 rounded-md bg-surface-2" />
@@ -102,7 +97,6 @@ useHead(() => ({
             </div>
           </div>
 
-          <!-- SUCCESS -->
           <CountryHeroSection
             v-else-if="country"
             :location-badges="locationBadges"
@@ -111,16 +105,14 @@ useHead(() => ({
             :bread-crumb-items="breadcrumbItems"
           />
 
-          <!-- ERROR -->
           <UAlert
             v-else-if="error"
             color="error"
             variant="soft"
             title="Could not load country data"
-            :description="error?.message || 'Unknown error'"
+            :description="error.message"
           />
 
-          <!-- MISSING ID -->
           <UAlert
             v-else
             color="warning"
@@ -131,7 +123,6 @@ useHead(() => ({
         </div>
       </section>
 
-      <!-- STATS -->
       <section class="border-y border-border bg-surface">
         <div class="mx-auto max-w-[1200px] px-6 py-3 sm:px-10 lg:px-[120px]">
           <div class="space-y-1">
@@ -145,7 +136,6 @@ useHead(() => ({
         </div>
       </section>
 
-      <!-- CONTENT -->
       <section class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-8 sm:px-10 lg:px-[120px] lg:py-10">
         <div class="border-b border-border pb-4">
           <h2 class="font-display text-[28px] tracking-[-0.02em] text-space-50">
@@ -158,12 +148,11 @@ useHead(() => ({
         </div>
 
         <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
-          <!-- GENRES -->
           <div>
             <div v-if="pending" class="grid gap-5 md:grid-cols-2">
               <USkeleton
-                v-for="i in 4"
-                :key="i"
+                v-for="index in 4"
+                :key="index"
                 class="h-48 rounded-md bg-surface-2"
               />
             </div>
@@ -181,13 +170,10 @@ useHead(() => ({
               color="neutral"
               variant="soft"
               title="No genres documented yet"
-              :description="country
-                ? `No genres have been returned for ${country.name} yet.`
-                : 'No genre data has been returned yet.'"
+              :description="country ? `No genres have been returned for ${country.name} yet.` : 'No genre data has been returned yet.'"
             />
           </div>
 
-          <!-- CONTRIBUTORS -->
           <CountryContributorsCard :contributors="contributors" />
         </div>
       </section>

@@ -23,14 +23,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <ProjectReference Include="..\AudioAtlasApplication\AudioAtlas.Application.csproj" />
+    <ProjectReference Include="..\AudioAtlasDomain\AudioAtlas.Domain.csproj" />
+    <ProjectReference Include="..\AudioAtlasInfrastructure\AudioAtlas.Infrastructure.csproj" />
   </ItemGroup>
 
-<ItemGroup>
-  <ProjectReference Include="..\AudioAtlasApplication\AudioAtlas.Application.csproj" />
-  <ProjectReference Include="..\AudioAtlasDomain\AudioAtlas.Domain.csproj" />
-  <ProjectReference Include="..\AudioAtlasInfrastructure\AudioAtlas.Infrastructure.csproj" />
-</ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="..\AudioAtlasInfrastructure\resources\countrySeeding.json">

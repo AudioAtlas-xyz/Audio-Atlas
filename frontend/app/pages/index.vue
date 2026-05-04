@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { computed, ref, onMounted } from 'vue'
 import Globe from '@/components/Globe.vue'
+import AppHeader from '@/components/AppHeader.vue'
 import CountryPanel from '@/components/CountryPanel.vue'
-
-import { useRoute, useRouter } from 'vue-router'
+import LoginModal from '@/components/LoginModal.vue'
+import UsernameModal from '@/components/UsernameModal.vue'
+import SuccessModal from '@/components/SuccessModal.vue'
+import LoginBanner from '@/components/LoginBanner.vue'
+import { useRoute } from 'vue-router'
 import { useScrollIntro } from '@/composables/useScrollIntro'
 import { useAuth } from '@/composables/useAuth'
-import { useUIState } from '@/composables/useUIState'
 import { useHead } from '#imports'
 
 /**
- * Page meta
+ * Page metadata
  */
 useHead({
   title: 'Audio Atlas',
@@ -18,61 +21,64 @@ useHead({
     { name: 'description', content: 'Explore music genres around the world' }
   ]
 })
+ const route = useRoute()
 
-const route = useRoute()
-const router = useRouter()
-
-/**
- * Auth — fetchUser is also called in default.vue's onMounted; calling here
- * is a safety net for direct loads of `/?newUser=true` that bypass /auth/callback.
- */
-const { fetchUser } = useAuth()
 
 /**
- * UI State — only `openOnboarding` is used here. AppHeader, LoginModal,
- * UsernameModal, SuccessModal and AppBanner are all owned by `layouts/default.vue`.
- * Don't render them here or you'll get duplicate instances.
+ * Auth state (GLOBAL)
  */
-const { openOnboarding } = useUIState()
+const {
+  user,
+  fetchUser,
+  showLoginBanner,
+  showUsernameModal,
+  pendingRegistrationId
+} = useAuth()
 
 /**
- * Init auth + onboarding
- *
- * NOTE: Welcome banners are owned by `pages/auth/callback.vue` (returning users)
- * and the SuccessModal close handler in `layouts/default.vue` (new users).
- * This page must NOT fire `triggerAppBanner` on mount.
+ * Fetch user on load (VERY important)
  */
+
 onMounted(async () => {
-  const newUser = route.query.newUser as string | undefined
-  const pendingId = route.query.pendingRegistrationId as string | undefined
-  const suggested = route.query.suggestedUsername as string | undefined
 
-  // Legacy fallback: if the backend ever redirects straight to `/?newUser=true`
-  // instead of through `/auth/callback`, kick off onboarding here.
-  if (newUser === 'true') {
-    openOnboarding(pendingId || null, suggested || null)
+  const newUser = route.query.newUser
+  const pendingId = route.query.pendingRegistrationId
+  const suggested = route.query.suggestedUsername
+
+  if (newUser === 'true' && pendingId) {
+    showUsernameModal.value = true
+    pendingRegistrationId.value = String(pendingId)
   }
 
-  // Fetch current session if we have a token.
+  if (newUser === 'false') {
+    showLoginBanner.value = true
+  }
+
   await fetchUser()
 
-  // Strip auth-related query params so a refresh doesn't re-trigger onboarding.
-  if (route.query.newUser || route.query.pendingRegistrationId || route.query.suggestedUsername) {
-    router.replace('/')
-  }
+  window.history.replaceState({}, '', '/')
 })
 
 /**
- * Scroll intro
+ * Scroll intro animation
  */
 const { progress, finished } = useScrollIntro()
 
 /**
- * Globe setup
+ * Local UI state
+ */
+const showLoginModal = ref(false)
+const showSuccessModal = ref(false)
+
+/**
+ * Globe positions
  */
 const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
 const settledPov = { lat: 54, lng: 12, altitude: 2.2 }
 
+/**
+ * Easing
+ */
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
 
 const eased = computed(() => {
@@ -80,6 +86,9 @@ const eased = computed(() => {
   return easeOut(easeOut(t))
 })
 
+/**
+ * Globe offset
+ */
 const globeOffset = computed<[number, number]>(() => {
   if (process.server) return [0, 0]
 
@@ -89,10 +98,16 @@ const globeOffset = computed<[number, number]>(() => {
   ]
 })
 
+/**
+ * Camera POV
+ */
 const globePov = computed(() =>
   finished.value ? settledPov : landingPov
 )
 
+/**
+ * Hero animation
+ */
 const pageStyle = computed(() => {
   const p = finished.value ? 1 : progress.value
 
@@ -103,7 +118,22 @@ const pageStyle = computed(() => {
 })
 
 /**
- * Country panel
+ * Login modal trigger
+ */
+const handleLogin = () => {
+  showLoginModal.value = true
+}
+
+/**
+ * Username flow finished
+ */
+const handleUsernameFinished = () => {
+  showUsernameModal.value = false
+  showSuccessModal.value = true
+}
+
+/**
+ * Country state
  */
 const selectedCountryId = ref<string | null>(null)
 
@@ -119,6 +149,18 @@ const closeCountryPanel = () => {
 
 <template>
   <main class="landing-page" :style="pageStyle">
+
+    <!-- Header -->
+    <AppHeader
+      :visible="finished"
+      @login="handleLogin"
+    />
+
+    <!-- Login banner -->
+    <LoginBanner
+      v-if="showLoginBanner && user"
+      :username="user.username || user.email"
+    />
 
     <!-- Hero -->
     <div class="hero-title">
@@ -154,6 +196,27 @@ const closeCountryPanel = () => {
 
     <div class="scroll-spacer" />
 
+    <!-- Login modal -->
+    <LoginModal
+      v-if="showLoginModal"
+      @close="showLoginModal = false"
+    />
+
+    <!-- Username onboarding (CRITICAL FIX) -->
+    <UsernameModal
+      v-if="showUsernameModal && pendingRegistrationId"
+      @close="showUsernameModal = false"
+
+      @finished="handleUsernameFinished"
+    />
+
+    <!-- Success modal -->
+    <SuccessModal
+      v-if="showSuccessModal"
+      @close="showSuccessModal = false"
+    />
+
+
   </main>
 </template>
 
@@ -167,6 +230,12 @@ body,
   padding: 0;
   overflow-x: hidden;
   background: #02070a;
+}
+
+html.globe-intro-complete,
+html.globe-intro-complete body {
+  height: 100%;
+  overflow: hidden;
 }
 </style>
 

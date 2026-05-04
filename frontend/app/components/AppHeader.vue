@@ -1,29 +1,14 @@
 <script setup lang="ts">
 import GlassPanel from '@/components/GlassPanel.vue'
 import GlassButton from '@/components/GlassButton.vue'
-import AccountDetails from '@/components/UserFlow/AccountDetails.vue'
 import { useAuth } from '@/composables/useAuth'
-import { useUIState } from '@/composables/useUIState'
-
-// NOTE: <AppBanner /> is mounted ONCE in `layouts/default.vue`.
-// Don't render it here — it would double-stack with the layout copy.
 
 const { user, logout } = useAuth()
-const {
-  showAccount,
-  openAccount,
-  closeAccount,
-  triggerAppBanner
-} = useUIState()
-
-const handleUsernameUpdated = (u: string) => {
-  triggerAppBanner(`Username updated to ${u} ✨`)
-}
 
 const emit = defineEmits<{
   (e: 'login'): void
-  (e: 'account-deleted'): void
 }>()
+
 </script>
 
 <template>
@@ -44,10 +29,7 @@ const emit = defineEmits<{
         <SearchBar />
 
         <template v-if="user">
-          <span
-            class="user-name"
-            @click="openAccount"
-          >
+          <span class="user-email">
             {{ user.username || user.email }}
           </span>
 
@@ -66,13 +48,6 @@ const emit = defineEmits<{
       </div>
     </GlassPanel>
   </header>
-
-  <AccountDetails
-    :open="showAccount"
-    @close="closeAccount"
-    @username-updated="handleUsernameUpdated"
-    @account-deleted="emit('account-deleted')"
-  />
 </template>
 
 <style scoped>
@@ -130,13 +105,6 @@ const emit = defineEmits<{
   justify-content: flex-end;
   align-items: center;
   gap: 0.75rem;
-}
-
-/* 👇 renamed + clickable */
-.user-name {
-  cursor: pointer;
-  color: #8ddbe6;
-  font-size: 0.9rem;
 }
 
 .brand {
