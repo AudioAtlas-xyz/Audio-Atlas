@@ -142,7 +142,7 @@ const submissionData = reactive ({
           <UFormField label="COUNTRY / COUNTRIES OF ORIGIN" field="name" name="origin" required>
             <SubmissionSelectMenu
               v-model="submissionData.CountryIds"
-              :itemList="countryNames"
+              :itemList="countriesData?.map(c => ({ label: c.name, value: c.id })) || []"
               class="w-full"/>
             <h1> Select all countries where this genre originated - not just where it became popular. </h1>
           </UFormField>

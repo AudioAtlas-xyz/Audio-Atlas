@@ -27,6 +27,7 @@ const emit = defineEmits<{
     @update:model-value="emit('update:modelValue', $event)"
     multiple
     creatable
+    value-attribute="value"
     chips
   />
 </template>
