@@ -50,8 +50,6 @@ export default defineNuxtConfig({
       : 'http://localhost:5085',
 
     public: {
-      apiBase: 'http://localhost:5085/api',
-      backendBaseUrl: 'http://localhost:5085'
-    }
+      apiBase: 'http://localhost:5085/api',    }
   }
 })
