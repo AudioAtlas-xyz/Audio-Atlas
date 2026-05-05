@@ -15,13 +15,29 @@ const items = Array.from({ length: 30 }, (_, i) => ({
       :items="items"
       class="w-full h-125"
     >
-      <UPageCard
-        v-bind="item"
-        :variant="index % 2 === 0 ? 'soft' : 'outline'"
-        class="rounded-none text-white"
+      <UCollapsible class="flex flex-col gap-2 ">
+        <UButton
+          size="xl"
+          label="open"
+          trailing-icon="i-lucide-chevron-down"
+          :ui="{
+          trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200'
+          }"
 
 
-      />
+
+          block
+        />
+
+        <template #content>
+          <Placeholder class="h-48" />
+          <UPageCard
+            v-bind="item"
+            :variant="index % 2 === 0 ? 'soft' : 'outline'"
+            class="rounded-none text-white"
+          />
+        </template>
+      </UCollapsible>
     </UScrollArea>
   </UContainer>
 
