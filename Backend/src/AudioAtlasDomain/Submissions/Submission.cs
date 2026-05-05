@@ -2,6 +2,7 @@ using AudioAtlasDomain.Enums;
 using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.Users;
+using AudioAtlasDomain.MusicMetadata;
 
 namespace AudioAtlasDomain.Submissions;
 
@@ -63,6 +64,11 @@ public class Submission
     public bool IsSensitive { get; set; }
 
     /// <summary>
+    /// SensitiveDescription
+    /// </summary>
+    public string? SensitiveDescription { get; set; }
+
+    /// <summary>
     /// External reference (e.g., playlist) illustrating the submission.
     /// 
     /// Provides an experiential example of the proposed genre or changes.
@@ -93,11 +99,19 @@ public class Submission
     /// </summary>
     public ICollection<Country> Countries { get; set; } = new List<Country>();
 
+
+    /// <summary>
+    /// Instruments
+    /// </summary>
+    /// 
+    public ICollection<Instrument> Instruments { get; set; } = new List<Instrument>();
+
     /// <summary>
     /// Genres considered stylistically similar in the context of this submission.
     /// 
     /// Used to position the proposed genre within the broader genre landscape.
     /// </summary>
+    /// 
     public ICollection<Genre> SimilarGenres { get; set; } = new List<Genre>();
 
     /// <summary>

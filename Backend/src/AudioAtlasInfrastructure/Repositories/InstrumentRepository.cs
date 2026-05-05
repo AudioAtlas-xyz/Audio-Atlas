@@ -18,4 +18,11 @@ public class InstrumentRepository : IInstrumentRepository
     {
         return _dbcontext.Instruments.ToList();
     }
+
+    public async Task<ICollection<Instrument>> getInstrumentsByIdsAsync(IReadOnlyCollection<Guid> ids, CancellationToken cancellationToken = default)
+    {
+        return await _dbcontext.Instruments
+            .Where(i => ids.Contains(i.Id))
+            .ToListAsync(cancellationToken);
+    }
 }
