@@ -16,26 +16,20 @@ const state = reactive({
   countries: []
 })
 
-const genrestate = reactive({
-  genresEvolvedfrom: [],
-  genresRiseTo: [],
-  simiargenres: []
-})
-
 const step1Schema = z.object({
-  genreName: z.string().min(1,'Genre name is required'),
-  aliases: z.array(z.string()).optional(),
-  origin: z.array(z.string()).min(1, 'At least one country is required'),
+  NewGenreName: z.string().min(1,'Genre name is required'),
+  Aliases: z.array(z.string()).optional(),
+  CountryIds: z.array(z.string()).min(1, 'At least one country is required'),
 })
 
 const step2Schema = z.object({
-  description: z.string().min(100,'Description is required (min. 100 characters)'),
+  Description: z.string().min(100,'Description is required (min. 100 characters)'),
   instruments: z.array(z.string()).optional(),
-  playlist: z.string().optional(),
-  sensitive: z.boolean(),
+  PlaylistLink: z.string().optional(),
+  IsSensitive: z.boolean(),
   sensitiveDescription: z.string().optional(),
 }).superRefine((data, ctx) => { //sensitiveDescription is required only when sensitive=true
-  if (data.sensitive && !data.sensitiveDescription?.trim()){
+  if (data.IsSensitive && !data.sensitiveDescription?.trim()){
     ctx.addIssue({
       code: "custom",
       path: ['sensitiveDescription'],
@@ -45,10 +39,10 @@ const step2Schema = z.object({
 })
 
 const step3Schema = z.object({
-  evolvedFrom: z.array(z.string()).optional(),
-  gaveRiseTo: z.array(z.string()).optional(),
-  similarTo: z.array(z.string()).optional(),
-  sources: z.string().optional(),
+  PredecessorGenreIds: z.array(z.string()).optional(),
+  SubGenreIds: z.array(z.string()).optional(),
+  SimilarGenreIds: z.array(z.string()).optional(),
+  SourceLinks: z.array(z.string()).optional(),
 })
 
 const genreNames = computed(() =>
@@ -78,25 +72,29 @@ const instrumentNames = computed(() =>
 )
 
 //refs (reactive)
-const currentStep = ref(4)
+const currentStep = ref(1)
 const sensitive = ref(false)
 
+//All of the fields have been renamed to match the backend's "CreateSubmissionRequestDTO"
 const submissionData = reactive ({
   // Step 1 fields:
-  genreName: '',
-  aliases: [], //may need to be changed to GenreAlias[]
-  origin: [], //names right now and not country objects
+  NewGenreName: '',
+  Aliases: [] as string[],
+  CountryIds: [] as string[], //origin
   //Step 2 fields:
-  description: '',
-  instruments: [],
-  playlist: '',
-  sensitive: false,
-  sensitiveDescription: '',
+  Description: '',
+  instruments: [] as string[], //doesnt exist in backend DTO
+  PlaylistLink: '',
+  IsSensitive: false,
+  sensitiveDescription: '', //doesnt exist in backend DTO
   //step 3 fields:
-  evolvedFrom: [],
-  gaveRiseTo: [],
-  similarTo: [],
-  sources: '', //should be a list at some point
+  PredecessorGenreIds: [], //evolved from
+  SubGenreIds: [], //gave rise to
+  SimilarGenreIds: [], //similar genres
+  SourceLinks: [] as string[], //should be a list at some point
+  // 'step 4' fields:
+  StartDate: '',
+  EndDate: '',
 })
 
 </script>
@@ -104,18 +102,18 @@ const submissionData = reactive ({
 <template>
 
   <h1> Temporary text just to see if the data gets submitted </h1>
-  <p> Current Genre Name: {{submissionData.genreName}}</p>
-  <p> Current Aliases given: {{submissionData.aliases}}</p>
-  <p> Current Origin(s): {{submissionData.origin}}</p>
-  <p> Current Description: {{submissionData.description}}</p>
+  <p> Current Genre Name: {{submissionData.NewGenreName}}</p>
+  <p> Current Aliases given: {{submissionData.Aliases}}</p>
+  <p> Current Origin(s): {{submissionData.CountryIds}}</p>
+  <p> Current Description: {{submissionData.Description}}</p>
   <p> Current Instruments: {{submissionData.instruments}}</p>
-  <p> Current Playlist: {{submissionData.playlist}}</p>
-  <p> Sensitivity info: {{submissionData.sensitive}}</p>
+  <p> Current Playlist: {{submissionData.PlaylistLink}}</p>
+  <p> Sensitivity info: {{submissionData.IsSensitive}}</p>
   <p> Sensitive Description: {{submissionData.sensitiveDescription}}</p>
-  <p> Evolved from: {{submissionData.evolvedFrom}}</p>
-  <p> Gave rise to: {{submissionData.gaveRiseTo}}</p>
-  <p> Similar to: {{submissionData.similarTo}}</p>
-  <p> Sources: {{submissionData.sources}}</p>
+  <p> Evolved from: {{submissionData.PredecessorGenreIds}}</p>
+  <p> Gave rise to: {{submissionData.SubGenreIds}}</p>
+  <p> Similar to: {{submissionData.SimilarGenreIds}}</p>
+  <p> Sources: {{submissionData.SourceLinks}}</p>
 
   <div v-if="currentStep === 1">
     <SubmissionHeader/>
@@ -131,20 +129,20 @@ const submissionData = reactive ({
       >
         <div :class="$style.formFields">
           <UFormField label="GENRE NAME"  name="genreName" required>
-            <UInput v-model="submissionData.genreName" placeholder="e.g Afrobeats" class="w-full"/>
+            <UInput v-model="submissionData.NewGenreName" placeholder="e.g Afrobeats" class="w-full"/>
             <h1> Name of the genre. </h1>
           </UFormField>
 
           <UFormField label="ALIASES" name="aliases" hint="(Optional)">
-            <UInputTags v-model="submissionData.aliases" placeholder="Add an alias and press enter" class="w-full"/>
+            <UInputTags v-model="submissionData.Aliases" placeholder="Add an alias and press enter" class="w-full"/>
             <h1> Alternative names, transliterations or regional names. </h1>
           </UFormField>
 
 
           <UFormField label="COUNTRY / COUNTRIES OF ORIGIN" field="name" name="origin" required>
             <SubmissionSelectMenu
-              v-model="submissionData.origin"
-              :itemList ="countryNames"
+              v-model="submissionData.CountryIds"
+              :itemList="countryNames"
               class="w-full"/>
             <h1> Select all countries where this genre originated - not just where it became popular. </h1>
           </UFormField>
@@ -176,7 +174,7 @@ const submissionData = reactive ({
         >
           <div :class="$style.formFields">
             <UFormField label="DESCRIPTION" name="description" required>
-              <UTextarea v-model="submissionData.description" placeholder="Describe the genre: it's sound, cultural context, history, and it's significance. " class="w-full" />
+              <UTextarea v-model="submissionData.Description" placeholder="Describe the genre: it's sound, cultural context, history, and it's significance. " class="w-full" />
               <h1>Min. 100 characters.</h1>
             </UFormField>
 
@@ -190,16 +188,16 @@ const submissionData = reactive ({
             </UFormField>
 
             <UFormField label="EXAMPLE PLAYLIST" name="playlist" hint="(Optional)">
-              <UInput v-model="submissionData.playlist" placeholder="e.g., https://open.spotify.com/playlist/..." class="w-full"></UInput>
+              <UInput v-model="submissionData.PlaylistLink" placeholder="e.g., https://open.spotify.com/playlist/..." class="w-full"></UInput>
               <h1>Link to a representative link.</h1>
             </UFormField>
 
             <UFormField>
-            <UCheckbox v-model="submissionData.sensitive" icon="ic:round-music-note" label="This genre may involve sacred or ceremonial traditions" name="sensitive" :ui="{base: 'rounded-full', indicator: 'rounded-full'}"/>
+            <UCheckbox v-model="submissionData.IsSensitive" icon="ic:round-music-note" label="This genre may involve sacred or ceremonial traditions" name="sensitive" :ui="{base: 'rounded-full', indicator: 'rounded-full'}"/>
               <h1> Check this if the genre has cultural or religious significance that should be noted for respectful representation. </h1>
             </UFormField>
 
-            <UFormField v-if="submissionData.sensitive" label="CULTURAL SENSITIVITY DESCRIPTION" name="sensitiveDescription" field="name" required>
+            <UFormField v-if="submissionData.IsSensitive" label="CULTURAL SENSITIVITY DESCRIPTION" name="sensitiveDescription" field="name" required>
               <UTextarea v-model="submissionData.sensitiveDescription" placeholder="What makes this genre culturally sensitive?" class="w-full"/>
               <h1> Describe how the genre may be culturally sensitive, sacred, or ceremonial. </h1>
             </UFormField>
@@ -238,7 +236,7 @@ const submissionData = reactive ({
             <UFormField label="EVOLVED FROM" field="name" name="evolvedFrom">
               <!--- changed genrestate to submissionData --->
               <SubmissionSelectMenu
-                v-model="submissionData.evolvedFrom"
+                v-model="submissionData.PredecessorGenreIds"
                 :itemList="genreNames"
                 class="w-full"/>
               <h1>Genres this one grew out of or was heavily influenced by.</h1>
@@ -247,7 +245,7 @@ const submissionData = reactive ({
             <UFormField label="GAVE RISE TO" field="name" name="gaveRiseTo">
               <!--- changed genrestate to submissionData --->
               <SubmissionSelectMenu
-                v-model="submissionData.gaveRiseTo"
+                v-model="submissionData.SubGenreIds"
                 :itemList ="genreNames"
                 class="w-full"/>
               <h1>Genres that branched off or emerged from this one.</h1>
@@ -256,20 +254,17 @@ const submissionData = reactive ({
             <UFormField label="SIMILAR TO" field="name" name="similarTo">
               <!--- changed genrestate to submissionData --->
               <SubmissionSelectMenu
-                v-model="submissionData.similarTo"
+                v-model="submissionData.SimilarGenreIds"
                 :itemList ="genreNames"
                 class="w-full"/>
               <h1>Genres with a similar sound, feel, or cultural context.</h1>
             </UFormField>
 
             <UFormField label="SOURCES" name="sources">
-              <UInput v-model="submissionData.sources" placeholder="https://..." style="color: #7a84a8" class="w-full"/>
+              <UInputTags v-model="submissionData.SourceLinks" placeholder="Add a link 'https://...' and press enter" style="color: #7a84a8" class="w-full"/>
               <h1>Wikipedia, academic papers, news articles, documentaries - anything that supports your submission. </h1>
             </UFormField>
 
-            <div :class="$style.contributorprofilelink">
-              <div :class="$style.addanothersourcelink">+ Add another source</div>
-            </div>
           </div>
 
           <div :class="$style.buttonRow">
@@ -305,12 +300,12 @@ const submissionData = reactive ({
             </div>
 
             <div :class="$style.subjectName">Genre Name</div>
-            <div :class = "$style.genreNames">{{submissionData.genreName}}</div>
+            <div :class = "$style.genreNames">{{submissionData.NewGenreName}}</div>
 
             <div :class="$style.subjectName">Aliases</div>
             <div :class="$style.wrapper">
               <span
-                v-for="(item, index) in submissionData.aliases"
+                v-for="(item, index) in submissionData.Aliases"
                 :key="index"
                 :class="$style.chip"
                 >
@@ -321,7 +316,7 @@ const submissionData = reactive ({
             <div :class="$style.subjectName">Countries of origin</div>
             <div :class="$style.wrapper">
               <span
-                v-for="(item, index) in submissionData.origin"
+                v-for="(item, index) in submissionData.CountryIds"
                 :key="index"
                 :class="$style.chip"
                 >
@@ -340,7 +335,7 @@ const submissionData = reactive ({
                 </button>
               </div>
             <div :class="$style.subjectName">Description</div>
-            <div :class = "$style.textfield">{{submissionData.description}}</div>
+            <div :class = "$style.textfield">{{submissionData.Description}}</div>
             <div :class="$style.subjectName">Instruments</div>
             <div :class="$style.wrapper">
               <span
@@ -352,8 +347,8 @@ const submissionData = reactive ({
                 </span>
             </div>
 
-            <div :class="$style.textfield">Playlist</div>
-            <div :class = "$style.subjectName">{{submissionData.playlist}}</div>
+            <div :class="$style.subjectName">Playlist</div>
+            <div :class = "$style.textfield">{{submissionData.PlaylistLink}}</div>
           </div>
 
           <USeparator orientation="horizontal" class="my-8" />
@@ -368,7 +363,7 @@ const submissionData = reactive ({
             <div :class="$style.subjectName">Evolved from</div>
             <div :class="$style.wrapper">
               <span
-                v-for="(item, index) in submissionData.evolvedFrom"
+                v-for="(item, index) in submissionData.PredecessorGenreIds"
                 :key="index"
                 :class="$style.chip"
                 >
@@ -378,7 +373,7 @@ const submissionData = reactive ({
             <div :class="$style.subjectName"> Gave rise to </div>
             <div :class="$style.wrapper">
               <span
-                v-for="(item, index) in submissionData.gaveRiseTo"
+                v-for="(item, index) in submissionData.SubGenreIds"
                 :key="index"
                 :class="$style.chip"
                 >
@@ -388,15 +383,22 @@ const submissionData = reactive ({
             <div :class="$style.subjectName">Similar to </div>
             <div :class="$style.wrapper">
               <span
-                v-for="(item, index) in submissionData.similarTo"
+                v-for="(item, index) in submissionData.SimilarGenreIds"
                 :key="index"
                 :class="$style.chip"
                 >
                 {{ item }}
                 </span>
             </div>
-            <div :class="$style.textfield">Sources </div>
-            <div :class = "$style.subjectName">{{submissionData.sources}}</div>
+            <div :class="$style.subjectName">Sources</div>
+            <div :class = "$style.wrapper">
+              <span
+                v-for="(item, index) in submissionData.SourceLinks"
+                :key="index"
+                :class="$style.chip">
+              {{ item }}
+              </span>
+            </div>
 
           </div>
         </div>
@@ -522,19 +524,19 @@ h1 {
 }
 
 .reviewSubject {
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   font-family: 'Space Mono', monospace;
-  color: #FFFFFF;
+  color: #8899FF;
   text-transform: uppercase;
 }
 
 .subjectName {
   width: auto;
   height: 14px;
-  font-size: 11px;
+  font-size: 13px;
   font-family: 'Space Grotesk';
-  color: #7a84a8;
+  color: #FFFFFF;
 }
 
 .textfield {
@@ -550,21 +552,23 @@ h1 {
   text-align: left;
   display: block;
   word-wrap: break-word;
+  background-color: #14192E;
 }
 
 
 
 .genreNames{
-  width: 616px;
+  width: 100%;
   height: 20px;
   position: relative;
-  font-size: 13px;
+  font-size: 11px;
   line-height: 175%;
   font-weight: 300;
   font-family: 'Space Grotesk';
   color: #7a84a8;
   text-align: left;
   display: inline-block;
+  background-color: #14192E;
 
 }
 

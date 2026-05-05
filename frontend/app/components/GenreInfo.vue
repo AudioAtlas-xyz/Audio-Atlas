@@ -74,15 +74,6 @@ const props = defineProps<{
   font-family: 'Space Grotesk';
 }
 
-/*
- * NOTE: the previous version of `.genreinfo` declared
- * `display: grid; grid-template-columns: 1fr 320px;`
- * with `.divcontent` placed in column 1 — leaving column 2
- * permanently empty. The 320px gutter wasted the right half of
- * the page allocated to the overview text. The outer page grid
- * in `pages/genres.vue` already handles the Contributors/Sources
- * sidebar, so we render GenreInfo as a full-width block here.
- */
 .divcontent {
   width: 100%;
   display: flex;
