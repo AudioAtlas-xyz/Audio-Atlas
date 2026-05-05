@@ -78,7 +78,7 @@ const instrumentNames = computed(() =>
 )
 
 //refs (reactive)
-const currentStep = ref(1)
+const currentStep = ref(4)
 const sensitive = ref(false)
 
 const submissionData = reactive ({
@@ -459,7 +459,7 @@ const submissionData = reactive ({
   font-size: 9px;
   letter-spacing: 0.2em;
   font-family: 'Space Mono';
-  color: #373d5a;
+  color: #7a84a8;
   text-align: left;
   display: inline-block;
 }
@@ -469,7 +469,8 @@ h1 {
 }
 
 .formFields {
-
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
   margin-top: 1.5rem;
 }
@@ -524,7 +525,7 @@ h1 {
   font-size: 9px;
   letter-spacing: 0.2em;
   font-family: 'Space Mono', monospace;
-  color: #373d5a;
+  color: #FFFFFF;
   text-transform: uppercase;
 }
 
@@ -533,7 +534,7 @@ h1 {
   height: 14px;
   font-size: 11px;
   font-family: 'Space Grotesk';
-  color: #373d5a;
+  color: #7a84a8;
 }
 
 .textfield {
