@@ -9,6 +9,7 @@
   PredecessorGenreIds: string[];
   SubGenreIds: string[];
   SimilarGenreIds: string[];
+  SourceLinks: string[];
   StartDate: string;
   EndDate: string;
 }

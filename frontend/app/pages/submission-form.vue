@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Country } from '~/types/country'
 import type {Genre} from "~/types/genre";
+import type { CreateSubmissionRequest } from "~/types/CreateSubmissionRequest"
 import * as z from 'zod'
  //npm install @johmun/vue-tags-input
 import Stepper from '../components/submission/Stepper.vue';
@@ -44,6 +45,53 @@ const step3Schema = z.object({
   SimilarGenreIds: z.array(z.string()).optional(),
   SourceLinks: z.array(z.string()).optional(),
 })
+
+const isSubmitting = ref(false)
+const submitError = ref<string | null>(null)
+
+async function submitForm() {
+  isSubmitting.value = true
+  submitError.value = null
+
+  // Optional: merge sensitive description into main description if needed
+  let finalDescription = submissionData.Description
+  if (submissionData.IsSensitive && submissionData.sensitiveDescription) {
+    finalDescription = `${submissionData.sensitiveDescription}\n\n${submissionData.Description}`
+  }
+
+  const payload: CreateSubmissionRequest = {
+    NewGenreName: submissionData.NewGenreName,
+    Aliases: submissionData.Aliases,
+    CountryIds: submissionData.CountryIds,
+    Description: finalDescription,
+    PlaylistLink: submissionData.PlaylistLink,
+    IsSensitive: submissionData.IsSensitive,
+    SensitiveDescription: submissionData.sensitiveDescription,
+    PredecessorGenreIds: submissionData.PredecessorGenreIds,
+    SubGenreIds: submissionData.SubGenreIds,
+    SimilarGenreIds: submissionData.SimilarGenreIds,
+    SourceLinks: submissionData.SourceLinks,
+    StartDate: submissionData.StartDate,
+    EndDate: submissionData.EndDate,
+  }
+
+  try {
+    const response = await $fetch('/api/submissions', {
+      method: 'POST',
+      body: payload,
+      credentials: 'include', // sends cookies for authentication
+    })
+    // handle success – e.g., redirect or show success message
+    console.log('Submission successful', response)
+    // navigate to a thank you page or reset form
+    await navigateTo('/submission-success')
+  } catch (err: any) {
+    console.error('Submission failed', err)
+    submitError.value = err.data?.message || 'Failed to submit. Please try again.'
+  } finally {
+    isSubmitting.value = false
+  }
+}
 
 const genreNames = computed(() =>
   genresData.value?.map(c => c.name) ?? []
@@ -142,7 +190,7 @@ const submissionData = reactive ({
           <UFormField label="COUNTRY / COUNTRIES OF ORIGIN" field="name" name="origin" required>
             <SubmissionSelectMenu
               v-model="submissionData.CountryIds"
-              :itemList="countriesData?.map(c => ({ label: c.name, value: c.id })) || []"
+              :itemList="countryNames"
               class="w-full"/>
             <h1> Select all countries where this genre originated - not just where it became popular. </h1>
           </UFormField>
