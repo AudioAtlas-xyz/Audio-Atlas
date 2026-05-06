@@ -1,5 +1,4 @@
-/*
-using AudioAtlasApplication.Repositories;
+/*using AudioAtlasApplication.Repositories;
 using AudioAtlasApplication.Services;
 using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Users;
@@ -88,13 +87,11 @@ internal class TestAsyncQueryProvider<TEntity> : IAsyncQueryProvider
     }
 }
 
-// ============================================================================
-// Shared test fixtures
-// ============================================================================
+// Shared test
 internal static class DeleteUserTestFixtures
 {
     /// <summary>
-    /// Builds a Mock&lt;UserManager&gt; with the minimum constructor args.
+    /// Builds a Mock UserManager with the minimum constructor args.
     /// UserManager has nine ctor parameters; nulls are fine for paths the
     /// service never exercises.
     /// </summary>
@@ -108,8 +105,8 @@ internal static class DeleteUserTestFixtures
 
     /// <summary>
     /// Wires up a UserDeletionService with mocks pre-configured for the most
-    /// common scenarios. Pass `userToFind = null` to simulate "user not found",
-    /// `placeholder = null` for "placeholder missing", etc.
+    /// common scenarios. Pass 'userToFind = null' to simulate "user not found",
+    /// 'placeholder = null' for "placeholder missing", etc.
     /// </summary>
     public static (
         UserDeletionService service,
@@ -171,7 +168,7 @@ internal static class DeleteUserTestFixtures
 
     /// <summary>
     /// Verifies that ILogger received at least one call at the given level
-    /// whose rendered message contains `messageFragment`.
+    /// whose rendered message contains 'messageFragment'.
     /// </summary>
     public static void VerifyLogged<T>(
         Mock<ILogger<T>> logger,
@@ -190,15 +187,10 @@ internal static class DeleteUserTestFixtures
     }
 }
 
-// ============================================================================
 // Unit tests for UserDeletionService
-// ============================================================================
 public class UserDeletionServiceTests
 {
-    // -----------------------------------------------------------------
-    // Existing happy-path / not-found scenarios (refactored to use the
-    // shared BuildService helper).
-    // -----------------------------------------------------------------
+    // Existing happy-path / not-found scenarios
 
     [Fact]
     public async Task DeleteUserAsync_WhenUserNotFound_ReturnsFalse()
@@ -323,9 +315,7 @@ public class UserDeletionServiceTests
         userManager.Verify(x => x.DeleteAsync(user), Times.Once);
     }
 
-    // -----------------------------------------------------------------
     // New edge-case coverage
-    // -----------------------------------------------------------------
 
     /// <summary>
     /// Calling delete a second time after the user has already been removed
@@ -449,9 +439,7 @@ public class UserDeletionServiceTests
         // empty list is a valid input and produces a successful delete.
     }
 
-    // -----------------------------------------------------------------
     // Logger verification
-    // -----------------------------------------------------------------
 
     [Fact]
     public async Task DeleteUserAsync_AlwaysLogsStartingMessage()
@@ -524,9 +512,7 @@ public class UserDeletionServiceTests
     }
 }
 
-// ============================================================================
 // Unit tests for DeleteUserController
-// ============================================================================
 public class DeleteUserControllerTests
 {
     /// <summary>
@@ -642,17 +628,7 @@ public class DeleteUserControllerTests
     }
 }
 
-// ============================================================================
 // Integration tests against a real EF Core (SQLite in-memory) DbContext
-//
-// These exercise the full pipeline: real GenreRepository, real UserManager
-// from the DI container, real persistence. They catch wiring bugs that the
-// mocked unit tests above cannot.
-//
-// SQLite (rather than the EF Core In-Memory provider) is used because it
-// enforces FK and uniqueness constraints, which is what we want for a
-// realistic deletion flow.
-// ============================================================================
 public class UserDeletionServiceIntegrationTests : IDisposable
 {
     private readonly SqliteConnection _connection;
@@ -851,11 +827,11 @@ public class UserDeletionServiceIntegrationTests : IDisposable
             Genre? dummy = await db.Genres.AsNoTracking().FirstOrDefaultAsync(g => g.Id == dummyId);
             Assert.NotNull(dummy);
 
-            // ...but its author is the placeholder, not the deleted user.
+            // author is the placeholder, not the deleted user.
             Assert.Equal(placeholderId, dummy!.AuthorId);
             Assert.NotEqual(userId, dummy.AuthorId);
 
-            // And the user is really gone.
+            // The user is gone.
             Assert.Null(await users.FindByIdAsync(userId.ToString()));
         }
     }
@@ -948,4 +924,5 @@ public class UserDeletionServiceIntegrationTests : IDisposable
         _services.Dispose();
         _connection.Dispose();
     }
-} */
+}
+*/

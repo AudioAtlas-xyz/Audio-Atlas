@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { useHead, useAsyncData } from '#imports'
 import { useApi } from '@/composables/useApi'
+import { useAuth } from '@/composables/useAuth'
 import type { AdminUserRow, AdminUserRole } from '~/types/admin'
 
 // Page is gated by middleware/admin.ts; backend re-checks the role.
@@ -11,6 +12,7 @@ useHead({ title: 'Users | Audio Atlas Admin' })
 
 // data fetch
 const { api } = useApi()
+const { user: currentUser } = useAuth()
 
 const {
   data: usersData,
@@ -34,7 +36,15 @@ const roleOptions = [
   { label: 'Admin', value: 'Admin' },
   { label: 'Curator', value: 'Curator' },
   { label: 'Banned', value: 'Banned' },
-  { label: 'Member', value: 'Member' }
+  { label: 'Contributor', value: 'Contributor' }
+] as const
+
+// role-change dropdown — same items, no "All" option
+const assignableRoleOptions = [
+  { label: 'Admin', value: 'Admin' },
+  { label: 'Curator', value: 'Curator' },
+  { label: 'Banned', value: 'Banned' },
+  { label: 'Contributor', value: 'Contributor' }
 ] as const
 
 // sort state
@@ -47,10 +57,10 @@ const sortDir = ref<SortDir>('desc')
 // Role sort priority — matches the backend's display priority so
 // "asc" puts admins on top.
 const ROLE_PRIORITY: Record<AdminUserRole, number> = {
-  Admin:   0,
-  Banned:  1,
-  Curator: 2,
-  Member:  3
+  Admin:       0,
+  Banned:      1,
+  Curator:     2,
+  Contributor: 3
 }
 
 function toggleSort(key: SortKey) {
@@ -104,13 +114,10 @@ const pagedUsers = computed(() => {
   return visibleUsers.value.slice(start, start + PAGE_SIZE)
 })
 
-// reset to page 1 whenever filters or sort change so the user
-// doesn't end up stranded on a now-empty page
 watch([search, roleFilter, sortKey, sortDir], () => {
   currentPage.value = 1
 })
 
-// also clamp the page if the underlying data shrinks (e.g. after refresh)
 watch(totalPages, (n) => {
   if (currentPage.value > n) currentPage.value = n
 })
@@ -121,6 +128,42 @@ function goPrev() {
 
 function goNext() {
   if (currentPage.value < totalPages.value) currentPage.value += 1
+}
+
+// role change
+const changingId = ref<string | null>(null)
+const rowErrors = ref<Record<string, string>>({})
+
+async function changeRole(row: AdminUserRow, newRole: AdminUserRole) {
+  if (newRole === row.role) return
+  if (changingId.value) return
+
+  // Self-demote guard mirrors the backend 409. Belt-and-suspenders.
+  if (currentUser.value?.userId === row.id && newRole !== 'Admin' && row.role === 'Admin') {
+    rowErrors.value[row.id] = 'You cannot demote yourself.'
+    return
+  }
+
+  changingId.value = row.id
+  delete rowErrors.value[row.id]
+
+  const previous = row.role
+  row.role = newRole // optimistic
+
+  try {
+    await api(`/admin/users/${row.id}/role`, {
+      method: 'PUT',
+      body: { role: newRole }
+    })
+  } catch (err: any) {
+    row.role = previous // revert
+    rowErrors.value[row.id] =
+      err?.data?.message
+      ?? err?.message
+      ?? 'Failed to change role.'
+  } finally {
+    changingId.value = null
+  }
 }
 
 // signup stat — counts users joined in the last 30 days based on
@@ -159,6 +202,10 @@ function roleBadgeClass(role: AdminUserRole): string {
 function sortIndicator(key: SortKey): string {
   if (sortKey.value !== key) return ''
   return sortDir.value === 'asc' ? '↑' : '↓'
+}
+
+function isSelfRow(row: AdminUserRow) {
+  return currentUser.value?.userId === row.id
 }
 
 const breadcrumbItems = [
@@ -205,7 +252,7 @@ const breadcrumbItems = [
         </div>
       </section>
 
-      <!-- Filter and table -->>
+      <!-- Filter and table -->
       <section class="mx-auto flex max-w-[1200px] flex-col gap-6 px-6 py-8 sm:px-10 lg:py-10">
 
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -297,13 +344,38 @@ const breadcrumbItems = [
                   {{ row.email }}
                 </td>
                 <td class="px-4 py-3">
-                  <UBadge
-                    color="neutral"
-                    variant="outline"
-                    :class="`rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.18em] ${roleBadgeClass(row.role)}`"
-                  >
-                    {{ row.role }}
-                  </UBadge>
+                  <div class="flex flex-col gap-1">
+                <USelectMenu
+                  :model-value="row.role"
+                :items="assignableRoleOptions"
+                value-key="value"
+                :disabled="isSelfRow(row) || changingId === row.id"
+                :loading="changingId === row.id"
+                :ui="{
+                  base: `
+                  inline-flex items-center gap-1.5
+                  rounded-full border
+                  px-2.5 py-1
+
+                  text-[13px] font-normal
+                  whitespace-nowrap
+
+                  transition-colors
+                  ${roleBadgeClass(row.role)}
+                `,
+                trailingIcon: 'i-heroicons-chevron-down-20-solid'
+                }"
+                class="inline-flex w-fit max-w-[140px]"
+                @update:model-value="(v) => changeRole(row, v as AdminUserRole)"
+              />
+
+                    <p
+                      v-if="rowErrors[row.id]"
+                      class="text-[11px] text-[#ff6b6b]"
+                    >
+                      {{ rowErrors[row.id] }}
+                    </p>
+                  </div>
                 </td>
                 <td class="px-4 py-3 text-[13px] text-[#7a84a8]">
                   {{ formatDate(row.memberSince) }}

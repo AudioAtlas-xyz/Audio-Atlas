@@ -1,6 +1,7 @@
-// Roles known to the backend, plus a UI-only "Member" bucket for users
-// with no role assignment.
-export type AdminUserRole = 'Admin' | 'Curator' | 'Banned' | 'Member'
+// Roles assignable from the admin UI. "Contributor" is a UI label for
+// users with no elevated Identity role (matches the backend's
+// ResolveDisplayRole return value).
+export type AdminUserRole = 'Admin' | 'Curator' | 'Banned' | 'Contributor'
 
 // One row of the admin user table.
 export interface AdminUserRow {
