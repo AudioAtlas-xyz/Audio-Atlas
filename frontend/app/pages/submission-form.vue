@@ -169,20 +169,6 @@ const submissionData = reactive ({
 
 <template>
 
-  <h1> Temporary text just to see if the data gets submitted </h1>
-  <p> Current Genre Name: {{submissionData.NewGenreName}}</p>
-  <p> Current Aliases given: {{submissionData.Aliases}}</p>
-  <p> Current Origin(s): {{submissionData.CountryIds}}</p>
-  <p> Current Description: {{submissionData.Description}}</p>
-  <p> Current Instruments: {{submissionData.InstrumentIds}}</p>
-  <p> Current Playlist: {{submissionData.PlaylistLink}}</p>
-  <p> Sensitivity info: {{submissionData.IsSensitive}}</p>
-  <p> Sensitive Description: {{submissionData.SensitiveDescription}}</p>
-  <p> Evolved from: {{submissionData.PredecessorGenreIds}}</p>
-  <p> Gave rise to: {{submissionData.SubGenreIds}}</p>
-  <p> Similar to: {{submissionData.SimilarGenreIds}}</p>
-  <p> Sources: {{submissionData.SourceLinks}}</p>
-
   <div v-if="currentStep === 1">
     <SubmissionHeader/>
   <Stepper :current-state="currentStep" />
@@ -699,6 +685,14 @@ font-family: 'Space Grotesk';
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 4px;
+}
+
+UButton {
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
 }
 
 </style>
