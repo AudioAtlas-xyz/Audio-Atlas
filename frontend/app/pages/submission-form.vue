@@ -66,12 +66,13 @@ async function submitForm() {
     SubGenreIds: submissionData.SubGenreIds,
     SimilarGenreIds: submissionData.SimilarGenreIds,
     SourceLinks: submissionData.SourceLinks,
-    StartDate: submissionData.StartDate,
-    EndDate: submissionData.EndDate,
+    StartDate: submissionData.StartDate ? submissionData.StartDate : null,
+    EndDate: submissionData.EndDate ? submissionData.EndDate : null,
     InstrumentIds: submissionData.InstrumentIds,
   }
 
   try {
+    console.log('Submitting payload:', JSON.stringify(payload, null, 2))
     const response = await api('/submissions', {
       method: 'POST',
       body: payload,
@@ -82,6 +83,9 @@ async function submitForm() {
     await navigateTo('/')
   } catch (err: any) {
     console.error('Submission failed', err)
+    console.error('Status:', err.status)
+    console.error('Response body:', err.data)
+    console.error('Validation errors:', err.data?.errors)
     submitError.value = err.data?.message || 'Failed to submit. Please try again.'
   } finally {
     isSubmitting.value = false
@@ -89,7 +93,7 @@ async function submitForm() {
 }
 
 const genreNames = computed(() =>
-  genresData.value?.map(c => c.name) ?? []
+  genresData.value?.map(g => ({ label: g.name, value: g.id })) ?? []
 )
 
 function nextStep() {
@@ -107,12 +111,33 @@ function goToStep(step: ValidStep){
 }
 
 const countryNames = computed(() =>
-  countriesData.value?.map(c => c.name) ?? []
+  countriesData.value?.map(c => ({ label: c.name, value: c.id })) ?? []
 )
 
 const instrumentNames = computed(() =>
-  instrumentData.value?.map(c => c.type) ?? []
+  instrumentData.value?.map(i => ({ label: i.type, value: i.id })) ?? []
 )
+
+// we need to be able to map from id to name otherwise on the last page the ids will be displayed instead of the names
+// so the user won't know what instruments they inserted unless they go back.
+const countryNameMap = computed(() => {
+  const map: Record<string, string> = {}
+  countriesData.value?.forEach(c => { map[c.id] = c.name })
+  return map
+})
+
+const genreNameMap = computed(() => {
+  const map: Record<string, string> = {}
+  genresData.value?.forEach(g => { map[g.id] = g.name })
+  return map
+})
+
+const instrumentNameMap = computed(() => {
+  const map: Record<string, string> = {}
+  instrumentData.value?.forEach(i => { map[i.id] = i.type })
+  return map
+})
+
 
 //refs (reactive)
 const currentStep = ref(1)
@@ -363,7 +388,7 @@ const submissionData = reactive ({
                 :key="index"
                 :class="$style.chip"
                 >
-                {{ item }}
+                {{ countryNameMap[item] ?? item }}
                 </span>
             </div>
           </div>
@@ -386,7 +411,7 @@ const submissionData = reactive ({
                 :key="index"
                 :class="$style.chip"
                 >
-                {{ item }}
+                {{ instrumentNameMap[item] ?? item }}
                 </span>
             </div>
 
@@ -410,7 +435,7 @@ const submissionData = reactive ({
                 :key="index"
                 :class="$style.chip"
                 >
-                {{ item }}
+                {{ genreNameMap[item] ?? item }}
                 </span>
             </div>
             <div :class="$style.subjectName"> Gave rise to </div>
@@ -420,7 +445,7 @@ const submissionData = reactive ({
                 :key="index"
                 :class="$style.chip"
                 >
-                {{ item }}
+                {{ genreNameMap[item] ?? item }}
                 </span>
             </div>
             <div :class="$style.subjectName">Similar to </div>
@@ -430,7 +455,7 @@ const submissionData = reactive ({
                 :key="index"
                 :class="$style.chip"
                 >
-                {{ item }}
+                {{ genreNameMap[item] ?? item }}
                 </span>
             </div>
             <div :class="$style.subjectName">Sources</div>
