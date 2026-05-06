@@ -9,6 +9,8 @@
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import * as THREE from 'three'
 
+const { api } = useApi()
+
 defineOptions({
   name: 'AudioGlobe'
 })
@@ -19,7 +21,6 @@ let resizeObserver = null
 let lastPovKey = ''
 let lastWidth = 0
 let lastHeight = 0
-
 
 const props = defineProps({
   introComplete: {
@@ -62,13 +63,14 @@ const povKey = pov => `${pov.lat}|${pov.lng}|${pov.altitude}`
 onMounted(async () => {
   const Globe = (await import('globe.gl')).default
 
-const [countriesRes, centroidsRes, genreRes] = await Promise.all([  fetch('/tiny-country-markers.json'),
-  fetch('http://localhost:5000/api/genres/genre-count-by-country')])
+  const [countriesRes, centroidsRes, genreCounts] = await Promise.all([
+    fetch('/countries.geojson'),
+    fetch('/tiny-country-markers.json'),
+    api('/countries')
+  ])
 
   const countries = await countriesRes.json()
   const tinyCountries = await centroidsRes.json()
-  const genreData = await genreRes.json()
-  console.log('GENRE DATA:', genreData)
 
   const countryColors = new Map()
   const baseHue = 135
@@ -78,16 +80,13 @@ const [countriesRes, centroidsRes, genreRes] = await Promise.all([  fetch('/tiny
 
   const getCountryIso = feature => feature.properties.iso_a3
   const getCountryName = feature => feature.properties.admin ?? feature.properties.name
-  const getCountryGenreCount = feature => {
-    const iso = getCountryIso(feature)
-    return countryGenreCount.get(iso) ?? 0
+  const getCountryGenreCount = (feature) => {
+    const countryName = getCountryName(feature)
+    return countryGenreCount.get(countryName) ?? 0
   }
 
-  const countryGenreCount = new Map(
-    genreData.map(d => [d.isoA3, d.count])
-  )
+  const countryGenreCount = new Map(Object.entries(genreCounts))
 
-  
   const features = countries.features.filter((f) => {
     const iso = getCountryIso(f)
     return iso && iso !== 'ATA' && iso !== '-99'
