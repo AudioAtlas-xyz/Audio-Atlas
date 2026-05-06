@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AudioAtlas.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260506133713_init")]
+    [Migration("20260506193738_init")]
     partial class init
     {
         /// <inheritdoc />
