@@ -182,18 +182,18 @@ const submissionData = reactive ({
         @submit="nextStep"
       >
         <div :class="$style.formFields">
-          <UFormField label="GENRE NAME"  name="genreName" required>
+          <UFormField label="GENRE NAME"  name="NewGenreName" required>
             <UInput v-model="submissionData.NewGenreName" placeholder="e.g Afrobeats" class="w-full"/>
             <h1> Name of the genre. </h1>
           </UFormField>
 
-          <UFormField label="ALIASES" name="aliases" hint="(Optional)">
+          <UFormField label="ALIASES" name="Aliases" hint="(Optional)">
             <UInputTags v-model="submissionData.Aliases" placeholder="Add an alias and press enter" class="w-full"/>
             <h1> Alternative names, transliterations or regional names. </h1>
           </UFormField>
 
 
-          <UFormField label="COUNTRY / COUNTRIES OF ORIGIN" field="name" name="origin" required>
+          <UFormField label="COUNTRY / COUNTRIES OF ORIGIN" field="name" name="CountryIds" required>
             <SubmissionSelectMenu
               v-model="submissionData.CountryIds"
               :itemList="countryNames"
@@ -227,13 +227,13 @@ const submissionData = reactive ({
           @submit="nextStep"
         >
           <div :class="$style.formFields">
-            <UFormField label="DESCRIPTION" name="description" required>
+            <UFormField label="DESCRIPTION" name="Description" required>
               <UTextarea v-model="submissionData.Description" placeholder="Describe the genre: it's sound, cultural context, history, and it's significance. " class="w-full" />
               <h1>Min. 100 characters.</h1>
             </UFormField>
 
 
-            <UFormField label="INSTRUMENTS" name="instruments" hint="(Optional)">
+            <UFormField label="INSTRUMENTS" name="InstrumentIds" hint="(Optional)">
               <SubmissionSelectMenu
                 v-model="submissionData.InstrumentIds"
                 :itemList ="instrumentNames"
@@ -241,13 +241,13 @@ const submissionData = reactive ({
               <h1>Traditional and modern instruments associated with this genre</h1>
             </UFormField>
 
-            <UFormField label="EXAMPLE PLAYLIST" name="playlist" hint="(Optional)">
+            <UFormField label="EXAMPLE PLAYLIST" name="PlaylistLink" hint="(Optional)">
               <UInput v-model="submissionData.PlaylistLink" placeholder="e.g., https://open.spotify.com/playlist/..." class="w-full"></UInput>
               <h1>Link to a representative link.</h1>
             </UFormField>
 
             <UFormField>
-            <UCheckbox v-model="submissionData.IsSensitive" icon="ic:round-music-note" label="This genre may involve sacred or ceremonial traditions" name="sensitive" :ui="{base: 'rounded-full', indicator: 'rounded-full'}"/>
+            <UCheckbox v-model="submissionData.IsSensitive" icon="ic:round-music-note" label="This genre may involve sacred or ceremonial traditions" name="IsSensitive" :ui="{base: 'rounded-full', indicator: 'rounded-full'}"/>
               <h1> Check this if the genre has cultural or religious significance that should be noted for respectful representation. </h1>
             </UFormField>
 
@@ -287,7 +287,7 @@ const submissionData = reactive ({
         @sumbit="nextStep"
         >
           <div :class="$style.formFields">
-            <UFormField label="EVOLVED FROM" field="name" name="evolvedFrom">
+            <UFormField label="EVOLVED FROM" field="name" name="PredecessorGenreIds">
               <!--- changed genrestate to submissionData --->
               <SubmissionSelectMenu
                 v-model="submissionData.PredecessorGenreIds"
@@ -296,7 +296,7 @@ const submissionData = reactive ({
               <h1>Genres this one grew out of or was heavily influenced by.</h1>
             </UFormField>
 
-            <UFormField label="GAVE RISE TO" field="name" name="gaveRiseTo">
+            <UFormField label="GAVE RISE TO" field="name" name="SubGenreIds">
               <!--- changed genrestate to submissionData --->
               <SubmissionSelectMenu
                 v-model="submissionData.SubGenreIds"
@@ -305,7 +305,7 @@ const submissionData = reactive ({
               <h1>Genres that branched off or emerged from this one.</h1>
             </UFormField>
 
-            <UFormField label="SIMILAR TO" field="name" name="similarTo">
+            <UFormField label="SIMILAR TO" field="name" name="SimilarGenreIds">
               <!--- changed genrestate to submissionData --->
               <SubmissionSelectMenu
                 v-model="submissionData.SimilarGenreIds"
@@ -314,7 +314,7 @@ const submissionData = reactive ({
               <h1>Genres with a similar sound, feel, or cultural context.</h1>
             </UFormField>
 
-            <UFormField label="SOURCES" name="sources">
+            <UFormField label="SOURCES" name="SourceLinks">
               <UInputTags v-model="submissionData.SourceLinks" placeholder="Add a link 'https://...' and press enter" style="color: #7a84a8" class="w-full"/>
               <h1>Wikipedia, academic papers, news articles, documentaries - anything that supports your submission. </h1>
             </UFormField>
