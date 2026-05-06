@@ -9,7 +9,8 @@
   PredecessorGenreIds: string[];
   SubGenreIds: string[];
   SimilarGenreIds: string[];
+  InstrumentIds: string[];
   SourceLinks: string[];
-  StartDate: string;
-  EndDate: string;
+  StartDate?: string;
+  EndDate?: string;
 }

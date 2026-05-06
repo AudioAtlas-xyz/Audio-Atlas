@@ -26,12 +26,12 @@ const step1Schema = z.object({
 
 const step2Schema = z.object({
   Description: z.string().min(100,'Description is required (min. 100 characters)'),
-  instruments: z.array(z.string()).optional(),
+  InstrumentIds: z.array(z.string()).optional(),
   PlaylistLink: z.string().optional(),
   IsSensitive: z.boolean(),
-  sensitiveDescription: z.string().optional(),
+  SensitiveDescription: z.string().optional(),
 }).superRefine((data, ctx) => { //sensitiveDescription is required only when sensitive=true
-  if (data.IsSensitive && !data.sensitiveDescription?.trim()){
+  if (data.IsSensitive && !data.SensitiveDescription?.trim()){
     ctx.addIssue({
       code: "custom",
       path: ['sensitiveDescription'],
@@ -61,17 +61,18 @@ async function submitForm() {
     Description: submissionData.Description,
     PlaylistLink: submissionData.PlaylistLink,
     IsSensitive: submissionData.IsSensitive,
-    SensitiveDescription: submissionData.sensitiveDescription,
+    SensitiveDescription: submissionData.SensitiveDescription,
     PredecessorGenreIds: submissionData.PredecessorGenreIds,
     SubGenreIds: submissionData.SubGenreIds,
     SimilarGenreIds: submissionData.SimilarGenreIds,
     SourceLinks: submissionData.SourceLinks,
     StartDate: submissionData.StartDate,
     EndDate: submissionData.EndDate,
+    InstrumentIds: submissionData.InstrumentIds,
   }
 
   try {
-    const response = await api('/api/submissions', {
+    const response = await api('/submissions', {
       method: 'POST',
       body: payload,
     })
@@ -125,10 +126,10 @@ const submissionData = reactive ({
   CountryIds: [] as string[], //origin
   //Step 2 fields:
   Description: '',
-  instruments: [] as string[], //doesnt exist in backend DTO
+  InstrumentIds: [] as string[], //doesnt exist in backend DTO
   PlaylistLink: '',
   IsSensitive: false,
-  sensitiveDescription: '', //doesnt exist in backend DTO
+  SensitiveDescription: '', //doesnt exist in backend DTO
   //step 3 fields:
   PredecessorGenreIds: [], //evolved from
   SubGenreIds: [], //gave rise to
@@ -148,10 +149,10 @@ const submissionData = reactive ({
   <p> Current Aliases given: {{submissionData.Aliases}}</p>
   <p> Current Origin(s): {{submissionData.CountryIds}}</p>
   <p> Current Description: {{submissionData.Description}}</p>
-  <p> Current Instruments: {{submissionData.instruments}}</p>
+  <p> Current Instruments: {{submissionData.InstrumentIds}}</p>
   <p> Current Playlist: {{submissionData.PlaylistLink}}</p>
   <p> Sensitivity info: {{submissionData.IsSensitive}}</p>
-  <p> Sensitive Description: {{submissionData.sensitiveDescription}}</p>
+  <p> Sensitive Description: {{submissionData.SensitiveDescription}}</p>
   <p> Evolved from: {{submissionData.PredecessorGenreIds}}</p>
   <p> Gave rise to: {{submissionData.SubGenreIds}}</p>
   <p> Similar to: {{submissionData.SimilarGenreIds}}</p>
@@ -223,7 +224,7 @@ const submissionData = reactive ({
 
             <UFormField label="INSTRUMENTS" name="instruments" hint="(Optional)">
               <SubmissionSelectMenu
-                v-model="submissionData.instruments"
+                v-model="submissionData.InstrumentIds"
                 :itemList ="instrumentNames"
                 class="w-full"/>
               <h1>Traditional and modern instruments associated with this genre</h1>
@@ -240,7 +241,7 @@ const submissionData = reactive ({
             </UFormField>
 
             <UFormField v-if="submissionData.IsSensitive" label="CULTURAL SENSITIVITY DESCRIPTION" name="sensitiveDescription" field="name" required>
-              <UTextarea v-model="submissionData.sensitiveDescription" placeholder="What makes this genre culturally sensitive?" class="w-full"/>
+              <UTextarea v-model="submissionData.SensitiveDescription" placeholder="What makes this genre culturally sensitive?" class="w-full"/>
               <h1> Describe how the genre may be culturally sensitive, sacred, or ceremonial. </h1>
             </UFormField>
           </div>
@@ -381,7 +382,7 @@ const submissionData = reactive ({
             <div :class="$style.subjectName">Instruments</div>
             <div :class="$style.wrapper">
               <span
-                v-for="(item, index) in submissionData.instruments"
+                v-for="(item, index) in submissionData.InstrumentIds"
                 :key="index"
                 :class="$style.chip"
                 >
