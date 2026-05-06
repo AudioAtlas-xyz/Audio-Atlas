@@ -6,6 +6,7 @@ using AudioAtlasInfrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -57,7 +58,10 @@ public class TestService : IDisposable
         
         _context.Database.EnsureCreated();
         
-        DbInitializer.SeedDatabase(_context, _userManager, _roleManager, _logger).GetAwaiter().GetResult();
+        // Empty config — admin seed no-ops.
+        IConfiguration configuration = new ConfigurationBuilder().Build();
+
+        DbInitializer.SeedDatabase(_context, _userManager, _roleManager, configuration, _logger).GetAwaiter().GetResult();
     }
 
     public void Dispose()

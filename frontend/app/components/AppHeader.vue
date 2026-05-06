@@ -5,10 +5,9 @@ import AccountDetails from '@/components/UserFlow/AccountDetails.vue'
 import { useAuth } from '@/composables/useAuth'
 import { useUIState } from '@/composables/useUIState'
 
-// NOTE: <AppBanner /> is mounted ONCE in `layouts/default.vue`.
-// Don't render it here — it would double-stack with the layout copy.
+// AppBanner is mounted in layouts/default.vue. Don't add it here too.
 
-const { user, logout } = useAuth()
+const { user, logout, isAdmin } = useAuth()
 const {
   showAccount,
   openAccount,
@@ -38,6 +37,10 @@ const emit = defineEmits<{
       <nav class="nav-links">
         <NuxtLink to="/explore">Explore</NuxtLink>
         <NuxtLink to="/about">About</NuxtLink>
+        <!-- Only visible to admins. Middleware + backend re-check the role. -->
+        <NuxtLink v-if="isAdmin" to="/admin" class="nav-admin">
+          Admin
+        </NuxtLink>
       </nav>
 
       <div class="right">
@@ -51,7 +54,8 @@ const emit = defineEmits<{
             {{ user.username || user.email }}
           </span>
 
-          <GlassButton @click="logout">
+          <!-- arrow fn so the click event doesn't get passed as options -->
+          <GlassButton @click="() => logout()">
             Logout
           </GlassButton>
         </template>
@@ -124,6 +128,11 @@ const emit = defineEmits<{
   opacity: 0.7;
 }
 
+.nav-links :deep(a.nav-admin) {
+  color: #8ddbe6;
+  text-shadow: 0 0 8px rgba(61, 232, 200, 0.25);
+}
+
 .right {
   flex: 1;
   display: flex;
@@ -132,7 +141,6 @@ const emit = defineEmits<{
   gap: 0.75rem;
 }
 
-/* 👇 renamed + clickable */
 .user-name {
   cursor: pointer;
   color: #8ddbe6;

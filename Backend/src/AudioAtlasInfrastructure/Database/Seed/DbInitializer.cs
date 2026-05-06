@@ -4,6 +4,7 @@ using AudioAtlasDomain.MusicMetadata;
 using AudioAtlasDomain.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
@@ -11,10 +12,11 @@ namespace AudioAtlasInfrastructure.Database.Seed;
 
 public class DbInitializer
 {
-    private static string[] roles = ["Admin", "Banned", "Curator"];
+    private const string AdminRoleName = "Admin";
+    private static string[] roles = [AdminRoleName, "Banned", "Curator"];
     private static string SystemUserName = "System";
     private static string DeletedUserName = "DeletedUser";
-    public static async Task SeedDatabase(AppDbContext dbContext, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, ILogger<DbInitializer> logger)
+    public static async Task SeedDatabase(AppDbContext dbContext, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, IConfiguration configuration, ILogger<DbInitializer> logger)
     {
         logger.LogInformation("Creating System User with username: {SystemUsername}", SystemUserName);
 
@@ -27,6 +29,8 @@ public class DbInitializer
         logger.LogInformation("Creating Roles: {roles}", "[" + string.Join(", ", roles) + "]");
 
         await CreateRolesAsync(roles, roleManager, logger);
+
+        await SeedAdminsAsync(configuration, userManager, logger);
 
         if (dbContext.Instruments.Any() || dbContext.Genres.Any() || dbContext.Countries.Any())
         {
@@ -73,6 +77,62 @@ public class DbInitializer
             ProcessGenreSources(root, genreMapping, logger);
 
             dbContext.SaveChanges();
+        }
+    }
+
+    // Grants Admin to every email in Admin:SeedEmails. Runs on every
+    // startup, skips users already in the role, warns (and retries next
+    // startup) if a configured email has no matching user yet.
+    private static async Task SeedAdminsAsync(
+        IConfiguration configuration,
+        UserManager<ApplicationUser> userManager,
+        ILogger<DbInitializer> logger)
+    {
+        var seedEmails = configuration.GetSection("Admin:SeedEmails").Get<string[]>()
+            ?? Array.Empty<string>();
+
+        if (seedEmails.Length == 0)
+        {
+            logger.LogInformation("No admin seed emails configured; skipping admin seed.");
+            return;
+        }
+
+        foreach (var email in seedEmails)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                continue;
+
+            var user = await userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                logger.LogWarning(
+                    "Admin seed: no user found with email {Email}. They will be granted Admin on the next startup after they first sign in.",
+                    email);
+                continue;
+            }
+
+            if (await userManager.IsInRoleAsync(user, AdminRoleName))
+            {
+                logger.LogInformation("Admin seed: {Email} already has the Admin role.", email);
+                continue;
+            }
+
+            var result = await userManager.AddToRoleAsync(user, AdminRoleName);
+
+            if (result.Succeeded)
+            {
+                logger.LogInformation("Admin seed: granted Admin role to {Email}.", email);
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    logger.LogError(
+                        "Admin seed: failed to grant Admin role to {Email}: {Code} - {Description}",
+                        email, error.Code, error.Description);
+                }
+            }
         }
     }
 

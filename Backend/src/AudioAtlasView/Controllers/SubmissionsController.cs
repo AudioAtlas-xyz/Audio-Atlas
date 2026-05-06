@@ -70,6 +70,15 @@ public class SubmissionsController : ControllerBase
             return Unauthorized();
         }
 
+        // Banned users can browse but can't contribute. Read from the
+        // JWT — accepts the same up-to-1-hour staleness as role demotion.
+        if (User.IsInRole("Banned"))
+        {
+            return StatusCode(
+                StatusCodes.Status403Forbidden,
+                new { message = "Your account is banned from contributing." });
+        }
+
         try
         {
             var submissionId = await _submissionService.createSubmissionAsync(
