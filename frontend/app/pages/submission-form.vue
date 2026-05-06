@@ -49,7 +49,19 @@ const step3Schema = z.object({
 
 const isSubmitting = ref(false)
 const submitError = ref<string | null>(null)
+type ValidStep = 1 | 2 | 3 | 4 | 5;
 
+function nextStep() {
+  currentStep.value++
+}
+
+function prevStep() {
+  currentStep.value--
+}
+
+function goToStep(step: ValidStep){
+  currentStep.value = step;
+}
 async function submitForm() {
   isSubmitting.value = true
   submitError.value = null
@@ -80,8 +92,7 @@ async function submitForm() {
     // handle success – e.g., redirect or show success message
     console.log('Submission successful', response)
     // navigate to a thank you page or reset form
-    //await navigateTo('/')
-    //goToStep(5);
+    goToStep(5)
   } catch (err: any) {
     console.error('Submission failed', err)
     console.error('Status:', err.status)
@@ -96,20 +107,14 @@ async function submitForm() {
 const genreNames = computed(() =>
   genresData.value?.map(g => ({ label: g.name, value: g.id })) ?? []
 )
-type ValidStep = 1 | 2 | 3 | 4 | 5;
 
-function nextStep() {
-  currentStep.value++
+
+function submitNewGenre(){
+  //først sikre sig at man starter på en ny submission
+  //redirect til step 1
+  goToStep(1)
+
 }
-
-function prevStep() {
-  currentStep.value--
-}
-
-function goToStep(step: ValidStep){
-  currentStep.value = step;
-}
-
 const countryNames = computed(() =>
   countriesData.value?.map(c => ({ label: c.name, value: c.id })) ?? []
 )
@@ -489,11 +494,11 @@ const submissionData = reactive ({
       </div>
     </div>
 
-    <div :class="$style.thanksAfrobeatsIs">Thanks! Afrobeats is now in review.</div>
+    <div :class="$style.thanks">Thanks! {{submissionData.NewGenreName}} is now in review.</div>
     <div :class="$style.yourSubmissionHas">Your submission has been received and will be reviewed by our curatorial team. You'll be notified when it's approved or if the team has questions.</div>
 
     <div :class="$style.buttonAlone2">
-      <UButton type="submit" style="background-color: #3DE8C8">
+      <UButton @click="submitNewGenre" style="background-color: #3DE8C8">
         Submit another genre
       </UButton>
     </div>
@@ -581,7 +586,7 @@ margin: 10rem auto 0 auto;
   color: #3de8c8;
   line-height: 1;
 }
-.thanksAfrobeatsIs {
+.thanks {
 position: absolute;
 top: 124px;
 left: 6%;
