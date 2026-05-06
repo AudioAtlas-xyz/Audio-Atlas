@@ -63,7 +63,7 @@ public class AuthController : ControllerBase
         return Challenge(properties, "Google");
     }
 
-    // ================= CALLBACK =================
+    // CALLBACK
 
     [AllowAnonymous]
     [HttpGet("external-callback")]
@@ -90,7 +90,10 @@ public class AuthController : ControllerBase
         {
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            var token = GenerateJwtToken(user);
+            // Re-apply seeded admin role (covers delete-then-recreate).
+            await EnsureSeededAdminRoleAsync(user);
+
+            var token = await GenerateJwtToken(user);
 
             return Redirect($"{_frontendBaseUrl}/auth/callback?token={token}&newUser=false");
         }
@@ -143,7 +146,7 @@ public class AuthController : ControllerBase
         );
     }
 
-    // ================= USERNAME =================
+    // USERNAME
 
     [AllowAnonymous]
     [HttpGet("check-username")]
@@ -207,7 +210,7 @@ public class AuthController : ControllerBase
         return Ok(new { username = user.UserName });
     }
 
-    // ================= COMPLETE ONBOARDING =================
+    // COMPLETE ONBOARDING
 
     [AllowAnonymous]
     [HttpPost("complete-onboarding")]
@@ -257,7 +260,11 @@ public class AuthController : ControllerBase
         _dbContext.PendingExternalRegistrations.Remove(pendingRegistration);
         await _dbContext.SaveChangesAsync();
 
-        var token = GenerateJwtToken(user);
+        // Apply seeded admin role straight away so new users don't have
+        // to log out and back in for it to take effect.
+        await EnsureSeededAdminRoleAsync(user);
+
+        var token = await GenerateJwtToken(user);
 
         return Ok(new
         {
@@ -266,7 +273,7 @@ public class AuthController : ControllerBase
         });
     }
 
-    // ================= ME =================
+    // ME
 
     [Authorize]
     [HttpGet("me")]
@@ -282,18 +289,24 @@ public class AuthController : ControllerBase
         if (user == null)
             return NotFound();
 
+        // Surface roles so the frontend doesn't have to decode the JWT.
+        var roles = await _userManager.GetRolesAsync(user);
+
         return Ok(new
         {
             userId = user.Id,
             email = user.Email,
             username = user.UserName,
-            provider = user.Provider
+            provider = user.Provider,
+            roles
         });
     }
 
-    // ================= JWT =================
+    // JWT
 
-    private string GenerateJwtToken(ApplicationUser user)
+    // Signs a JWT including one Role claim per Identity role, so
+    // [Authorize(Roles = "...")] works against the bearer token.
+    private async Task<string> GenerateJwtToken(ApplicationUser user)
     {
         var key = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(_config["Jwt:Key"]!)
@@ -301,12 +314,18 @@ public class AuthController : ControllerBase
 
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
+        var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Email, user.Email!),
-            new Claim(ClaimTypes.Name, user.UserName!)
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Email, user.Email!),
+            new(ClaimTypes.Name, user.UserName!)
         };
+
+        var roles = await _userManager.GetRolesAsync(user);
+        foreach (var role in roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
 
         var token = new JwtSecurityToken(
             issuer: _config["Jwt:Issuer"],
@@ -319,7 +338,31 @@ public class AuthController : ControllerBase
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    // ================= HELPERS =================
+    // HELPERS
+
+    // Grant Admin to users whose email is in Admin:SeedEmails. Runs on
+    // every login so it also covers delete-then-recreate without a
+    // backend restart.
+    private async Task EnsureSeededAdminRoleAsync(ApplicationUser user)
+    {
+        if (string.IsNullOrWhiteSpace(user.Email))
+            return;
+
+        var seedEmails = _config.GetSection("Admin:SeedEmails").Get<string[]>()
+            ?? Array.Empty<string>();
+
+        var isSeeded = seedEmails.Any(e =>
+            !string.IsNullOrWhiteSpace(e) &&
+            string.Equals(e, user.Email, StringComparison.OrdinalIgnoreCase));
+
+        if (!isSeeded)
+            return;
+
+        if (await _userManager.IsInRoleAsync(user, "Admin"))
+            return;
+
+        await _userManager.AddToRoleAsync(user, "Admin");
+    }
 
     private static bool IsValidUsername(string username)
         => UsernameRegex.IsMatch(username);

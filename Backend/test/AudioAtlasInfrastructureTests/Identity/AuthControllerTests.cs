@@ -307,6 +307,10 @@ public class AuthControllerTests
                 It.IsAny<UserLoginInfo>()))
             .ReturnsAsync(IdentityResult.Success);
 
+        userManager
+            .Setup(x => x.GetRolesAsync(It.IsAny<ApplicationUser>()))
+            .ReturnsAsync(new List<string>());
+
         var config = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string?>
             {
@@ -545,6 +549,10 @@ public async Task ExternalCallback_WhenUserAlreadyExists_ReturnsRedirectWithToke
     userManager
         .Setup(x => x.FindByLoginAsync("Google", "123"))
         .ReturnsAsync(existingUser);
+
+    userManager
+        .Setup(x => x.GetRolesAsync(It.IsAny<ApplicationUser>()))
+        .ReturnsAsync(new List<string>());
 
     var contextAccessor = new Mock<IHttpContextAccessor>();
     var claimsFactory = new Mock<IUserClaimsPrincipalFactory<ApplicationUser>>();
@@ -800,7 +808,11 @@ public async Task CompleteOnboarding_WhenAddLoginFails_StillReturnsToken()
             Description = "Add login failed"
         }));
 
-    var config = new ConfigurationBuilder()
+    userManager
+        .Setup(x => x.GetRolesAsync(It.IsAny<ApplicationUser>()))
+        .ReturnsAsync(new List<string>());
+
+        var config = new ConfigurationBuilder()
         .AddInMemoryCollection(new Dictionary<string, string?>
         {
             { "Jwt:Key", "super_secret_test_key_that_is_long_enough_12345" },

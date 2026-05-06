@@ -190,7 +190,7 @@ using (var scope = app.Services.CreateScope())
 
     ctx.Database.Migrate();
 
-    await DbInitializer.SeedDatabase(ctx, userManager, roleManager, seedLogger);
+    await DbInitializer.SeedDatabase(ctx, userManager, roleManager, builder.Configuration, seedLogger);
 
     app.Logger.LogInformation("Database migration and seed completed.");
     ViewDebugger.DebugToFile(ctx);

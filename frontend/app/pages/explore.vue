@@ -4,9 +4,6 @@ import Globe from '@/components/Globe.vue'
 import CountryPanel from '@/components/CountryPanel.vue'
 import { useHead } from '#imports'
 
-/**
- * Page meta
- */
 useHead({
   title: 'Explore - Audio Atlas',
   meta: [
@@ -14,17 +11,10 @@ useHead({
   ]
 })
 
-/**
- * Globe is mounted in its "settled" state directly — no hero, no scroll
- * intro. `/explore` is the dedicated globe view, distinct from the landing
- * page at `/` which runs the scroll-driven intro animation.
- */
+// Globe in its settled state, no scroll intro. The landing page at /
+// runs the intro animation; this page skips it.
 const settledPov = { lat: 54, lng: 12, altitude: 2.2 }
 
-/**
- * Country panel state — clicking a country in the globe opens the side
- * panel with that country's genres, mirroring the landing page behaviour.
- */
 const selectedCountryId = ref<string | null>(null)
 
 const handleCountryClick = (country: { isoA3: string } | string) => {

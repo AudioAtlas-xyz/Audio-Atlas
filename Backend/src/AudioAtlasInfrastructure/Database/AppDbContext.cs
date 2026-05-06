@@ -78,6 +78,11 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid
     public DbSet<PendingExternalRegistration> PendingExternalRegistrations => Set<PendingExternalRegistration>();
 
     /// <summary>
+    /// Audit trail for admin-initiated role changes.
+    /// </summary>
+    public DbSet<RoleChangeAuditLog> RoleChangeAuditLogs => Set<RoleChangeAuditLog>();
+
+    /// <summary>
     /// Configures the entity model and applies all configurations
     /// defined within the current assembly.
     /// 

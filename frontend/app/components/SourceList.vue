@@ -9,12 +9,7 @@ const props = defineProps<{
   sources: GenreSource[]
 }>()
 
-/**
- * Extract a clean host label from a URL.
- * - Strips a leading `www.`
- * - Falls back to the raw string if URL parsing fails
- *   so we never render an empty link
- */
+// Strip protocol + leading www., fall back to raw string if it can't parse.
 function getHost(link: string): string {
   try {
     const url = new URL(link)
@@ -24,10 +19,7 @@ function getHost(link: string): string {
   }
 }
 
-/**
- * Limit displayed sources to first 5 entries and pre-compute
- * the host label so the template stays declarative.
- */
+// First 5 sources with host label pre-computed.
 const sourceRows = computed(() =>
   props.sources.slice(0, 5).map(source => ({
     ...source,
@@ -66,15 +58,7 @@ const sourceRows = computed(() =>
         class="flex items-start gap-3 px-4 py-3"
       >
         <div class="min-w-0 flex-1">
-          <!--
-            We display only the host (e.g. `en.wikipedia.org`) instead
-            of the full URL — full links were both visually noisy and
-            prone to clipping inside this narrow card. The actual
-            destination is preserved on the anchor's `:to`, and
-            `title` shows the raw URL on hover for transparency.
-            `target=_blank` opens external sources in a new tab so
-            we don't lose the genre page.
-          -->
+          <!-- Show host only; full URL is on :to and in the title attr. -->
           <ULink
             :to="source.sourceLink"
             :title="source.sourceLink"

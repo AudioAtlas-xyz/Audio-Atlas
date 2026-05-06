@@ -4,6 +4,7 @@ using AudioAtlasInfrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AudioAtlas.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260506111045_AddRoleChangeAuditLog")]
+    partial class AddRoleChangeAuditLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,6 +171,12 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.Property<DateOnly?>("EndDate")
                         .HasColumnType("date");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRejected")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsSensitive")
                         .HasColumnType("bit");
 
@@ -177,16 +186,8 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.Property<string>("PlaylistLink")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SensitiveDescription")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateOnly?>("StartDate")
                         .HasColumnType("date");
-
-                    b.Property<int>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -612,21 +613,6 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.ToTable("SubmissionCountry");
                 });
 
-            modelBuilder.Entity("SubmissionInstrument", b =>
-                {
-                    b.Property<Guid>("SubmissionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("InstrumentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("SubmissionId", "InstrumentId");
-
-                    b.HasIndex("InstrumentId");
-
-                    b.ToTable("SubmissionInstrument");
-                });
-
             modelBuilder.Entity("SubmissionPredecessorGenre", b =>
                 {
                     b.Property<Guid>("SubmissionId")
@@ -898,21 +884,6 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.HasOne("AudioAtlasDomain.Geography.Country", null)
                         .WithMany()
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("AudioAtlasDomain.Submissions.Submission", null)
-                        .WithMany()
-                        .HasForeignKey("SubmissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SubmissionInstrument", b =>
-                {
-                    b.HasOne("AudioAtlasDomain.MusicMetadata.Instrument", null)
-                        .WithMany()
-                        .HasForeignKey("InstrumentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
