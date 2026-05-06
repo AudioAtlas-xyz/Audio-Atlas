@@ -3,11 +3,11 @@ import type { PendingSubmissionResponse } from '~/types/pendingSubmissionRespons
 import type { Country } from '~/types/country'
 import type { Genre } from '~/types/genre'
 import type {Instrument} from "~/types/instrument";
+import PendingSubmissions from "~/pages/pending-submissions.vue";
 
 const { data: countriesData } = await useFetch<Country[]>('/api/countries/all')
 const { data: genresData } = await useFetch<Genre[]>('/api/genres')
 const { data: instrumentData } = await useFetch<Instrument[]>('/api/instruments')
-
 
 const { data: pendingSubmissions, pending, error } = await useAsyncData<PendingSubmissionResponse[]>(
   'pending-submissions',
@@ -56,11 +56,12 @@ const { data: pendingSubmissions, pending, error } = await useAsyncData<PendingS
     }
 )
 
-const items = Array.from({ length: 30 }, (_, i) => ({
-  id: i + 1,
-  title: `Item ${i + 1}`,
-  description: `Description for item ${i + 1}`
-}))
+function sortByDate(submissions: PendingSubmissionResponse[]) {
+  if (!pendingSubmissions.value) return []
+  //return submissions.value.sort((a, b) => a.startDate - b.startDate)
+  return [...submissions].sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+}
+
 
 function getCountryNames(ids: string[]) {
   if (!countriesData.value) return []
@@ -69,7 +70,7 @@ function getCountryNames(ids: string[]) {
 }
 
 function getGenreNames(ids: string[]) {
-  if (!countriesData.value) return []
+  if (!genresData.value) return []
   return ids
     .map(id => genresData.value.find(c => c.id === id)?.name).filter(Boolean)
 }
@@ -88,26 +89,34 @@ function getInstrumentNames(ids: string[]) {
     <h1>Pending Submissions</h1>
     <UScrollArea
       v-slot="{ item, index }"
-      :items="pendingSubmissions"
+      :items="sortByDate(pendingSubmissions)"
       class="w-full h-125"
     >
       <UCollapsible class="flex flex-col">
         <UButton
           size="xl"
           :label="item.newGenreName"
+
           variant="subtle"
           trailing-icon="i-lucide-chevron-down"
           :ui="{
           trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200'
           }"
           block
-        />
+        >
+          <div class="flex flex-col items-start">
+            <span class="font-medium">{{ item.newGenreName }}</span>
+            <span class="text-sm text-gray-500">{{item.accountUsername}}</span>
+            <span class="text-sm text-gray-500"> {{item.startDate}}</span>
+            <span class="text-sm text-gray-500">{{getCountryNames(item.countryIds).join(', ')}}</span>
+          </div>
+        </UButton>
 
         <template #content>
           <div class="collapsibleCard">
             <h2>{{item.newGenreName}}</h2>
             <p><strong>Submission Id: </strong>{{item.id}}</p>
-            <p><strong>Account: </strong>{{item.accountUsername}}</p>
+            <p><strong>Contributor username: </strong>{{item.accountUsername}}</p>
             <p><strong>Description: </strong>{{item.description}}</p>
             <p><strong>Sensitive: </strong>{{item.isSensitive}}</p>
             <p><strong>Sensitive description: </strong>{{item.sensitiveDescription}}</p>
