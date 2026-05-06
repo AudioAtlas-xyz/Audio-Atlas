@@ -1,5 +1,7 @@
-using AudioAtlasDomain.Geography;
+using AudioAtlasDomain.Enums;
 using AudioAtlasDomain.Genres;
+using AudioAtlasDomain.Geography;
+using AudioAtlasDomain.MusicMetadata;
 using AudioAtlasDomain.Submissions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -32,6 +34,11 @@ public class SubmissionConfiguration : IEntityTypeConfiguration<AudioAtlasDomain
         /// Defines the primary key.
         /// </summary>
         builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Status)
+            .HasConversion<int>()
+            .IsRequired()
+            .HasDefaultValue(SubmissionStatus.Pending);
 
         /// <summary>
         /// Configures the required relationship to the submitting user.
@@ -87,6 +94,25 @@ public class SubmissionConfiguration : IEntityTypeConfiguration<AudioAtlasDomain
         /// 
         /// Used to position the proposed genre within the current genre landscape.
         /// </summary>
+        builder.HasMany(x => x.Instruments)
+            .WithMany()
+            .UsingEntity<Dictionary<string, object>>(
+                "SubmissionInstrument",
+                j => j
+                    .HasOne<Instrument>()
+                    .WithMany()
+                    .HasForeignKey("InstrumentId")
+                    .OnDelete(DeleteBehavior.Restrict),
+                j => j
+                    .HasOne<AudioAtlasDomain.Submissions.Submission>()
+                    .WithMany()
+                    .HasForeignKey("SubmissionId")
+                    .OnDelete(DeleteBehavior.Cascade),
+                j =>
+                {
+                    j.HasKey("SubmissionId", "InstrumentId");
+                });
+
         builder.HasMany(x => x.SimilarGenres)
             .WithMany()
             .UsingEntity<Dictionary<string, object>>(

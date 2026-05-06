@@ -16,15 +16,18 @@ public class SubmissionService : ISubmissionService
 
     private readonly ICountryRepository _countryRepository;
     private readonly IGenreRepository _genreRepository;
+    private readonly IInstrumentRepository _instrumentRepository;
     private readonly ISubmissionRepository _submissionRepository;
 
     public SubmissionService(
         ICountryRepository countryRepository,
         IGenreRepository genreRepository,
+        IInstrumentRepository instrumentRepository,
         ISubmissionRepository submissionRepository)
     {
         _countryRepository = countryRepository;
         _genreRepository = genreRepository;
+        _instrumentRepository = instrumentRepository;
         _submissionRepository = submissionRepository;
     }
 
@@ -39,6 +42,7 @@ public class SubmissionService : ISubmissionService
         var aliasValues = normalizeDistinctTexts(request.Aliases ?? []);
         var normalizedSourceLinks = normalizeDistinctUrls(request.SourceLinks ?? [], "sourceLinks", errors);
         var countryIds = distinctIds(request.CountryIds ?? []);
+        var instrumentIds = distinctIds(request.InstrumentIds ?? []);
         var similarGenreIds = distinctIds(request.SimilarGenreIds ?? []);
         var subGenreIds = distinctIds(request.SubGenreIds ?? []);
         var predecessorGenreIds = distinctIds(request.PredecessorGenreIds ?? []);
@@ -77,12 +81,6 @@ public class SubmissionService : ISubmissionService
             errors["aliases"] = [$"Aliases must be at most {MaxAliasLength} characters."];
         }
 
-        // at least one source link
-        if (normalizedSourceLinks.Count == 0)
-        {
-            errors["sourceLinks"] = ["At least one source link is required."];
-        }
-
         // max playlist url length
         if (normalizedPlaylistLink is { Length: > MaxUrlLength })
         {
@@ -90,7 +88,11 @@ public class SubmissionService : ISubmissionService
         }
 
         // max source url length
-        if (normalizedSourceLinks.Any(link => link.Length > MaxUrlLength))
+        if (normalizedSourceLinks.Count == 0)
+        {
+            errors["sourceLinks"] = ["At least one source link is required."];
+        }
+        else if (normalizedSourceLinks.Any(link => link.Length > MaxUrlLength))
         {
             errors["sourceLinks"] = [$"Source links must be at most {MaxUrlLength} characters."];
         }
@@ -107,12 +109,14 @@ public class SubmissionService : ISubmissionService
 
         // get specified countried
         var countries = await _countryRepository.getCountriesByIdsAsync(countryIds, cancellationToken);
+        var instruments = await _instrumentRepository.getInstrumentsByIdsAsync(instrumentIds, cancellationToken);
         var similarGenres = await _genreRepository.getGenresByIdsAsync(similarGenreIds, cancellationToken);
         var subGenres = await _genreRepository.getGenresByIdsAsync(subGenreIds, cancellationToken);
         var predecessorGenres = await _genreRepository.getGenresByIdsAsync(predecessorGenreIds, cancellationToken);
 
         // Do they exist?
         addMissingIdErrors(errors, "countryIds", countryIds, countries.Select(country => country.Id));
+        addMissingIdErrors(errors, "instrumentIds", instrumentIds, instruments.Select(instrument => instrument.Id));
         addMissingIdErrors(errors, "similarGenreIds", similarGenreIds, similarGenres.Select(genre => genre.Id));
         addMissingIdErrors(errors, "subGenreIds", subGenreIds, subGenres.Select(genre => genre.Id));
         addMissingIdErrors(errors, "predecessorGenreIds", predecessorGenreIds, predecessorGenres.Select(genre => genre.Id));
@@ -132,6 +136,7 @@ public class SubmissionService : ISubmissionService
             EndDate = request.EndDate,
             Description = normalizedDescription,
             IsSensitive = request.IsSensitive,
+            SensitiveDescription = request.IsSensitive ? normalizeText(request.SensitiveDescription) : null,
             PlaylistLink = normalizedPlaylistLink,
             Status = SubmissionStatus.Pending,
             Aliases = normalizedAliases.Select(alias => new SubmissionAlias
@@ -143,6 +148,7 @@ public class SubmissionService : ISubmissionService
                 SourceLink = link
             }).ToList(),
             Countries = countries.ToList(),
+            Instruments = instruments.ToList(),
             SimilarGenres = similarGenres.ToList(),
             SubGenres = subGenres.ToList(),
             PredecessorGenres = predecessorGenres.ToList()
@@ -168,10 +174,12 @@ public class SubmissionService : ISubmissionService
                 EndDate = submission.EndDate,
                 Description = submission.Description,
                 IsSensitive = submission.IsSensitive,
+                SensitiveDescription = submission.SensitiveDescription,
                 PlaylistLink = submission.PlaylistLink,
                 Aliases = submission.Aliases.Select(alias => alias.Alias).ToList(),
                 SourceLinks = submission.Sources.Select(source => source.SourceLink).ToList(),
                 CountryIds = submission.Countries.Select(country => country.Id).ToList(),
+                InstrumentIds = submission.Instruments.Select(instrument => instrument.Id).ToList(),
                 SimilarGenreIds = submission.SimilarGenres.Select(genre => genre.Id).ToList(),
                 SubGenreIds = submission.SubGenres.Select(genre => genre.Id).ToList(),
                 PredecessorGenreIds = submission.PredecessorGenres.Select(genre => genre.Id).ToList()

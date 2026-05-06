@@ -36,6 +36,7 @@ public class SubmissionRepository : ISubmissionRepository
             .Include(submission => submission.Aliases)
             .Include(submission => submission.Sources)
             .Include(submission => submission.Countries)
+            .Include(submission => submission.Instruments)
             .Include(submission => submission.SimilarGenres)
             .Include(submission => submission.SubGenres)
             .Include(submission => submission.PredecessorGenres)

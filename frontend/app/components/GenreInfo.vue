@@ -173,6 +173,7 @@ const { isSensitive, sensitivityDescription, pageDescription, similarGenres, par
   box-sizing: border-box;
   overflow: hidden;
   flex-shrink: 0;
+  width: 100%;
 }
 
 </style>

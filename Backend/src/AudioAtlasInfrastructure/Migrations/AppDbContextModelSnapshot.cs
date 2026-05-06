@@ -177,11 +177,16 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.Property<string>("PlaylistLink")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SensitiveDescription")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateOnly?>("StartDate")
                         .HasColumnType("date");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -607,6 +612,21 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.ToTable("SubmissionCountry");
                 });
 
+            modelBuilder.Entity("SubmissionInstrument", b =>
+                {
+                    b.Property<Guid>("SubmissionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InstrumentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("SubmissionId", "InstrumentId");
+
+                    b.HasIndex("InstrumentId");
+
+                    b.ToTable("SubmissionInstrument");
+                });
+
             modelBuilder.Entity("SubmissionPredecessorGenre", b =>
                 {
                     b.Property<Guid>("SubmissionId")
@@ -878,6 +898,21 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.HasOne("AudioAtlasDomain.Geography.Country", null)
                         .WithMany()
                         .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AudioAtlasDomain.Submissions.Submission", null)
+                        .WithMany()
+                        .HasForeignKey("SubmissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SubmissionInstrument", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.MusicMetadata.Instrument", null)
+                        .WithMany()
+                        .HasForeignKey("InstrumentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

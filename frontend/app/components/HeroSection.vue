@@ -26,8 +26,7 @@ const props = defineProps<{
       <h1 class="font-display text-5xl tracking-[-0.04em] text-space-50 sm:text-[52px]">
         {{ props.name || '—' }}
       </h1>
-
-      <div
+        <div
         v-if="props.badges?.length"
         class="flex flex-wrap items-center gap-2"
       >
