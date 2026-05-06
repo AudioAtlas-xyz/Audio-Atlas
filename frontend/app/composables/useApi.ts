@@ -1,5 +1,6 @@
 export const useApi = () => {
   const config = useRuntimeConfig()
+  const apiBase = config.public.apiBase.replace(/\/+$/, '')
 
   const getToken = () => {
     if (process.client) {
@@ -14,7 +15,7 @@ export const useApi = () => {
   ) => {
     const token = getToken()
 
-    return await $fetch<T>(`${config.public.apiBase}${url}`, {
+    return await $fetch<T>(`${apiBase}${url.startsWith('/') ? url : `/${url}`}`, {
       ...options,
       headers: {
         ...(options.headers || {}),
