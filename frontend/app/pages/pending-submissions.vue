@@ -3,13 +3,14 @@ import type { PendingSubmissionResponse } from '~/types/pendingSubmissionRespons
 import type { Country } from '~/types/country'
 import type { Genre } from '~/types/genre'
 import type {Instrument} from "~/types/instrument";
-import PendingSubmissions from "~/pages/pending-submissions.vue";
+
+const { api } = useApi()
 
 const { data: countriesData } = await useFetch<Country[]>('/api/countries/all')
 const { data: genresData } = await useFetch<Genre[]>('/api/genres')
 const { data: instrumentData } = await useFetch<Instrument[]>('/api/instruments')
 
-const { data: pendingSubmissions, pending, error } = await useAsyncData<PendingSubmissionResponse[]>(
+const { data: pendingSubmissions} = await useAsyncData<PendingSubmissionResponse[]>(
   'pending-submissions',
     () => api<PendingSubmissionResponse[]>(`/submissions/pending`),
     {
@@ -25,13 +26,13 @@ const { data: pendingSubmissions, pending, error } = await useAsyncData<PendingS
           isSensitive: false,
           sensitiveDescription: null,
           playlistLink: 'https://spotify.com',
-          sourceLinks: 'https://wikipedia.com',
+          sourceLinks: ['https://wikipedia.com'],
           aliases: ['Neo Jazz', 'Future Jazz'],
-          countryIds: ['c6953991-34f0-4c5f-8c04-04b0e114a653', 'f710e095-92bf-419a-88b0-0d757e35bddb'],
-          instrumentsIds: ['5f9067ca-f8fc-4c48-b594-01a421476f5a', 'ae53da46-a309-419f-83b7-1047c784047a'],
-          similarGenreIds: ['5b818376-5dbf-4dde-9a77-000b9fbeed15', 'ambient'],
-          subGenreIds: ['2b0f305b-2a08-411d-b223-015663d137d9','6067421d-7bf5-433b-8ab5-0fca12c60b08'],
-          predecessorGenreIds: ['fe1f0b31-f92a-4554-af7e-1978089f3f8f']
+          countryIds: ['f5a26844-13e1-4a6d-b0b6-001c40be4665', '8512c1ce-d6ee-4190-bf79-04482caa4d75'],
+          instrumentIds: ['cd8958bb-0ece-4602-8437-2d145fc90084'],
+          similarGenreIds: ['b5eaf5eb-5eee-400f-844a-000a73fd52ed', '4d65e956-46c0-4b3e-b070-00547d590679'],
+          subGenreIds: ['982a1419-e87b-4047-b429-0ca8e2c94ea1'],
+          predecessorGenreIds: []
         },
         {
           id: '2',
@@ -44,41 +45,42 @@ const { data: pendingSubmissions, pending, error } = await useAsyncData<PendingS
           isSensitive: true,
           sensitiveDescription: 'Contains references to dystopian themes and aggressive sound design.',
           playlistLink: 'https://spotify.com',
-          sourceLinks: null,
+          sourceLinks: [],
           aliases: ['Dark Pop', 'Industrial Wave'],
-          countryIds: ['37e6403b-0ebc-4db4-be59-01990b572d0e'],
-          instrumentsIds: ['fe1fa608-f3d3-44ec-985c-2b7776899023', '90750e67-432f-46fa-9ce4-2976d1772520'],
-          similarGenreIds: ['0dfe7d28-0be3-44e1-9228-95c04ddfcdbf', 'd08ed902-5329-4432-80e6-fe5798a90664'],
-          subGenreIds: ['4621a1de-9ea2-40e4-bb9b-1daba2938c96'],
-          predecessorGenreIds: ['422fe4b1-9fff-4d24-b222-21ac48b16d85']
+          countryIds: ['a7e452a0-cff9-47d9-9dc6-11ba380d5198'],
+          instrumentIds: ['6bcecefc-7a79-48f0-9c6d-00e36b2d3e80', '2a4b4d71-ead8-4603-9fcc-0edbe9abd1fd'],
+          similarGenreIds: ['4d65e956-46c0-4b3e-b070-00547d590679', 'b3290861-bb97-4e5f-8c85-01958797e917'],
+          subGenreIds: ['699a27d4-bf1f-46ad-a77a-067d8bcdbd8a'],
+          predecessorGenreIds: ['8f006b3a-93ac-4a16-8adf-0af747a40c2f']
         },
       ]
     }
 )
 
 function sortByDate(submissions: PendingSubmissionResponse[]) {
-  if (!pendingSubmissions.value) return []
-  //return submissions.value.sort((a, b) => a.startDate - b.startDate)
-  return [...submissions].sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+  return [...submissions].sort((a, b) => {
+    const timeA = a.startDate ? new Date(a.startDate).getTime() : 0
+    const timeB = b.startDate ? new Date(b.startDate).getTime() : 0
+    return timeA - timeB
+  })
 }
 
-
 function getCountryNames(ids: string[]) {
-  if (!countriesData.value) return []
+  const countries = countriesData.value ?? []
   return ids
-    .map(id => countriesData.value.find(c => c.id === id)?.name).filter(Boolean)
+    .map(id => countries.find(c => c.id === id)?.name).filter(Boolean)
 }
 
 function getGenreNames(ids: string[]) {
-  if (!genresData.value) return []
+  const genres = genresData.value ?? []
   return ids
-    .map(id => genresData.value.find(c => c.id === id)?.name).filter(Boolean)
+    .map(id => genres.find(c => c.id === id)?.name).filter(Boolean)
 }
 
 function getInstrumentNames(ids: string[]) {
-  if (!instrumentData.value) return []
+  const instruments = instrumentData.value ?? []
   return ids
-    .map(id => instrumentData.value.find(c => c.id === id)?.type).filter(Boolean)
+    .map(id => instruments.find(c => c.id === id)?.type).filter(Boolean)
 }
 
 </script>
@@ -95,8 +97,7 @@ function getInstrumentNames(ids: string[]) {
       <UCollapsible class="flex flex-col">
         <UButton
           size="xl"
-          :label="item.newGenreName"
-
+          :label="item.newGenreName!"
           variant="subtle"
           trailing-icon="i-lucide-chevron-down"
           :ui="{
@@ -126,7 +127,7 @@ function getInstrumentNames(ids: string[]) {
             <p><strong>Countries: </strong>
               {{getCountryNames(item.countryIds).join(', ')}}</p>
             <p><strong>Instruments: </strong>
-              {{getInstrumentNames(item.instrumentsIds).join(', ')}}</p>
+              {{getInstrumentNames(item.instrumentIds).join(', ')}}</p>
             <p><strong>Similar genres: </strong>
               {{getGenreNames(item.similarGenreIds).join(', ')}}</p>
             <p><strong>Subgenres: </strong>
