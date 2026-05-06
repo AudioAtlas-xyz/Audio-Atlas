@@ -7,6 +7,7 @@ import * as z from 'zod'
 import Stepper from '../components/submission/Stepper.vue';
 import SubmissionHeader from "~/components/submission/SubmissionHeader.vue";
 import type {Instrument} from "~/types/instrument";
+const { api } = useApi();
 const step = ref(1);
 
 const { data: countriesData } = await useFetch<Country[]>('/api/countries/all')
@@ -76,15 +77,14 @@ async function submitForm() {
   }
 
   try {
-    const response = await $fetch('/api/submissions', {
+    const response = await api('/api/submissions', {
       method: 'POST',
       body: payload,
-      credentials: 'include', // sends cookies for authentication
     })
     // handle success – e.g., redirect or show success message
     console.log('Submission successful', response)
     // navigate to a thank you page or reset form
-    await navigateTo('/submission-success')
+    await navigateTo('/')
   } catch (err: any) {
     console.error('Submission failed', err)
     submitError.value = err.data?.message || 'Failed to submit. Please try again.'
@@ -466,7 +466,7 @@ const submissionData = reactive ({
               Back
             </UButton>
 
-            <UButton type="submit" style="background-color: #3DE8C8">
+            <UButton type="submit" @click="submitForm" style="background-color: #3DE8C8">
               Submit for review
             </UButton>
           </div>
