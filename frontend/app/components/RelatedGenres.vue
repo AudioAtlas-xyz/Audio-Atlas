@@ -1,5 +1,4 @@
 ﻿<script setup lang="ts">
-import { computed } from 'vue'
 import type { Genre } from '~/types/genre'
 
 const { similarGenres, parentGenres, subGenres } = defineProps<{
@@ -8,11 +7,7 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
   subGenres: Genre[]
 }>()
 
-const sections = computed(() => [
-  { title: 'Parent Genres', items: props.parentGenres },
-  { title: 'Sub Genres', items: props.subGenres },
-  { title: 'Similar Genres', items: props.similarGenres }
-])
+
 </script>
 
 <template>
