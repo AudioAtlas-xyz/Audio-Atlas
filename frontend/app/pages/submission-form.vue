@@ -112,9 +112,9 @@ const genreNames = computed(() =>
 function submitNewGenre(){
   //først sikre sig at man starter på en ny submission
   //redirect til step 1
-  goToStep(1)
-
+  window.location.reload()
 }
+
 const countryNames = computed(() =>
   countriesData.value?.map(c => ({ label: c.name, value: c.id })) ?? []
 )
@@ -146,7 +146,6 @@ const instrumentNameMap = computed(() => {
 
 //refs (reactive)
 const currentStep = ref(1)
-const sensitive = ref(false)
 
 //All of the fields have been renamed to match the backend's "CreateSubmissionRequestDTO"
 const submissionData = reactive ({
@@ -333,7 +332,7 @@ const submissionData = reactive ({
             </UButton>
 
             <UButton @click="nextStep" style="background-color: #3DE8C8">
-              Submit for review
+              Next: Review
             </UButton>
           </div>
         </UForm>
