@@ -11,17 +11,10 @@ const loading = ref(false)
 const genres = ref<Genre[]>([])
 const hasSearched = ref(false)
 
-/**
- * Wrapper ref — used by the outside-click handler so we can detect
- * when the user clicks anywhere outside the search bar / dropdown.
- */
+// used by the outside-click handler
 const wrapperRef = ref<HTMLElement | null>(null)
 
-/**
- * Reset all search state. Called when:
- *  - a result is clicked (so the dropdown disappears as we navigate)
- *  - the user clicks outside the search bar
- */
+// reset everything — called on result click and on outside click
 function closeDropdown() {
   searchTerm.value = ''
   genres.value = []
@@ -29,9 +22,6 @@ function closeDropdown() {
   loading.value = false
 }
 
-/**
- * Close on clicks outside the wrapper. Mounted client-side only.
- */
 function handleOutsideClick(e: MouseEvent) {
   if (!wrapperRef.value) return
   if (wrapperRef.value.contains(e.target as Node)) return
@@ -50,11 +40,7 @@ onUnmounted(() => {
   }
 })
 
-/**
- * Countries are a small fixed set (~200), so we fetch the full list once
- * on mount and filter locally. This avoids a backend round trip per
- * keystroke and means we don't need a new `/countries/search` endpoint.
- */
+// Fetch all countries once and filter locally (~200 rows, tiny payload).
 const allCountries = ref<Country[]>([])
 
 onMounted(async () => {
@@ -66,10 +52,7 @@ onMounted(async () => {
   }
 })
 
-/**
- * Local country filter — runs synchronously off `searchTerm`,
- * capped to keep the dropdown short.
- */
+// Local country filter, capped so the dropdown stays short.
 const countryMatches = computed<Country[]>(() => {
   const q = searchTerm.value.trim().toLowerCase()
   if (q.length < 2) return []
@@ -79,9 +62,6 @@ const countryMatches = computed<Country[]>(() => {
     .slice(0, 5)
 })
 
-/**
- * Whether we have anything to show in the dropdown.
- */
 const hasResults = computed(
   () => genres.value.length > 0 || countryMatches.value.length > 0
 )

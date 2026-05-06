@@ -58,8 +58,7 @@ public class TestService : IDisposable
         
         _context.Database.EnsureCreated();
         
-        // Empty configuration is fine for tests — Admin:SeedEmails will
-        // resolve to null/empty and the admin seed will no-op.
+        // Empty config — admin seed no-ops.
         IConfiguration configuration = new ConfigurationBuilder().Build();
 
         DbInitializer.SeedDatabase(_context, _userManager, _roleManager, configuration, _logger).GetAwaiter().GetResult();

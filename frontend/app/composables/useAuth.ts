@@ -43,24 +43,21 @@ export const useAuth = () => {
     }
   }
 
-  const logout = () => {
+  // Clears the session and sends the user home. Pass { redirect: false }
+  // if the caller wants to handle navigation itself.
+  const logout = async (options: { redirect?: boolean } = {}) => {
     if (process.client) {
       localStorage.removeItem('token')
     }
 
     user.value = null
+
+    if (options.redirect !== false && process.client) {
+      await navigateTo('/')
+    }
   }
 
-  /**
-   * Role helpers — small, derived state for UI gating.
-   *
-   * `hasRole` is the general-purpose check; `isAdmin` is just the most
-   * common shortcut. Both are computed so they react to `user.value`
-   * mutations (login, logout, role changes from a future admin panel).
-   *
-   * Treats both `undefined` and `[]` as "no roles", which matches the
-   * type definition and tolerates legacy tokens that pre-date roles.
-   */
+  // Role helpers — both reactive to user.value.
   const hasRole = (role: UserRole) =>
     computed(() => Boolean(user.value?.roles?.includes(role)))
 

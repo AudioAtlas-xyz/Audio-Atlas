@@ -5,8 +5,7 @@ import AccountDetails from '@/components/UserFlow/AccountDetails.vue'
 import { useAuth } from '@/composables/useAuth'
 import { useUIState } from '@/composables/useUIState'
 
-// NOTE: <AppBanner /> is mounted ONCE in `layouts/default.vue`.
-// Don't render it here — it would double-stack with the layout copy.
+// AppBanner is mounted in layouts/default.vue. Don't add it here too.
 
 const { user, logout, isAdmin } = useAuth()
 const {
@@ -38,11 +37,7 @@ const emit = defineEmits<{
       <nav class="nav-links">
         <NuxtLink to="/explore">Explore</NuxtLink>
         <NuxtLink to="/about">About</NuxtLink>
-        <!--
-          Admin link is rendered only for users with the Admin role.
-          The middleware on /admin/* re-checks this on navigation, and
-          backend endpoints enforce it again with [Authorize(Roles = "Admin")].
-        -->
+        <!-- Only visible to admins. Middleware + backend re-check the role. -->
         <NuxtLink v-if="isAdmin" to="/admin" class="nav-admin">
           Admin
         </NuxtLink>
@@ -59,7 +54,8 @@ const emit = defineEmits<{
             {{ user.username || user.email }}
           </span>
 
-          <GlassButton @click="logout">
+          <!-- arrow fn so the click event doesn't get passed as options -->
+          <GlassButton @click="() => logout()">
             Logout
           </GlassButton>
         </template>

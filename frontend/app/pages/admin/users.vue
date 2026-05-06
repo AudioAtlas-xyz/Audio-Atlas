@@ -1,46 +1,34 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useHead } from '#imports'
+import { useHead, useAsyncData } from '#imports'
+import { useApi } from '@/composables/useApi'
 import type { AdminUserRow, AdminUserRole } from '~/types/admin'
 
-/**
- * Admin user list.
- *
- * Frontend scaffold only — no data source yet. Once the backend admin
- * endpoint exists, swap `users.value = []` for a `useAsyncData` call
- * against `/api/admin/users` and the filters / sort / empty state
- * keep working unchanged.
- */
-definePageMeta({
-  middleware: 'admin'
-})
+// Page is gated by middleware/admin.ts; backend re-checks the role.
+definePageMeta({ middleware: 'admin' })
 
-useHead({
-  title: 'Users | Audio Atlas Admin'
-})
+useHead({ title: 'Users | Audio Atlas Admin' })
 
-/* ──────────────────────────────────────────────────────────
-   Data source
-   ────────────────────────────────────────────────────────── */
+// data fetch
+const { api } = useApi()
 
-/**
- * The user list. Empty until the backend is wired up — kept as a `ref`
- * (rather than a const) so a future API call can assign into it
- * directly without touching any of the filter/sort logic below.
- */
-const users = ref<AdminUserRow[]>([])
+const {
+  data: usersData,
+  pending,
+  error,
+  refresh
+} = await useAsyncData<AdminUserRow[]>(
+  'admin-users',
+  () => api<AdminUserRow[]>('/admin/users'),
+  { default: () => [] }
+)
 
-/* ──────────────────────────────────────────────────────────
-   Filter state
-   ────────────────────────────────────────────────────────── */
+const users = computed<AdminUserRow[]>(() => usersData.value ?? [])
 
+// filter state
 const search = ref('')
 const roleFilter = ref<'All' | AdminUserRole>('All')
 
-/**
- * Role dropdown options, including the synthetic "All" sentinel.
- * Wired into a USelectMenu using `value-key="value"`.
- */
 const roleOptions = [
   { label: 'All roles', value: 'All' },
   { label: 'Admin', value: 'Admin' },
@@ -49,21 +37,13 @@ const roleOptions = [
   { label: 'Member', value: 'Member' }
 ] as const
 
-/* ──────────────────────────────────────────────────────────
-   Sort state
-   ────────────────────────────────────────────────────────── */
-
-type SortKey = 'memberSince' | 'submissionCount' | 'approvedSubmissionCount'
+// sort state — only memberSince is sortable for now
+type SortKey = 'memberSince'
 type SortDir = 'asc' | 'desc'
 
 const sortKey = ref<SortKey>('memberSince')
 const sortDir = ref<SortDir>('desc')
 
-/**
- * Click a sortable header. Same key → toggle direction.
- * Different key → switch key and reset to descending (the
- * "most interesting first" default).
- */
 function toggleSort(key: SortKey) {
   if (sortKey.value === key) {
     sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc'
@@ -73,83 +53,56 @@ function toggleSort(key: SortKey) {
   }
 }
 
-/* ──────────────────────────────────────────────────────────
-   Derived rows
-   ────────────────────────────────────────────────────────── */
-
+// filter + sort
 const visibleUsers = computed(() => {
   const q = search.value.trim().toLowerCase()
   const role = roleFilter.value
 
-  // Search matches usernames only — emails are intentionally excluded so
-  // admins can't fish for accounts by typing partial email guesses.
+  // username-only search; emails are intentionally excluded
   let rows = users.value.filter((u) => {
     if (role !== 'All' && u.role !== role) return false
-
     if (q && !u.username.toLowerCase().includes(q)) return false
-
     return true
   })
 
-  // Sort — `localeCompare` for date strings works because they're
-  // ISO 8601 (sorts lexically the same as chronologically).
+  // null memberSince sinks to bottom
   rows = [...rows].sort((a, b) => {
     const dir = sortDir.value === 'asc' ? 1 : -1
 
-    if (sortKey.value === 'memberSince') {
-      return a.memberSince.localeCompare(b.memberSince) * dir
-    }
-
-    return (a[sortKey.value] - b[sortKey.value]) * dir
+    if (!a.memberSince && !b.memberSince) return 0
+    if (!a.memberSince) return 1
+    if (!b.memberSince) return -1
+    return a.memberSince.localeCompare(b.memberSince) * dir
   })
 
   return rows
 })
 
-/* ──────────────────────────────────────────────────────────
-   Helpers
-   ────────────────────────────────────────────────────────── */
-
+// helpers
 const dateFormatter = new Intl.DateTimeFormat('en-US', {
   month: 'short',
   day: 'numeric',
   year: 'numeric'
 })
 
-function formatDate(iso: string): string {
+function formatDate(iso: string | null | undefined): string {
+  if (!iso) return '—'
   return dateFormatter.format(new Date(iso))
 }
 
-/**
- * Per-role badge styling. Using a function (not a plain object) so the
- * fallback is explicit even if a future role string slips through.
- */
 function roleBadgeClass(role: AdminUserRole): string {
   switch (role) {
-    case 'Admin':
-      return 'border-[#3DE8C8] text-[#3DE8C8]'
-    case 'Curator':
-      return 'border-[#8ddbe6] text-[#8ddbe6]'
-    case 'Banned':
-      return 'border-[#ff6b6b] text-[#ff6b6b]'
-    case 'Member':
-    default:
-      return 'border-[#7a84a8] text-[#7a84a8]'
+    case 'Admin':   return 'border-[#3DE8C8] text-[#3DE8C8]'
+    case 'Curator': return 'border-[#8ddbe6] text-[#8ddbe6]'
+    case 'Banned':  return 'border-[#ff6b6b] text-[#ff6b6b]'
+    default:        return 'border-[#7a84a8] text-[#7a84a8]'
   }
 }
 
-/**
- * Sort indicator next to a header label. Empty string when the column
- * isn't the active sort key — keeps the header layout stable.
- */
 function sortIndicator(key: SortKey): string {
   if (sortKey.value !== key) return ''
   return sortDir.value === 'asc' ? '↑' : '↓'
 }
-
-/* ──────────────────────────────────────────────────────────
-   Breadcrumbs
-   ────────────────────────────────────────────────────────── */
 
 const breadcrumbItems = [
   { label: 'Explore', to: '/' },
@@ -167,7 +120,6 @@ const breadcrumbItems = [
         <div class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-8 sm:px-10 lg:py-10">
 
           <div class="space-y-6">
-            <!-- BREADCRUMB -->
             <UBreadcrumb :items="breadcrumbItems">
               <template #item-label="{ item, active }">
                 <span :class="active ? 'text-aurora font-semibold' : 'text-muted'">
@@ -176,7 +128,6 @@ const breadcrumbItems = [
               </template>
             </UBreadcrumb>
 
-            <!-- TITLE + DESCRIPTION -->
             <div class="space-y-4">
               <h1 class="font-display text-5xl tracking-[-0.04em] text-space-50 sm:text-[52px]">
                 Registered users
@@ -188,7 +139,6 @@ const breadcrumbItems = [
               </p>
             </div>
 
-            <!-- META ROW -->
             <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-[#373d5a]">
               {{ visibleUsers.length }} of {{ users.length }} users shown
             </p>
@@ -200,7 +150,6 @@ const breadcrumbItems = [
       <!-- FILTERS + TABLE -->
       <section class="mx-auto flex max-w-[1200px] flex-col gap-6 px-6 py-8 sm:px-10 lg:py-10">
 
-        <!-- FILTER ROW -->
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <UInput
             v-model="search"
@@ -217,8 +166,30 @@ const breadcrumbItems = [
           />
         </div>
 
-        <!-- TABLE -->
-        <div class="overflow-x-auto rounded-md border border-border bg-surface">
+        <UAlert
+          v-if="error"
+          color="error"
+          variant="soft"
+          title="Could not load users"
+          :description="error.message || 'Unknown error'"
+          :ui="{ actions: 'mt-2' }"
+        >
+          <template #actions>
+            <UButton
+              color="neutral"
+              variant="outline"
+              size="xs"
+              @click="refresh()"
+            >
+              Retry
+            </UButton>
+          </template>
+        </UAlert>
+
+        <div
+          v-else
+          class="overflow-x-auto rounded-md border border-border bg-surface"
+        >
           <table class="w-full border-collapse">
             <thead class="bg-surface-2">
               <tr class="text-left">
@@ -236,18 +207,6 @@ const breadcrumbItems = [
                   @click="toggleSort('memberSince')"
                 >
                   Member since {{ sortIndicator('memberSince') }}
-                </th>
-                <th
-                  class="cursor-pointer select-none px-4 py-3 text-right font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8] hover:text-aurora"
-                  @click="toggleSort('submissionCount')"
-                >
-                  Submissions {{ sortIndicator('submissionCount') }}
-                </th>
-                <th
-                  class="cursor-pointer select-none px-4 py-3 text-right font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8] hover:text-aurora"
-                  @click="toggleSort('approvedSubmissionCount')"
-                >
-                  Approved {{ sortIndicator('approvedSubmissionCount') }}
                 </th>
               </tr>
             </thead>
@@ -276,18 +235,14 @@ const breadcrumbItems = [
                 <td class="px-4 py-3 text-[13px] text-[#7a84a8]">
                   {{ formatDate(row.memberSince) }}
                 </td>
-                <td class="px-4 py-3 text-right font-mono text-[12px] text-space-50">
-                  {{ row.submissionCount }}
-                </td>
-                <td class="px-4 py-3 text-right font-mono text-[12px] text-space-50">
-                  {{ row.approvedSubmissionCount }}
-                </td>
               </tr>
 
-              <!-- EMPTY STATE -->
               <tr v-if="!visibleUsers.length">
-                <td colspan="6" class="px-4 py-10 text-center text-sm text-[#6f789b]">
-                  <template v-if="users.length === 0">
+                <td colspan="4" class="px-4 py-10 text-center text-sm text-[#6f789b]">
+                  <template v-if="pending">
+                    Loading users…
+                  </template>
+                  <template v-else-if="users.length === 0">
                     No users to show yet.
                   </template>
                   <template v-else>

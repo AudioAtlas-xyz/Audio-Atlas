@@ -272,8 +272,8 @@ public class DbInitializerTests
             RoleManager = _scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
             Logger = _scope.ServiceProvider.GetRequiredService<ILogger<DbInitializer>>();
 
-            // Empty configuration is fine for tests — Admin:SeedEmails will
-            // resolve to null/empty and the admin seed will no-op.
+            // Empty config — Admin:SeedEmails resolves to empty so the
+            // admin seed no-ops.
             Configuration = new ConfigurationBuilder().Build();
 
             Context.Database.EnsureCreated();

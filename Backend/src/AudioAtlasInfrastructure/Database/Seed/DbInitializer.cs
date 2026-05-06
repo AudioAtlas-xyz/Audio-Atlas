@@ -80,15 +80,9 @@ public class DbInitializer
         }
     }
 
-    /// <summary>
-    /// Grants the "Admin" role to every email listed in the
-    /// <c>Admin:SeedEmails</c> configuration array.
-    ///
-    /// Idempotent — runs every startup, skips users already in the role.
-    /// If a configured email has no matching user yet (i.e. the user
-    /// hasn't signed in for the first time), the seed is skipped with a
-    /// warning and re-tried on the next startup.
-    /// </summary>
+    // Grants Admin to every email in Admin:SeedEmails. Runs on every
+    // startup, skips users already in the role, warns (and retries next
+    // startup) if a configured email has no matching user yet.
     private static async Task SeedAdminsAsync(
         IConfiguration configuration,
         UserManager<ApplicationUser> userManager,
