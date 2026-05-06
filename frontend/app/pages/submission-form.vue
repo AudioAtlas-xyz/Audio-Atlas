@@ -54,12 +54,6 @@ async function submitForm() {
   isSubmitting.value = true
   submitError.value = null
 
-  // Optional: merge sensitive description into main description if needed
-  let finalDescription = submissionData.Description
-  if (submissionData.IsSensitive && submissionData.sensitiveDescription) {
-    finalDescription = `${submissionData.sensitiveDescription}\n\n${submissionData.Description}`
-  }
-
   const payload: CreateSubmissionRequest = {
     NewGenreName: submissionData.NewGenreName,
     Aliases: submissionData.Aliases,
