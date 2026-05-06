@@ -62,13 +62,13 @@ const povKey = pov => `${pov.lat}|${pov.lng}|${pov.altitude}`
 onMounted(async () => {
   const Globe = (await import('globe.gl')).default
 
-  const [countriesRes, centroidsRes] = await Promise.all([
-    fetch('/countries.geojson'),
-    fetch('/tiny-country-markers.json')
-  ])
+const [countriesRes, centroidsRes, genreRes] = await Promise.all([  fetch('/tiny-country-markers.json'),
+  fetch('http://localhost:5000/api/genres/genre-count-by-country')])
 
   const countries = await countriesRes.json()
   const tinyCountries = await centroidsRes.json()
+  const genreData = await genreRes.json()
+  console.log('GENRE DATA:', genreData)
 
   const countryColors = new Map()
   const baseHue = 135
@@ -78,10 +78,16 @@ onMounted(async () => {
 
   const getCountryIso = feature => feature.properties.iso_a3
   const getCountryName = feature => feature.properties.admin ?? feature.properties.name
-  const getCountryPopulation = feature => feature.properties.pop_est
+  const getCountryGenreCount = feature => {
+    const iso = getCountryIso(feature)
+    return countryGenreCount.get(iso) ?? 0
+  }
 
-  const countryGenreCount = new Map([['USA', 120], ['DNK', 25], ['FRA', 60]])
+  const countryGenreCount = new Map(
+    genreData.map(d => [d.isoA3, d.count])
+  )
 
+  
   const features = countries.features.filter((f) => {
     const iso = getCountryIso(f)
     return iso && iso !== 'ATA' && iso !== '-99'
@@ -122,8 +128,7 @@ onMounted(async () => {
     .polygonStrokeColor(() => 'rgba(216, 255, 234, 0.55)')
     .polygonLabel(feature => `
       <b>${getCountryName(feature)} (${getCountryIso(feature)}):</b><br/>
-      Population: <i>${getCountryPopulation(feature)?.toLocaleString?.() ?? getCountryPopulation(feature)}</i>
-
+          Genres: <i>${getCountryGenreCount(feature)}</i>
     `)
     .pointsData(tinyCountries)
     .pointLat(d => d.lat)
