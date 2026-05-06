@@ -1,7 +1,15 @@
 <script setup lang="ts">
 import type { PendingSubmissionResponse } from '~/types/pendingSubmissionResponse'
+import type { Country } from '~/types/country'
+import type { Genre } from '~/types/genre'
+import type {Instrument} from "~/types/instrument";
 
-const { data, pending, error } = await useAsyncData<PendingSubmissionResponse[]>(
+const { data: countriesData } = await useFetch<Country[]>('/api/countries/all')
+const { data: genresData } = await useFetch<Genre[]>('/api/genres')
+const { data: instrumentData } = await useFetch<Instrument[]>('/api/instruments')
+
+
+const { data: pendingSubmissions, pending, error } = await useAsyncData<PendingSubmissionResponse[]>(
   'pending-submissions',
     () => api<PendingSubmissionResponse[]>(`/submissions/pending`),
     {
@@ -19,11 +27,11 @@ const { data, pending, error } = await useAsyncData<PendingSubmissionResponse[]>
           playlistLink: 'https://spotify.com',
           sourceLinks: 'https://wikipedia.com',
           aliases: ['Neo Jazz', 'Future Jazz'],
-          countryIds: ['dk', 'se'],
-          instrumentsIds: ['piano', 'saxophone', 'synth'],
-          similarGenreIds: ['jazz', 'ambient'],
-          subGenreIds: ['nu-jazz'],
-          predecessorGenreIds: ['jazz-fusion']
+          countryIds: ['c6953991-34f0-4c5f-8c04-04b0e114a653', 'f710e095-92bf-419a-88b0-0d757e35bddb'],
+          instrumentsIds: ['5f9067ca-f8fc-4c48-b594-01a421476f5a', 'ae53da46-a309-419f-83b7-1047c784047a'],
+          similarGenreIds: ['5b818376-5dbf-4dde-9a77-000b9fbeed15', 'ambient'],
+          subGenreIds: ['2b0f305b-2a08-411d-b223-015663d137d9','6067421d-7bf5-433b-8ab5-0fca12c60b08'],
+          predecessorGenreIds: ['fe1f0b31-f92a-4554-af7e-1978089f3f8f']
         },
         {
           id: '2',
@@ -38,11 +46,11 @@ const { data, pending, error } = await useAsyncData<PendingSubmissionResponse[]>
           playlistLink: 'https://spotify.com',
           sourceLinks: null,
           aliases: ['Dark Pop', 'Industrial Wave'],
-          countryIds: ['de'],
-          instrumentsIds: ['synth', 'drum_machine'],
-          similarGenreIds: ['darkwave', 'industrial'],
-          subGenreIds: ['electro-pop'],
-          predecessorGenreIds: []
+          countryIds: ['37e6403b-0ebc-4db4-be59-01990b572d0e'],
+          instrumentsIds: ['fe1fa608-f3d3-44ec-985c-2b7776899023', '90750e67-432f-46fa-9ce4-2976d1772520'],
+          similarGenreIds: ['0dfe7d28-0be3-44e1-9228-95c04ddfcdbf', 'd08ed902-5329-4432-80e6-fe5798a90664'],
+          subGenreIds: ['4621a1de-9ea2-40e4-bb9b-1daba2938c96'],
+          predecessorGenreIds: ['422fe4b1-9fff-4d24-b222-21ac48b16d85']
         },
       ]
     }
@@ -53,6 +61,25 @@ const items = Array.from({ length: 30 }, (_, i) => ({
   title: `Item ${i + 1}`,
   description: `Description for item ${i + 1}`
 }))
+
+function getCountryNames(ids: string[]) {
+  if (!countriesData.value) return []
+  return ids
+    .map(id => countriesData.value.find(c => c.id === id)?.name).filter(Boolean)
+}
+
+function getGenreNames(ids: string[]) {
+  if (!countriesData.value) return []
+  return ids
+    .map(id => genresData.value.find(c => c.id === id)?.name).filter(Boolean)
+}
+
+function getInstrumentNames(ids: string[]) {
+  if (!instrumentData.value) return []
+  return ids
+    .map(id => instrumentData.value.find(c => c.id === id)?.type).filter(Boolean)
+}
+
 </script>
 
 
@@ -61,7 +88,7 @@ const items = Array.from({ length: 30 }, (_, i) => ({
     <h1>Pending Submissions</h1>
     <UScrollArea
       v-slot="{ item, index }"
-      :items="data"
+      :items="pendingSubmissions"
       class="w-full h-125"
     >
       <UCollapsible class="flex flex-col">
@@ -79,6 +106,7 @@ const items = Array.from({ length: 30 }, (_, i) => ({
         <template #content>
           <div class="collapsibleCard">
             <h2>{{item.newGenreName}}</h2>
+            <p><strong>Submission Id: </strong>{{item.id}}</p>
             <p><strong>Account: </strong>{{item.accountUsername}}</p>
             <p><strong>Description: </strong>{{item.description}}</p>
             <p><strong>Sensitive: </strong>{{item.isSensitive}}</p>
@@ -86,7 +114,16 @@ const items = Array.from({ length: 30 }, (_, i) => ({
             <p><strong>Playlist link: </strong>{{item.playlistLink}}</p>
             <p><strong>Source link: </strong>{{item.sourceLinks}}</p>
             <p><strong>Aliases: </strong>{{item.aliases}}</p>
-            <p><strong>Countries: </strong>{{item.countryIds}}</p>
+            <p><strong>Countries: </strong>
+              {{getCountryNames(item.countryIds).join(', ')}}</p>
+            <p><strong>Instruments: </strong>
+              {{getInstrumentNames(item.instrumentsIds).join(', ')}}</p>
+            <p><strong>Similar genres: </strong>
+              {{getGenreNames(item.similarGenreIds).join(', ')}}</p>
+            <p><strong>Subgenres: </strong>
+              {{getGenreNames(item.subGenreIds).join(', ')}}</p>
+            <p><strong>Predecessor genres: </strong>
+              {{getGenreNames(item.predecessorGenreIds).join(', ')}}</p>
 
           </div>
         </template>
