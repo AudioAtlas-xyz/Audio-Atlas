@@ -81,12 +81,6 @@ public class SubmissionService : ISubmissionService
             errors["aliases"] = [$"Aliases must be at most {MaxAliasLength} characters."];
         }
 
-        // at least one source link
-        if (normalizedSourceLinks.Count == 0)
-        {
-            errors["sourceLinks"] = ["At least one source link is required."];
-        }
-
         // max playlist url length
         if (normalizedPlaylistLink is { Length: > MaxUrlLength })
         {
