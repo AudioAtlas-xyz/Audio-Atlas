@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useHead, useAsyncData } from '#imports'
 import { useApi } from '@/composables/useApi'
 import type { AdminUserRow, AdminUserRole } from '~/types/admin'
@@ -37,12 +37,21 @@ const roleOptions = [
   { label: 'Member', value: 'Member' }
 ] as const
 
-// sort state — only memberSince is sortable for now
-type SortKey = 'memberSince'
+// sort state
+type SortKey = 'memberSince' | 'role'
 type SortDir = 'asc' | 'desc'
 
 const sortKey = ref<SortKey>('memberSince')
 const sortDir = ref<SortDir>('desc')
+
+// Role sort priority — matches the backend's display priority so
+// "asc" puts admins on top.
+const ROLE_PRIORITY: Record<AdminUserRole, number> = {
+  Admin:   0,
+  Banned:  1,
+  Curator: 2,
+  Member:  3
+}
 
 function toggleSort(key: SortKey) {
   if (sortKey.value === key) {
@@ -65,10 +74,14 @@ const visibleUsers = computed(() => {
     return true
   })
 
-  // null memberSince sinks to bottom
   rows = [...rows].sort((a, b) => {
     const dir = sortDir.value === 'asc' ? 1 : -1
 
+    if (sortKey.value === 'role') {
+      return (ROLE_PRIORITY[a.role] - ROLE_PRIORITY[b.role]) * dir
+    }
+
+    // memberSince — null sinks to bottom regardless of direction
     if (!a.memberSince && !b.memberSince) return 0
     if (!a.memberSince) return 1
     if (!b.memberSince) return -1
@@ -76,6 +89,50 @@ const visibleUsers = computed(() => {
   })
 
   return rows
+})
+
+// pagination — client-side, 100 rows per page
+const PAGE_SIZE = 100
+const currentPage = ref(1)
+
+const totalPages = computed(() =>
+  Math.max(1, Math.ceil(visibleUsers.value.length / PAGE_SIZE))
+)
+
+const pagedUsers = computed(() => {
+  const start = (currentPage.value - 1) * PAGE_SIZE
+  return visibleUsers.value.slice(start, start + PAGE_SIZE)
+})
+
+// reset to page 1 whenever filters or sort change so the user
+// doesn't end up stranded on a now-empty page
+watch([search, roleFilter, sortKey, sortDir], () => {
+  currentPage.value = 1
+})
+
+// also clamp the page if the underlying data shrinks (e.g. after refresh)
+watch(totalPages, (n) => {
+  if (currentPage.value > n) currentPage.value = n
+})
+
+function goPrev() {
+  if (currentPage.value > 1) currentPage.value -= 1
+}
+
+function goNext() {
+  if (currentPage.value < totalPages.value) currentPage.value += 1
+}
+
+// signup stat — counts users joined in the last 30 days based on
+// memberSince. Null memberSince doesn't count.
+const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000
+
+const signupsLast30Days = computed(() => {
+  const cutoff = Date.now() - THIRTY_DAYS_MS
+  return users.value.filter((u) => {
+    if (!u.memberSince) return false
+    return new Date(u.memberSince).getTime() >= cutoff
+  }).length
 })
 
 // helpers
@@ -115,7 +172,7 @@ const breadcrumbItems = [
   <div class="bg-bg text-space-50">
     <UContainer class="px-0 sm:px-0">
 
-      <!-- HERO -->
+      <!-- hero -->
       <section class="border-b border-border bg-bg">
         <div class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-8 sm:px-10 lg:py-10">
 
@@ -141,13 +198,14 @@ const breadcrumbItems = [
 
             <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-[#373d5a]">
               {{ visibleUsers.length }} of {{ users.length }} users shown
+              · {{ signupsLast30Days }} new in last 30 days
             </p>
           </div>
 
         </div>
       </section>
 
-      <!-- FILTERS + TABLE -->
+      <!-- Filter and table -->>
       <section class="mx-auto flex max-w-[1200px] flex-col gap-6 px-6 py-8 sm:px-10 lg:py-10">
 
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -158,12 +216,24 @@ const breadcrumbItems = [
             class="w-full sm:max-w-sm"
           />
 
-          <USelectMenu
-            v-model="roleFilter"
-            :items="roleOptions"
-            value-key="value"
-            class="w-full sm:w-48"
-          />
+          <div class="flex items-center gap-2">
+            <USelectMenu
+              v-model="roleFilter"
+              :items="roleOptions"
+              value-key="value"
+              class="w-full sm:w-48"
+            />
+
+            <UButton
+              icon="i-lucide-refresh-cw"
+              color="neutral"
+              variant="outline"
+              :loading="pending"
+              :disabled="pending"
+              aria-label="Refresh users"
+              @click="refresh()"
+            />
+          </div>
         </div>
 
         <UAlert
@@ -199,8 +269,11 @@ const breadcrumbItems = [
                 <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">
                   Email
                 </th>
-                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">
-                  Role
+                <th
+                  class="cursor-pointer select-none px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8] hover:text-aurora"
+                  @click="toggleSort('role')"
+                >
+                  Role {{ sortIndicator('role') }}
                 </th>
                 <th
                   class="cursor-pointer select-none px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8] hover:text-aurora"
@@ -213,7 +286,7 @@ const breadcrumbItems = [
 
             <tbody>
               <tr
-                v-for="row in visibleUsers"
+                v-for="row in pagedUsers"
                 :key="row.id"
                 class="border-t border-border transition hover:bg-surface-2"
               >
@@ -237,7 +310,7 @@ const breadcrumbItems = [
                 </td>
               </tr>
 
-              <tr v-if="!visibleUsers.length">
+              <tr v-if="!pagedUsers.length">
                 <td colspan="4" class="px-4 py-10 text-center text-sm text-[#6f789b]">
                   <template v-if="pending">
                     Loading users…
@@ -252,6 +325,37 @@ const breadcrumbItems = [
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- pagination -->
+        <div
+          v-if="totalPages > 1"
+          class="flex items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-[#7a84a8]"
+        >
+          <span>
+            Page {{ currentPage }} of {{ totalPages }}
+          </span>
+
+          <div class="flex items-center gap-2">
+            <UButton
+              color="neutral"
+              variant="outline"
+              size="xs"
+              :disabled="currentPage === 1"
+              @click="goPrev"
+            >
+              Previous
+            </UButton>
+            <UButton
+              color="neutral"
+              variant="outline"
+              size="xs"
+              :disabled="currentPage === totalPages"
+              @click="goNext"
+            >
+              Next
+            </UButton>
+          </div>
         </div>
 
       </section>
