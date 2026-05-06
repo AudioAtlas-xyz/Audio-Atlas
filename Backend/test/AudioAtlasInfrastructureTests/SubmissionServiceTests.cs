@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using InfrastructureCountryRepository = AudioAtlasInfrastructure.Repositories.CountryRepository;
 using InfrastructureGenreRepository = AudioAtlasInfrastructure.Repositories.GenreRepository;
 using InfrastructureSubmissionRepository = AudioAtlasInfrastructure.Repositories.SubmissionRepository;
+using InfrastructureInstrumentRepository = AudioAtlasInfrastructure.Repositories.InstrumentRepository;
+using InfrastructureSubmissionService = AudioAtlasInfrastructure.Services.SubmissionService;
 
 namespace AudioAtlasInfrastructureTests;
 
@@ -54,7 +56,8 @@ public class SubmissionServiceTests
         var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
         var countryRepository = new InfrastructureCountryRepository(dbContext);
         var genreRepository = new InfrastructureGenreRepository(dbContext);
-        var service = new SubmissionService(countryRepository, genreRepository, submissionRepository);
+        var instrumentRepository = new InfrastructureInstrumentRepository(dbContext);
+        var service = new InfrastructureSubmissionService(countryRepository, genreRepository, instrumentRepository, submissionRepository);
 
         var command = new CreateSubmissionRequest
         {
@@ -104,7 +107,8 @@ public class SubmissionServiceTests
         var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
         var countryRepository = new InfrastructureCountryRepository(dbContext);
         var genreRepository = new InfrastructureGenreRepository(dbContext);
-        var service = new SubmissionService(countryRepository, genreRepository, submissionRepository);
+        var instrumentRepository = new InfrastructureInstrumentRepository(dbContext);
+        var service = new InfrastructureSubmissionService(countryRepository, genreRepository, instrumentRepository, submissionRepository);
 
         var command = new CreateSubmissionRequest
         {
@@ -131,7 +135,8 @@ public class SubmissionServiceTests
         var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
         var countryRepository = new InfrastructureCountryRepository(dbContext);
         var genreRepository = new InfrastructureGenreRepository(dbContext);
-        var service = new SubmissionService(countryRepository, genreRepository, submissionRepository);
+        var instrumentRepository = new InfrastructureInstrumentRepository(dbContext);
+        var service = new InfrastructureSubmissionService(countryRepository, genreRepository, instrumentRepository, submissionRepository);
 
         var command = new CreateSubmissionRequest
         {
@@ -211,7 +216,8 @@ public class SubmissionServiceTests
         var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
         var countryRepository = new InfrastructureCountryRepository(dbContext);
         var genreRepository = new InfrastructureGenreRepository(dbContext);
-        var service = new SubmissionService(countryRepository, genreRepository, submissionRepository);
+        var instrumentRepository = new InfrastructureInstrumentRepository(dbContext);
+        var service = new InfrastructureSubmissionService(countryRepository, genreRepository, instrumentRepository, submissionRepository);
 
         var submissions = await service.getPendingAsync();
 
@@ -249,6 +255,7 @@ public class SubmissionServiceTests
         var service = new SubmissionService(
             new InfrastructureCountryRepository(dbContext),
             new InfrastructureGenreRepository(dbContext),
+            new InfrastructureInstrumentRepository(dbContext),
             new InfrastructureSubmissionRepository(dbContext));
 
         await service.approveAsync(submission.Id);
@@ -281,6 +288,7 @@ public class SubmissionServiceTests
         var service = new SubmissionService(
             new InfrastructureCountryRepository(dbContext),
             new InfrastructureGenreRepository(dbContext),
+            new InfrastructureInstrumentRepository(dbContext),
             new InfrastructureSubmissionRepository(dbContext));
 
         await service.rejectAsync(submission.Id, new RejectSubmissionRequest
