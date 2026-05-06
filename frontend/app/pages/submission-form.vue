@@ -80,7 +80,8 @@ async function submitForm() {
     // handle success – e.g., redirect or show success message
     console.log('Submission successful', response)
     // navigate to a thank you page or reset form
-    await navigateTo('/')
+    //await navigateTo('/')
+    //goToStep(5);
   } catch (err: any) {
     console.error('Submission failed', err)
     console.error('Status:', err.status)
@@ -95,6 +96,7 @@ async function submitForm() {
 const genreNames = computed(() =>
   genresData.value?.map(g => ({ label: g.name, value: g.id })) ?? []
 )
+type ValidStep = 1 | 2 | 3 | 4 | 5;
 
 function nextStep() {
   currentStep.value++
@@ -103,8 +105,6 @@ function nextStep() {
 function prevStep() {
   currentStep.value--
 }
-
-type ValidStep = 1 | 2 | 3 | 4 | 5;
 
 function goToStep(step: ValidStep){
   currentStep.value = step;
@@ -480,6 +480,25 @@ const submissionData = reactive ({
       </UContainer>
     </div>
   </div>
+
+  <div v-if="currentStep === 5">
+    <UContainer :class ="$style.formsubmittedcard">
+    <div class="relative flex items-center justify-center mb-6">
+      <div :class="$style.ellipse">
+        <div :class="$style.checkSymbol">✓</div>
+      </div>
+    </div>
+
+    <div :class="$style.thanksAfrobeatsIs">Thanks! Afrobeats is now in review.</div>
+    <div :class="$style.yourSubmissionHas">Your submission has been received and will be reviewed by our curatorial team. You'll be notified when it's approved or if the team has questions.</div>
+
+    <div :class="$style.buttonAlone2">
+      <UButton type="submit" style="background-color: #3DE8C8">
+        Submit another genre
+      </UButton>
+    </div>
+  </UContainer>
+  </div>
 </template>
 
 <style module>
@@ -529,6 +548,63 @@ h1 {
   margin-top: 1.5rem;
 }
 
+.formsubmittedcard {
+width: 20%;
+height: 380px;
+position: relative;
+border-radius: 6px;
+background-color: #0d0f1a;
+border: 1px solid #1c2038;
+box-sizing: border-box;
+overflow: hidden;
+text-align: center;
+font-size: 22px;
+color: #3de8c8;
+font-family: 'Space Grotesk';
+margin: 10rem auto 0 auto;
+}
+
+.ellipse {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba(61, 232, 200, 0.08);
+  border: 1px solid #3de8c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 44px auto 24px auto;
+}
+.checkSymbol {
+  font-size: 24px;
+  font-family: 'Space Grotesk';
+  color: #3de8c8;
+  line-height: 1;
+}
+.thanksAfrobeatsIs {
+position: absolute;
+top: 124px;
+left: 6%;
+font-size: 18px;
+font-weight: 500;
+color: #e4e8f5;
+display: inline-block;
+width: 339px;
+height: 20px;
+}
+.yourSubmissionHas {
+position: absolute;
+top: 156px;
+left: 12.5%;
+font-size: 13px;
+line-height: 178%;
+font-weight: 300;
+color: #7a84a8;
+display: inline-block;
+width: 279px;
+height: 20px;
+}
+
 .buttonRow {
   display: flex;
   justify-content: space-between;
@@ -554,6 +630,13 @@ h1 {
   justify-content: right;
   align-items: center;
   margin-top: 7rem;
+}
+
+.buttonAlone2 {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 10rem;
 }
 
 .editButton{
