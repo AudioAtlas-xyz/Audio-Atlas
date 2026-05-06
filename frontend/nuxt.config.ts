@@ -45,13 +45,15 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    apiProxyTarget: process.env.NODE_ENV === 'production'
-      ? ''
-      : 'http://localhost:5085',
+    apiProxyTarget: process.env.NUXT_API_PROXY_TARGET || (process.env.NODE_ENV === 'production'
+      ? 'api-audioatlas.azurewebsites.net'
+      : 'http://localhost:5085'),
 
     public: {
-      apiBase: 'http://localhost:5085/api',
-      backendBaseUrl: 'http://localhost:5085'
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || '/api',
+      backendBaseUrl: process.env.NUXT_PUBLIC_BACKEND_BASE_URL || (process.env.NODE_ENV === 'production'
+        ? 'api-audioatlas.azurewebsites.net'
+        : 'http://localhost:5085')
     }
   }
 })
