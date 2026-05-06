@@ -1,19 +1,19 @@
 export interface PendingSubmissionResponse {
-  id: Guid;
+  id: string;
   accountId: string;
   accountUsername?: string;
   newGenreName?: string;
-  startDate?: DateOnly;
-  endDate?: DateOnly;
+  startDate?: string;
+  endDate?: string;
   description?: string;
   isSensitive?: boolean;
   sensitiveDescription?: string;
   playlistLink?: string;
   aliases: string[];
   sourceLinks?: string;
-  countryIds: Guid[];
-  instrumentsIds: Guid[];
-  similarGenreIds: Guid[];
-  subGenreIds: Guid[];
-  predecessorGenreIds: Guid[];
+  countryIds: string[];
+  instrumentsIds: string[];
+  similarGenreIds: string[];
+  subGenreIds: string[];
+  predecessorGenreIds: string[];
 }
