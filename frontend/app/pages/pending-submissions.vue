@@ -115,14 +115,14 @@ function getInstrumentNames(ids: string[]) {
             <p><strong>Source link: </strong>{{item.sourceLinks}}</p>
             <p><strong>Aliases: </strong>{{item.aliases}}</p>
             <p><strong>Countries: </strong>
-                {{getCountryNames(item.countryIds).join(', ')}}</p>
+              {{getCountryNames(item.countryIds).join(', ')}}</p>
             <p><strong>Instruments: </strong>
-            {{getInstrumentNames(item.instrumentsIds).join(', ')}}</p>
+              {{getInstrumentNames(item.instrumentsIds).join(', ')}}</p>
             <p><strong>Similar genres: </strong>
               {{getGenreNames(item.similarGenreIds).join(', ')}}</p>
             <p><strong>Subgenres: </strong>
               {{getGenreNames(item.subGenreIds).join(', ')}}</p>
-            <p><strong>Predecessor genres genres: </strong>
+            <p><strong>Predecessor genres: </strong>
               {{getGenreNames(item.predecessorGenreIds).join(', ')}}</p>
 
           </div>
