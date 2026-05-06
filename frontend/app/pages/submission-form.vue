@@ -58,7 +58,7 @@ async function submitForm() {
     NewGenreName: submissionData.NewGenreName,
     Aliases: submissionData.Aliases,
     CountryIds: submissionData.CountryIds,
-    Description: finalDescription,
+    Description: submissionData.Description,
     PlaylistLink: submissionData.PlaylistLink,
     IsSensitive: submissionData.IsSensitive,
     SensitiveDescription: submissionData.sensitiveDescription,
