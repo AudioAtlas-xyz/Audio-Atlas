@@ -184,7 +184,9 @@ namespace AudioAtlas.Infrastructure.Migrations
                         .HasColumnType("date");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 

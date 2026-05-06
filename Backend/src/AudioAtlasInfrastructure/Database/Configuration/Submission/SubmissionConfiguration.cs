@@ -1,5 +1,6 @@
-using AudioAtlasDomain.Geography;
+using AudioAtlasDomain.Enums;
 using AudioAtlasDomain.Genres;
+using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.MusicMetadata;
 using AudioAtlasDomain.Submissions;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,11 @@ public class SubmissionConfiguration : IEntityTypeConfiguration<AudioAtlasDomain
         /// Defines the primary key.
         /// </summary>
         builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Status)
+            .HasConversion<int>()
+            .IsRequired()
+            .HasDefaultValue(SubmissionStatus.Pending);
 
         /// <summary>
         /// Configures the required relationship to the submitting user.
