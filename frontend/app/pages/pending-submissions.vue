@@ -5,9 +5,11 @@ import type { Genre } from '~/types/genre'
 import type {Instrument} from "~/types/instrument";
 import PendingSubmissions from "~/pages/pending-submissions.vue";
 
-const { data: countriesData } = await useFetch<Country[]>('/api/countries/all')
-const { data: genresData } = await useFetch<Genre[]>('/api/genres')
-const { data: instrumentData } = await useFetch<Instrument[]>('/api/instruments')
+const { api } = useApi()
+
+const { data: countriesData } = await useAsyncData<Country[]>('pending-countries', () => api('/countries/all'))
+const { data: genresData } = await useAsyncData<Genre[]>('pending-genres', () => api('/genres'))
+const { data: instrumentData } = await useAsyncData<Instrument[]>('pending-instruments', () => api('/instruments'))
 
 const { data: pendingSubmissions, pending, error } = await useAsyncData<PendingSubmissionResponse[]>(
   'pending-submissions',

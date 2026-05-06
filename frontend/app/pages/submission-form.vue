@@ -10,9 +10,9 @@ import type {Instrument} from "~/types/instrument";
 const { api } = useApi();
 const step = ref(1);
 
-const { data: countriesData } = await useFetch<Country[]>('/api/countries/all')
-const { data: genresData } = await useFetch<Genre[]>('/api/genres')
-const { data: instrumentData } = await useFetch<Instrument[]>('/api/instruments')
+const { data: countriesData } = await useAsyncData<Country[]>('submission-countries', () => api('/countries/all'))
+const { data: genresData } = await useAsyncData<Genre[]>('submission-genres', () => api('/genres'))
+const { data: instrumentData } = await useAsyncData<Instrument[]>('submission-instruments', () => api('/instruments'))
 
 const state = reactive({
   countries: []
