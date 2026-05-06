@@ -65,7 +65,9 @@ const { isSensitive, sensitivityDescription, pageDescription, similarGenres, par
   color: #e4e8f5;
   font-family: 'Space Grotesk';
 }
+
 .divcontent {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

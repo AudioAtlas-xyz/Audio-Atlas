@@ -10,11 +10,30 @@ const props = defineProps<{
 }>()
 
 /**
- * Limit displayed sources to first 5 entries
+ * Extract a clean host label from a URL.
+ * - Strips a leading `www.`
+ * - Falls back to the raw string if URL parsing fails
+ *   so we never render an empty link
  */
-const sourceRows = computed(() => {
-  return props.sources.slice(0, 5)
-})
+function getHost(link: string): string {
+  try {
+    const url = new URL(link)
+    return url.host.replace(/^www\./, '')
+  } catch {
+    return link
+  }
+}
+
+/**
+ * Limit displayed sources to first 5 entries and pre-compute
+ * the host label so the template stays declarative.
+ */
+const sourceRows = computed(() =>
+  props.sources.slice(0, 5).map(source => ({
+    ...source,
+    hostLabel: getHost(source.sourceLink)
+  }))
+)
 </script>
 
 <template>
@@ -44,14 +63,26 @@ const sourceRows = computed(() => {
       <div
         v-for="(source, index) in sourceRows"
         :key="index"
-        class="flex items-center justify-between gap-3 px-4 py-3"
+        class="flex items-start gap-3 px-4 py-3"
       >
-        <div class="min-w-0">
+        <div class="min-w-0 flex-1">
+          <!--
+            We display only the host (e.g. `en.wikipedia.org`) instead
+            of the full URL — full links were both visually noisy and
+            prone to clipping inside this narrow card. The actual
+            destination is preserved on the anchor's `:to`, and
+            `title` shows the raw URL on hover for transparency.
+            `target=_blank` opens external sources in a new tab so
+            we don't lose the genre page.
+          -->
           <ULink
             :to="source.sourceLink"
-            class="block break-all font-mono text-[11px] tracking-[0.12em] text-aurora hover:text-aurora"
+            :title="source.sourceLink"
+            target="_blank"
+            rel="noreferrer"
+            class="block truncate font-mono text-[11px] leading-snug tracking-[0.12em] text-aurora hover:text-aurora"
           >
-            {{ source.sourceLink }}
+            {{ source.hostLabel }}
           </ULink>
         </div>
       </div>

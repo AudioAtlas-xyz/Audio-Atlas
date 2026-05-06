@@ -1,12 +1,18 @@
 ﻿<script setup lang="ts">
-import type { Genre } from '~/types/genre.ts'
-import { GenreCard } from "#components";
+import { computed } from 'vue'
+import type { Genre } from '~/types/genre'
 
 const { similarGenres, parentGenres, subGenres } = defineProps<{
   similarGenres: Genre[]
   parentGenres: Genre[]
   subGenres: Genre[]
 }>()
+
+const sections = computed(() => [
+  { title: 'Parent Genres', items: props.parentGenres },
+  { title: 'Sub Genres', items: props.subGenres },
+  { title: 'Similar Genres', items: props.similarGenres }
+])
 </script>
 
 <template>
@@ -85,12 +91,10 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
 .parentgenre {
   align-self: stretch;
   border-bottom: 1px solid #1c2038;
-  display: flex;
-  align-items: center;
-  padding: 9.6px 16px;
-  gap: 126.5px;
-  font-size: 0.7rem;
-  color: #7a84a8;
+  padding: 0.6rem 1rem;
+
+  font-size: 0.65rem;
+  color: #8a93b8;
   font-family: 'Space Mono';
 }
 .span {

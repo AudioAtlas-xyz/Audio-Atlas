@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
 import type { Genre } from '~/types/genre'
+import type { Country } from '~/types/country'
 import { useApi } from '@/composables/useApi'
 
 const { api } = useApi()
@@ -8,6 +10,81 @@ const searchTerm = ref('')
 const loading = ref(false)
 const genres = ref<Genre[]>([])
 const hasSearched = ref(false)
+
+/**
+ * Wrapper ref — used by the outside-click handler so we can detect
+ * when the user clicks anywhere outside the search bar / dropdown.
+ */
+const wrapperRef = ref<HTMLElement | null>(null)
+
+/**
+ * Reset all search state. Called when:
+ *  - a result is clicked (so the dropdown disappears as we navigate)
+ *  - the user clicks outside the search bar
+ */
+function closeDropdown() {
+  searchTerm.value = ''
+  genres.value = []
+  hasSearched.value = false
+  loading.value = false
+}
+
+/**
+ * Close on clicks outside the wrapper. Mounted client-side only.
+ */
+function handleOutsideClick(e: MouseEvent) {
+  if (!wrapperRef.value) return
+  if (wrapperRef.value.contains(e.target as Node)) return
+  closeDropdown()
+}
+
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    window.addEventListener('mousedown', handleOutsideClick)
+  }
+})
+
+onUnmounted(() => {
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('mousedown', handleOutsideClick)
+  }
+})
+
+/**
+ * Countries are a small fixed set (~200), so we fetch the full list once
+ * on mount and filter locally. This avoids a backend round trip per
+ * keystroke and means we don't need a new `/countries/search` endpoint.
+ */
+const allCountries = ref<Country[]>([])
+
+onMounted(async () => {
+  try {
+    allCountries.value = await api<Country[]>('/countries/all')
+  } catch (error) {
+    console.error('Failed to load countries for search:', error)
+    allCountries.value = []
+  }
+})
+
+/**
+ * Local country filter — runs synchronously off `searchTerm`,
+ * capped to keep the dropdown short.
+ */
+const countryMatches = computed<Country[]>(() => {
+  const q = searchTerm.value.trim().toLowerCase()
+  if (q.length < 2) return []
+
+  return allCountries.value
+    .filter(c => c.name?.toLowerCase().includes(q))
+    .slice(0, 5)
+})
+
+/**
+ * Whether we have anything to show in the dropdown.
+ */
+const hasResults = computed(
+  () => genres.value.length > 0 || countryMatches.value.length > 0
+)
 
 let timeout: ReturnType<typeof setTimeout> | null = null
 
@@ -41,40 +118,62 @@ watch(searchTerm, (value) => {
 </script>
 
 <template>
-
-<div class="search-wrapper">
+  <div ref="wrapperRef" class="search-wrapper">
     <UInput
-    v-model="searchTerm"
-    placeholder="Search genres..."
-    icon="i-lucide-search"
-    class="search-input"
+      v-model="searchTerm"
+      placeholder="Search for genres/countries"
+      icon="i-lucide-search"
+      class="search-input"
     />
 
+    <!-- RESULTS -->
     <div
-    v-if="genres.length > 0"
-    class="search-dropdown"
+      v-if="hasResults"
+      class="search-dropdown"
     >
-    <NuxtLink
-        v-for="genre in genres"
-        :key="genre.id"
-        :to="`/genres?genreId=${genre.id}`"
-        class="search-result"
-    >
-        
+      <!-- COUNTRIES -->
+      <template v-if="countryMatches.length">
+        <p class="search-section-label">Countries</p>
+        <NuxtLink
+          v-for="country in countryMatches"
+          :key="`country-${country.id}`"
+          :to="`/CountryPage?countryId=${country.id}`"
+          class="search-result"
+          @click="closeDropdown"
+        >
+          <strong>{{ country.name }}</strong>
+          <span v-if="country.region || country.continent">
+            {{ [country.region, country.continent].filter(Boolean).join(' · ') }}
+          </span>
+        </NuxtLink>
+      </template>
 
-        <strong>{{ genre.name }} | {{ genre.countries?.[0]?.name || 'Unknown' }}</strong>
-        <span>{{ genre.summary }}</span>
-    </NuxtLink>
+      <!-- GENRES -->
+      <template v-if="genres.length">
+        <p class="search-section-label">Genres</p>
+        <NuxtLink
+          v-for="genre in genres"
+          :key="`genre-${genre.id}`"
+          :to="`/genres?genreId=${genre.id}`"
+          class="search-result"
+          @click="closeDropdown"
+        >
+          <strong>{{ genre.name }} | {{ genre.countries?.[0]?.name || 'Unknown' }}</strong>
+          <span>{{ genre.summary }}</span>
+        </NuxtLink>
+      </template>
     </div>
+
+    <!-- EMPTY -->
     <div
-    v-else-if="hasSearched && !loading && searchTerm.trim().length >= 2"
-    class="search-dropdown"
+      v-else-if="hasSearched && !loading && searchTerm.trim().length >= 2"
+      class="search-dropdown"
     >
-        <div class="search-result">
-            <strong>No genres found</strong>
-        </div>  
+      <div class="search-result">
+        <strong>No genres or countries found</strong>
+      </div>
     </div>
-</div>
+  </div>
 </template>
 
 <style>
@@ -105,6 +204,15 @@ watch(searchTerm, (value) => {
   backdrop-filter: blur(16px);
 }
 
+.search-section-label {
+  margin: 0.25rem 0.5rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a93b8;
+}
+
 .search-result {
   display: flex;
   flex-direction: column;
@@ -131,5 +239,4 @@ watch(searchTerm, (value) => {
   font-size: 0.8rem;
   line-height: 1.3;
 }
-
 </style>
