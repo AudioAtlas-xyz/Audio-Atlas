@@ -1,4 +1,5 @@
 using AudioAtlasApplication.DTOs;
+using AudioAtlasDomain.Enums;
 using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Submissions;
@@ -201,7 +202,7 @@ public class SubmissionServiceTests
             Account = account,
             NewGenreName = "Rejected Genre",
             Description = "Rejected description",
-            IsRejected = true,
+            Status = SubmissionStatus.Rejected,
             Sources = [new SubmissionSource { SourceLink = "https://example.com/rejected-source" }]
         });
 
@@ -253,8 +254,7 @@ public class SubmissionServiceTests
         await service.approveAsync(submission.Id);
 
         var approvedSubmission = await dbContext.Submissions.SingleAsync(x => x.Id == submission.Id);
-        Assert.True(approvedSubmission.IsApproved);
-        Assert.False(approvedSubmission.IsRejected);
+        Assert.Equal(SubmissionStatus.Approved, approvedSubmission.Status);
     }
 
     [Fact]
@@ -292,8 +292,7 @@ public class SubmissionServiceTests
             .Include(x => x.RejectedSubmission)
             .SingleAsync(x => x.Id == submission.Id);
 
-        Assert.True(rejectedSubmission.IsRejected);
-        Assert.False(rejectedSubmission.IsApproved);
+        Assert.Equal(SubmissionStatus.Rejected, rejectedSubmission.Status);
         Assert.NotNull(rejectedSubmission.RejectedSubmission);
         Assert.Equal("Not enough supporting evidence.", rejectedSubmission.RejectedSubmission!.Description);
     }

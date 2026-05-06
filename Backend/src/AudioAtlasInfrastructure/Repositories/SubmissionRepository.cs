@@ -1,4 +1,5 @@
 using AudioAtlasApplication.Repositories;
+using AudioAtlasDomain.Enums;
 using AudioAtlasDomain.Submissions;
 using AudioAtlasInfrastructure.Database;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,7 @@ public class SubmissionRepository : ISubmissionRepository
     public async Task<ICollection<Submission>> getPendingAsync(CancellationToken cancellationToken = default)
     {
         return await _dbContext.Submissions
-            .Where(submission => !submission.IsRejected && !submission.IsApproved)
+            .Where(submission => submission.Status == SubmissionStatus.Pending)
             .Include(submission => submission.Account)
             .Include(submission => submission.Aliases)
             .Include(submission => submission.Sources)
