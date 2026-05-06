@@ -485,17 +485,15 @@ const submissionData = reactive ({
 <style module>
 .genreidentityformcard {
   width: 50%;
-  height: 37.5rem;
   border-radius: 6px;
   background-color: #0d0f1a;
   border: 1px solid #1c2038;
   box-sizing: border-box;
-  overflow: auto;
   text-align: left;
   font-size: 0.75rem;
   color: #7a84a8;
   font-family: Space_Grotesk;
-  margin: 2rem auto 0 auto;
+  margin: 2rem auto 4rem auto;
 }
 .identity {
   width: auto;
