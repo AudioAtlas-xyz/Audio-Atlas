@@ -6,8 +6,6 @@ import type {Instrument} from "~/types/instrument";
 
 const { api } = useApi()
 
-const { api } = useApi()
-
 const { data: countriesData } = await useAsyncData<Country[]>('pending-countries', () => api('/countries/all'))
 const { data: genresData } = await useAsyncData<Genre[]>('pending-genres', () => api('/genres'))
 const { data: instrumentData } = await useAsyncData<Instrument[]>('pending-instruments', () => api('/instruments'))
