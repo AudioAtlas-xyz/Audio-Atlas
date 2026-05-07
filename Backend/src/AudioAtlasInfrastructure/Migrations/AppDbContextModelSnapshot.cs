@@ -355,6 +355,42 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.ToTable("PendingExternalRegistrations", (string)null);
                 });
 
+            modelBuilder.Entity("AudioAtlasDomain.Users.RoleChangeAuditLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChangedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ChangedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("NewRole")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<string>("PreviousRole")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<Guid>("TargetUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChangedAtUtc");
+
+                    b.HasIndex("ChangedById");
+
+                    b.HasIndex("TargetUserId");
+
+                    b.ToTable("RoleChangeAuditLogs", (string)null);
+                });
+
             modelBuilder.Entity("FavoriteGenre", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -710,6 +746,25 @@ namespace AudioAtlas.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Submission");
+                });
+
+            modelBuilder.Entity("AudioAtlasDomain.Users.RoleChangeAuditLog", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.Users.ApplicationUser", "ChangedBy")
+                        .WithMany()
+                        .HasForeignKey("ChangedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AudioAtlasDomain.Users.ApplicationUser", "TargetUser")
+                        .WithMany()
+                        .HasForeignKey("TargetUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ChangedBy");
+
+                    b.Navigation("TargetUser");
                 });
 
             modelBuilder.Entity("FavoriteGenre", b =>

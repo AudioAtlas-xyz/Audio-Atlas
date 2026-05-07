@@ -1,3 +1,14 @@
+const productionBackendBaseUrl = 'https://api-audioatlas.azurewebsites.net'
+const localBackendBaseUrl = 'http://localhost:5085'
+const defaultBackendBaseUrl = process.env.NODE_ENV === 'production'
+  ? productionBackendBaseUrl
+  : localBackendBaseUrl
+const backendBaseUrl = (process.env.NUXT_PUBLIC_BACKEND_BASE_URL || defaultBackendBaseUrl).replace(/\/+$/, '')
+const apiBase = (process.env.NUXT_PUBLIC_API_BASE || (process.env.NODE_ENV === 'production'
+  ? `${backendBaseUrl}/api`
+  : '/api')).replace(/\/+$/, '')
+const apiProxyTarget = (process.env.NUXT_API_PROXY_TARGET || defaultBackendBaseUrl).replace(/\/+$/, '')
+
 export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
@@ -45,13 +56,11 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    apiProxyTarget: process.env.NODE_ENV === 'production'
-      ? ''
-      : 'http://localhost:5085',
+    apiProxyTarget,
 
     public: {
-      apiBase: 'http://localhost:5085/api',
-      backendBaseUrl: 'http://localhost:5085'
+      apiBase,
+      backendBaseUrl
     }
   }
 })

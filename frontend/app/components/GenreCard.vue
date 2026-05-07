@@ -20,7 +20,6 @@ const countries = computed(() => props.genre.countries ?? [])
       footer: 'hidden'
     }"
   >
-    <!-- HEADER -->
     <template #header>
       <div class="flex items-start justify-between gap-4">
         <div class="space-y-1">
@@ -51,8 +50,10 @@ const countries = computed(() => props.genre.countries ?? [])
           color="neutral"
           variant="outline"
           class="rounded-full border-[#7a84a8] px-2 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-space-50"
-        >
+          >
+          <UButton :to="`/CountryPage?countryId=${country.id}`" variant="link" class="text-aurora">
           {{ country.name }}
+          </UButton>
         </UBadge>
       </div>
 

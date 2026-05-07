@@ -1,4 +1,5 @@
-import type { AuthUser } from '~/types/auth'
+import { computed } from 'vue'
+import type { AuthUser, UserRole } from '~/types/auth'
 
 export const useAuth = () => {
   const user = useState<AuthUser | null>('auth_user', () => null)
@@ -42,17 +43,33 @@ export const useAuth = () => {
     }
   }
 
-  const logout = () => {
+  // Clears the session and sends the user home. Pass { redirect: false }
+  // if the caller wants to handle navigation itself.
+  const logout = async (options: { redirect?: boolean } = {}) => {
     if (process.client) {
       localStorage.removeItem('token')
     }
 
     user.value = null
+
+    if (options.redirect !== false && process.client) {
+      await navigateTo('/')
+    }
   }
+
+  // Role helpers — both reactive to user.value.
+  const hasRole = (role: UserRole) =>
+    computed(() => Boolean(user.value?.roles?.includes(role)))
+
+  const isAdmin = computed(() =>
+    Boolean(user.value?.roles?.includes('Admin'))
+  )
 
   return {
     user,
     fetchUser,
-    logout
+    logout,
+    hasRole,
+    isAdmin
   }
 }

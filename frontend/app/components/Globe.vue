@@ -9,6 +9,8 @@
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import * as THREE from 'three'
 
+const { api } = useApi()
+
 defineOptions({
   name: 'AudioGlobe'
 })
@@ -19,7 +21,6 @@ let resizeObserver = null
 let lastPovKey = ''
 let lastWidth = 0
 let lastHeight = 0
-
 
 const props = defineProps({
   introComplete: {
@@ -62,9 +63,10 @@ const povKey = pov => `${pov.lat}|${pov.lng}|${pov.altitude}`
 onMounted(async () => {
   const Globe = (await import('globe.gl')).default
 
-  const [countriesRes, centroidsRes] = await Promise.all([
+  const [countriesRes, centroidsRes, genreCounts] = await Promise.all([
     fetch('/countries.geojson'),
-    fetch('/tiny-country-markers.json')
+    fetch('/tiny-country-markers.json'),
+    api('/countries')
   ])
 
   const countries = await countriesRes.json()
@@ -78,7 +80,12 @@ onMounted(async () => {
 
   const getCountryIso = feature => feature.properties.iso_a3
   const getCountryName = feature => feature.properties.admin ?? feature.properties.name
-  const getCountryPopulation = feature => feature.properties.pop_est
+  const getCountryGenreCount = (feature) => {
+    const countryName = getCountryName(feature)
+    return countryGenreCount.get(countryName) ?? 0
+  }
+
+  const countryGenreCount = new Map(Object.entries(genreCounts))
 
   const features = countries.features.filter((f) => {
     const iso = getCountryIso(f)
@@ -120,7 +127,7 @@ onMounted(async () => {
     .polygonStrokeColor(() => 'rgba(216, 255, 234, 0.55)')
     .polygonLabel(feature => `
       <b>${getCountryName(feature)} (${getCountryIso(feature)}):</b><br/>
-      Population: <i>${getCountryPopulation(feature)?.toLocaleString?.() ?? getCountryPopulation(feature)}</i>
+          Genres: <i>${getCountryGenreCount(feature)}</i>
     `)
     .pointsData(tinyCountries)
     .pointLat(d => d.lat)

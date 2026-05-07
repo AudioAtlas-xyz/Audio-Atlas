@@ -3,8 +3,9 @@ import type {Genre} from "~/types/genre";
 import Stepper from '../components/submission/Stepper.vue';
 import SubmissionHeader from "~/components/submission/SubmissionHeader.vue";
 const step = ref(3);
+const { api } = useApi()
 
-const { data } = await useFetch<Genre[]>('/api/genres/all')
+const { data } = await useAsyncData<Genre[]>('submission-form3-genres', () => api('/genres/all'))
 
 const state = reactive({
   genresEvolvedfrom: [],

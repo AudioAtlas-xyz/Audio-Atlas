@@ -5,6 +5,7 @@ using AudioAtlasInfrastructure.Database.Seed;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -18,7 +19,7 @@ public class DbInitializerTests
         using var harness = new DbInitializerTestHarness();
         SeedCounts expected = ReadSeedCounts();
 
-        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Logger);
+        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Configuration, harness.Logger);
 
         ApplicationUser? systemUser = await harness.Context.Users.SingleOrDefaultAsync(u => u.UserName == "System");
 
@@ -35,7 +36,7 @@ public class DbInitializerTests
         using var harness = new DbInitializerTestHarness();
         SeedCounts expected = ReadSeedCounts();
 
-        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Logger);
+        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Configuration, harness.Logger);
 
         string[] ExpectedRoleNames = ["Admin", "Banned", "Curator"];
         
@@ -58,7 +59,7 @@ public class DbInitializerTests
         using var harness = new DbInitializerTestHarness();
         SeedCounts expected = ReadSeedCounts();
 
-        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Logger);
+        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Configuration, harness.Logger);
 
         List<AudioAtlasDomain.Genres.Genre> genres = await harness.Context.Genres
             .Include(g => g.Author)
@@ -110,7 +111,7 @@ public class DbInitializerTests
         IdentityResult createResult = await harness.UserManager.CreateAsync(existingSystemUser);
         Assert.True(createResult.Succeeded, string.Join(", ", createResult.Errors.Select(e => e.Description)));
 
-        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Logger);
+        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Configuration, harness.Logger);
 
         string? normalizedSystemUserName = harness.UserManager.NormalizeName("System");
         List<ApplicationUser> users = await harness.Context.Users
@@ -138,7 +139,7 @@ public class DbInitializerTests
         });
         await harness.Context.SaveChangesAsync();
 
-        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Logger);
+        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Configuration, harness.Logger);
 
         Assert.Equal(1, await harness.Context.Countries.CountAsync());
         Assert.Empty(await harness.Context.Instruments.ToListAsync());
@@ -271,6 +272,10 @@ public class DbInitializerTests
             RoleManager = _scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
             Logger = _scope.ServiceProvider.GetRequiredService<ILogger<DbInitializer>>();
 
+            // Empty config — Admin:SeedEmails resolves to empty so the
+            // admin seed no-ops.
+            Configuration = new ConfigurationBuilder().Build();
+
             Context.Database.EnsureCreated();
         }
 
@@ -279,6 +284,7 @@ public class DbInitializerTests
 
         public RoleManager<IdentityRole<Guid>> RoleManager { get; }
         public ILogger<DbInitializer> Logger { get; }
+        public IConfiguration Configuration { get; }
 
         public void Dispose()
         {
