@@ -179,6 +179,7 @@ useHead(() => ({
           <div class="flex flex-col gap-8">
             <CountryContributorsCard :contributors="contributors" />
             <SourceList :sources="sources" />
+            <InstrumentList :instruments="instruments"/>
           </div>
 
         </div>
