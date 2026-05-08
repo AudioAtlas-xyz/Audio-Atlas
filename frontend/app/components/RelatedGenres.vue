@@ -45,11 +45,11 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
 
     </div>
     <div :class="$style.parentgenrecard">
-      <div :class="$style.divsideCardHead2">
-        <div :class="$style.span3">
+      <div :class="$style.parentgenre">
+        <div :class="$style.span">
           <div :class="$style.cardTitle">SIMILAR GENRES</div>
         </div>
-        <div :class="$style.span4" />
+        <div :class="$style.a" />
       </div>
 
       <GenreCard
@@ -87,8 +87,9 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
   align-self: stretch;
   border-bottom: 1px solid #1c2038;
   padding: 0.6rem 1rem;
+  display: flex;
 
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   color: #8a93b8;
   font-family: 'Space Mono';
 }
@@ -112,30 +113,6 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
   padding: 0px 0px 1px;
   box-sizing: border-box;
   flex-shrink: 0;
-}
-.divsideCardHead2 {
-  align-self: stretch;
-  border-bottom: 1px solid #1c2038;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 9.6px 16px;
-  gap: 20px;
-  font-size: 0.7rem;
-  color: #7a84a8;
-  font-family: 'Space Mono';
-}
-.span3 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.span4 {
-  height: 13px;
-  width: 0px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 }
 
 </style>
