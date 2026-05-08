@@ -47,7 +47,7 @@ const { relatedCount, contributorCount, instrumentCount } = defineProps<{
   position: absolute;
   width: fit-content;
   right: 27.3rem;
-  left: 0.375rem;
+  left: 0rem;
   border-radius: 4px;
   border: 1px solid #1c2038;
   box-sizing: border-box;

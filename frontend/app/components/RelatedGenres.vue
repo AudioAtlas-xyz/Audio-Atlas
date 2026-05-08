@@ -20,11 +20,16 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
         <div :class="$style.a" />
       </div>
 
+      <div v-if="parentGenres.length" class="w-full">
       <GenreCard
         v-for="genre in parentGenres"
         :key="genre.id"
         :genre="genre"
       />
+      </div>
+      <div v-else class="flex-1 flex justify-center items-center px-4 py-5 text-center text-sm text-[#6f789b]">
+        No parent genres found.
+      </div>
 
 
     </div>
@@ -36,30 +41,42 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
         <div :class="$style.a" />
       </div>
 
+      <div v-if="subGenres.length" class="w-full">
       <GenreCard
         v-for="genre in subGenres"
         :key="genre.id"
         :genre="genre"
       />
-
-
-    </div>
-    <div :class="$style.parentgenrecard">
-      <div :class="$style.divsideCardHead2">
-        <div :class="$style.span3">
-          <div :class="$style.cardTitle">SIMILAR GENRES</div>
-        </div>
-        <div :class="$style.span4" />
+      </div>
+      <div v-else class="flex-1 flex justify-center items-center px-4 py-5 text-center text-sm text-[#6f789b]">
+        No subgenres found.
       </div>
 
-      <GenreCard
-        v-for="genre in similarGenres"
-        :key="genre.id"
-        :genre="genre"
-      />
-
 
     </div>
+
+      <div :class="$style.parentgenrecard">
+      <div :class="$style.parentgenre">
+        <div :class="$style.span">
+          <div :class="$style.cardTitle">SIMILAR GENRES</div>
+        </div>
+        <div :class="$style.a" />
+      </div>
+
+        <div v-if="similarGenres.length" class="w-full">
+        <GenreCard
+          v-for="genre in similarGenres"
+          :key="genre.id"
+          :genre="genre"
+        />
+        </div>
+        <div v-else class="flex-1 flex justify-center items-center px-4 py-5 text-center text-sm text-[#6f789b]">
+          No similar genres found.
+        </div>
+
+    </div>
+
+
   </div>
 </template>
 <style  module>.relatedgenres {
@@ -87,8 +104,9 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
   align-self: stretch;
   border-bottom: 1px solid #1c2038;
   padding: 0.6rem 1rem;
-
-  font-size: 0.65rem;
+  display: flex;
+  width: 100%;
+  font-size: 0.7rem;
   color: #8a93b8;
   font-family: 'Space Mono';
 }
@@ -105,37 +123,12 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
 }
 .a {
   height: 14px;
-  width: 64px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px 0px 1px;
   box-sizing: border-box;
   flex-shrink: 0;
-}
-.divsideCardHead2 {
-  align-self: stretch;
-  border-bottom: 1px solid #1c2038;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 9.6px 16px;
-  gap: 20px;
-  font-size: 0.7rem;
-  color: #7a84a8;
-  font-family: 'Space Mono';
-}
-.span3 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.span4 {
-  height: 13px;
-  width: 0px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 }
 
 </style>

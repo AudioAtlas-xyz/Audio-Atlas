@@ -129,8 +129,10 @@ useHead(() => ({
           </div>
 
           <!-- SUCCESS -->
+          <!-- translate-x lines HeroSection up with GenreInfo component -->
           <HeroSection
             v-else-if="genre"
+            class="translate-x-[2.25rem]"
             :bread-crumb-items="breadcrumbItems"
             :badges="countryBadges"
             :name="name || ''"
@@ -156,6 +158,7 @@ useHead(() => ({
 
           <!-- PANEL -->
           <GenrePanel
+            class="translate-x-[2.25rem]"
             :related-count="relatedCount"
             :contributor-count="contributorsCount"
             :instrument-count="instrumentCount"
