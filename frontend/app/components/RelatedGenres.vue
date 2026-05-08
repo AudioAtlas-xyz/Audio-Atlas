@@ -20,11 +20,16 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
         <div :class="$style.a" />
       </div>
 
+      <div v-if="parentGenres.length" class="w-full">
       <GenreCard
         v-for="genre in parentGenres"
         :key="genre.id"
         :genre="genre"
       />
+      </div>
+      <div v-else class="flex-1 flex justify-center items-center px-4 py-5 text-center text-sm text-[#6f789b]">
+        No parent genres found.
+      </div>
 
 
     </div>
@@ -36,15 +41,21 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
         <div :class="$style.a" />
       </div>
 
+      <div v-if="subGenres.length" class="w-full">
       <GenreCard
         v-for="genre in subGenres"
         :key="genre.id"
         :genre="genre"
       />
+      </div>
+      <div v-else class="flex-1 flex justify-center items-center px-4 py-5 text-center text-sm text-[#6f789b]">
+        No subgenres found.
+      </div>
 
 
     </div>
-    <div :class="$style.parentgenrecard">
+
+      <div :class="$style.parentgenrecard">
       <div :class="$style.parentgenre">
         <div :class="$style.span">
           <div :class="$style.cardTitle">SIMILAR GENRES</div>
@@ -52,14 +63,20 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
         <div :class="$style.a" />
       </div>
 
-      <GenreCard
-        v-for="genre in similarGenres"
-        :key="genre.id"
-        :genre="genre"
-      />
-
+        <div v-if="similarGenres.length" class="w-full">
+        <GenreCard
+          v-for="genre in similarGenres"
+          :key="genre.id"
+          :genre="genre"
+        />
+        </div>
+        <div v-else class="flex-1 flex justify-center items-center px-4 py-5 text-center text-sm text-[#6f789b]">
+          No similar genres found.
+        </div>
 
     </div>
+
+
   </div>
 </template>
 <style  module>.relatedgenres {
@@ -88,7 +105,7 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
   border-bottom: 1px solid #1c2038;
   padding: 0.6rem 1rem;
   display: flex;
-
+  width: 100%;
   font-size: 0.7rem;
   color: #8a93b8;
   font-family: 'Space Mono';
@@ -106,7 +123,6 @@ const { similarGenres, parentGenres, subGenres } = defineProps<{
 }
 .a {
   height: 14px;
-  width: 64px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
