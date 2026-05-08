@@ -10,9 +10,11 @@ const props = defineProps<{
   <div class="space-y-6">
 
     <!-- BREADCRUMB -->
+    <!-- Separator added to force arrow between breadcrumb items -->
     <UBreadcrumb
       v-if="props.breadCrumbItems?.length"
       :items="props.breadCrumbItems"
+      :ui="{ separator: 'i-heroicons-chevron-right-20-solid' }"
     >
       <template #item-label="{ item, active }">
         <span :class="active ? 'text-aurora font-semibold' : 'text-muted'">
