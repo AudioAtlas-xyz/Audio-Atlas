@@ -7,12 +7,18 @@ const emit = defineEmits<{
 
 const config = useRuntimeConfig()
 
+const loginUrl = (provider: 'google' | 'github') => {
+  const backendBaseUrl = String(config.public.backendBaseUrl).replace(/\/+$/, '')
+
+  return `${backendBaseUrl}/api/auth/login/${provider}`
+}
+
 const loginWithGoogle = () => {
-  window.location.href = `${config.public.apiBase}/auth/login/google`
+  window.location.href = loginUrl('google')
 }
 
 const loginWithGithub = () => {
-  window.location.href = `${config.public.apiBase}/auth/login/github`
+  window.location.href = loginUrl('github')
 }
 
 /* ESC support */

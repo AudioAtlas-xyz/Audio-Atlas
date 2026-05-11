@@ -11,7 +11,7 @@ This means:
 - In development, the browser calls `http://localhost:3000/api/...`
 - Nitro forwards that to your local backend, for example `http://localhost:5085/api/...`
 - In production, the browser calls `https://api-audioatlas.azurewebsites.net/api/...` by default
-- Login buttons redirect to `${NUXT_PUBLIC_API_BASE}/auth/login/...`
+- Login buttons redirect to `${NUXT_PUBLIC_BACKEND_BASE_URL}/api/auth/login/...`
 
 ## Development config
 
