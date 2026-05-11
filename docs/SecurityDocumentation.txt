@@ -1,0 +1,82 @@
+================================================================================
+    Security review/Documentation
+================================================================================
+
+Table of contents:
+
+1. CORS
+2. Github, Environments and Secrets
+3. Cookies
+4. Cross site scripting
+5. SQL injection
+6. Input validation
+
+
+================================================================================
+    1. CORS
+================================================================================
+Criteria: CORS is restricted to the production frontend origin only
+Status: Secure
+
+In the Backend/src/AudioAtlasView/Program.cs the allowed origins is specified by a policy named “AllowFrontend”.
+This policy calls the method “.WithOrigins(allowedOrigins!)”.
+The allowedOrigins throws an exception during startup if the configuration is empty or missing.
+
+The allowed origins are:
+Development:
+- “http://localhost:3000”
+- “http://127.0.0.1:3000”
+Specified in appsettings.Development.json.
+
+Production:
+- “https://www.audioatlas.xyz”
+- “https://audioatlas.xyz”
+Specified in appsetting.Production.json
+
+================================================================================
+    2. Github, Environments and Secrets
+================================================================================
+Criteria: Environment variables and connection strings are not exposed in client-side code or git History
+Status: Secure
+Github
+In both github workflows for backend and frontend there is no environment variable used instead it uses secrets via GitHub Action Secrets and Azure in the form of ${{secrets. <SECRET_NAME>}}
+
+In the gitignore file ensures that these are ignored by Git
+-. env
+-. env. *
+-!. env.example
+- launchSettings.Json
+The backend CICD.yml contains a password (“TestPassword123!”), but this is for testing and not for the real database.
+
+Nuxt:
+In nuxt.config.ts the application uses runtimeConfig where apiBase and backendBaseURL is public and apiProxyTarget is not public. apiBase and backendBaseURL do not contain secrets and are non-sensitive. There are not hardcoded environments instead it uses process.env.
+
+================================================================================
+    3. Cookies:
+================================================================================
+Criteria: OAuth tokens and session cookies are configured with secure flags
+Status:
+
+
+================================================================================
+    4. Cross site scripting
+================================================================================
+Criteria: All user-submitted content (genre names, descriptions, aliases) is sanitized before rendering to prevent XSS (Cross-site scripting attack)
+Status: Secure
+
+Explanation:
+Nuxt/Vue automatically escapes HTML content. This prevents the accidentally injecting executable HTML into the application.
+In the submission-form page the data from genre names, descriptions and aliases (and the rest of the input) is rendered using double curly braces interpolation e.g. {{ submissionData.NewGenreName }}, to ensure it is handled as a text and not script.
+This prevents the application from XSS attacks.
+
+================================================================================
+    5. SQL injection
+================================================================================
+Criteria: All database queries use parameterized queries or EF core (no raw string concatenation)
+Status:
+
+================================================================================
+    6. Input validation
+================================================================================
+Criteria: API endpoints validate input types and reject malformed requests with appropriate error codes
+Status
