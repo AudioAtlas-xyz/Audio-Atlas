@@ -60,7 +60,7 @@ const closeModal = () => {
         + Add a genre from {{ countryName }}
       </UButton>
       <p class="text-[11px] text-[#373d5a]">
-        Know a {{ countryName }} genre we&apos;ve missed
+        Know a {{ countryName }} genre we&apos;ve missed?
       </p>
 
       <div v-if="showLogin" class="overlay">
