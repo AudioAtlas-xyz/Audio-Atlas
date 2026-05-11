@@ -6,10 +6,10 @@ Table of contents:
 
 1. CORS
 2. Github, Environments and Secrets
-3. Cookies
-4. Cross site scripting
-5. SQL injection
-6. Input validation
+3. OAuth Tokens and Session Cookies
+4. Cross Site Scripting
+5. SQL Injection
+6. Input Validation
 
 
 ================================================================================
@@ -52,12 +52,15 @@ Nuxt:
 In nuxt.config.ts the application uses runtimeConfig where apiBase and backendBaseURL is public and apiProxyTarget is not public. apiBase and backendBaseURL do not contain secrets and are non-sensitive. There are not hardcoded environments instead it uses process.env.
 
 ================================================================================
-    3. Cookies:
+    3. OAuth tokens and Session Cookies:
 ================================================================================
 Criteria: OAuth tokens and session cookies are configured with secure flags
-Status:
+Status: Secure
 
-
+Explanation:
+The application uses OAuth authentication via GitHub or Google. When signin in with either GitHub or Google there are
+temporary cookies which are httponly and secure. The application uses JSON Web Tokens (JWT) when authorized via GitHub or Google.
+The bearer token is stored in the Authotization header of the HTTP request that needs authentication.
 ================================================================================
     4. Cross site scripting
 ================================================================================
