@@ -34,6 +34,7 @@ const { fetchUser } = useAuth()
  * Don't render them here or you'll get duplicate instances.
  */
 const { openOnboarding } = useUIState()
+const viewportHeight = ref(0)
 
 /**
  * Init auth + onboarding
@@ -42,21 +43,24 @@ const { openOnboarding } = useUIState()
  * and the SuccessModal close handler in `layouts/default.vue` (new users).
  * This page must NOT fire `triggerAppBanner` on mount.
  */
+
 onMounted(async () => {
+  viewportHeight.value = window.innerHeight
+
+  window.addEventListener('resize', () => {
+    viewportHeight.value = window.innerHeight
+  })
+
   const newUser = route.query.newUser as string | undefined
   const pendingId = route.query.pendingRegistrationId as string | undefined
   const suggested = route.query.suggestedUsername as string | undefined
 
-  // Legacy fallback: if the backend ever redirects straight to `/?newUser=true`
-  // instead of through `/auth/callback`, kick off onboarding here.
   if (newUser === 'true') {
     openOnboarding(pendingId || null, suggested || null)
   }
 
-  // Fetch current session if we have a token.
   await fetchUser()
 
-  // Strip auth-related query params so a refresh doesn't re-trigger onboarding.
   if (route.query.newUser || route.query.pendingRegistrationId || route.query.suggestedUsername) {
     router.replace('/')
   }
@@ -72,6 +76,7 @@ const { progress, finished } = useScrollIntro()
  */
 const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
 const settledPov = { lat: 54, lng: 12, altitude: 2.2 }
+const introSpinSpeed = 0.4
 
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
 
@@ -81,12 +86,12 @@ const eased = computed(() => {
 })
 
 const globeOffset = computed<[number, number]>(() => {
-  if (process.server) return [0, 0]
+  const p = finished.value ? 1 : progress.value
 
-  return [
-    0,
-    Math.round((1 - eased.value) * window.innerHeight * 0.14)
-  ]
+  // positive Y moves globe down, negative moves it up
+  const y = Math.round((1 - eased.value) * 260)
+
+  return [0, y]
 })
 
 const globePov = computed(() =>
@@ -95,10 +100,12 @@ const globePov = computed(() =>
 
 const pageStyle = computed(() => {
   const p = finished.value ? 1 : progress.value
+  const globeY = Math.round((1 - eased.value) * viewportHeight.value * 0.3)
 
   return {
     '--title-opacity': Math.max(0, 1 - p * 1.55),
-    '--title-lift': `${Math.round(p * -88)}px`
+    '--title-lift': `${Math.round(p * -88)}px`,
+    '--globe-y': `${globeY}px`
   }
 })
 
@@ -138,6 +145,7 @@ const closeCountryPanel = () => {
             :initial-point-of-view="landingPov"
             :point-of-view="globePov"
             :globe-offset="globeOffset"
+            :intro-spin-speed="introSpinSpeed"
             @country-click="handleCountryClick"
           />
         </div>

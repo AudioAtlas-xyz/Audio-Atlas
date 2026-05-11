@@ -2,6 +2,7 @@
   <div
     ref="globeDiv"
     class="globe"
+    :class="{ 'globe--locked': !introComplete }"
   />
 </template>
 
@@ -42,20 +43,24 @@ const props = defineProps({
   pointOfView: {
     type: Object,
     default: null
+  },
+  introSpinSpeed: {
+    type: Number,
+    default: 0.4
   }
 })
 
 const emit = defineEmits(['country-click'])
 
-const setControlsEnabled = (enabled) => {
+const setInteractionEnabled = (enabled) => {
   const controls = globeInstance?.controls?.()
-  if (!controls) return
+  if (controls) {
+    controls.enabled = true
+    controls.autoRotate = !enabled
+    controls.autoRotateSpeed = props.introSpinSpeed
+  }
 
-  controls.enabled = enabled
-
-  // Spin slowly during intro, stop when controls unlock
-  controls.autoRotate = !enabled
-  controls.autoRotateSpeed = 0.4
+  globeInstance?.enablePointerInteraction?.(enabled)
 }
 
 const povKey = pov => `${pov.lat}|${pov.lng}|${pov.altitude}`
@@ -163,11 +168,7 @@ onMounted(async () => {
     .pointOfView(initialPov)
     .globeOffset(props.globeOffset)
 
-  setControlsEnabled(props.introComplete)
-
-  const controls = globeInstance.controls()
-  controls.autoRotate = !props.introComplete
-  controls.autoRotateSpeed = 0.4
+  setInteractionEnabled(props.introComplete)
 
   const globeMaterial = globeInstance.globeMaterial()
   globeMaterial.color = new THREE.Color('#b7f3ff')
@@ -208,7 +209,7 @@ onBeforeUnmount(() => {
 watch(
   () => props.introComplete,
   (introComplete) => {
-    setControlsEnabled(introComplete)
+    setInteractionEnabled(introComplete)
   }
 )
 
@@ -246,5 +247,9 @@ watch(
 .globe {
   width: 100%;
   height: 100%;
+}
+
+.globe--locked {
+  pointer-events: none;
 }
 </style>
