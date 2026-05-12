@@ -88,11 +88,7 @@ public class SubmissionService : ISubmissionService
         }
 
         // max source url length
-        if (normalizedSourceLinks.Count == 0)
-        {
-            errors["sourceLinks"] = ["At least one source link is required."];
-        }
-        else if (normalizedSourceLinks.Any(link => link.Length > MaxUrlLength))
+        if (normalizedSourceLinks.Any(link => link.Length > MaxUrlLength))
         {
             errors["sourceLinks"] = [$"Source links must be at most {MaxUrlLength} characters."];
         }
