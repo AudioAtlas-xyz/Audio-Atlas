@@ -42,6 +42,14 @@ const adminTools = [
       'Browse all registered accounts, filter by role, identify active contributors.',
     to: '/admin/users',
     icon: 'i-lucide-users'
+  },
+  {
+    label: 'Submissions',
+    title: 'Submission queue',
+    description:
+      'View a list of submissions submitted by contributors.',
+    to: '/admin/pending-submissions',
+    icon: 'i-lucide-clipboard-list'
   }
 ]
 
