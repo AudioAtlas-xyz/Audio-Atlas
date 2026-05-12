@@ -42,10 +42,10 @@ Github
 In both github workflows for backend and frontend there is no environment variable used instead it uses secrets via GitHub Action Secrets and Azure in the form of ${{secrets. <SECRET_NAME>}}
 
 In the gitignore file ensures that these are ignored by Git
--. env
--. env. *
--!. env.example
-- launchSettings.Json
+-.env
+-.env. *
+-!.env.example
+-launchSettings.json
 The backend CICD.yml contains a password (“TestPassword123!”), but this is for testing and not for the real database.
 
 Nuxt:
@@ -61,6 +61,7 @@ Explanation:
 The application uses OAuth authentication via GitHub or Google. When signin in with either GitHub or Google there are
 temporary cookies which are httponly and secure. The application uses JSON Web Tokens (JWT) when authorized via GitHub or Google.
 The bearer token is stored in the Authotization header of the HTTP request that needs authentication.
+
 ================================================================================
     4. Cross site scripting
 ================================================================================
@@ -76,10 +77,23 @@ This prevents the application from XSS attacks.
     5. SQL injection
 ================================================================================
 Criteria: All database queries use parameterized queries or EF core (no raw string concatenation)
-Status:
+Status: Secure
+
+Explanation:
+The repositories in Backend/src/AudioAtlasInfrastructure/Repositories uses EF Core's parameterized queries.
+The repositories retrives instances of the entity classes using Language Integrated Query (LINQ). e.g .Where(), .SingleOrDefaultAsync(), .AddAsync().
+EF Core translate this into parameterized SQL commands. This is to prevent SQL injections.
 
 ================================================================================
     6. Input validation
 ================================================================================
 Criteria: API endpoints validate input types and reject malformed requests with appropriate error codes
-Status
+Status: Secure
+
+Explanation:
+The application's controllers found in Backend/src/AudioAtlasView/Controllers all use the "[ApiController]" attribute.
+This enables automatic model validation and will automatically result in a rejection with a "400 Bad Request", if data is invalid.
+
+The applications uses DTOs found in Backend/src/AudioAtlasApplication/DTO.
+In these Data Transfer Objects each field is defined by a specific type e.g. Guid for the IDs and DateOnly for StartDate and EndDate.
+This ensures validation of input types and any malformed request will automatically be rejected with a "400 Bad Request".
