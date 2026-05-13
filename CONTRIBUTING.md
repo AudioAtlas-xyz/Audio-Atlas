@@ -1,18 +1,15 @@
 # Contributing to Audio Atlas
 
-Thank you for your interest in contributing to Audio Atlas — the living map of the world's music. Whether you are fixing a bug, adding a feature, improving documentation, or contributing genre knowledge, your help makes the project better for everyone.
+Thank you for your interest in contributing to Audio Atlas, the living map of the world's music. Whether you are fixing a bug, adding a feature, improving documentation, or contributing genre knowledge, your help makes the project better for everyone.
 
 ## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
 - [How to Contribute](#how-to-contribute)
-  - [Contributing Code](#contributing-code)
-  - [Contributing Genre Data](#contributing-genre-data)
-  - [Reporting Bugs](#reporting-bugs)
-  - [Suggesting Features](#suggesting-features)
+- [Project Structure](#project-structure)
 - [Development Setup](#development-setup)
 - [Pull Request Process](#pull-request-process)
-- [Licensing & Copyright](#licensing--copyright)
+- [Licensing and Copyright](#licensing-and-copyright)
 - [Cultural Sensitivity Guidelines](#cultural-sensitivity-guidelines)
 - [Getting Help](#getting-help)
 
@@ -20,7 +17,7 @@ Thank you for your interest in contributing to Audio Atlas — the living map of
 
 ## Code of Conduct
 
-Audio Atlas is a project dedicated to making global music culture more discoverable and interconnected. We expect all contributors to treat each other and the musical cultures represented in this project with respect. Be kind, be constructive, and assume good intentions.
+Audio Atlas is dedicated to making global music culture more discoverable and interconnected. We expect all contributors to treat each other and the musical cultures represented in this project with respect. Be kind, be constructive, and assume good intentions.
 
 We do not tolerate harassment, discrimination, or disrespectful behavior of any kind. Contributors who violate these expectations may be removed from the project.
 
@@ -30,28 +27,29 @@ We do not tolerate harassment, discrimination, or disrespectful behavior of any 
 
 ### Contributing Code
 
-1. **Check existing issues** — Look at the [Issues](../../issues) tab to see if someone is already working on what you have in mind. If not, open an issue to discuss your idea before writing code.
-2. **Fork the repository** — Create your own fork of the project.
-3. **Create a feature branch** — Branch off `main` with a descriptive name: `feature/genre-search-filters` or `fix/map-zoom-on-mobile`.
-4. **Write clear, documented code** — Follow the coding conventions already in the project. Add comments where the logic is non-obvious.
-5. **Test your changes** — Make sure the app builds and runs correctly. Test on both desktop and mobile if your changes affect the UI.
-6. **Submit a pull request** — See [Pull Request Process](#pull-request-process) below.
+1. Check existing issues in the [Issues](../../issues) tab to see whether someone is already working on the change.
+2. Fork the repository and create a branch from `main`.
+3. Use a descriptive branch name, such as `feature/genre-search-filters`, `fix/map-zoom-on-mobile`, or `docs/update-setup`.
+4. Follow the conventions already used in the affected backend or frontend area.
+5. Run the relevant checks before opening a pull request.
+6. Submit a focused pull request and link the related issue when one exists.
 
 ### Contributing Genre Data
 
-Audio Atlas is community-powered. If you have knowledge about a music genre that is missing or incomplete, you can contribute through two channels:
+Audio Atlas is community-powered. If you have knowledge about a music genre that is missing or incomplete, you can contribute through either the website or the repository.
 
-**Via the website:** Use the contribution form on the Audio Atlas site to propose a new genre or suggest edits to an existing one. Your submission will go through our review process (validation, AI-assisted checks, and human moderation) before being published.
+**Via the website:** Use the contribution form on the Audio Atlas site to propose a new genre or suggest edits to an existing one. Submissions go through validation, AI-assisted checks, and human moderation before publication.
 
-**Via the repository:** If you prefer to work directly with the data, you can submit changes to the Audio Atlas JSON dataset via a pull request. Make sure your additions follow the existing data schema and include all required fields:
+**Via the repository:** Submit changes to the seed data in `Backend/src/AudioAtlasInfrastructure/resources/` by pull request. Keep additions aligned with the existing JSON schema and include the fields already used by nearby records, such as:
 
 - Genre name and known aliases
 - Country or region of origin
 - Short description
-- Related genres (predecessors, sub-genres, similar genres)
-- Instruments (where applicable)
+- Related genres
+- Instruments, where applicable
+- Sources or context for verification
 
-When contributing genre data, please include your sources or explain your personal connection to the genre. First-hand cultural knowledge is highly valued.
+When contributing genre data, include your sources or explain your personal connection to the genre. First-hand cultural knowledge is highly valued, but it should still be presented clearly enough for maintainers to review.
 
 ### Reporting Bugs
 
@@ -61,8 +59,8 @@ Open an issue with the label `bug` and include:
 - Steps to reproduce it
 - What you expected to happen
 - What actually happened
-- Your browser, device, and screen size
-- Screenshots if applicable
+- Browser, device, and screen size when relevant
+- Screenshots or screen recordings when helpful
 
 ### Suggesting Features
 
@@ -75,119 +73,174 @@ Open an issue with the label `enhancement` and describe:
 
 ---
 
-### Project Structure
-```
-audio-atlas/
-├── Backend/
-│   ├── src/
-│       ├── AudioAtlasApplication/
-│       ├── AudioAtlasDomain/
-│       ├── AudioAtlasInfrastructure/
-│       ├── AudioAtlasView/
-│   ├── AudioAtlasBackend.slnx/             # Solution file
-│   ├── README.md/                          # README for backend developing
-├── docs/                                   # ERD diagram
-├── Frontend/
-│   ├── src/
-│       ├── app/
-│       ├── public/
-│       ├── README.md/                      # README for frontend developing
-├── README.md                               # top level README
-├── CONTRIBUTING.md                         # This file
-├── LICENSE                                 # MIT License (code)
-└── LICENSE-CONTENT                         # CC BY-SA 4.0 (genre data and content)
+## Project Structure
+
+```text
+Audio-Atlas/
+|-- Backend/
+|   |-- AudioAtlasBackend.slnx
+|   |-- docker-compose.yml
+|   |-- README.md
+|   |-- src/
+|   |   |-- AudioAtlasApplication/
+|   |   |-- AudioAtlasDomain/
+|   |   |-- AudioAtlasInfrastructure/
+|   |   `-- AudioAtlasView/
+|   `-- test/
+|       `-- AudioAtlasInfrastructureTests/
+|-- frontend/
+|   |-- app/
+|   |-- public/
+|   |-- server/
+|   |-- tests/
+|   |-- package.json
+|   `-- README.md
+|-- docs/
+|-- README.md
+|-- CONTRIBUTING.md
+|-- LICENSE
+`-- LICENSE-CONTENT
 ```
 
+The backend is a .NET 10 ASP.NET Core API with Entity Framework Core and SQL Server. The frontend is a Nuxt 4 application using npm.
 
 ---
 
-## Setup
-Fork and clone your own version see README.MD for building and running
+## Development Setup
 
+Use the component READMEs as the source of truth for detailed setup:
+
+- Backend setup and run instructions: `Backend/README.md`
+- Frontend environment and API proxy instructions: `frontend/README.md`
+
+Current prerequisites:
+
+- .NET 10 SDK
+- Node.js 22 for frontend builds
+- npm, using the frontend lockfile in `frontend/package-lock.json`
+- Docker, if you want to run the local SQL Server from `Backend/docker-compose.yml`
+
+Typical local workflow:
+
+```bash
+cd Backend
+docker compose up -d
+dotnet restore
+dotnet user-secrets set --project src/AudioAtlasView/AudioAtlas.API.csproj "Jwt:Key" "replace-with-a-long-local-development-secret"
+dotnet run --project src/AudioAtlasView/AudioAtlas.API.csproj
+```
+
+In a second terminal:
+
+```bash
+cd frontend
+npm ci
+npm run dev
+```
+
+The backend development profile listens on `http://localhost:5085`. The frontend development server proxies `/api/...` requests to that backend by default. If you need explicit frontend configuration, create `frontend/.env` as described in `frontend/README.md`.
+
+OAuth login requires local Google and GitHub credentials. Most API and frontend work can run without using those login flows, but authentication changes need the matching `Authentication:Google:*` and `Authentication:GitHub:*` secrets configured locally.
+
+### Checks
+
+Run the checks that match the area you changed:
+
+```bash
+cd Backend
+dotnet build
+dotnet test
+```
+
+```bash
+cd frontend
+npm run lint
+npm run typecheck
+npm run test
+npm run build
+```
+
+GitHub Actions run backend build/test/deploy checks for changes under `Backend/**` and frontend build/test/deploy checks for changes under `frontend/**`.
+
+---
 
 ## Pull Request Process
 
-1. **Keep PRs focused** — One feature or fix per pull request. Large PRs are harder to review and more likely to have merge conflicts.
-2. **Write a clear description** — Explain what your PR does, why, and how. Link to the relevant issue if there is one.
-3. **Ensure the build passes** — Your PR should not break the existing application.
-4. **Maintain accessibility** — Audio Atlas targets WCAG AA compliance. Do not introduce changes that reduce accessibility.
-5. **Be responsive to feedback** — Reviewers may request changes. This is normal and collaborative, not adversarial.
+1. Keep PRs focused on one feature, fix, or documentation update.
+2. Write a clear description explaining what changed, why it changed, and how it was tested.
+3. Ensure the relevant backend and frontend checks pass.
+4. Maintain accessibility. Audio Atlas targets WCAG AA compliance.
+5. Be responsive to review feedback.
 
 ### Branch Naming Conventions
 
-- `feature/` — New features (e.g., `feature/vibe-filter-sliders`)
-- `fix/` — Bug fixes (e.g., `fix/search-results-overlap`)
-- `docs/` — Documentation changes (e.g., `docs/update-readme-setup`)
-- `data/` — Genre data additions or corrections (e.g., `data/add-west-african-genres`)
+- `feature/` for new features, for example `feature/vibe-filter-sliders`
+- `fix/` for bug fixes, for example `fix/search-results-overlap`
+- `docs/` for documentation changes, for example `docs/update-readme-setup`
+- `data/` for genre data additions or corrections, for example `data/add-west-african-genres`
 
 ### Commit Messages
 
 Write clear, descriptive commit messages. Use the present tense and keep the first line under 72 characters:
 
-```
-Add fuzzy search for genre names with Fuse.js
-Fix map not rendering on Safari mobile
-Add 12 Caribbean genres to the dataset
-Update contribution form validation rules
+```text
+Add fuzzy search for genre names
+Fix map rendering on Safari mobile
+Add Caribbean genre seed data
+Update contribution form validation
 ```
 
 ---
 
-## Licensing & Copyright
+## Licensing and Copyright
 
 Audio Atlas uses two licences:
 
 | What | Licence | File |
-|------|---------|------|
+| --- | --- | --- |
 | Source code | MIT License | `LICENSE` |
 | Genre data, descriptions, and content | Creative Commons BY-NC-SA 4.0 | `LICENSE-CONTENT` |
 
-**By submitting a contribution to this project, you agree that:**
+By submitting a contribution to this project, you agree that:
 
-- Your **code contributions** are licensed under the MIT License.
-- Your **content contributions** (genre descriptions, cultural context, artist information) are licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0).
-- You grant Audio Atlas (and any future legal entity such as a foundation operating Audio Atlas) the right to offer your contributions under a separate commercial licence. This enables Audio Atlas to sustain itself through commercial data licensing while keeping all data freely available for non-commercial use.
-- You have the right to make the contribution (it is your own work, or you have permission to share it under these terms).
+- Your code contributions are licensed under the MIT License.
+- Your content contributions are licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0).
+- You grant Audio Atlas, and any future legal entity operating Audio Atlas, the right to offer your contributions under a separate commercial licence.
+- You have the right to make the contribution because it is your own work or you have permission to share it under these terms.
 - You understand your contribution will be publicly visible and may be used by others in accordance with these licences.
 
-This approach is modelled on how MusicBrainz / the MetaBrainz Foundation operates: all data is free for non-commercial use, and commercial users pay for a licence. The revenue funds the project's continued development.
+Audio Atlas genre data is free for non-commercial use under CC BY-NC-SA 4.0. Commercial product or service usage requires a separate commercial licence from the maintainers.
 
-### Commercial Use
-
-Audio Atlas genre data is free for non-commercial use under CC BY-NC-SA 4.0. If you want to use the data in a commercial product or service, contact the maintainers to discuss a commercial licence.
-
-### Attribution
-
-All contributors are credited in the project. Code contributors appear in the Git history and may be listed in a CONTRIBUTORS file. Content contributors are credited on the genre pages they helped create or enrich.
+All contributors are credited in the project. Code contributors appear in Git history and may be listed in a contributors file. Content contributors are credited on the genre pages they helped create or enrich.
 
 ---
 
 ## Cultural Sensitivity Guidelines
 
-Audio Atlas documents music from cultures around the world. This comes with responsibility. Please follow these guidelines when contributing genre data:
+Audio Atlas documents music from cultures around the world. This comes with responsibility. Please follow these guidelines when contributing genre data.
 
 **Respect cultural origins.** When describing a genre's origins, credit the communities and cultures that created it. Do not attribute a genre to a country or group that popularized it commercially if it originated elsewhere.
 
 **Use appropriate terminology.** Prefer the terms that communities use to describe their own music. If a genre has multiple names, list the original or most culturally significant name first, with aliases noted.
 
-**Flag sensitive content.** Some music is tied to sacred, ceremonial, or private cultural practices. If you are unsure whether specific musical knowledge should be publicly documented, flag it in your contribution and our moderation team will consult appropriate sources before publishing.
+**Flag sensitive content.** Some music is tied to sacred, ceremonial, or private cultural practices. If you are unsure whether specific musical knowledge should be publicly documented, flag it in your contribution and the moderation process can handle it carefully.
 
 **Do not speculate.** If you do not have reliable knowledge about a genre's history or cultural context, say so or leave those fields for someone who does. Incomplete but accurate data is better than comprehensive but wrong data.
 
-**Cite your sources.** Whether your knowledge comes from personal experience, academic research, or community elders, mention your source. This helps our moderation team verify contributions and helps future readers assess reliability.
+**Cite your sources.** Whether your knowledge comes from personal experience, academic research, or community elders, mention your source. This helps maintainers verify contributions and helps future readers assess reliability.
 
 ---
 
 ## Getting Help
 
-- **Questions about contributing?** Open an issue with the label `question`.
-- **Need help with the development setup?** Check the README first, then open an issue if you are stuck.
-- **Want to discuss ideas before contributing?** Open an issue or reach out to the maintainers.
+- Questions about contributing: open an issue with the label `question`.
+- Development setup problems: check `Backend/README.md` or `frontend/README.md`, then open an issue if you are still stuck.
+- Ideas before implementation: open an issue and describe the user need, proposed approach, and expected impact.
 
 ### Maintainers
 
-- **Jed Anang** — Product owner, genre data, project strategy
-- **Christophe Berbec** — Design, interaction, visual experience
+- **Jed Anang**: Product owner, genre data, project strategy
+- **Christophe Berbec**: Design, interaction, visual experience
 
 ---
 
