@@ -46,7 +46,7 @@ Status: Secure
 Github
 In both github workflows for backend and frontend there is no environment variable used instead it uses secrets via GitHub Action Secrets and Azure in the form of ${{secrets. <SECRET_NAME>}}
 
-In the gitignore file ensures that these are ignored by Git
+In the .gitignore file we ensure that these are ignored by Git
 -.env
 -.env. *
 -!.env.example
@@ -54,7 +54,8 @@ In the gitignore file ensures that these are ignored by Git
 The backend CICD.yml contains a password (“TestPassword123!”), but this is for testing and not for the real database.
 
 Nuxt:
-In nuxt.config.ts the application uses runtimeConfig where apiBase and backendBaseURL is public and apiProxyTarget is not public. apiBase and backendBaseURL do not contain secrets and are non-sensitive. There are not hardcoded environments instead it uses process.env.
+In nuxt.config.ts the application uses runtimeConfig where apiBase and backendBaseURL is public and apiProxyTarget is not public. apiBase and backendBaseURL do not contain secrets and are non-sensitive.
+There are not hardcoded environments instead it uses process.env.
 
 ================================================================================
     3. OAuth tokens and Session Cookies:
@@ -149,7 +150,7 @@ Codacy issues: https://app.codacy.com/gh/AudioAtlas-xyz/Audio-Atlas/dashboard
 Serverity: Critical
 
 Explanation:
-Insecure dependency npm/form-data@2.3.3 needs to be updated with verison that have no known critical vulnerabillity. The library uses unsafe Math.random() which an attacker can perform HTTP Parameter Pollution (HPP), by predicting.
+Insecure dependency npm/form-data@2.3.3 needs to be updated with version that have no known critical vulnerabillity. The library uses unsafe Math.random() which an attacker can perform HTTP Parameter Pollution (HPP), by predicting.
 Using dependencies with known critical security vulnerabilities can lead to severe security breaches, data loss, or system compromise.
 
 Detected in:
