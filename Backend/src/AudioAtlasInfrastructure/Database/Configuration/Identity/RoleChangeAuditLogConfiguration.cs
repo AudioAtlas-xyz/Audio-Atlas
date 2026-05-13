@@ -23,9 +23,7 @@ public class RoleChangeAuditLogConfiguration : IEntityTypeConfiguration<RoleChan
         builder.Property(x => x.ChangedAtUtc)
             .IsRequired();
 
-        // Restrict deletes — we want to keep the audit trail even if the
-        // admin or target user is later removed. The FK columns just go
-        // dangling; that's fine for write-only audit data.
+        // Restrict deletes so the audit trail survives user removal.
         builder.HasOne(x => x.ChangedBy)
             .WithMany()
             .HasForeignKey(x => x.ChangedById)
