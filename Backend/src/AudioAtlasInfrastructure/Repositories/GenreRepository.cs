@@ -175,6 +175,11 @@ public class GenreRepository : IGenreRepository
             .ToListAsync();
     }
 
+    public async Task AddAsync(Genre genre, CancellationToken cancellationToken = default)
+    {
+        await _dbcontext.Genres.AddAsync(genre, cancellationToken);
+    }
+
     /// <summary>
     /// Persists all pending changes to the database
     /// </summary>
