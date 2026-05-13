@@ -1,89 +1,134 @@
 ﻿<script setup lang="ts">
-import { computed } from 'vue'
 import type { Genre } from '~/types/genre'
 
-const props = defineProps<{
+const { similarGenres, parentGenres, subGenres } = defineProps<{
   similarGenres: Genre[]
   parentGenres: Genre[]
   subGenres: Genre[]
 }>()
 
-const sections = computed(() => [
-  { title: 'Parent Genres', items: props.parentGenres },
-  { title: 'Sub Genres', items: props.subGenres },
-  { title: 'Similar Genres', items: props.similarGenres }
-])
+
 </script>
 
 <template>
   <div :class="$style.relatedgenres">
-    <div
-      v-for="section in sections"
-      :key="section.title"
-      :class="$style.card"
-    >
-      <!-- HEADER -->
-      <div :class="$style.header">
-        <span :class="$style.title">
-          {{ section.title }}
-        </span>
+    <div :class="$style.parentgenrecard">
+      <div :class="$style.parentgenre">
+        <div :class="$style.span">
+          <div :class="$style.cardTitle">PARENT GENRES</div>
+        </div>
+        <div :class="$style.a" />
       </div>
 
-      <!-- CONTENT -->
-      <div v-if="section.items.length">
+      <div v-if="parentGenres.length" class="w-full">
+      <GenreCard
+        v-for="genre in parentGenres"
+        :key="genre.id"
+        :genre="genre"
+      />
+      </div>
+      <div v-else class="flex-1 flex justify-center items-center px-4 py-5 text-center text-sm text-[#6f789b]">
+        No parent genres found.
+      </div>
+
+
+    </div>
+    <div :class="$style.parentgenrecard">
+      <div :class="$style.parentgenre">
+        <div :class="$style.span">
+          <div :class="$style.cardTitle">SUB GENRES</div>
+        </div>
+        <div :class="$style.a" />
+      </div>
+
+      <div v-if="subGenres.length" class="w-full">
+      <GenreCard
+        v-for="genre in subGenres"
+        :key="genre.id"
+        :genre="genre"
+      />
+      </div>
+      <div v-else class="flex-1 flex justify-center items-center px-4 py-5 text-center text-sm text-[#6f789b]">
+        No subgenres found.
+      </div>
+
+
+    </div>
+
+      <div :class="$style.parentgenrecard">
+      <div :class="$style.parentgenre">
+        <div :class="$style.span">
+          <div :class="$style.cardTitle">SIMILAR GENRES</div>
+        </div>
+        <div :class="$style.a" />
+      </div>
+
+        <div v-if="similarGenres.length" class="w-full">
         <GenreCard
-          v-for="genre in section.items"
+          v-for="genre in similarGenres"
           :key="genre.id"
           :genre="genre"
         />
-      </div>
+        </div>
+        <div v-else class="flex-1 flex justify-center items-center px-4 py-5 text-center text-sm text-[#6f789b]">
+          No similar genres found.
+        </div>
 
-      <!-- EMPTY STATE -->
-      <div v-else :class="$style.empty">
-        No genres available
-      </div>
     </div>
+
+
   </div>
 </template>
-
-<style module>
-.relatedgenres {
+<style  module>.relatedgenres {
   width: 100%;
+  position: relative;
   display: flex;
-  gap: 0.5rem;
+  align-items: flex-start;
+  gap: 6px;
+  text-align: left;
+  font-size: 12px;
+  color: #e4e8f5;
+  font-family: 'DM Sans';
 }
-
-/* CARD */
-.card {
+.parentgenrecard {
   flex: 1;
-  border-radius: 10px;
-  background: #0d0f1a;
+  border-radius: 6px;
+  background-color: #0d0f1a;
   border: 1px solid #1c2038;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
-
-/* HEADER */
-.header {
+.parentgenre {
+  align-self: stretch;
   border-bottom: 1px solid #1c2038;
   padding: 0.6rem 1rem;
-
-  font-size: 0.65rem;
+  display: flex;
+  width: 100%;
+  font-size: 0.7rem;
   color: #8a93b8;
   font-family: 'Space Mono';
-  letter-spacing: 0.1em;
+}
+.span {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.cardTitle {
+  position: relative;
+  letter-spacing: 1.25px;
   text-transform: uppercase;
 }
-
-/* TITLE */
-.title {
-  display: block;
+.a {
+  height: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 0px 1px;
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
-/* EMPTY */
-.empty {
-  padding: 1rem;
-  font-size: 0.8rem;
-  color: #6f789b;
-}
 </style>

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AudioAtlas.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -236,6 +236,34 @@ namespace AudioAtlas.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RoleChangeAuditLogs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ChangedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TargetUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PreviousRole = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    NewRole = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    ChangedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleChangeAuditLogs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RoleChangeAuditLogs_AspNetUsers_ChangedById",
+                        column: x => x.ChangedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RoleChangeAuditLogs_AspNetUsers_TargetUserId",
+                        column: x => x.TargetUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Submissions",
                 columns: table => new
                 {
@@ -246,8 +274,9 @@ namespace AudioAtlas.Infrastructure.Migrations
                     EndDate = table.Column<DateOnly>(type: "date", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsSensitive = table.Column<bool>(type: "bit", nullable: false),
+                    SensitiveDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PlaylistLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsRejected = table.Column<bool>(type: "bit", nullable: false)
+                    Status = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {
@@ -477,6 +506,30 @@ namespace AudioAtlas.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SubmissionInstrument",
+                columns: table => new
+                {
+                    SubmissionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    InstrumentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubmissionInstrument", x => new { x.SubmissionId, x.InstrumentId });
+                    table.ForeignKey(
+                        name: "FK_SubmissionInstrument_Instruments_InstrumentId",
+                        column: x => x.InstrumentId,
+                        principalTable: "Instruments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SubmissionInstrument_Submissions_SubmissionId",
+                        column: x => x.SubmissionId,
+                        principalTable: "Submissions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SubmissionPredecessorGenre",
                 columns: table => new
                 {
@@ -642,9 +695,29 @@ namespace AudioAtlas.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_RoleChangeAuditLogs_ChangedAtUtc",
+                table: "RoleChangeAuditLogs",
+                column: "ChangedAtUtc");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoleChangeAuditLogs_ChangedById",
+                table: "RoleChangeAuditLogs",
+                column: "ChangedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoleChangeAuditLogs_TargetUserId",
+                table: "RoleChangeAuditLogs",
+                column: "TargetUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SubmissionCountry_CountryId",
                 table: "SubmissionCountry",
                 column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubmissionInstrument_InstrumentId",
+                table: "SubmissionInstrument",
+                column: "InstrumentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubmissionPredecessorGenre_GenreId",
@@ -713,10 +786,16 @@ namespace AudioAtlas.Infrastructure.Migrations
                 name: "RejectedSubmissions");
 
             migrationBuilder.DropTable(
+                name: "RoleChangeAuditLogs");
+
+            migrationBuilder.DropTable(
                 name: "SubmissionAliases");
 
             migrationBuilder.DropTable(
                 name: "SubmissionCountry");
+
+            migrationBuilder.DropTable(
+                name: "SubmissionInstrument");
 
             migrationBuilder.DropTable(
                 name: "SubmissionPredecessorGenre");
@@ -734,10 +813,10 @@ namespace AudioAtlas.Infrastructure.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Instruments");
+                name: "Countries");
 
             migrationBuilder.DropTable(
-                name: "Countries");
+                name: "Instruments");
 
             migrationBuilder.DropTable(
                 name: "Genres");

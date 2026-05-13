@@ -20,6 +20,7 @@ public class SubmissionsController : ControllerBase
     }
 
     [HttpGet("pending")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<ICollection<PendingSubmissionResponse>>> GetPending(CancellationToken cancellationToken)
     {
         var submissions = await _submissionService.getPendingAsync(cancellationToken);
@@ -27,6 +28,7 @@ public class SubmissionsController : ControllerBase
     }
 
     [HttpPost("{id}/approve")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Approve(Guid id, CancellationToken cancellationToken)
     {
         try
@@ -41,6 +43,7 @@ public class SubmissionsController : ControllerBase
     }
 
     [HttpPost("{id}/reject")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Reject(
         Guid id,
         [FromBody] RejectSubmissionRequest request,

@@ -2,12 +2,15 @@
   <div
     ref="globeDiv"
     class="globe"
+    :class="{ 'globe--locked': !introComplete }"
   />
 </template>
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import * as THREE from 'three'
+
+const { api } = useApi()
 
 defineOptions({
   name: 'AudioGlobe'
@@ -19,7 +22,6 @@ let resizeObserver = null
 let lastPovKey = ''
 let lastWidth = 0
 let lastHeight = 0
-
 
 const props = defineProps({
   introComplete: {
@@ -41,20 +43,24 @@ const props = defineProps({
   pointOfView: {
     type: Object,
     default: null
+  },
+  introSpinSpeed: {
+    type: Number,
+    default: 0.4
   }
 })
 
 const emit = defineEmits(['country-click'])
 
-const setControlsEnabled = (enabled) => {
+const setInteractionEnabled = (enabled) => {
   const controls = globeInstance?.controls?.()
-  if (!controls) return
+  if (controls) {
+    controls.enabled = true
+    controls.autoRotate = !enabled
+    controls.autoRotateSpeed = props.introSpinSpeed
+  }
 
-  controls.enabled = enabled
-
-  // Spin slowly during intro, stop when controls unlock
-  controls.autoRotate = !enabled
-  controls.autoRotateSpeed = 0.4
+  globeInstance?.enablePointerInteraction?.(enabled)
 }
 
 const povKey = pov => `${pov.lat}|${pov.lng}|${pov.altitude}`
@@ -62,9 +68,10 @@ const povKey = pov => `${pov.lat}|${pov.lng}|${pov.altitude}`
 onMounted(async () => {
   const Globe = (await import('globe.gl')).default
 
-  const [countriesRes, centroidsRes] = await Promise.all([
+  const [countriesRes, centroidsRes, genreCounts] = await Promise.all([
     fetch('/countries.geojson'),
-    fetch('/tiny-country-markers.json')
+    fetch('/tiny-country-markers.json'),
+    api('/countries')
   ])
 
   const countries = await countriesRes.json()
@@ -78,7 +85,12 @@ onMounted(async () => {
 
   const getCountryIso = feature => feature.properties.iso_a3
   const getCountryName = feature => feature.properties.admin ?? feature.properties.name
-  const getCountryPopulation = feature => feature.properties.pop_est
+  const getCountryGenreCount = (feature) => {
+    const countryName = getCountryName(feature)
+    return countryGenreCount.get(countryName) ?? 0
+  }
+
+  const countryGenreCount = new Map(Object.entries(genreCounts))
 
   const features = countries.features.filter((f) => {
     const iso = getCountryIso(f)
@@ -120,7 +132,7 @@ onMounted(async () => {
     .polygonStrokeColor(() => 'rgba(216, 255, 234, 0.55)')
     .polygonLabel(feature => `
       <b>${getCountryName(feature)} (${getCountryIso(feature)}):</b><br/>
-      Population: <i>${getCountryPopulation(feature)?.toLocaleString?.() ?? getCountryPopulation(feature)}</i>
+          Genres: <i>${getCountryGenreCount(feature)}</i>
     `)
     .pointsData(tinyCountries)
     .pointLat(d => d.lat)
@@ -156,11 +168,7 @@ onMounted(async () => {
     .pointOfView(initialPov)
     .globeOffset(props.globeOffset)
 
-  setControlsEnabled(props.introComplete)
-
-  const controls = globeInstance.controls()
-  controls.autoRotate = !props.introComplete
-  controls.autoRotateSpeed = 0.4
+  setInteractionEnabled(props.introComplete)
 
   const globeMaterial = globeInstance.globeMaterial()
   globeMaterial.color = new THREE.Color('#b7f3ff')
@@ -201,7 +209,7 @@ onBeforeUnmount(() => {
 watch(
   () => props.introComplete,
   (introComplete) => {
-    setControlsEnabled(introComplete)
+    setInteractionEnabled(introComplete)
   }
 )
 
@@ -239,5 +247,9 @@ watch(
 .globe {
   width: 100%;
   height: 100%;
+}
+
+.globe--locked {
+  pointer-events: none;
 }
 </style>

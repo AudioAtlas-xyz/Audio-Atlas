@@ -1,64 +1,173 @@
 # Audio Atlas Frontend
 
-## API routing
+The frontend is a Nuxt 4 application using Vue, Nuxt UI, Tailwind CSS, Three.js/globe.gl, TypeScript, ESLint, and Vitest.
 
-The frontend now always calls the Nuxt/Nitro server at `/api/...`.
-Nitro proxies those requests to the real backend using the server-side runtime variable `NUXT_API_PROXY_TARGET`.
+## Prerequisites
 
-This means:
+Install these before running the frontend locally:
 
-- In development, the browser calls `http://localhost:3000/api/...`
-- Nitro forwards that to your local backend, for example `http://localhost:5085/api/...`
-- In production, the browser still calls `/api/...`
-- Nitro forwards that to your production backend URL
+- Node.js 22, matching the GitHub Actions build job
+- npm 10.8.2, matching `package.json`
+- A running backend API for full local development
 
-## Development config
+Verify the required tools:
 
-Create a local `.env` file:
+```bash
+node --version
+npm --version
+```
+
+The frontend can start without the backend, but API-backed pages and login redirects need the backend running at the configured URL.
+
+## Project Layout
+
+```text
+frontend/
+|-- app/
+|   |-- assets/
+|   |-- components/
+|   |-- composables/
+|   |-- layouts/
+|   |-- middleware/
+|   |-- pages/
+|   `-- types/
+|-- public/
+|-- server/
+|   `-- routes/
+|-- tests/
+|-- nuxt.config.ts
+|-- package.json
+`-- vitest.config.ts
+```
+
+Nuxt app code lives under `app/`. Static assets live under `public/`. The local API proxy route lives in `server/routes/api/[...path].ts`.
+
+## Install Dependencies
+
+From the `frontend/` directory:
+
+```bash
+npm ci
+```
+
+Use `npm ci` for normal setup because the repository has a committed `package-lock.json` and CI installs dependencies this way. Use `npm install` only when intentionally updating dependencies or the lockfile.
+
+`npm ci` runs the `postinstall` script, which calls `nuxt prepare` and generates the local `.nuxt/` files used by TypeScript and ESLint.
+
+## Local Configuration
+
+The frontend uses Nuxt runtime configuration from environment variables. Create `frontend/.env` when you need to override the defaults:
 
 ```bash
 NUXT_API_PROXY_TARGET=http://localhost:5085
+NUXT_PUBLIC_BACKEND_BASE_URL=http://localhost:5085
+NUXT_PUBLIC_API_BASE=/api
 ```
 
-Then run:
+Default local behavior without a `.env` file:
+
+- `NUXT_API_PROXY_TARGET` falls back to `http://localhost:5085`
+- `NUXT_PUBLIC_BACKEND_BASE_URL` falls back to `http://localhost:5085`
+- `NUXT_PUBLIC_API_BASE` falls back to `/api`
+
+There are no frontend-only local secrets required. OAuth provider secrets belong to the backend. The frontend only needs `NUXT_PUBLIC_BACKEND_BASE_URL` so login buttons can redirect to the backend login endpoints.
+
+## API Routing
+
+In development, browser requests go to the Nuxt/Nitro server at `/api/...`.
+
+```text
+Browser -> http://localhost:3000/api/...
+Nitro   -> NUXT_API_PROXY_TARGET/api/...
+Backend -> http://localhost:5085/api/... by default
+```
+
+In production/static hosting, browser requests should go directly to the deployed backend through `NUXT_PUBLIC_API_BASE`.
+
+Login buttons redirect to:
+
+```text
+${NUXT_PUBLIC_BACKEND_BASE_URL}/api/auth/login/...
+```
+
+Frontend code should call the API through `useApi()`:
+
+```ts
+const { api } = useApi()
+await api('/countries/123')
+```
+
+`useApi()` reads `config.public.apiBase`, so local development can use the Nuxt proxy while production can use an absolute backend URL.
+
+## Run Locally
+
+Start the backend first for full functionality. From the repository root, follow `Backend/README.md`.
+
+Then start the frontend from `frontend/`:
 
 ```bash
-npm install
 npm run dev
 ```
 
-If you do not set `NUXT_API_PROXY_TARGET`, development falls back to `http://localhost:5085`.
+Nuxt prints the local URL when it starts. By default this is usually `http://localhost:3000`.
 
-## Production config
+## Checks
 
-Set this environment variable in your production host before starting Nuxt:
+Run the checks that match the area you changed:
 
 ```bash
-NUXT_API_PROXY_TARGET=https://your-prod-backend.example.com
+npm run lint
+npm run typecheck
+npm run test
+npm run build
 ```
 
-Then build and run Nuxt normally:
+Individual commands:
+
+- `npm run lint` runs ESLint through the Nuxt ESLint configuration.
+- `npm run typecheck` runs Nuxt type checking.
+- `npm run test` runs Vitest tests in `tests/**/*.test.ts` using `happy-dom`.
+- `npm run build` builds the Nuxt app for production.
+
+## Preview Production Build
+
+Build and preview locally:
 
 ```bash
 npm run build
 npm run preview
 ```
 
-On a real deployment target, start the built Nitro server with your platform's normal Nuxt/Nitro startup command and make sure `NUXT_API_PROXY_TARGET` is present in the environment.
+The preview server uses the same runtime config rules as the app. Set production-like environment variables before previewing if you need to test against a non-local backend.
 
-## How to use Nitro in code
+## Production Configuration
 
-Frontend code should use:
-
-```ts
-const config = useRuntimeConfig()
-await $fetch(`${config.public.apiBase}/countries/123`)
-```
-
-`config.public.apiBase` is `/api`, so the browser always stays on the Nuxt origin and Nitro handles the backend switch for DEV vs PROD.
-
-## Test
+For deployed environments, set:
 
 ```bash
-npm test
+NUXT_API_PROXY_TARGET=https://your-prod-backend.example.com
+NUXT_PUBLIC_BACKEND_BASE_URL=https://your-prod-backend.example.com
+NUXT_PUBLIC_API_BASE=https://your-prod-backend.example.com/api
 ```
+
+For static hosting, `NUXT_PUBLIC_API_BASE` must be available when the frontend is built. Static frontend assets cannot read changed public environment variables after deployment unless the host provides a separate runtime config injection step.
+
+GitHub Actions builds frontend changes under `frontend/**`, uploads `frontend/.output/public`, and deploys it to Azure Static Web Apps.
+
+## Common Issues
+
+If `npm run lint` or `npm run typecheck` fails because `.nuxt` files are missing, run:
+
+```bash
+npm ci
+```
+
+or:
+
+```bash
+npx nuxt prepare
+```
+
+If API calls return connection errors locally, confirm the backend is running at `http://localhost:5085` or update `NUXT_API_PROXY_TARGET`.
+
+If login redirects go to the wrong place, check `NUXT_PUBLIC_BACKEND_BASE_URL`.

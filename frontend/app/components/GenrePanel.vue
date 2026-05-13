@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
+const { relatedCount, contributorCount, instrumentCount } = defineProps<{
   relatedCount: string
   contributorCount: string
   instrumentCount: string
@@ -8,104 +8,89 @@ const props = defineProps<{
 
 <template>
   <div :class="$style.genrepanel">
-    <div :class="$style.wrapper">
-
+    <div :class="$style.divheroLeft">
       <div :class="$style.genrestats">
         <div :class="$style.prosecard">
-          <b :class="$style.title">{{ props.relatedCount }}</b>
-          <span :class="$style.label">Related Genres</span>
+          <div :class="$style.titleAndDescription">
+            <b :class="$style.title">{{relatedCount}}</b>
+            <div :class="$style.loremIpsumDolor">Related Genres</div>
+          </div>
         </div>
-
         <div :class="$style.prosecard">
-          <b :class="$style.title">{{ props.contributorCount }}</b>
-          <span :class="$style.label">Contributors</span>
+          <div :class="$style.titleAndDescription">
+            <b :class="$style.title">{{contributorCount}}</b>
+            <div :class="$style.loremIpsumDolor">Contributors</div>
+          </div>
         </div>
-
         <div :class="$style.prosecard">
-          <b :class="$style.title">{{ props.instrumentCount }}</b>
-          <span :class="$style.label">Instruments</span>
+          <div :class="$style.titleAndDescription">
+            <b :class="$style.title">{{instrumentCount}}</b>
+            <div :class="$style.loremIpsumDolor">Instruments</div>
+          </div>
         </div>
       </div>
-
-      <div :class="$style.actions">
-        <NuxtLink to="/" :class="$style.button">
-          Suggest Edits
-        </NuxtLink>
-      </div>
-
     </div>
   </div>
 </template>
 
-<style module>
-.genrepanel {
+<style module>.divheroLeft {
   width: 100%;
-}
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+  height: 5.138rem;
+  position: relative;
+  text-align: left;
+  font-size: 2.975rem;
+  color: #e4e8f5;
+  font-family: 'Space Grotesk';
 }
 
 .genrestats {
-  display: flex;
-  gap: 1rem;
-
+  position: absolute;
+  width: fit-content;
+  right: 27.3rem;
+  left: 0rem;
+  border-radius: 4px;
   border: 1px solid #1c2038;
-  border-radius: 10px;
-
+  box-sizing: border-box;
+  height: 5rem;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.875rem;
+  font-family: DM_Sans;
 }
-
 .prosecard {
-  flex: 1;
-
+  height: 6.25rem;
+  width: 12rem;
+  background-color: #0d0f1a;
+  border: 1px solid #1c2038;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-
-  padding: 1.25rem;
-
-  border-right: 1px solid #1c2038;
+  align-items: flex-start;
+  padding: 1.5rem;
+  flex-shrink: 0;
 }
-
-.prosecard:last-child {
-  border-right: none;
-}
-
-.title {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #e4e8f5;
-}
-
-.label {
-  font-size: 0.75rem;
-  color: #6f789b;
-  margin-top: 0.2rem;
-  letter-spacing: 0.04em;
-}
-
-.actions {
+.titleAndDescription {
+  align-self: stretch;
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  flex-shrink: 0;
 }
-
-.button {
-  background: #3de8c8;
-  color: #02211c;
-
-  padding: 0.6rem 1.2rem;
-  border-radius: 10px;
-
-  font-size: 0.85rem;
-  font-weight: 500;
-
-  transition: all 0.15s ease;
+.title {
+  align-self: stretch;
+  position: relative;
+  line-height: 2.25rem;
 }
-
-.button:hover {
-  background: #4af7d7;
+.loremIpsumDolor {
+  align-self: stretch;
+  position: relative;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  font-family: Space_Grotesk;
+  color: #7a84a8;
 }
 </style>

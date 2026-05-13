@@ -1,6 +1,7 @@
 using AudioAtlasApplication.DTOs;
 using AudioAtlasApplication.Repositories;
 using AudioAtlasApplication.Services;
+using AudioAtlasDomain.Enums;
 using AudioAtlasDomain.Submissions;
 
 namespace AudioAtlasInfrastructure.Services;
@@ -15,15 +16,18 @@ public class SubmissionService : ISubmissionService
 
     private readonly ICountryRepository _countryRepository;
     private readonly IGenreRepository _genreRepository;
+    private readonly IInstrumentRepository _instrumentRepository;
     private readonly ISubmissionRepository _submissionRepository;
 
     public SubmissionService(
         ICountryRepository countryRepository,
         IGenreRepository genreRepository,
+        IInstrumentRepository instrumentRepository,
         ISubmissionRepository submissionRepository)
     {
         _countryRepository = countryRepository;
         _genreRepository = genreRepository;
+        _instrumentRepository = instrumentRepository;
         _submissionRepository = submissionRepository;
     }
 
@@ -38,6 +42,7 @@ public class SubmissionService : ISubmissionService
         var aliasValues = normalizeDistinctTexts(request.Aliases ?? []);
         var normalizedSourceLinks = normalizeDistinctUrls(request.SourceLinks ?? [], "sourceLinks", errors);
         var countryIds = distinctIds(request.CountryIds ?? []);
+        var instrumentIds = distinctIds(request.InstrumentIds ?? []);
         var similarGenreIds = distinctIds(request.SimilarGenreIds ?? []);
         var subGenreIds = distinctIds(request.SubGenreIds ?? []);
         var predecessorGenreIds = distinctIds(request.PredecessorGenreIds ?? []);
@@ -76,12 +81,6 @@ public class SubmissionService : ISubmissionService
             errors["aliases"] = [$"Aliases must be at most {MaxAliasLength} characters."];
         }
 
-        // at least one source link
-        if (normalizedSourceLinks.Count == 0)
-        {
-            errors["sourceLinks"] = ["At least one source link is required."];
-        }
-
         // max playlist url length
         if (normalizedPlaylistLink is { Length: > MaxUrlLength })
         {
@@ -106,12 +105,14 @@ public class SubmissionService : ISubmissionService
 
         // get specified countried
         var countries = await _countryRepository.getCountriesByIdsAsync(countryIds, cancellationToken);
+        var instruments = await _instrumentRepository.getInstrumentsByIdsAsync(instrumentIds, cancellationToken);
         var similarGenres = await _genreRepository.getGenresByIdsAsync(similarGenreIds, cancellationToken);
         var subGenres = await _genreRepository.getGenresByIdsAsync(subGenreIds, cancellationToken);
         var predecessorGenres = await _genreRepository.getGenresByIdsAsync(predecessorGenreIds, cancellationToken);
 
         // Do they exist?
         addMissingIdErrors(errors, "countryIds", countryIds, countries.Select(country => country.Id));
+        addMissingIdErrors(errors, "instrumentIds", instrumentIds, instruments.Select(instrument => instrument.Id));
         addMissingIdErrors(errors, "similarGenreIds", similarGenreIds, similarGenres.Select(genre => genre.Id));
         addMissingIdErrors(errors, "subGenreIds", subGenreIds, subGenres.Select(genre => genre.Id));
         addMissingIdErrors(errors, "predecessorGenreIds", predecessorGenreIds, predecessorGenres.Select(genre => genre.Id));
@@ -131,7 +132,9 @@ public class SubmissionService : ISubmissionService
             EndDate = request.EndDate,
             Description = normalizedDescription,
             IsSensitive = request.IsSensitive,
+            SensitiveDescription = request.IsSensitive ? normalizeText(request.SensitiveDescription) : null,
             PlaylistLink = normalizedPlaylistLink,
+            Status = SubmissionStatus.Pending,
             Aliases = normalizedAliases.Select(alias => new SubmissionAlias
             {
                 Alias = alias
@@ -141,6 +144,7 @@ public class SubmissionService : ISubmissionService
                 SourceLink = link
             }).ToList(),
             Countries = countries.ToList(),
+            Instruments = instruments.ToList(),
             SimilarGenres = similarGenres.ToList(),
             SubGenres = subGenres.ToList(),
             PredecessorGenres = predecessorGenres.ToList()
@@ -166,10 +170,12 @@ public class SubmissionService : ISubmissionService
                 EndDate = submission.EndDate,
                 Description = submission.Description,
                 IsSensitive = submission.IsSensitive,
+                SensitiveDescription = submission.SensitiveDescription,
                 PlaylistLink = submission.PlaylistLink,
                 Aliases = submission.Aliases.Select(alias => alias.Alias).ToList(),
                 SourceLinks = submission.Sources.Select(source => source.SourceLink).ToList(),
                 CountryIds = submission.Countries.Select(country => country.Id).ToList(),
+                InstrumentIds = submission.Instruments.Select(instrument => instrument.Id).ToList(),
                 SimilarGenreIds = submission.SimilarGenres.Select(genre => genre.Id).ToList(),
                 SubGenreIds = submission.SubGenres.Select(genre => genre.Id).ToList(),
                 PredecessorGenreIds = submission.PredecessorGenres.Select(genre => genre.Id).ToList()
@@ -181,8 +187,31 @@ public class SubmissionService : ISubmissionService
     {
         var submission = await getPendingSubmissionOrThrowAsync(submissionId, cancellationToken);
 
-        submission.IsApproved = true;
-        submission.IsRejected = false;
+        var genre = new AudioAtlasDomain.Genres.Genre
+        {
+            AuthorId = submission.AccountId,
+            Name = submission.NewGenreName!,
+            Description = submission.Description,
+            StartYear = submission.StartDate?.Year,
+            IsSensitive = submission.IsSensitive,
+            SensitiveDescription = submission.SensitiveDescription,
+            PlaylistLink = submission.PlaylistLink,
+            Aliases = submission.Aliases
+                .Select(a => new AudioAtlasDomain.Genres.GenreAlias { Alias = a.Alias })
+                .ToList(),
+            Sources = submission.Sources
+                .Select(s => new AudioAtlasDomain.Genres.GenreSource { SourceLink = s.SourceLink })
+                .ToList(),
+            Countries = submission.Countries.ToList(),
+            Instruments = submission.Instruments.ToList(),
+            SimilarGenres = submission.SimilarGenres.ToList(),
+            SubGenres = submission.SubGenres.ToList(),
+            ParentGenres = submission.PredecessorGenres.ToList(),
+        };
+
+        await _genreRepository.AddAsync(genre, cancellationToken);
+
+        submission.Status = SubmissionStatus.Approved;
         submission.RejectedSubmission = null;
 
         await _submissionRepository.saveChangesAsync(cancellationToken);
@@ -204,8 +233,7 @@ public class SubmissionService : ISubmissionService
             throw new InvalidOperationException($"reason: Rejection reason must be at most {MaxRejectReasonLength} characters.");
         }
 
-        submission.IsRejected = true;
-        submission.IsApproved = false;
+        submission.Status = SubmissionStatus.Rejected;
 
         if (submission.RejectedSubmission is null)
         {
@@ -329,12 +357,12 @@ public class SubmissionService : ISubmissionService
             throw new InvalidOperationException("submissionId: Submission not found.");
         }
 
-        if (submission.IsApproved)
+        if (submission.Status == SubmissionStatus.Approved)
         {
             throw new InvalidOperationException("submissionId: Submission has already been approved.");
         }
 
-        if (submission.IsRejected)
+        if (submission.Status == SubmissionStatus.Rejected)
         {
             throw new InvalidOperationException("submissionId: Submission has already been rejected.");
         }

@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "route": "/admin/index",
+      "redirect": "/admin",
+      "statusCode": 301
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/api/*",
+      "/_nuxt/*",
+      "/css/*",
+      "/fonts/*",
+      "/_fonts/*",
+      "/*.{css,js,mjs,json,ico,png,jpg,jpeg,gif,webp,svg,glb,tif,woff,woff2,ttf,eot,map,txt,xml}"
+    ]
+  }
+}

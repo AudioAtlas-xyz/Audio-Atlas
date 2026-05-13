@@ -15,5 +15,6 @@ public interface IGenreRepository
     public ICollection<Genre> getAllGenres();
     public ICollection<Genre> getGenresByAuthorId(Guid id);
     public Task<ICollection<Genre>> SearchForGenres(string keyword);
+    public Task AddAsync(Genre genre, CancellationToken cancellationToken = default);
     public Task SaveChangesAsync();
 }

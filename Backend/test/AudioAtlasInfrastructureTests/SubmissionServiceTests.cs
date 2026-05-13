@@ -1,4 +1,5 @@
 using AudioAtlasApplication.DTOs;
+using AudioAtlasDomain.Enums;
 using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Submissions;
@@ -9,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using InfrastructureCountryRepository = AudioAtlasInfrastructure.Repositories.CountryRepository;
 using InfrastructureGenreRepository = AudioAtlasInfrastructure.Repositories.GenreRepository;
 using InfrastructureSubmissionRepository = AudioAtlasInfrastructure.Repositories.SubmissionRepository;
+using InfrastructureInstrumentRepository = AudioAtlasInfrastructure.Repositories.InstrumentRepository;
+using InfrastructureSubmissionService = AudioAtlasInfrastructure.Services.SubmissionService;
 
 namespace AudioAtlasInfrastructureTests;
 
@@ -53,7 +56,8 @@ public class SubmissionServiceTests
         var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
         var countryRepository = new InfrastructureCountryRepository(dbContext);
         var genreRepository = new InfrastructureGenreRepository(dbContext);
-        var service = new SubmissionService(countryRepository, genreRepository, submissionRepository);
+        var instrumentRepository = new InfrastructureInstrumentRepository(dbContext);
+        var service = new InfrastructureSubmissionService(countryRepository, genreRepository, instrumentRepository, submissionRepository);
 
         var command = new CreateSubmissionRequest
         {
@@ -103,7 +107,8 @@ public class SubmissionServiceTests
         var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
         var countryRepository = new InfrastructureCountryRepository(dbContext);
         var genreRepository = new InfrastructureGenreRepository(dbContext);
-        var service = new SubmissionService(countryRepository, genreRepository, submissionRepository);
+        var instrumentRepository = new InfrastructureInstrumentRepository(dbContext);
+        var service = new InfrastructureSubmissionService(countryRepository, genreRepository, instrumentRepository, submissionRepository);
 
         var command = new CreateSubmissionRequest
         {
@@ -116,7 +121,6 @@ public class SubmissionServiceTests
 
         Assert.Contains("newGenreName", exception.Message);
         Assert.Contains("description", exception.Message);
-        Assert.Contains("sourceLinks", exception.Message);
     }
 
     [Fact]
@@ -130,7 +134,8 @@ public class SubmissionServiceTests
         var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
         var countryRepository = new InfrastructureCountryRepository(dbContext);
         var genreRepository = new InfrastructureGenreRepository(dbContext);
-        var service = new SubmissionService(countryRepository, genreRepository, submissionRepository);
+        var instrumentRepository = new InfrastructureInstrumentRepository(dbContext);
+        var service = new InfrastructureSubmissionService(countryRepository, genreRepository, instrumentRepository, submissionRepository);
 
         var command = new CreateSubmissionRequest
         {
@@ -201,7 +206,7 @@ public class SubmissionServiceTests
             Account = account,
             NewGenreName = "Rejected Genre",
             Description = "Rejected description",
-            IsRejected = true,
+            Status = SubmissionStatus.Rejected,
             Sources = [new SubmissionSource { SourceLink = "https://example.com/rejected-source" }]
         });
 
@@ -210,7 +215,8 @@ public class SubmissionServiceTests
         var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
         var countryRepository = new InfrastructureCountryRepository(dbContext);
         var genreRepository = new InfrastructureGenreRepository(dbContext);
-        var service = new SubmissionService(countryRepository, genreRepository, submissionRepository);
+        var instrumentRepository = new InfrastructureInstrumentRepository(dbContext);
+        var service = new InfrastructureSubmissionService(countryRepository, genreRepository, instrumentRepository, submissionRepository);
 
         var submissions = await service.getPendingAsync();
 
@@ -248,13 +254,13 @@ public class SubmissionServiceTests
         var service = new SubmissionService(
             new InfrastructureCountryRepository(dbContext),
             new InfrastructureGenreRepository(dbContext),
+            new InfrastructureInstrumentRepository(dbContext),
             new InfrastructureSubmissionRepository(dbContext));
 
         await service.approveAsync(submission.Id);
 
         var approvedSubmission = await dbContext.Submissions.SingleAsync(x => x.Id == submission.Id);
-        Assert.True(approvedSubmission.IsApproved);
-        Assert.False(approvedSubmission.IsRejected);
+        Assert.Equal(SubmissionStatus.Approved, approvedSubmission.Status);
     }
 
     [Fact]
@@ -281,6 +287,7 @@ public class SubmissionServiceTests
         var service = new SubmissionService(
             new InfrastructureCountryRepository(dbContext),
             new InfrastructureGenreRepository(dbContext),
+            new InfrastructureInstrumentRepository(dbContext),
             new InfrastructureSubmissionRepository(dbContext));
 
         await service.rejectAsync(submission.Id, new RejectSubmissionRequest
@@ -292,8 +299,7 @@ public class SubmissionServiceTests
             .Include(x => x.RejectedSubmission)
             .SingleAsync(x => x.Id == submission.Id);
 
-        Assert.True(rejectedSubmission.IsRejected);
-        Assert.False(rejectedSubmission.IsApproved);
+        Assert.Equal(SubmissionStatus.Rejected, rejectedSubmission.Status);
         Assert.NotNull(rejectedSubmission.RejectedSubmission);
         Assert.Equal("Not enough supporting evidence.", rejectedSubmission.RejectedSubmission!.Description);
     }

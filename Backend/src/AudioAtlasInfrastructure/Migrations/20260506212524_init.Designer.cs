@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AudioAtlas.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260429125744_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260506212524_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -171,9 +171,6 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.Property<DateOnly?>("EndDate")
                         .HasColumnType("date");
 
-                    b.Property<bool>("IsRejected")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsSensitive")
                         .HasColumnType("bit");
 
@@ -183,8 +180,16 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.Property<string>("PlaylistLink")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SensitiveDescription")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateOnly?>("StartDate")
                         .HasColumnType("date");
+
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -351,6 +356,42 @@ namespace AudioAtlas.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("PendingExternalRegistrations", (string)null);
+                });
+
+            modelBuilder.Entity("AudioAtlasDomain.Users.RoleChangeAuditLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChangedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ChangedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("NewRole")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<string>("PreviousRole")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<Guid>("TargetUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChangedAtUtc");
+
+                    b.HasIndex("ChangedById");
+
+                    b.HasIndex("TargetUserId");
+
+                    b.ToTable("RoleChangeAuditLogs", (string)null);
                 });
 
             modelBuilder.Entity("FavoriteGenre", b =>
@@ -574,6 +615,21 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.ToTable("SubmissionCountry");
                 });
 
+            modelBuilder.Entity("SubmissionInstrument", b =>
+                {
+                    b.Property<Guid>("SubmissionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InstrumentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("SubmissionId", "InstrumentId");
+
+                    b.HasIndex("InstrumentId");
+
+                    b.ToTable("SubmissionInstrument");
+                });
+
             modelBuilder.Entity("SubmissionPredecessorGenre", b =>
                 {
                     b.Property<Guid>("SubmissionId")
@@ -693,6 +749,25 @@ namespace AudioAtlas.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Submission");
+                });
+
+            modelBuilder.Entity("AudioAtlasDomain.Users.RoleChangeAuditLog", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.Users.ApplicationUser", "ChangedBy")
+                        .WithMany()
+                        .HasForeignKey("ChangedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AudioAtlasDomain.Users.ApplicationUser", "TargetUser")
+                        .WithMany()
+                        .HasForeignKey("TargetUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ChangedBy");
+
+                    b.Navigation("TargetUser");
                 });
 
             modelBuilder.Entity("FavoriteGenre", b =>
@@ -826,6 +901,21 @@ namespace AudioAtlas.Infrastructure.Migrations
                     b.HasOne("AudioAtlasDomain.Geography.Country", null)
                         .WithMany()
                         .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AudioAtlasDomain.Submissions.Submission", null)
+                        .WithMany()
+                        .HasForeignKey("SubmissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SubmissionInstrument", b =>
+                {
+                    b.HasOne("AudioAtlasDomain.MusicMetadata.Instrument", null)
+                        .WithMany()
+                        .HasForeignKey("InstrumentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

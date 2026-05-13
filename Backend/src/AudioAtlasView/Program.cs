@@ -21,6 +21,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 Console.WriteLine(builder.Environment.EnvironmentName);
 
+builder.Configuration.AddJsonFile(
+    $"appsettings.{builder.Environment.EnvironmentName}.Json",
+    optional: true,
+    reloadOnChange: true);
+
+if (builder.Environment.IsProduction())
+{
+    builder.Configuration
+        .AddJsonFile("appsettings.Production.json", optional: true, reloadOnChange: true)
+        .AddJsonFile("appsettings.Production.Json", optional: true, reloadOnChange: true);
+}
+
 builder.Services.AddOpenApi();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
@@ -45,6 +57,7 @@ builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<ISubmissionRepository, SubmissionRepository>();
 builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<IInstrumentRepository, InstrumentRepository>();
 builder.Services.AddScoped<IUserDeletionService, UserDeletionService>();
 builder.Services.AddScoped<ISubmissionService, SubmissionService>();
 
@@ -56,7 +69,18 @@ builder.Services.AddControllers()
 
 var allowedOrigins = builder.Configuration
     .GetSection("Cors:AllowedOrigins")
-    .Get<string[]>() ?? throw new Exception("CORS AllowedOrigins not configured");
+    .Get<string[]>()?
+    .Where(origin => !string.IsNullOrWhiteSpace(origin))
+    .Select(origin => origin.Trim().TrimEnd('/'))
+    .Distinct(StringComparer.OrdinalIgnoreCase)
+    .ToArray() ?? throw new Exception("CORS AllowedOrigins not configured");
+
+if (allowedOrigins.Length == 0)
+{
+    throw new Exception(
+        $"CORS AllowedOrigins is empty for environment '{builder.Environment.EnvironmentName}'. " +
+        "Check that the production settings file is deployed with the correct Linux casing.");
+}
 
 builder.Services.AddCors(options =>
 {

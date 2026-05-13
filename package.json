@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@johmun/vue-tags-input": "^2.1.0",
     "dependencies": "^0.0.1",
     "packages": "^0.0.8"
   }
