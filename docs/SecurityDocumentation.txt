@@ -10,7 +10,12 @@ Table of contents:
 4. Cross Site Scripting
 5. SQL Injection
 6. Input Validation
-
+7. Cross-Site Request Forgery (Critical)
+8. Insecure Dependency (Critical)
+9. Insecure Dependencies (High)
+10. Asynchronous (High)
+11. unused (high (inaccurate))
+12. undeclared (high(inaccurate))
 
 ================================================================================
     1. CORS
@@ -58,20 +63,35 @@ Criteria: OAuth tokens and session cookies are configured with secure flags
 Status: Secure
 
 Explanation:
-The application uses OAuth authentication via GitHub or Google. When signin in with either GitHub or Google there are
-temporary cookies which are httponly and secure. The application uses JSON Web Tokens (JWT) when authorized via GitHub or Google.
-The bearer token is stored in the Authotization header of the HTTP request that needs authentication.
+The application uses OAuth authentication via GitHub or Google. When signing in with either GitHub or Google there are
+temporary cookies which are httponly and secure. The application uses JSON Web Tokens (JWT) once the identity is verified via GitHub or Google.
+The bearer token is stored in the Authorization header of the HTTP request that needs authentication.
 
+Note:
+To ensure more security during OAuth the temporary cookies should also use SameSite=Lax attribute.
 ================================================================================
     4. Cross site scripting
 ================================================================================
 Criteria: All user-submitted content (genre names, descriptions, aliases) is sanitized before rendering to prevent XSS (Cross-site scripting attack)
-Status: Secure
+Status: Partially secure
 
+
+Secure:
 Explanation:
 Nuxt/Vue automatically escapes HTML content. This prevents the accidentally injecting executable HTML into the application.
 In the submission-form page the data from genre names, descriptions and aliases (and the rest of the input) is rendered using double curly braces interpolation e.g. {{ submissionData.NewGenreName }}, to ensure it is handled as a text and not script.
 This prevents the application from XSS attacks.
+
+Not secure:
+Codacy issues: https://app.codacy.com/gh/AudioAtlas-xyz/Audio-Atlas/dashboard
+Severity: high
+Explanation: there a two cases of location.href detected via Codacy this can lead to XSS attacks, when assigning user input directly to location.href.
+In this case: const loginWithGoogle = () => {window.location.href = loginUrl('google')}.
+
+Detected:
+- frontend/app/components/UserFlow/LoginModal.vue line 17
+- frontend/app/components/UserFlow/LoginModal.vue line 21
+
 
 ================================================================================
     5. SQL injection
@@ -97,3 +117,105 @@ This enables automatic model validation and will automatically result in a rejec
 The applications uses DTOs found in Backend/src/AudioAtlasApplication/DTO.
 In these Data Transfer Objects each field is defined by a specific type e.g. Guid for the IDs and DateOnly for StartDate and EndDate.
 This ensures validation of input types and any malformed request will automatically be rejected with a "400 Bad Request".
+
+================================================================================
+    7. Cross-Site Request Forgery (Critical)
+================================================================================
+Codacy issues: https://app.codacy.com/gh/AudioAtlas-xyz/Audio-Atlas/dashboard
+Serverity: Critical
+
+Explanation:
+Codacy flags the application for failing to protect against CSRF due to not including the '[ValidateAntiForgeryToken]' attribute on an HTTP method handler that could change user state (usually in the form of POST or PUT methods).
+The vulnerabillity can be exploited by an adversary creating a link or form on a third party site and tricking an authenticated victim to access them.
+This would mean that even though the application validates the input types (6. Input validation) it do not verfiy the authenticity of the requst source.
+Therefore the risk is that an attacker can trick an authenticated user into submitting unwanted requests.
+However the application uses JWT Bearer tokens (as explained in section 3) on the client side. This means that the authentication tokens gets send manually by the Nuxt code.
+Therefore it is secure against CSRF, because the browser dont attach the authentication header to cross site request.
+
+Detected in:
+- Backend/src/AudioAtlasView/Controllers/SubmissionsController.cs line 60
+- Backend/src/AudioAtlasView/Controllers/CountriesController.cs line 60
+- Backend/src/AudioAtlasView/Controllers/GenresController.cs line 42
+
+Recommended fixes:
+- Add the [ValidateAntiForgeryToken] attribute to all HTTP methods where this issue is detected.
+- Or add a global fix with a AutoValidateAntiforgeryTokenAttribute filter in the program.cs file
+- To enhance protection session cookies should be set with the SameSite=Lax attribute.
+
+================================================================================
+    8. Insecure Dependency (Critical)
+================================================================================
+Codacy issues: https://app.codacy.com/gh/AudioAtlas-xyz/Audio-Atlas/dashboard
+Serverity: Critical
+
+Explanation:
+Insecure dependency npm/form-data@2.3.3 needs to be updated with verison that have no known critical vulnerabillity. The library uses unsafe Math.random() which an attacker can perform HTTP Parameter Pollution (HPP), by predicting.
+Using dependencies with known critical security vulnerabilities can lead to severe security breaches, data loss, or system compromise.
+
+Detected in:
+- package-lock.json line 405
+
+Recommended fixes:
+- update to 2.5.4 or higher
+
+================================================================================
+    9. Insecure Dependencies (High)
+================================================================================
+Codacy issues: https://app.codacy.com/gh/AudioAtlas-xyz/Audio-Atlas/dashboard
+Serverity: High
+
+
+Insecure packages in package-lock.json:
+- npm/qs@0.6.6 needs to  be udpated to 6.10.3 (line 228)
+- npm/negotiator@0.3.0 needs to be up updated to 0.6.1 (line 628)
+- npm/fresh@0.2.0 needs to be up updated to 0.5.2 (line 419)
+- npm/debug@0.8.1 needs to be up updated to 2.6.9 (line 273)
+- npm/mime@1.2.11 needs to be up updated to 1.4.1 (line 564)
+
+Risk types:
+- qs:
+- negotiator:
+- fresh:
+- debug:
+- mime:
+
+================================================================================
+    10. Asynchronous (High)
+================================================================================
+Codacy issues: https://app.codacy.com/gh/AudioAtlas-xyz/Audio-Atlas/dashboard
+Serverity: High
+
+Explanation:
+Codacy have detected 4 cases of "floating promises",promises without handling of their results or erros. This can result in runtime issuses and undhandled rejections.
+
+
+Detected in:
+- frontend/app/pages/index.vue line 65
+- frontend/app/pages/callback.vue line 44
+- frontend/app/components/CountryPanel.vue line 45
+- frontend/app/composables/useAuth.ts line 32
+
+These promises must be handled by awainting them and catching them or explicitly with .then(), .catch() or .finally()
+
+================================================================================
+    11. unused (high(inaccurate))
+================================================================================
+Codacy issues: https://app.codacy.com/gh/AudioAtlas-xyz/Audio-Atlas/dashboard
+Serverity: High (via codacy)
+
+Explanation:
+Codacy have detected 122 cases of unused variables. Some of which are false postivies.
+A lot of the 122 cases are detected is because codacy struggle analysing the vue components.
+Codacy looks at the <script> and <template> in isolation and fails to see the connection, which makes Codacy flag it.
+
+================================================================================
+    12. undeclared (high(inaccurate))
+================================================================================
+Codacy issues: https://app.codacy.com/gh/AudioAtlas-xyz/Audio-Atlas/dashboard
+Serverity: High (via codacy)
+
+Explanation:
+Codacy have detected 33 cases of undeclared variables. This can lead to runtime errors (ReferenceErrors), with can lead to unexpected behavior.
+But this is not the cases in this context. Because all 33 cases are from the frontend part which is written in Nuxt.
+Nuxt uses Auto imports via runtime, but codacy don't know this and flags it.
+================================================================================
