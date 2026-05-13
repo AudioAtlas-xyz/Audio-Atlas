@@ -164,20 +164,12 @@ Recommended fixes:
 Codacy issues: https://app.codacy.com/gh/AudioAtlas-xyz/Audio-Atlas/dashboard
 Serverity: High
 
-
 Insecure packages in package-lock.json:
 - npm/qs@0.6.6 needs to  be udpated to 6.10.3 (line 228)
 - npm/negotiator@0.3.0 needs to be up updated to 0.6.1 (line 628)
 - npm/fresh@0.2.0 needs to be up updated to 0.5.2 (line 419)
 - npm/debug@0.8.1 needs to be up updated to 2.6.9 (line 273)
 - npm/mime@1.2.11 needs to be up updated to 1.4.1 (line 564)
-
-Risk types:
-- qs:
-- negotiator:
-- fresh:
-- debug:
-- mime:
 
 ================================================================================
     10. Asynchronous (High)
