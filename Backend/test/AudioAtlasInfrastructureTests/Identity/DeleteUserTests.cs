@@ -22,18 +22,7 @@ using System.Security.Claims;
 
 namespace AudioAtlasInfrastructureTests.Identity;
 
-// ============================================================================
-// Async-aware in-memory IQueryable for mocking UserManager.Users
-//
-// UserDeletionService calls `await _userManager.Users.FirstOrDefaultAsync(...)`,
-// which is the EF Core async extension. That extension calls into
-// IAsyncQueryProvider.ExecuteAsync, so a plain List.AsQueryable() throws at
-// runtime ("the source IQueryable doesn't implement IAsyncEnumerable"). The
-// helpers below wrap a list so EF's async LINQ extensions work in unit tests.
-//
-// Adapted from the standard pattern documented at
-// https://learn.microsoft.com/ef/core/testing/testing-without-the-database
-// ============================================================================
+// Async-aware IQueryable so EF's async LINQ works against mocked UserManager.Users.
 internal class TestAsyncEnumerable<T> : EnumerableQuery<T>, IAsyncEnumerable<T>, IQueryable<T>
 {
     public TestAsyncEnumerable(IEnumerable<T> enumerable) : base(enumerable) { }
@@ -90,11 +79,7 @@ internal class TestAsyncQueryProvider<TEntity> : IAsyncQueryProvider
 // Shared test
 internal static class DeleteUserTestFixtures
 {
-    /// <summary>
-    /// Builds a Mock UserManager with the minimum constructor args.
-    /// UserManager has nine ctor parameters; nulls are fine for paths the
-    /// service never exercises.
-    /// </summary>
+    // UserManager has 9 ctor args; nulls fine for paths we don't touch.
     public static Mock<UserManager<ApplicationUser>> CreateMockUserManager()
     {
         var store = new Mock<IUserStore<ApplicationUser>>();
@@ -103,11 +88,7 @@ internal static class DeleteUserTestFixtures
             null!, null!, null!, null!, null!, null!, null!, null!);
     }
 
-    /// <summary>
-    /// Wires up a UserDeletionService with mocks pre-configured for the most
-    /// common scenarios. Pass 'userToFind = null' to simulate "user not found",
-    /// 'placeholder = null' for "placeholder missing", etc.
-    /// </summary>
+    // Build a service with mocks pre-wired. Null args = "not found".
     public static (
         UserDeletionService service,
         Mock<UserManager<ApplicationUser>> userManager,
@@ -166,10 +147,7 @@ internal static class DeleteUserTestFixtures
         return (service, userManager, genreRepo, logger);
     }
 
-    /// <summary>
-    /// Verifies that ILogger received at least one call at the given level
-    /// whose rendered message contains 'messageFragment'.
-    /// </summary>
+    // Asserts ILogger got at least one call at `level` containing `messageFragment`.
     public static void VerifyLogged<T>(
         Mock<ILogger<T>> logger,
         LogLevel level,
@@ -317,11 +295,7 @@ public class UserDeletionServiceTests
 
     // New edge-case coverage
 
-    /// <summary>
-    /// Calling delete a second time after the user has already been removed
-    /// must report failure rather than crash. Mirrors a double-click /
-    /// retry scenario from the UI.
-    /// </summary>
+    // Double-delete (e.g. UI double-click) returns false instead of crashing.
     [Fact]
     public async Task DeleteUserAsync_WhenCalledTwice_SecondCallReturnsFalse()
     {
@@ -355,11 +329,7 @@ public class UserDeletionServiceTests
         Assert.False(await service.DeleteUserAsync(userId));
     }
 
-    /// <summary>
-    /// The service performs reassignment BEFORE deleting the Identity row.
-    /// If that order is reversed, foreign-key cascades could orphan or null
-    /// out the genres. This test pins the order down explicitly.
-    /// </summary>
+    // Reassign must happen before delete or the FKs cascade-orphan.
     [Fact]
     public async Task DeleteUserAsync_ReassignsAndSavesBeforeDeletingUser()
     {
@@ -390,12 +360,7 @@ public class UserDeletionServiceTests
             callOrder);
     }
 
-    /// <summary>
-    /// SaveChangesAsync exceptions bubble up. The current service has no
-    /// try/catch around it, so callers (the controller) get the exception.
-    /// This test pins that contract — change it deliberately if you decide to
-    /// swallow the exception in the service later.
-    /// </summary>
+    // SaveChangesAsync exceptions bubble up to the controller.
     [Fact]
     public async Task DeleteUserAsync_WhenSaveChangesThrows_PropagatesException()
     {
@@ -414,12 +379,7 @@ public class UserDeletionServiceTests
         await Assert.ThrowsAsync<DbUpdateException>(() => service.DeleteUserAsync(user.Id));
     }
 
-    /// <summary>
-    /// `getGenresByAuthorId` is the source of truth for what the service
-    /// reassigns. If the repository hands back zero items, no genre should
-    /// have its AuthorId mutated and SaveChangesAsync still runs (the service
-    /// doesn't gate the call on collection size).
-    /// </summary>
+    // Empty authored list is valid — delete still succeeds.
     [Fact]
     public async Task DeleteUserAsync_WhenNoAuthoredGenres_DoesNotMutateOtherGenres()
     {
@@ -434,9 +394,6 @@ public class UserDeletionServiceTests
         bool ok = await service.DeleteUserAsync(user.Id);
 
         Assert.True(ok);
-        // Nothing to assert about other genres — the service can only see what
-        // the repo gives it. The point of this test is documenting that an
-        // empty list is a valid input and produces a successful delete.
     }
 
     // Logger verification
@@ -515,10 +472,7 @@ public class UserDeletionServiceTests
 // Unit tests for DeleteUserController
 public class DeleteUserControllerTests
 {
-    /// <summary>
-    /// Wraps a controller with a stub HttpContext that carries the supplied
-    /// claims (use null to simulate an anonymous request).
-    /// </summary>
+    // Wrap controller in a stub HttpContext with given claims.
     private static DeleteUserController BuildController(
         IUserDeletionService service,
         params Claim[] claims)
@@ -628,7 +582,7 @@ public class DeleteUserControllerTests
     }
 }
 
-// Integration tests against a real EF Core (SQLite in-memory) DbContext
+// Integration tests — SQLite in-memory + real EF/Identity stack.
 public class UserDeletionServiceIntegrationTests : IDisposable
 {
     private readonly SqliteConnection _connection;
@@ -636,7 +590,7 @@ public class UserDeletionServiceIntegrationTests : IDisposable
 
     public UserDeletionServiceIntegrationTests()
     {
-        // Single shared connection so all scopes see the same in-memory DB.
+        // Shared connection so all scopes see the same in-memory DB
         _connection = new SqliteConnection("DataSource=:memory:");
         _connection.Open();
 
@@ -671,9 +625,7 @@ public class UserDeletionServiceIntegrationTests : IDisposable
         db.Database.EnsureCreated();
     }
 
-    /// <summary>
-    /// Helper: seed a placeholder + a real user, return their ids.
-    /// </summary>
+    // Seed a placeholder + a real user, return their ids.
     private async Task<(Guid placeholderId, Guid userId)> SeedUsersAsync()
     {
         using IServiceScope scope = _services.CreateScope();
@@ -783,13 +735,7 @@ public class UserDeletionServiceIntegrationTests : IDisposable
         }
     }
 
-    /// <summary>
-    /// User-requested "Dummy Genre" scenario: seed a genre with the bare
-    /// minimum (just a name and an author) and confirm that after the user
-    /// is deleted, the dummy genre's AuthorId points to the placeholder
-    /// instead of the now-removed user. Guards against a future bug where
-    /// genres with mostly-null fields slip past the reassignment loop.
-    /// </summary>
+    // Dummy genre (minimal fields) gets reassigned to the placeholder too.
     [Fact]
     public async Task DeleteUserAsync_DummyGenre_AuthorReplacedByPlaceholder()
     {
