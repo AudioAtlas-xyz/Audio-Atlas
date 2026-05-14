@@ -187,6 +187,30 @@ public class SubmissionService : ISubmissionService
     {
         var submission = await getPendingSubmissionOrThrowAsync(submissionId, cancellationToken);
 
+        var genre = new AudioAtlasDomain.Genres.Genre
+        {
+            AuthorId = submission.AccountId,
+            Name = submission.NewGenreName!,
+            Description = submission.Description,
+            StartYear = submission.StartDate?.Year,
+            IsSensitive = submission.IsSensitive,
+            SensitiveDescription = submission.SensitiveDescription,
+            PlaylistLink = submission.PlaylistLink,
+            Aliases = submission.Aliases
+                .Select(a => new AudioAtlasDomain.Genres.GenreAlias { Alias = a.Alias })
+                .ToList(),
+            Sources = submission.Sources
+                .Select(s => new AudioAtlasDomain.Genres.GenreSource { SourceLink = s.SourceLink })
+                .ToList(),
+            Countries = submission.Countries.ToList(),
+            Instruments = submission.Instruments.ToList(),
+            SimilarGenres = submission.SimilarGenres.ToList(),
+            SubGenres = submission.SubGenres.ToList(),
+            ParentGenres = submission.PredecessorGenres.ToList(),
+        };
+
+        await _genreRepository.AddAsync(genre, cancellationToken);
+
         submission.Status = SubmissionStatus.Approved;
         submission.RejectedSubmission = null;
 

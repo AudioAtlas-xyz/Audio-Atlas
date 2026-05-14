@@ -11,11 +11,7 @@ using System.Security.Claims;
 
 namespace AudioAtlasInfrastructureTests.Identity;
 
-// Integration tests for AdminController.ChangeUserRole.
-//
-// Uses SQLite in-memory with a real Identity stack — mocking UserManager
-// + RoleManager would be more code than it's worth for the role join
-// logic these tests exercise.
+// Integration tests for AdminController.ChangeUserRole. SQLite + real Identity.
 public class RoleChangeTests : IDisposable
 {
     private readonly SqliteConnection _connection;
@@ -49,7 +45,7 @@ public class RoleChangeTests : IDisposable
         var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         db.Database.EnsureCreated();
 
-        // Seed the four real Identity roles up-front.
+        // Seed roles
         var roles = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
         foreach (var name in new[] { "Admin", "Curator", "Banned" })
         {
@@ -57,10 +53,7 @@ public class RoleChangeTests : IDisposable
         }
     }
 
-    // -----------------------------------------------------------------
     // Helpers
-    // -----------------------------------------------------------------
-
     private static AdminController BuildController(
         AppDbContext db,
         UserManager<ApplicationUser> users,
@@ -104,10 +97,7 @@ public class RoleChangeTests : IDisposable
         return user;
     }
 
-    // -----------------------------------------------------------------
     // Validation
-    // -----------------------------------------------------------------
-
     [Fact]
     public async Task ChangeUserRole_WhenRoleMissing_Returns400()
     {
@@ -203,10 +193,7 @@ public class RoleChangeTests : IDisposable
         Assert.IsType<NotFoundObjectResult>(result);
     }
 
-    // -----------------------------------------------------------------
     // Safety checks
-    // -----------------------------------------------------------------
-
     [Fact]
     public async Task ChangeUserRole_WhenSelfDemote_Returns409()
     {
@@ -214,7 +201,7 @@ public class RoleChangeTests : IDisposable
         var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         var users = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        // Two admins so the last-admin guard doesn't fire first.
+        // Two admins so last-admin guard doesn't fire first
         var caller = await CreateUserAsync(users, "admin1", "Admin");
         await CreateUserAsync(users, "admin2", "Admin");
 
@@ -234,14 +221,10 @@ public class RoleChangeTests : IDisposable
         var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         var users = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        // Caller is *not* the only admin — only the target is. So self-demote
-        // doesn't apply; only the last-admin guard does.
+        // Only the target is admin, so the last-admin guard fires
         var caller = await CreateUserAsync(users, "ops", "Curator");
         var theOneAdmin = await CreateUserAsync(users, "admin", "Admin");
 
-        // Pretend the curator is also an admin client-side. Caller-id-as-admin
-        // is irrelevant to the last-admin DB count; the only thing that matters
-        // is how many users have the "Admin" role row.
         var controller = BuildController(db, users, caller.Id);
 
         var result = await controller.ChangeUserRole(
