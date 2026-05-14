@@ -4,6 +4,8 @@ import type { Country } from '~/types/country'
 import type { Genre } from '~/types/genre'
 import type {Instrument} from "~/types/instrument";
 
+definePageMeta({ middleware: 'admin' })
+
 const { api } = useApi()
 
 const { data: countriesData } = await useAsyncData<Country[]>('pending-countries', () => api('/countries/all'))
@@ -46,6 +48,32 @@ function getInstrumentNames(ids: string[]) {
     .map(id => instruments.find(c => c.id === id)?.type).filter(Boolean)
 }
 
+const actionLoading = ref<Record<string, boolean>>({})
+const rejectReasons = ref<Record<string, string>>({})
+const rejectExpanded = ref<Record<string, boolean>>({})
+
+async function approve(id: string) {
+  actionLoading.value[id] = true
+  try {
+    await api(`/submissions/${id}/approve`, { method: 'POST' })
+    pendingSubmissions.value = pendingSubmissions.value?.filter(s => s.id !== id) ?? []
+  } finally {
+    actionLoading.value[id] = false
+  }
+}
+
+async function reject(id: string) {
+  actionLoading.value[id] = true
+  try {
+    await api(`/submissions/${id}/reject`, {
+      method: 'POST',
+      body: { reason: rejectReasons.value[id] ?? '' }
+    })
+    pendingSubmissions.value = pendingSubmissions.value?.filter(s => s.id !== id) ?? []
+  } finally {
+    actionLoading.value[id] = false
+  }
+}
 </script>
 
 
@@ -98,6 +126,41 @@ function getInstrumentNames(ids: string[]) {
             <p><strong>Predecessor genres: </strong>
               {{getGenreNames(item.predecessorGenreIds).join(', ')}}</p>
 
+            <div class="actions">
+              <UButton
+                color="success"
+                variant="solid"
+                :loading="actionLoading[item.id]"
+                @click="approve(item.id)"
+              >
+                Approve
+              </UButton>
+
+              <UButton
+                color="error"
+                variant="outline"
+                :loading="actionLoading[item.id]"
+                @click="rejectExpanded[item.id] = !rejectExpanded[item.id]"
+              >
+                Reject
+              </UButton>
+            </div>
+
+            <div v-if="rejectExpanded[item.id]" class="reject-form">
+              <UTextarea
+                v-model="rejectReasons[item.id]"
+                placeholder="Reason for rejection (optional)"
+                class="reject-reason"
+              />
+              <UButton
+                color="error"
+                variant="solid"
+                :loading="actionLoading[item.id]"
+                @click="reject(item.id)"
+              >
+                Confirm Reject
+              </UButton>
+            </div>
           </div>
         </template>
       </UCollapsible>
@@ -127,5 +190,19 @@ p{
 }
 .collapsibleCard {
   background-color: #1f2937;
+}
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1rem 2rem 0.5rem;
+}
+.reject-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.5rem 2rem 1rem;
+}
+.reject-reason {
+  width: 100%;
 }
 </style>

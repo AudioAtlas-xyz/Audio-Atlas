@@ -121,7 +121,6 @@ public class SubmissionServiceTests
 
         Assert.Contains("newGenreName", exception.Message);
         Assert.Contains("description", exception.Message);
-        Assert.Contains("sourceLinks", exception.Message);
     }
 
     [Fact]

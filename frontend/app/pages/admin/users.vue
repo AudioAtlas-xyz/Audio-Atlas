@@ -39,7 +39,7 @@ const roleOptions = [
   { label: 'Contributor', value: 'Contributor' }
 ] as const
 
-// role-change dropdown — same items, no "All" option
+// role-change dropdown items
 const assignableRoleOptions = [
   { label: 'Admin', value: 'Admin' },
   { label: 'Curator', value: 'Curator' },
@@ -54,8 +54,7 @@ type SortDir = 'asc' | 'desc'
 const sortKey = ref<SortKey>('memberSince')
 const sortDir = ref<SortDir>('desc')
 
-// Role sort priority — matches the backend's display priority so
-// "asc" puts admins on top.
+// Role sort priority — matches backend display priority
 const ROLE_PRIORITY: Record<AdminUserRole, number> = {
   Admin:       0,
   Banned:      1,
@@ -101,7 +100,7 @@ const visibleUsers = computed(() => {
   return rows
 })
 
-// pagination — client-side, 100 rows per page
+// pagination, 100 rows per page
 const PAGE_SIZE = 100
 const currentPage = ref(1)
 
@@ -138,7 +137,7 @@ async function changeRole(row: AdminUserRow, newRole: AdminUserRole) {
   if (newRole === row.role) return
   if (changingId.value) return
 
-  // Self-demote guard mirrors the backend 409. Belt-and-suspenders.
+  // Self-demote guard mirrors the backend 409
   if (currentUser.value?.userId === row.id && newRole !== 'Admin' && row.role === 'Admin') {
     rowErrors.value[row.id] = 'You cannot demote yourself.'
     return
@@ -166,8 +165,7 @@ async function changeRole(row: AdminUserRow, newRole: AdminUserRole) {
   }
 }
 
-// signup stat — counts users joined in the last 30 days based on
-// memberSince. Null memberSince doesn't count.
+// signups in the last 30 days (null memberSince doesn't count)
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000
 
 const signupsLast30Days = computed(() => {
