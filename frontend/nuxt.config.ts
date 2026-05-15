@@ -41,7 +41,12 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/': { prerender: true }
+    '/': { prerender: true },
+    '/privacy-policy': { prerender: true },
+    '/about': { prerender: true },
+    '/contribution-guidelines': { prerender: true },
+    '/explore': { prerender: true },
+    '/genres': { prerender: true }
   },
 
   compatibilityDate: '2025-01-15',
