@@ -12,7 +12,7 @@
     </NuxtLink>
 
     <NuxtLink
-      to="/privacy"
+      to="/privacy-policy"
       class="px-3 py-1 text-xs font-medium text-muted border-l border-border hover:bg-white/5 transition"
     >
       PRIVACY POLICY
