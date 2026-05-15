@@ -37,6 +37,7 @@ const emit = defineEmits<{
       <nav class="nav-links">
         <NuxtLink to="/explore">Explore</NuxtLink>
         <NuxtLink to="/about">About</NuxtLink>
+        <NuxtLink to="/privacy-policy">Privacy Policy</NuxtLink>
         <!-- Only visible to admins. Middleware + backend re-check the role. -->
         <NuxtLink v-if="isAdmin" to="/admin" class="nav-admin">
           Admin
