@@ -29,7 +29,7 @@ export const useAuth = () => {
     const token = localStorage.getItem('token')
 
     if (!token || isExpired(token)) {
-      logout({ redirect: false })
+      void logout({ redirect: false })
       return
     }
 
