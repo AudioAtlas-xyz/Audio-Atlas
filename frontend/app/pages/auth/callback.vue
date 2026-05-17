@@ -8,7 +8,7 @@ import { useUIState } from '@/composables/useUIState'
 const router = useRouter()
 const route = useRoute()
 
-console.log('callback script setup running', window.location.href)
+if (import.meta.client) console.log('callback script setup running', window.location.href)
 
 useHead({
   title: 'Signing in...'
