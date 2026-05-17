@@ -39,7 +39,7 @@ export const useAuth = () => {
       user.value = await api<AuthUser>('/auth/me')
     } catch (err) {
       console.error('fetchUser failed:', err)
-      logout()
+      logout({ redirect: false })
     }
   }
 
