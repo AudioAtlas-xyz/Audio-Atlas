@@ -47,7 +47,7 @@ export default defineNuxtConfig({
     '/contribution-guidelines': { prerender: true },
     '/explore': { prerender: true },
     '/genres': { prerender: true },
-    '/auth/callback': { prerender: true }
+    '/auth/callback': { ssr: false }
   },
 
   compatibilityDate: '2025-01-15',
