@@ -16,6 +16,7 @@ const { user, fetchUser } = useAuth()
 const { triggerAppBanner, openOnboarding } = useUIState()
 
 onMounted(async () => {
+  console.log('[auth/callback] route.query:', route.query)
   const token = route.query.token as string | undefined
   const newUser = route.query.newUser as string | undefined
   const pendingId = route.query.pendingRegistrationId as string | undefined
