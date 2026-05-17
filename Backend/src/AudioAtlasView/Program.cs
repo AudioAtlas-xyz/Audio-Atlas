@@ -33,6 +33,8 @@ if (builder.Environment.IsProduction())
         .AddJsonFile("appsettings.Production.Json", optional: true, reloadOnChange: true);
 }
 
+builder.Configuration.AddEnvironmentVariables();
+
 builder.Services.AddOpenApi();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
