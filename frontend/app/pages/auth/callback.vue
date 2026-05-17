@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useHead } from '#imports'
 import { onMounted } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 import { useUIState } from '@/composables/useUIState'
 
 const router = useRouter()
-const route = useRoute()
 
-console.log('callback script setup running', window.location.href)
+if (import.meta.client) console.log('callback script setup running', window.location.href)
 
 useHead({
   title: 'Signing in...'
@@ -18,12 +17,13 @@ const { user, fetchUser } = useAuth()
 const { triggerAppBanner, openOnboarding } = useUIState()
 
 onMounted(async () => {
-  console.log('callback onMounted firing', route.query)
-  console.log('[auth/callback] route.query:', route.query)
-  const token = route.query.token as string | undefined
-  const newUser = route.query.newUser as string | undefined
-  const pendingId = route.query.pendingRegistrationId as string | undefined
-  const suggested = route.query.suggestedUsername as string | undefined
+  console.log('callback onMounted firing', window.location.search)
+  console.log('[auth/callback] window.location.search:', window.location.search)
+  const params = new URLSearchParams(window.location.search)
+  const token = params.get('token')
+  const newUser = params.get('newUser')
+  const pendingId = params.get('pendingRegistrationId')
+  const suggested = params.get('suggestedUsername')
 
   // Save JWT
   if (token) {
