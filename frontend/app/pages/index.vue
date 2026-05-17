@@ -3,10 +3,7 @@ import { computed, ref, onMounted } from 'vue'
 import Globe from '@/components/Globe.vue'
 import CountryPanel from '@/components/CountryPanel.vue'
 
-import { useRoute, useRouter } from 'vue-router'
 import { useScrollIntro } from '@/composables/useScrollIntro'
-import { useAuth } from '@/composables/useAuth'
-import { useUIState } from '@/composables/useUIState'
 import { useHead } from '#imports'
 
 /**
@@ -19,51 +16,14 @@ useHead({
   ]
 })
 
-const route = useRoute()
-const router = useRouter()
-
-/**
- * Auth — fetchUser is also called in default.vue's onMounted; calling here
- * is a safety net for direct loads of `/?newUser=true` that bypass /auth/callback.
- */
-const { fetchUser } = useAuth()
-
-/**
- * UI State — only `openOnboarding` is used here. AppHeader, LoginModal,
- * UsernameModal, SuccessModal and AppBanner are all owned by `layouts/default.vue`.
- * Don't render them here or you'll get duplicate instances.
- */
-const { openOnboarding } = useUIState()
 const viewportHeight = ref(0)
 
-/**
- * Init auth + onboarding
- *
- * NOTE: Welcome banners are owned by `pages/auth/callback.vue` (returning users)
- * and the SuccessModal close handler in `layouts/default.vue` (new users).
- * This page must NOT fire `triggerAppBanner` on mount.
- */
-
-onMounted(async () => {
+onMounted(() => {
   viewportHeight.value = window.innerHeight
 
   window.addEventListener('resize', () => {
     viewportHeight.value = window.innerHeight
   })
-
-  const newUser = route.query.newUser as string | undefined
-  const pendingId = route.query.pendingRegistrationId as string | undefined
-  const suggested = route.query.suggestedUsername as string | undefined
-
-  if (newUser === 'true') {
-    openOnboarding(pendingId || null, suggested || null)
-  }
-
-  await fetchUser()
-
-  if (route.query.newUser || route.query.pendingRegistrationId || route.query.suggestedUsername) {
-    router.replace('/')
-  }
 })
 
 /**
