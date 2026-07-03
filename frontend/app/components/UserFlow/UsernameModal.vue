@@ -184,13 +184,15 @@ const finish = async () => {
     emit('finished')
   } catch (err: unknown) {
     console.error('Onboarding failed:', err)
-    const status = (err as { statusCode?: number })?.statusCode
+    const fetchErr = err as { statusCode?: number; data?: unknown }
+    const status = fetchErr?.statusCode
+    const serverMessage = typeof fetchErr?.data === 'string' ? fetchErr.data : null
     if (status === 409) {
       errorMessage.value = 'Username is already taken. Please choose another.'
     } else if (status === 400) {
-      errorMessage.value = 'Your session may have expired. Please log in again.'
+      errorMessage.value = serverMessage || 'Your session may have expired. Please log in again.'
     } else {
-      errorMessage.value = 'Something went wrong. Please try again.'
+      errorMessage.value = serverMessage || 'Something went wrong. Please try again.'
     }
   } finally {
     loading.value = false
