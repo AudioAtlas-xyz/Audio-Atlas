@@ -97,9 +97,14 @@ builder.Services.AddCors(options =>
 });
 
 var jwtKey = builder.Configuration["Jwt:Key"]
-    ?? throw new Exception("JWT Key not configured");
-    
+    ?? throw new InvalidOperationException("Jwt:Key is not configured.");
+
 var key = Encoding.UTF8.GetBytes(jwtKey);
+
+var githubClientId = builder.Configuration["Authentication:GitHub:ClientId"]
+    ?? throw new InvalidOperationException("Authentication:GitHub:ClientId is not configured.");
+var githubClientSecret = builder.Configuration["Authentication:GitHub:ClientSecret"]
+    ?? throw new InvalidOperationException("Authentication:GitHub:ClientSecret is not configured.");
 
 builder.Services.AddAuthentication(options =>
 {
@@ -133,42 +138,20 @@ builder.Services.AddAuthentication(options =>
 
     options.SignInScheme = IdentityConstants.ExternalScheme;
 })
-.AddOAuth("GitHub", options =>
+.AddGitHub(options =>
 {
-    options.ClientId = builder.Configuration["Authentication:GitHub:ClientId"]!;
-    options.ClientSecret = builder.Configuration["Authentication:GitHub:ClientSecret"]!;
+    options.ClientId = githubClientId;
+    options.ClientSecret = githubClientSecret;
 
     options.CallbackPath = "/signin-github";
-
-    options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
-    options.TokenEndpoint = "https://github.com/login/oauth/access_token";
-    options.UserInformationEndpoint = "https://api.github.com/user";
 
     options.Scope.Add("user:email");
 
     options.SignInScheme = IdentityConstants.ExternalScheme;
     options.SaveTokens = true;
 
-    options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
-    options.ClaimActions.MapJsonKey(ClaimTypes.Name, "login");
-    options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
-
     options.Events.OnCreatingTicket = async context =>
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, context.Options.UserInformationEndpoint);
-        request.Headers.Authorization =
-            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", context.AccessToken);
-        request.Headers.Accept.Add(
-            new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-        request.Headers.UserAgent.ParseAdd("AudioAtlas");
-
-        var response = await context.Backchannel.SendAsync(request);
-        response.EnsureSuccessStatusCode();
-
-        var user = System.Text.Json.JsonDocument.Parse(await response.Content.ReadAsStringAsync());
-
-        context.RunClaimActions(user.RootElement);
-
         if (!context.Identity!.HasClaim(claim => claim.Type == ClaimTypes.Email))
         {
             var emailRequest = new HttpRequestMessage(HttpMethod.Get, "https://api.github.com/user/emails");

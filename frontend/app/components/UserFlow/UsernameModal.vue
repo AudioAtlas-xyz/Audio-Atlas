@@ -31,6 +31,7 @@ const username = ref('')
 const acceptedGuidelines = ref(false)
 const acceptedPrivacy = ref(false)
 const loading = ref(false)
+const errorMessage = ref<string | null>(null)
 
 const usernameStatus = ref<
   'idle' | 'checking' | 'available' | 'taken' | 'invalid'
@@ -155,6 +156,7 @@ const finish = async () => {
 
   try {
     loading.value = true
+    errorMessage.value = null
 
     const response = await api<{ token: string }>(
       `/auth/complete-onboarding`,
@@ -180,8 +182,16 @@ const finish = async () => {
     // close handler in `layouts/default.vue`, NOT here. Firing it now would
     // hide it behind SuccessModal's full-screen backdrop.
     emit('finished')
-  } catch (err) {
+  } catch (err: unknown) {
     console.error('Onboarding failed:', err)
+    const status = (err as { statusCode?: number })?.statusCode
+    if (status === 409) {
+      errorMessage.value = 'Username is already taken. Please choose another.'
+    } else if (status === 400) {
+      errorMessage.value = 'Your session may have expired. Please log in again.'
+    } else {
+      errorMessage.value = 'Something went wrong. Please try again.'
+    }
   } finally {
     loading.value = false
   }
@@ -243,6 +253,10 @@ const finish = async () => {
 
       <p class="hint" v-if="!hasAcceptedAll">
         Please accept both policies to continue
+      </p>
+
+      <p v-if="errorMessage" class="error-message">
+        {{ errorMessage }}
       </p>
 
       <div class="buttons">
@@ -356,6 +370,12 @@ const finish = async () => {
   font-size: 0.7rem;
   color: #aaa;
   margin-top: 0.5rem;
+}
+
+.error-message {
+  font-size: 0.78rem;
+  color: #ff6b6b;
+  margin-top: 0.75rem;
 }
 
 .buttons {

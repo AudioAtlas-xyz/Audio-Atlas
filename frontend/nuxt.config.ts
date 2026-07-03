@@ -1,5 +1,5 @@
 const productionBackendBaseUrl = 'https://api-audioatlas.azurewebsites.net'
-const localBackendBaseUrl = 'http://localhost:5085'
+const localBackendBaseUrl = 'http://localhost:5000'
 const defaultBackendBaseUrl = process.env.NODE_ENV === 'production'
   ? productionBackendBaseUrl
   : localBackendBaseUrl
