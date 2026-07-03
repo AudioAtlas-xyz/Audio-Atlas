@@ -67,22 +67,49 @@ const handleDeletedClose = () => {
 }
 
 onMounted(async () => {
-  await fetchUser()
+  // In production, Azure SWA serves /index.html for /auth/callback and Nuxt's
+  // hybrid renderer redirects the route to / while preserving the query string.
+  // The callback page's onMounted never runs, so we read OAuth params directly
+  // from the URL here instead.
+  // In local dev the callback page works normally and uses sessionStorage instead.
+  const urlParams = new URLSearchParams(window.location.search)
+  const urlToken = urlParams.get('token')
+  const urlNewUser = urlParams.get('newUser')
+  const urlPendingId = urlParams.get('pendingRegistrationId')
+  const urlSuggestedUsername = urlParams.get('suggestedUsername')
+  const hasOAuthParams = !!(urlToken || urlPendingId)
 
-  // Check for post-login intents saved by /auth/callback before it navigated here.
-  // We do this after fetchUser() so the user object is ready when the banner fires.
-  if (sessionStorage.getItem('showWelcomeBanner')) {
-    sessionStorage.removeItem('showWelcomeBanner')
-    const name = user.value?.username || ''
-    triggerAppBanner(`Welcome back${name ? `, ${name}` : ''}! 👋`)
+  if (hasOAuthParams) {
+    // Strip OAuth params from the URL immediately so they don't sit in history.
+    window.history.replaceState({}, '', window.location.pathname)
+    if (urlToken) localStorage.setItem('token', urlToken)
   }
 
-  const pendingId = sessionStorage.getItem('pendingRegistrationId')
-  if (pendingId) {
-    const suggestedUser = sessionStorage.getItem('suggestedUsername') || null
-    sessionStorage.removeItem('pendingRegistrationId')
-    sessionStorage.removeItem('suggestedUsername')
-    openOnboarding(pendingId, suggestedUser)
+  await fetchUser()
+
+  if (hasOAuthParams) {
+    // Production path — params came from the URL.
+    if (urlNewUser === 'false') {
+      const name = user.value?.username || ''
+      triggerAppBanner(`Welcome back${name ? `, ${name}` : ''}! 👋`)
+    } else if (urlNewUser === 'true' && urlPendingId) {
+      openOnboarding(urlPendingId, urlSuggestedUsername || null)
+    }
+  } else {
+    // Local dev path — callback page saved intents to sessionStorage.
+    if (sessionStorage.getItem('showWelcomeBanner')) {
+      sessionStorage.removeItem('showWelcomeBanner')
+      const name = user.value?.username || ''
+      triggerAppBanner(`Welcome back${name ? `, ${name}` : ''}! 👋`)
+    }
+
+    const pendingId = sessionStorage.getItem('pendingRegistrationId')
+    if (pendingId) {
+      const suggestedUser = sessionStorage.getItem('suggestedUsername') || null
+      sessionStorage.removeItem('pendingRegistrationId')
+      sessionStorage.removeItem('suggestedUsername')
+      openOnboarding(pendingId, suggestedUser)
+    }
   }
 })
 </script>
