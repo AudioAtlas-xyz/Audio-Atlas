@@ -14,6 +14,7 @@ const { fetchUser, user } = useAuth()
 const {
   bannerMessage,
   pendingRegistrationId,
+  openOnboarding,
   triggerAppBanner
 } = useUIState()
 
@@ -67,6 +68,22 @@ const handleDeletedClose = () => {
 
 onMounted(async () => {
   await fetchUser()
+
+  // Check for post-login intents saved by /auth/callback before it navigated here.
+  // We do this after fetchUser() so the user object is ready when the banner fires.
+  if (sessionStorage.getItem('showWelcomeBanner')) {
+    sessionStorage.removeItem('showWelcomeBanner')
+    const name = user.value?.username || ''
+    triggerAppBanner(`Welcome back${name ? `, ${name}` : ''}! 👋`)
+  }
+
+  const pendingId = sessionStorage.getItem('pendingRegistrationId')
+  if (pendingId) {
+    const suggestedUser = sessionStorage.getItem('suggestedUsername') || null
+    sessionStorage.removeItem('pendingRegistrationId')
+    sessionStorage.removeItem('suggestedUsername')
+    openOnboarding(pendingId, suggestedUser)
+  }
 })
 </script>
 
