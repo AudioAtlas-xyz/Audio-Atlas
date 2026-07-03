@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
 import { useHead } from '#imports'
 import { onMounted } from 'vue'
 
@@ -11,8 +10,6 @@ const _newUser = _params.get('newUser')
 const _pendingRegistrationId = _params.get('pendingRegistrationId')
 const _suggestedUsername = _params.get('suggestedUsername')
 
-const router = useRouter()
-
 useHead({
   title: 'Signing in...'
 })
@@ -23,8 +20,7 @@ onMounted(() => {
     localStorage.setItem('token', _token)
   }
 
-  // Persist post-login intent to sessionStorage so it survives the
-  // client-side navigation to the prerendered home page (which resets useState).
+  // Persist post-login intent to sessionStorage before navigating.
   if (_newUser === 'true' && _pendingRegistrationId) {
     sessionStorage.setItem('pendingRegistrationId', _pendingRegistrationId)
     if (_suggestedUsername) {
@@ -34,8 +30,10 @@ onMounted(() => {
     sessionStorage.setItem('showWelcomeBanner', 'true')
   }
 
-  // Navigate home — default.vue layout onMounted handles the banner/modal.
-  router.replace('/')
+  // Full page reload to / so the app boots fresh with the token already in
+  // localStorage. router.replace('/') does a SPA navigation which applies
+  // the prerendered / payload and resets all Nuxt useState (auth, banner, etc).
+  window.location.replace('/')
 })
 </script>
 
