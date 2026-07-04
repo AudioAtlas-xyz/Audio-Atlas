@@ -80,10 +80,9 @@ useHead(() => ({
 
 <template>
   <div class="bg-bg text-space-50">
-    <UContainer class="px-0 sm:px-0">
-      <!-- HERO -->
-      <section class="border-b border-border bg-bg">
-        <div class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-8 sm:px-10 lg:px-[120px] lg:py-10">
+    <!-- HERO -->
+    <section class="border-b border-border bg-bg">
+      <div class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-8 sm:px-10 lg:px-[120px] lg:py-10">
 
           <!-- LOADING -->
           <div v-if="pending" class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
@@ -128,25 +127,25 @@ useHead(() => ({
             title="Missing countryId"
             description="Open this page with a ?countryId=... query so the page can request country data from the backend."
           />
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- STATS -->
-      <section class="border-y border-border bg-surface">
-        <div class="mx-auto max-w-[1200px] px-6 py-3 sm:px-10 lg:px-[120px]">
-          <div class="space-y-1">
-            <p class="font-display text-xl text-aurora">
-              {{ genreCount }}
-            </p>
-            <p class="text-[11px] text-[#373d5a]">
-              Genres documented
-            </p>
-          </div>
+    <!-- STATS -->
+    <section class="border-y border-border bg-surface">
+      <div class="mx-auto max-w-[1200px] px-6 py-3 sm:px-10 lg:px-[120px]">
+        <div class="space-y-1">
+          <p class="font-display text-xl text-aurora">
+            {{ genreCount }}
+          </p>
+          <p class="text-[11px] text-[#373d5a]">
+            Genres documented
+          </p>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- CONTENT -->
-      <section class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-8 sm:px-10 lg:px-[120px] lg:py-10">
+    <!-- CONTENT -->
+    <section class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-8 sm:px-10 lg:px-[120px] lg:py-10">
         <div class="border-b border-border pb-4">
           <h2 class="font-display text-[28px] tracking-[-0.02em] text-space-50">
             Genres
@@ -190,7 +189,6 @@ useHead(() => ({
           <!-- CONTRIBUTORS -->
           <CountryContributorsCard v-if="contributors.length" :contributors="contributors" />
         </div>
-      </section>
-    </UContainer>
+    </section>
   </div>
 </template>

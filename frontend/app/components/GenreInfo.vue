@@ -51,7 +51,6 @@ const { isSensitive, sensitivityDescription, pageDescription, similarGenres, par
 <style  module>
 .genreinfo {
   width: 100%;
-  height: 73.875rem;
   position: relative;
   box-sizing: border-box;
   grid-template-columns: 1fr 320px;
