@@ -168,6 +168,16 @@ public class GenreRepository : IGenreRepository
         return _dbcontext.Genres.Where(g => g.AuthorId == id).ToList();
     }
 
+    public ICollection<Genre> GetGenresByGrouping(string grouping)
+    {
+        return _dbcontext.Genres
+            .Include(g => g.Countries)
+            .Where(g => g.Countries.Any(c =>
+                c.Continent == grouping || c.Region == grouping))
+            .OrderBy(g => g.Name)
+            .ToList();
+    }
+
     public async Task<ICollection<Genre>> SearchForGenres(string keyword)
     {
         return await _dbcontext.Genres

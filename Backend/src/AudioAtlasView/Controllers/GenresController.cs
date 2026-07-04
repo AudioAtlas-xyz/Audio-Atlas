@@ -31,6 +31,13 @@ namespace AudioAtlasView.Controllers
             return await _genreService.SearchForGenres(keyword);
         }
 
+        // GET api/genres/browse/{grouping}
+        [HttpGet("browse/{grouping}")]
+        public ICollection<GenreDTO> GetByGrouping(string grouping)
+        {
+            return _genreService.GetGenresByGrouping(grouping);
+        }
+
         // GET api/genres/{id}
         [HttpGet("{id}")]
         public GenreDTO? Get(Guid id)

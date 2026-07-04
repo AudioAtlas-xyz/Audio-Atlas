@@ -44,6 +44,22 @@ public class GenreService : IGenreService
     }
 
 
+    public ICollection<GenreDTO> GetGenresByGrouping(string grouping)
+    {
+        return _genreRepository.GetGenresByGrouping(grouping)
+            .Select(g => new GenreDTO
+            {
+                Id = g.Id,
+                Name = g.Name,
+                Countries = g.Countries.Select(c => new CountryDTO
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                }).ToList()
+            })
+            .ToList();
+    }
+
     public GenreDTO CreateDTO(Genre genre)
     {
         return new GenreDTO
