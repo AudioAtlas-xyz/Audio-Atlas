@@ -93,6 +93,7 @@ const emit = defineEmits<{
 }
 
 .nav-panel {
+  position: relative;
   display: flex;
   align-items: center;
 
@@ -111,11 +112,13 @@ const emit = defineEmits<{
 }
 
 .nav-links {
-  flex: 1;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 2rem;
+  pointer-events: auto;
 }
 
 .nav-links :deep(a) {
