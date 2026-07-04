@@ -1,134 +1,45 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
 import type { Genre } from '~/types/genre'
 
-const { similarGenres, parentGenres, subGenres } = defineProps<{
+defineProps<{
   similarGenres: Genre[]
   parentGenres: Genre[]
   subGenres: Genre[]
 }>()
-
-
 </script>
 
 <template>
-  <div :class="$style.relatedgenres">
-    <div :class="$style.parentgenrecard">
-      <div :class="$style.parentgenre">
-        <div :class="$style.span">
-          <div :class="$style.cardTitle">PARENT GENRES</div>
-        </div>
-        <div :class="$style.a" />
+  <div class="grid w-full gap-2 sm:grid-cols-3">
+    <div
+      v-for="{ label, genres } in [
+        { label: 'Parent Genres', genres: parentGenres },
+        { label: 'Sub Genres', genres: subGenres },
+        { label: 'Similar Genres', genres: similarGenres }
+      ]"
+      :key="label"
+      class="overflow-hidden rounded-[6px] border border-[#1c2038] bg-[#0d0f1a]"
+    >
+      <div class="border-b border-[#1c2038] px-4 py-2">
+        <span class="font-mono text-[0.65rem] uppercase tracking-[1.25px] text-[#8a93b8]">{{ label }}</span>
       </div>
 
-      <div v-if="parentGenres.length" class="w-full">
-      <GenreCard
-        v-for="genre in parentGenres"
-        :key="genre.id"
-        :genre="genre"
-      />
-      </div>
-      <div v-else class="flex-1 flex justify-center items-center px-4 py-5 text-center text-sm text-[#6f789b]">
-        No parent genres found.
-      </div>
-
-
-    </div>
-    <div :class="$style.parentgenrecard">
-      <div :class="$style.parentgenre">
-        <div :class="$style.span">
-          <div :class="$style.cardTitle">SUB GENRES</div>
-        </div>
-        <div :class="$style.a" />
-      </div>
-
-      <div v-if="subGenres.length" class="w-full">
-      <GenreCard
-        v-for="genre in subGenres"
-        :key="genre.id"
-        :genre="genre"
-      />
-      </div>
-      <div v-else class="flex-1 flex justify-center items-center px-4 py-5 text-center text-sm text-[#6f789b]">
-        No subgenres found.
-      </div>
-
-
-    </div>
-
-      <div :class="$style.parentgenrecard">
-      <div :class="$style.parentgenre">
-        <div :class="$style.span">
-          <div :class="$style.cardTitle">SIMILAR GENRES</div>
-        </div>
-        <div :class="$style.a" />
-      </div>
-
-        <div v-if="similarGenres.length" class="w-full">
-        <GenreCard
-          v-for="genre in similarGenres"
+      <div v-if="genres.length" class="divide-y divide-[#1c2038]">
+        <NuxtLink
+          v-for="genre in genres"
           :key="genre.id"
-          :genre="genre"
-        />
-        </div>
-        <div v-else class="flex-1 flex justify-center items-center px-4 py-5 text-center text-sm text-[#6f789b]">
-          No similar genres found.
-        </div>
+          :to="`/genres?genreId=${genre.id}`"
+          class="block px-4 py-2.5 text-sm text-space-50 transition-colors hover:bg-[#111420] hover:text-aurora"
+        >
+          {{ genre.name }}
+          <p v-if="genre.countries?.length" class="mt-0.5 text-[10px] text-[#4f587a]">
+            {{ genre.countries.map(c => c.name).join(', ') }}
+          </p>
+        </NuxtLink>
+      </div>
 
+      <p v-else class="px-4 py-4 text-xs text-[#4f587a]">
+        None
+      </p>
     </div>
-
-
   </div>
 </template>
-<style  module>.relatedgenres {
-  width: 100%;
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-  text-align: left;
-  font-size: 12px;
-  color: #e4e8f5;
-  font-family: 'DM Sans';
-}
-.parentgenrecard {
-  flex: 1;
-  border-radius: 6px;
-  background-color: #0d0f1a;
-  border: 1px solid #1c2038;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.parentgenre {
-  align-self: stretch;
-  border-bottom: 1px solid #1c2038;
-  padding: 0.6rem 1rem;
-  display: flex;
-  width: 100%;
-  font-size: 0.7rem;
-  color: #8a93b8;
-  font-family: 'Space Mono';
-}
-.span {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex-shrink: 0;
-}
-.cardTitle {
-  position: relative;
-  letter-spacing: 1.25px;
-  text-transform: uppercase;
-}
-.a {
-  height: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px 0px 1px;
-  box-sizing: border-box;
-  flex-shrink: 0;
-}
-
-</style>
