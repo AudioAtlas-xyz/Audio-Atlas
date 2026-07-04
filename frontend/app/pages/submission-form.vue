@@ -6,6 +6,7 @@ import * as z from 'zod'
  //npm install @johmun/vue-tags-input
 import Stepper from '../components/submission/Stepper.vue';
 import SubmissionHeader from "~/components/submission/SubmissionHeader.vue";
+import FormSubmittedCard from '~/components/submission/FormSubmittedCard.vue';
 import type {Instrument} from "~/types/instrument";
 const { api } = useApi();
 const step = ref(1);
