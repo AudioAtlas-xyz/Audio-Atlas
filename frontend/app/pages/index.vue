@@ -90,8 +90,7 @@ const closeCountryPanel = () => {
     <!-- Hero -->
     <div class="hero-title">
       <p class="eyebrow">
-        explorable by map <br>
-        growable by community
+        A living map of the world's music
       </p>
       <h1>Audio Atlas</h1>
     </div>
@@ -110,6 +109,16 @@ const closeCountryPanel = () => {
           />
         </div>
       </ClientOnly>
+    </div>
+
+    <!-- Scroll cue -->
+    <div
+      v-if="!finished"
+      class="scroll-cue"
+      :style="{ opacity: Math.max(0, 1 - progress * 6) }"
+    >
+      <span class="scroll-cue__label">scroll to explore</span>
+      <UIcon name="i-heroicons-chevron-down-20-solid" class="scroll-cue__chevron" />
     </div>
 
     <!-- Country panel -->
@@ -193,5 +202,39 @@ h1 {
 
 .scroll-spacer {
   height: 185vh;
+}
+
+.scroll-cue {
+  position: fixed;
+  z-index: 3;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.scroll-cue__label {
+  color: #8ddbe6;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.scroll-cue__chevron {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #8ddbe6;
+  animation: cue-bounce 1.4s ease-in-out infinite;
+}
+
+@keyframes cue-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
 }
 </style>
