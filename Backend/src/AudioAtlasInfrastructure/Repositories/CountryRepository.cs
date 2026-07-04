@@ -70,7 +70,7 @@ public class CountryRepository : ICountryRepository
     {
         return _dbcontext.Countries
             .Include(c => c.Genres)
-            .ToDictionary(c => c.Name, c => c.Genres.Count);
+            .ToDictionary(c => c.isoCode.ToUpperInvariant(), c => c.Genres.Count);
         
     }
 

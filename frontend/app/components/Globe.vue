@@ -86,8 +86,8 @@ onMounted(async () => {
   const getCountryIso = feature => feature.properties.iso_a3
   const getCountryName = feature => feature.properties.admin ?? feature.properties.name
   const getCountryGenreCount = (feature) => {
-    const countryName = getCountryName(feature)
-    return countryGenreCount.get(countryName) ?? 0
+    const iso = getCountryIso(feature)
+    return countryGenreCount.get(iso) ?? 0
   }
 
   const countryGenreCount = new Map(Object.entries(genreCounts))
