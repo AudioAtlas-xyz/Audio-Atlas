@@ -70,8 +70,10 @@ public class CountryRepository : ICountryRepository
     {
         return _dbcontext.Countries
             .Include(c => c.Genres)
-            .ToDictionary(c => c.isoCode.ToUpperInvariant(), c => c.Genres.Count);
-        
+            .Where(c => c.isoCode != null && c.isoCode != "")
+            .AsEnumerable()
+            .GroupBy(c => c.isoCode.ToUpperInvariant())
+            .ToDictionary(g => g.Key, g => g.Sum(c => c.Genres.Count));
     }
 
     /// <summary>
