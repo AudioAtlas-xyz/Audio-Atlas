@@ -1,106 +1,77 @@
-<script lang="js"></script>
+<script setup lang="ts">
+defineProps<{ genreName: string }>()
+defineEmits<{ (e: 'submit-another'): void }>()
+</script>
 
 <template>
-  <UContainer :class ="$style.formsubmittedcard">
-    <div class="relative flex items-center justify-center mb-6">
-      <div :class="$style.ellipse">
-        <div :class="$style.checkSymbol">✓</div>
-      </div>
+  <div :class="$style.card">
+    <div :class="$style.iconWrap">
+      <span :class="$style.check">✓</span>
     </div>
 
-    <div :class="$style.thanksAfrobeatsIs">Thanks! Afrobeats is now in review.</div>
-    <div :class="$style.yourSubmissionHas">Your submission has been received and will be reviewed by our curatorial team. You'll be notified when it's approved or if the team has questions.</div>
+    <p :class="$style.heading">
+      Thanks! {{ genreName }} is now in review.
+    </p>
 
-    <div :class="$style.buttonAlone">
-      <UButton type="submit" style="background-color: #3DE8C8">
-        Submit another genre
-      </UButton>
-    </div>
+    <p :class="$style.body">
+      Your submission has been received and will be reviewed by our curatorial
+      team. You'll be notified when it's approved or if the team has questions.
+    </p>
 
-  </UContainer>
+    <UButton style="background-color: #3DE8C8" @click="$emit('submit-another')">
+      Submit another genre
+    </UButton>
+  </div>
 </template>
 
 <style module>
-.formsubmittedcard {
-width: 20%;
-height: 380px;
-position: relative;
-border-radius: 6px;
-background-color: #0d0f1a;
-border: 1px solid #1c2038;
-box-sizing: border-box;
-overflow: hidden;
-text-align: center;
-font-size: 22px;
-color: #3de8c8;
-font-family: 'Space Grotesk';
-margin: 10rem auto 0 auto;
+.card {
+  width: min(420px, calc(100% - 3rem));
+  margin: 8rem auto 4rem;
+  padding: 2.5rem 2rem;
+  border-radius: 6px;
+  background-color: #0d0f1a;
+  border: 1px solid #1c2038;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
-.ellipse {
-  width: 50px;
-  height: 50px;
+.iconWrap {
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background-color: rgba(61, 232, 200, 0.08);
   border: 1px solid #3de8c8;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 44px auto 24px auto;
+  flex-shrink: 0;
 }
-.checkSymbol {
+
+.check {
   font-size: 24px;
-  font-family: 'Space Grotesk';
   color: #3de8c8;
   line-height: 1;
 }
-.thanksAfrobeatsIs {
-position: absolute;
-top: 124px;
-left: 6%;
-font-size: 18px;
-font-weight: 500;
-color: #e4e8f5;
-display: inline-block;
-width: 339px;
-height: 20px;
-}
-.yourSubmissionHas {
-position: absolute;
-top: 156px;
-left: 12.5%;
-font-size: 13px;
-line-height: 178%;
-font-weight: 300;
-color: #7a84a8;
-display: inline-block;
-width: 279px;
-height: 20px;
-}
-.btnprimary {
-position: absolute;
-top: 289px;
-left: calc(50% - 70.5px);
-border-radius: 6px;
-background-color: #3de8c8;
-width: 142px;
-display: flex;
-align-items: center;
-padding: 4px 8px;
-box-sizing: border-box;
-font-size: 12px;
-color: #07080f;
-}
-.button {
-position: relative;
-line-height: 16px;
-font-weight: 500;
+
+.heading {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #e4e8f5;
+  line-height: 1.4;
 }
 
-.buttonAlone {
-display: flex;
-justify-content: center;
-align-items: center;
-margin-top: 10rem;
+.body {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: #7a84a8;
 }
 </style>
