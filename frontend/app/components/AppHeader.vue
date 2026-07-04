@@ -42,6 +42,12 @@ const emit = defineEmits<{
         <NuxtLink v-if="isAdmin" to="/admin" class="nav-admin">
           Admin
         </NuxtLink>
+        <NuxtLink v-if="user" to="/submission-form" class="nav-contribute">
+          Contribute
+        </NuxtLink>
+        <button v-else class="nav-contribute" @click="emit('login')">
+          Contribute
+        </button>
       </nav>
 
       <div class="right">
@@ -132,6 +138,22 @@ const emit = defineEmits<{
 .nav-links :deep(a.nav-admin) {
   color: #8ddbe6;
   text-shadow: 0 0 8px rgba(61, 232, 200, 0.25);
+}
+
+.nav-contribute {
+  font-size: 0.9rem;
+  color: #3de8c8;
+  font-weight: 600;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.nav-contribute:hover {
+  opacity: 0.7;
 }
 
 .right {
