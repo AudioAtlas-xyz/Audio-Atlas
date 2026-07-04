@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   breadCrumbItems: Array<{ label: string; to: string; active?: boolean }>
-  badges: string[]
+  badges: Array<{ label: string; to?: string }>
   name?: string
 }>()
 </script>
@@ -28,19 +28,24 @@ const props = defineProps<{
       <h1 class="font-display text-5xl tracking-[-0.04em] text-space-50 sm:text-[52px]">
         {{ props.name || '—' }}
       </h1>
-        <div
+      <div
         v-if="props.badges?.length"
         class="flex flex-wrap items-center gap-2"
       >
-        <UBadge
+        <NuxtLink
           v-for="(badge, i) in props.badges"
-          :key="`${badge}-${i}`"
-          color="neutral"
-          variant="outline"
-          class="rounded-full border-[#7a84a8] px-2 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-space-50"
+          :key="`${badge.label}-${i}`"
+          :to="badge.to"
+          :class="badge.to ? 'transition-opacity hover:opacity-70' : 'pointer-events-none'"
         >
-          {{ badge }}
-        </UBadge>
+          <UBadge
+            color="neutral"
+            variant="outline"
+            class="rounded-full border-[#7a84a8] px-2 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-space-50"
+          >
+            {{ badge.label }}
+          </UBadge>
+        </NuxtLink>
       </div>
     </div>
 
