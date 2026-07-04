@@ -8,5 +8,6 @@ public interface IGenreService
     public ICollection<GenreDTO> GetAllGenres();
 
     public Task<ICollection<GenreDTO>> SearchForGenres(string keyword);
+    public ICollection<GenreDTO> GetGenresByGrouping(string grouping);
 
 }

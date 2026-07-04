@@ -56,7 +56,7 @@ const breadcrumbItems = computed(() =>
 const locationBadges = computed(() =>
   [country.value?.region, country.value?.continent]
     .filter((v): v is string => Boolean(v))
-    .map(label => ({ label }))
+    .map(label => ({ label, to: `/browse/${encodeURIComponent(label)}` }))
 )
 
 /**

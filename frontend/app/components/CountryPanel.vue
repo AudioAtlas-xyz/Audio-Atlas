@@ -96,12 +96,24 @@ const errorMessage = computed(() => {
                 <UButton icon="i-heroicons-x-mark" variant="ghost" @click="emit('close')" class="text-aurora"/>
               </div>
               <div v-if="data.region || data.continent" class="flex flex-wrap gap-2">
-                <UBadge v-if="data.region" variant="subtle" color="neutral" class="bg-black border-white text-white">
-                  {{ data.region }}
-                </UBadge>
-                <UBadge v-if="data.continent" variant="subtle" color="neutral" class="bg-black border-white text-white">
-                  {{ data.continent }}
-                </UBadge>
+                <NuxtLink
+                  v-if="data.region"
+                  :to="`/browse/${encodeURIComponent(data.region)}`"
+                  class="transition-opacity hover:opacity-70"
+                >
+                  <UBadge variant="subtle" color="neutral" class="bg-black border-white text-white">
+                    {{ data.region }}
+                  </UBadge>
+                </NuxtLink>
+                <NuxtLink
+                  v-if="data.continent"
+                  :to="`/browse/${encodeURIComponent(data.continent)}`"
+                  class="transition-opacity hover:opacity-70"
+                >
+                  <UBadge variant="subtle" color="neutral" class="bg-black border-white text-white">
+                    {{ data.continent }}
+                  </UBadge>
+                </NuxtLink>
               </div>
               <p class="text-sm leading-6 text-[#b9c6df]">
                 {{ data.description || 'No description has been added for this country yet.' }}
