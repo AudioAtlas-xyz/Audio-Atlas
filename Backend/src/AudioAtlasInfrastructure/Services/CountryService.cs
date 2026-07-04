@@ -58,7 +58,7 @@ public class CountryService : ICountryService
             {
                 Id = genre.Id,
                 Name = genre.Name,
-                Summary = genre.Summary
+                Description = genre.Description
             });
 
 

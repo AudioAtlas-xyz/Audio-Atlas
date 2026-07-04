@@ -9,9 +9,13 @@ const metaItems = computed(() =>
   [props.genre.region, props.genre.aliases?.[0]].filter((value): value is string => Boolean(value))
 )
 
-const summary = computed(() =>
-  props.genre.description?.trim() || 'Genre summary will appear here when the backend exposes it.'
-)
+const SUMMARY_LENGTH = 160
+
+const summary = computed(() => {
+  const desc = props.genre.description?.trim()
+  if (!desc) return null
+  return desc.length > SUMMARY_LENGTH ? desc.slice(0, SUMMARY_LENGTH).trimEnd() + '…' : desc
+})
 
 const statusTone = computed(() => {
   if (!props.genre.status) {
@@ -71,7 +75,7 @@ const statusTone = computed(() => {
       </div>
     </template>
 
-    <p class="text-sm leading-7 text-[#8b94b5]">
+    <p v-if="summary" class="text-sm leading-7 text-[#8b94b5]">
       {{ summary }}
     </p>
 
