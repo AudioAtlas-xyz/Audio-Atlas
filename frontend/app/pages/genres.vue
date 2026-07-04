@@ -77,7 +77,7 @@ const instrumentCount = computed(() =>
  * Country badges
  */
 const countryBadges = computed(() =>
-  countries.value.map(c => c.name)
+  countries.value.map(c => ({ label: c.name, to: `/CountryPage?countryId=${c.id}` }))
 )
 
 /**
