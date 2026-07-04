@@ -4,7 +4,7 @@ import type { useAuth } from '~/composables/useAuth'
 import LoginModal from "~/components/UserFlow/LoginModal.vue";
 
 const { breadCrumbItems, locationBadges, countryName, description } = defineProps<{
-  locationBadges: string[]
+  locationBadges: Array<{ label: string; to?: string }>
   countryName: string
   description: string
   breadCrumbItems: Array<{ label: string, to: string, active?: boolean }>
