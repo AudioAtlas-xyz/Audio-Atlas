@@ -49,6 +49,7 @@
 }
 
 :root {
+  color-scheme: dark;
   --ui-bg: var(--color-bg)
 }
 
