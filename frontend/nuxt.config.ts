@@ -46,7 +46,7 @@ export default defineNuxtConfig({
     '/about': { prerender: true },
     '/contribution-guidelines': { prerender: true },
     '/explore': { prerender: true },
-    '/genres': { prerender: true },
+    '/genres': { ssr: true },
     '/auth/callback': { ssr: false }
   },
 

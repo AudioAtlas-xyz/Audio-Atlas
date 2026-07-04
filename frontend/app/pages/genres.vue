@@ -17,13 +17,12 @@ const genreId = computed(() => {
  * Fetch data
  */
 const { data, pending, error } = await useAsyncData<Genre | null>(
-  'genre-page',
+  () => `genre-${genreId.value ?? 'none'}`,
   async () => {
     if (!genreId.value) return null
     return api<Genre>(`/genres/${genreId.value}`)
   },
   {
-    watch: [genreId],
     default: () => null
   }
 )
