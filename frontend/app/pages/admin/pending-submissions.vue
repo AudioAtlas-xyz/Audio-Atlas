@@ -23,10 +23,15 @@ const { data: pendingSubmissions, error} = await useAsyncData<PendingSubmissionR
 )
 
 function sortByDate(submissions: PendingSubmissionResponse[]) {
-  return [...submissions].sort((a, b) => {
-    const timeA = a.startDate ? new Date(a.startDate).getTime() : 0
-    const timeB = b.startDate ? new Date(b.startDate).getTime() : 0
-    return timeA - timeB
+  return [...submissions].sort((a, b) =>
+    new Date(a.submittedAt).getTime() - new Date(b.submittedAt).getTime()
+  )
+}
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleString(undefined, {
+    dateStyle: 'medium',
+    timeStyle: 'short'
   })
 }
 
@@ -99,7 +104,7 @@ async function reject(id: string) {
           <div class="flex flex-col items-start">
             <span class="font-medium">{{ item.newGenreName }}</span>
             <span class="text-sm text-gray-500">{{item.accountUsername}}</span>
-            <span class="text-sm text-gray-500"> {{item.startDate}}</span>
+            <span class="text-sm text-gray-500">{{ formatDate(item.submittedAt) }}</span>
             <span class="text-sm text-gray-500">{{getCountryNames(item.countryIds).join(', ')}}</span>
           </div>
         </UButton>
@@ -109,6 +114,7 @@ async function reject(id: string) {
             <h2>{{item.newGenreName}}</h2>
             <p><strong>Submission Id: </strong>{{item.id}}</p>
             <p><strong>Contributor username: </strong>{{item.accountUsername}}</p>
+            <p><strong>Submitted at: </strong>{{ formatDate(item.submittedAt) }}</p>
             <p><strong>Description: </strong>{{item.description}}</p>
             <p><strong>Sensitive: </strong>{{item.isSensitive}}</p>
             <p><strong>Sensitive description: </strong>{{item.sensitiveDescription}}</p>

@@ -3,6 +3,7 @@ export interface PendingSubmissionResponse {
   accountId: string;
   accountUsername: string | null;
   newGenreName: string | null;
+  submittedAt: string;
   startDate: string | null;
   endDate: string | null;
   description: string | null;

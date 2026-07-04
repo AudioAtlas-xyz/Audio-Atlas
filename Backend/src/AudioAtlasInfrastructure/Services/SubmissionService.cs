@@ -166,6 +166,7 @@ public class SubmissionService : ISubmissionService
                 AccountId = submission.AccountId,
                 AccountUsername = submission.Account?.UserName,
                 NewGenreName = submission.NewGenreName,
+                SubmittedAt = submission.SubmittedAt,
                 StartDate = submission.StartDate,
                 EndDate = submission.EndDate,
                 Description = submission.Description,

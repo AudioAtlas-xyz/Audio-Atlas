@@ -76,6 +76,11 @@ public class Submission
     public string? PlaylistLink { get; set; }
 
     /// <summary>
+    /// UTC timestamp of when the submission was created.
+    /// </summary>
+    public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
+
+    /// <summary>
     /// Represents the current moderation state of the submission.
     /// </summary>
     public SubmissionStatus Status { get; set; } = SubmissionStatus.Pending;

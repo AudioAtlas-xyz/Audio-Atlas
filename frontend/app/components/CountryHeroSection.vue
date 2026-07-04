@@ -43,7 +43,7 @@ const closeModal = () => {
             :bread-crumb-items="breadCrumbItems"
       />
 
-        <p class="max-w-[680px] text-sm leading-8 text-[#7a84a8]">
+        <p class="max-w-[680px] text-sm leading-8 text-space-50">
           {{ description }}
         </p>
 
