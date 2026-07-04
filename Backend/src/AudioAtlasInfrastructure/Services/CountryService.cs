@@ -66,7 +66,7 @@ public class CountryService : ICountryService
 
 
 
-            if (user != null && !addedUsers.Contains(user))
+            if (user != null && !addedUsers.Contains(user) && !user.IsSystemUser)
             {
 
                 int genreCount = _genreRepository.getGenresByAuthorId(user.Id).Count;

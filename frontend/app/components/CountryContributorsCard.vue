@@ -51,7 +51,7 @@ function formatGenreCount(count: number) {
     </template>
 
     <!-- LIST -->
-    <div v-if="contributorRows.length" class="divide-y divide-border">
+    <div class="divide-y divide-border">
       <div
         v-for="contributor in contributorRows"
         :key="contributor.id"
@@ -79,11 +79,6 @@ function formatGenreCount(count: number) {
           {{ contributor.genresLabel }}
         </p>
       </div>
-    </div>
-
-    <!-- EMPTY -->
-    <div v-else class="px-4 py-5 text-sm text-[#6f789b]">
-      Contributors will appear here when the backend includes contributor summaries.
     </div>
   </UCard>
 </template>

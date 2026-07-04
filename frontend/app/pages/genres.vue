@@ -179,9 +179,9 @@ useHead(() => ({
           />
 
           <div class="flex flex-col gap-8">
-            <CountryContributorsCard :contributors="contributors" />
+            <CountryContributorsCard v-if="contributors.length" :contributors="contributors" />
             <SourceList :sources="sources" />
-            <InstrumentList :instruments="instruments"/>
+            <InstrumentList v-if="instruments.length" :instruments="instruments" />
           </div>
 
         </div>
