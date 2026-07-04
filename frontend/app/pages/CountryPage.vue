@@ -54,9 +54,9 @@ const breadcrumbItems = computed(() =>
  * Location badges
  */
 const locationBadges = computed(() =>
-  [country.value?.region, country.value?.continent].filter(
-    (v): v is string => Boolean(v)
-  )
+  [country.value?.region, country.value?.continent]
+    .filter((v): v is string => Boolean(v))
+    .map(label => ({ label }))
 )
 
 /**
