@@ -99,8 +99,8 @@ const emit = defineEmits<{
 }
 
 .nav-panel {
-  position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
 
   width: 100%;
@@ -112,19 +112,14 @@ const emit = defineEmits<{
 }
 
 .left {
-  flex: 1;
   display: flex;
   justify-content: flex-start;
 }
 
 .nav-links {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 2rem;
-  pointer-events: auto;
 }
 
 .nav-links :deep(a) {
@@ -160,7 +155,6 @@ const emit = defineEmits<{
 }
 
 .right {
-  flex: 1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
