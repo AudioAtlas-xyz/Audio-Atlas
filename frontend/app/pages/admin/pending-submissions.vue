@@ -57,11 +57,19 @@ const actionLoading = ref<Record<string, boolean>>({})
 const rejectReasons = ref<Record<string, string>>({})
 const rejectExpanded = ref<Record<string, boolean>>({})
 
+const toast = useToast()
+
 async function approve(id: string) {
   actionLoading.value[id] = true
   try {
     await api(`/submissions/${id}/approve`, { method: 'POST' })
     pendingSubmissions.value = pendingSubmissions.value?.filter(s => s.id !== id) ?? []
+  } catch (err) {
+    toast.add({
+      title: 'Approval failed',
+      description: err instanceof Error ? err.message : 'An unexpected error occurred.',
+      color: 'error'
+    })
   } finally {
     actionLoading.value[id] = false
   }
@@ -75,6 +83,12 @@ async function reject(id: string) {
       body: { reason: rejectReasons.value[id] ?? '' }
     })
     pendingSubmissions.value = pendingSubmissions.value?.filter(s => s.id !== id) ?? []
+  } catch (err) {
+    toast.add({
+      title: 'Rejection failed',
+      description: err instanceof Error ? err.message : 'An unexpected error occurred.',
+      color: 'error'
+    })
   } finally {
     actionLoading.value[id] = false
   }
