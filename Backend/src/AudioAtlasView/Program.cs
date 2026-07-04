@@ -3,6 +3,7 @@ using AudioAtlasInfrastructure.Database.Seed;
 using AudioAtlasDomain.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using AudioAtlasView;
 using AudioAtlasApplication.Repositories;
 using AudioAtlasApplication.Services;
@@ -41,8 +42,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(
-        connectionString));
+    options.UseSqlServer(connectionString)
+           .ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning)));
 
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
