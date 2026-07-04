@@ -52,7 +52,8 @@ export default defineNuxtConfig({
 
   colorMode: {
     preference: 'dark',
-    fallback: 'dark'
+    fallback: 'dark',
+    storageKey: 'aa-color-mode'
   },
 
   compatibilityDate: '2025-01-15',
