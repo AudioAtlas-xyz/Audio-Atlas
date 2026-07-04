@@ -28,7 +28,10 @@ const step1Schema = z.object({
 const step2Schema = z.object({
   Description: z.string().min(100,'Description is required (min. 100 characters)'),
   InstrumentIds: z.array(z.string()).optional(),
-  PlaylistLink: z.string().optional(),
+  PlaylistLink: z.string().optional().refine(
+    val => !val || val.trim() === '' || /^https?:\/\//i.test(val.trim()),
+    { message: 'Playlist link must be a valid http or https URL (e.g. https://...)' }
+  ),
   IsSensitive: z.boolean(),
   SensitiveDescription: z.string().optional(),
 }).superRefine((data, ctx) => { //sensitiveDescription is required only when sensitive=true
@@ -99,7 +102,7 @@ async function submitForm() {
     console.error('Status:', err.status)
     console.error('Response body:', err.data)
     console.error('Validation errors:', err.data?.errors)
-    submitError.value = err.data?.message || 'Failed to submit. Please try again.'
+    submitError.value = (typeof err.data === 'string' ? err.data : err.data?.message) || 'Failed to submit. Please try again.'
   } finally {
     isSubmitting.value = false
   }
@@ -470,6 +473,14 @@ const submissionData = reactive ({
         </div>
 
          <USeparator orientation="horizontal" class="my-8" />
+
+         <UAlert
+            v-if="submitError"
+            color="error"
+            variant="soft"
+            :description="submitError"
+            class="mb-4"
+          />
 
          <div :class="$style.buttonRow2" style="color: #3de8c8">
             <UButton @click="prevStep" style="background-color: #8899FF">

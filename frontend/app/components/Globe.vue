@@ -94,7 +94,7 @@ onMounted(async () => {
 
   const features = countries.features.filter((f) => {
     const iso = getCountryIso(f)
-    return iso && iso !== 'ATA' && iso !== '-99'
+    return iso && iso !== 'ATA' && iso !== 'ATF' && iso !== '-99'
   })
 
   features.forEach((feat) => {

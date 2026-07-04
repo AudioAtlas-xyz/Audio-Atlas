@@ -6,6 +6,7 @@ public class PendingSubmissionResponse
     public Guid AccountId { get; set; }
     public string? AccountUsername { get; set; }
     public string? NewGenreName { get; set; }
+    public DateTime SubmittedAt { get; set; }
     public DateOnly? StartDate { get; set; }
     public DateOnly? EndDate { get; set; }
     public string? Description { get; set; }

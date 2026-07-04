@@ -56,6 +56,12 @@ export default defineNuxtConfig({
     storageKey: 'aa-color-mode'
   },
 
+  icon: {
+    clientBundle: {
+      icons: ['heroicons:chevron-right-20-solid']
+    }
+  },
+
   compatibilityDate: '2025-01-15',
 
   eslint: {
