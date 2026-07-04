@@ -74,14 +74,12 @@ public class CountryRepositoryTests : IClassFixture<TestService>
         _testService._context.Countries.Add(sampleCountry);
         _testService._context.SaveChanges();
         
-        var id = sampleCountry.Id;
-        
-        var sampleCount =  sampleCountry.Genres.Count(); // 2
+        var isoKey = sampleCountry.isoCode.ToUpperInvariant();
+        var sampleCount = sampleCountry.Genres.Count(); // 2
         var result = _countryRepository.getGenreCounts();
 
-
-        Assert.True(result.ContainsKey("Test"));
-        Assert.Equal(sampleCount, result["Test"]);
+        Assert.True(result.ContainsKey(isoKey));
+        Assert.Equal(sampleCount, result[isoKey]);
     }
 
     [Fact]
