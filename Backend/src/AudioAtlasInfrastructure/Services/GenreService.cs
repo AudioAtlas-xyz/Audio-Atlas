@@ -1,3 +1,4 @@
+using AudioAtlas.Domain.Geography;
 using AudioAtlasApplication.Repositories;
 using AudioAtlasApplication.Services;
 using AudioAtlasDomain.Genres;
@@ -108,7 +109,18 @@ public class GenreService : IGenreService
                     Id = country.Id,
                     Name = country.Name,
                 }).ToList()
-            }).ToList()
+            }).ToList(),
+            Contributors = genre.Author != null && !genre.Author.IsSystemUser
+                ? new List<ContributorSummaryDTO>
+                {
+                    new ContributorSummaryDTO
+                    {
+                        id = genre.Author.Id.ToString(),
+                        username = genre.Author.UserName ?? genre.Author.Id.ToString(),
+                        genreCount = _genreRepository.getGenresByAuthorId(genre.Author.Id).Count
+                    }
+                }
+                : new List<ContributorSummaryDTO>()
         };
     }
 }

@@ -52,6 +52,7 @@ public class GenreRepository : IGenreRepository
     public Genre getGenre(Guid id)
     {
         return _dbcontext.Genres
+            .Include(g => g.Author)
             .Include(g => g.ParentGenres)
                 .ThenInclude(pg => pg.Countries)
             .Include(g => g.SimilarGenres)

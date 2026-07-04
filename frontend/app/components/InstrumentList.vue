@@ -28,7 +28,7 @@ const props = defineProps<{
     </template>
 
     <!-- LIST -->
-    <div v-if="props.instruments.length" class="divide-y divide-border">
+    <div class="divide-y divide-border">
       <div
         v-for="(it, i) in props.instruments"
         :key="it.id || `${it.type}-${i}`"
@@ -40,11 +40,6 @@ const props = defineProps<{
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- EMPTY -->
-    <div v-else class="px-4 py-5 text-sm text-[#6f789b]">
-      Currently no instruments included for this genre.
     </div>
   </UCard>
 </template>

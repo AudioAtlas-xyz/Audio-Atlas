@@ -188,7 +188,7 @@ useHead(() => ({
           </div>
 
           <!-- CONTRIBUTORS -->
-          <CountryContributorsCard :contributors="contributors" />
+          <CountryContributorsCard v-if="contributors.length" :contributors="contributors" />
         </div>
       </section>
     </UContainer>
