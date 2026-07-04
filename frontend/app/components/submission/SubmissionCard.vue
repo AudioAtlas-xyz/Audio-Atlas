@@ -1,10 +1,8 @@
 <script setup lang="ts">
-
-const props = defineProps({
-  item:
-
-})
-
+defineProps<{
+  item: Record<string, unknown>
+  index: number
+}>()
 </script>
 
 

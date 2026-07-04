@@ -65,17 +65,41 @@ const setInteractionEnabled = (enabled) => {
 
 const povKey = pov => `${pov.lat}|${pov.lng}|${pov.altitude}`
 
-onMounted(async () => {
-  const Globe = (await import('globe.gl')).default
+const RETRY_DELAYS_MS = [2000, 4000, 8000]
 
+async function fetchGlobeData() {
   const [countriesRes, centroidsRes, genreCounts] = await Promise.all([
     fetch('/countries.geojson'),
     fetch('/tiny-country-markers.json'),
     api('/countries')
   ])
-
   const countries = await countriesRes.json()
   const tinyCountries = await centroidsRes.json()
+  return { countries, tinyCountries, genreCounts }
+}
+
+onMounted(async () => {
+  const Globe = (await import('globe.gl')).default
+
+  let data = null
+  for (let attempt = 0; attempt <= RETRY_DELAYS_MS.length; attempt++) {
+    try {
+      data = await fetchGlobeData()
+      break
+    }
+    catch (err) {
+      if (attempt < RETRY_DELAYS_MS.length) {
+        await new Promise(resolve => setTimeout(resolve, RETRY_DELAYS_MS[attempt]))
+        if (!globeDiv.value) return
+      }
+      else {
+        console.error('[Globe] Failed to load data after retries:', err)
+        return
+      }
+    }
+  }
+
+  const { countries, tinyCountries, genreCounts } = data
 
   const countryColors = new Map()
   const baseHue = 135
