@@ -20,7 +20,7 @@ public class GenreSource
     /// 
     /// Stability and availability of the link are not guaranteed.
     /// </summary>
-    public string SourceLink { get; set; }
+    public string SourceLink { get; set; } = null!;
 
     /// <summary>
     /// Foreign key referencing the associated genre.

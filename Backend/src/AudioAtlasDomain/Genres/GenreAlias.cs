@@ -18,7 +18,7 @@ public class GenreAlias
     /// This may include slang, historical names, translations,
     /// or stylistic variations of the canonical genre name.
     /// </summary>
-    public string Alias { get; set; }
+    public string Alias { get; set; } = null!;
 
     /// <summary>
     /// Foreign key referencing the associated genre.
@@ -27,9 +27,9 @@ public class GenreAlias
 
     /// <summary>
     /// Navigation property to the genre this alias refers to.
-    /// 
+    ///
     /// Multiple aliases can map to the same genre,
     /// but each alias belongs to exactly one genre.
     /// </summary>
-    public Genre Genre { get; set; }
+    public Genre Genre { get; set; } = null!;
 }

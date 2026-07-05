@@ -141,5 +141,5 @@ public class Submission
     /// <summary>
     /// Navigation property to the submitting user.
     /// </summary>
-    public ApplicationUser Account { get; set; }
+    public ApplicationUser Account { get; set; } = null!;
 }

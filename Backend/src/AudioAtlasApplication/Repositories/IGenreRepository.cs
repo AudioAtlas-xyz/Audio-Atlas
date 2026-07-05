@@ -10,7 +10,7 @@ public interface IGenreRepository
     public ICollection<Genre> getParents(Guid id);
     public ICollection<Genre> getSubGenres(Guid id);
     public ICollection<Genre> getSimilarGenres(Guid id);
-    public string getDescription(Guid id);
+    public string? getDescription(Guid id);
     public ICollection<Genre> getRelated(Guid id);
     public ICollection<Genre> getAllGenres();
     public ICollection<Genre> getGenresByAuthorId(Guid id);
