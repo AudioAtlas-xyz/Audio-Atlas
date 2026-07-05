@@ -507,7 +507,7 @@ const submissionData = reactive ({
 
 <style module>
 .genreidentityformcard {
-  width: 50%;
+  width: min(90%, 640px);
   border-radius: 6px;
   background-color: #0d0f1a;
   border: 1px solid #1c2038;
@@ -651,17 +651,18 @@ h1 {
 
 .licensenotice {
 width: 100%;
-height: 68px;
+min-height: 44px;
+height: auto;
 position: relative;
 border-radius: 3px;
 background-color: #131624;
 border: 1px solid #1c2038;
 box-sizing: border-box;
-overflow: hidden;
 text-align: left;
 font-size: 11px;
 color: #7a84a8;
 font-family: 'Space Grotesk';
+padding: 12px 16px 12px 20px;
 }
 
 .rectangle {
@@ -670,17 +671,13 @@ top: 0px;
 left: 0px;
 background-color: #3de8c8;
 width: 3px;
-height: 68px;
+height: 100%;
+border-radius: 3px 0 0 3px;
 }
 .bySubmittingYour {
-position: absolute;
-top: 12px;
-left: 16px;
+display: block;
 line-height: 178%;
 font-weight: 300;
-display: inline-block;
-width: 584px;
-height: 20px;
 }
 
 .chip {
