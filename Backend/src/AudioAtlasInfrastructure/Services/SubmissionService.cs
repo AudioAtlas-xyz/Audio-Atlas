@@ -12,7 +12,7 @@ public class SubmissionService : ISubmissionService
     private const int MaxAliasLength = 120;
     private const int MaxDescriptionLength = 4000;
     private const int MaxUrlLength = 2048;
-    private const int MaxRejectReasonLength = 2000;
+    private const int MaxNoteLength = 2000;
 
     private readonly ICountryRepository _countryRepository;
     private readonly IGenreRepository _genreRepository;
@@ -31,7 +31,6 @@ public class SubmissionService : ISubmissionService
         _submissionRepository = submissionRepository;
     }
 
-    // Create a submission and check wether the input format is  correct
     public async Task<Guid> createSubmissionAsync(Guid accountId, CreateSubmissionRequest request, CancellationToken cancellationToken = default)
     {
         var errors = new Dictionary<string, string[]>();
@@ -47,83 +46,50 @@ public class SubmissionService : ISubmissionService
         var subGenreIds = distinctIds(request.SubGenreIds ?? []);
         var predecessorGenreIds = distinctIds(request.PredecessorGenreIds ?? []);
 
-        // --- Exception checks ---
-
-        // Genre name exists and is no more than max length
         if (string.IsNullOrWhiteSpace(normalizedGenreName))
-        {
             errors["newGenreName"] = ["New genre name is required."];
-        }
         else if (normalizedGenreName.Length > MaxNameLength)
-        {
             errors["newGenreName"] = [$"New genre name must be at most {MaxNameLength} characters."];
-        }
 
-        // description is included and no more than max length
         if (string.IsNullOrWhiteSpace(normalizedDescription))
-        {
             errors["description"] = ["Description is required."];
-        }
         else if (normalizedDescription.Length > MaxDescriptionLength)
-        {
             errors["description"] = [$"Description must be at most {MaxDescriptionLength} characters."];
-        }
 
-        // Start date must be before end date
         if (request.StartDate.HasValue && request.EndDate.HasValue && request.StartDate.Value > request.EndDate.Value)
-        {
             errors["dateRange"] = ["Start date must be earlier than or equal to end date."];
-        }
 
-        // aliases max length
         if (aliasValues.Any(alias => alias.Length > MaxAliasLength))
-        {
             errors["aliases"] = [$"Aliases must be at most {MaxAliasLength} characters."];
-        }
 
-        // max playlist url length
         if (normalizedPlaylistLink is { Length: > MaxUrlLength })
-        {
             errors["playlistLink"] = [$"Playlist link must be at most {MaxUrlLength} characters."];
-        }
 
-        // max source url length
         if (normalizedSourceLinks.Any(link => link.Length > MaxUrlLength))
-        {
             errors["sourceLinks"] = [$"Source links must be at most {MaxUrlLength} characters."];
-        }
 
         var normalizedAliases = aliasValues
             .Where(alias => alias.Length <= MaxAliasLength)
             .ToList();
 
-        // throw all errors
         if (errors.Count > 0)
-        {
             throw new InvalidOperationException(buildErrorMessage(errors));
-        }
 
-        // get specified countried
         var countries = await _countryRepository.getCountriesByIdsAsync(countryIds, cancellationToken);
         var instruments = await _instrumentRepository.getInstrumentsByIdsAsync(instrumentIds, cancellationToken);
         var similarGenres = await _genreRepository.getGenresByIdsAsync(similarGenreIds, cancellationToken);
         var subGenres = await _genreRepository.getGenresByIdsAsync(subGenreIds, cancellationToken);
         var predecessorGenres = await _genreRepository.getGenresByIdsAsync(predecessorGenreIds, cancellationToken);
 
-        // Do they exist?
         addMissingIdErrors(errors, "countryIds", countryIds, countries.Select(country => country.Id));
         addMissingIdErrors(errors, "instrumentIds", instrumentIds, instruments.Select(instrument => instrument.Id));
         addMissingIdErrors(errors, "similarGenreIds", similarGenreIds, similarGenres.Select(genre => genre.Id));
         addMissingIdErrors(errors, "subGenreIds", subGenreIds, subGenres.Select(genre => genre.Id));
         addMissingIdErrors(errors, "predecessorGenreIds", predecessorGenreIds, predecessorGenres.Select(genre => genre.Id));
 
-        // throw exceptions
         if (errors.Count > 0)
-        {
             throw new InvalidOperationException(buildErrorMessage(errors));
-        }
 
-        // all checks passed, create the submission object
         var submission = new Submission
         {
             AccountId = accountId,
@@ -184,9 +150,9 @@ public class SubmissionService : ISubmissionService
             .ToList();
     }
 
-    public async Task approveAsync(Guid submissionId, CancellationToken cancellationToken = default)
+    public async Task approveAsync(Guid submissionId, Guid reviewerId, CancellationToken cancellationToken = default)
     {
-        var submission = await getPendingSubmissionOrThrowAsync(submissionId, cancellationToken);
+        var submission = await getReviewableSubmissionOrThrowAsync(submissionId, cancellationToken);
 
         var genre = new AudioAtlasDomain.Genres.Genre
         {
@@ -213,46 +179,78 @@ public class SubmissionService : ISubmissionService
         await _genreRepository.AddAsync(genre, cancellationToken);
 
         submission.Status = SubmissionStatus.Approved;
+        submission.ReviewedAt = DateTime.UtcNow;
+        submission.ReviewedById = reviewerId;
         submission.RejectedSubmission = null;
 
         await _submissionRepository.saveChangesAsync(cancellationToken);
     }
 
-    public async Task rejectAsync(Guid submissionId, RejectSubmissionRequest request, CancellationToken cancellationToken = default)
+    public async Task rejectAsync(Guid submissionId, Guid reviewerId, RejectSubmissionRequest request, CancellationToken cancellationToken = default)
     {
-        var submission = await getPendingSubmissionOrThrowAsync(submissionId, cancellationToken);
+        var submission = await getReviewableSubmissionOrThrowAsync(submissionId, cancellationToken);
 
-        var normalizedReason = normalizeText(request.Reason);
+        var normalizedCode = normalizeText(request.RejectionReasonCode);
 
-        if (string.IsNullOrWhiteSpace(normalizedReason))
-        {
-            throw new InvalidOperationException("reason: Rejection reason is required.");
-        }
+        if (string.IsNullOrWhiteSpace(normalizedCode))
+            throw new InvalidOperationException("rejectionReasonCode: A rejection reason code is required.");
 
-        if (normalizedReason.Length > MaxRejectReasonLength)
-        {
-            throw new InvalidOperationException($"reason: Rejection reason must be at most {MaxRejectReasonLength} characters.");
-        }
+        var reason = await _submissionRepository.getActiveRejectionReasonAsync(normalizedCode, cancellationToken);
+
+        if (reason is null)
+            throw new InvalidOperationException($"rejectionReasonCode: '{normalizedCode}' is not a recognised or active rejection reason.");
+
+        var normalizedNote = normalizeText(request.Note);
+
+        if (normalizedNote is { Length: > MaxNoteLength })
+            throw new InvalidOperationException($"note: Note must be at most {MaxNoteLength} characters.");
 
         submission.Status = SubmissionStatus.Rejected;
+        submission.ReviewedAt = DateTime.UtcNow;
+        submission.ReviewedById = reviewerId;
+        submission.RejectionReasonCode = normalizedCode;
 
         if (submission.RejectedSubmission is null)
         {
             submission.RejectedSubmission = new RejectedSubmission
             {
                 SubmissionId = submission.Id,
-                Description = normalizedReason
+                Description = normalizedNote ?? string.Empty
             };
         }
         else
         {
-            submission.RejectedSubmission.Description = normalizedReason;
+            submission.RejectedSubmission.Description = normalizedNote ?? string.Empty;
         }
 
         await _submissionRepository.saveChangesAsync(cancellationToken);
     }
 
-    //  checks if all IDs from the request in the database. Outputs which werent found. 
+    public async Task holdForSensitivityAsync(Guid submissionId, Guid reviewerId, CancellationToken cancellationToken = default)
+    {
+        var submission = await getPendingSubmissionOrThrowAsync(submissionId, cancellationToken);
+
+        submission.Status = SubmissionStatus.OnHoldSensitivity;
+        submission.ReviewedAt = DateTime.UtcNow;
+        submission.ReviewedById = reviewerId;
+
+        await _submissionRepository.saveChangesAsync(cancellationToken);
+    }
+
+    public async Task<ICollection<RejectionReasonResponse>> getActiveRejectionReasonsAsync(CancellationToken cancellationToken = default)
+    {
+        var reasons = await _submissionRepository.getActiveRejectionReasonsAsync(cancellationToken);
+
+        return reasons
+            .Select(r => new RejectionReasonResponse
+            {
+                Code = r.Code,
+                Label = r.Label,
+                GuidelineRef = r.GuidelineRef
+            })
+            .ToList();
+    }
+
     private static void addMissingIdErrors(
         Dictionary<string, string[]> errors,
         string key,
@@ -263,13 +261,9 @@ public class SubmissionService : ISubmissionService
         var missingIds = requestedIds.Where(id => !resolvedSet.Contains(id)).ToArray();
 
         if (missingIds.Length > 0)
-        {
             errors[key] = [$"Unknown ids: {string.Join(", ", missingIds)}"];
-        }
     }
 
-
-    // --- Helpers for input mismatch and normalization ---
     private static string? normalizeText(string? value)
     {
         return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
@@ -280,14 +274,10 @@ public class SubmissionService : ISubmissionService
         var normalized = normalizeText(value);
 
         if (normalized is null)
-        {
             return null;
-        }
 
         if (!isHttpUrl(normalized))
-        {
             errors[fieldName] = ["Value must be an absolute http or https URL."];
-        }
 
         return normalized;
     }
@@ -319,9 +309,7 @@ public class SubmissionService : ISubmissionService
         }
 
         if (invalidUrls.Count > 0)
-        {
             errors[fieldName] = ["All source links must be absolute http or https URLs."];
-        }
 
         return validUrls
             .Distinct(StringComparer.OrdinalIgnoreCase)
@@ -349,24 +337,30 @@ public class SubmissionService : ISubmissionService
             errors.SelectMany(error => error.Value.Select(message => $"{error.Key}: {message}")));
     }
 
-    private async Task<Submission> getPendingSubmissionOrThrowAsync(Guid submissionId, CancellationToken cancellationToken)
+    // Allows Pending and OnHoldSensitivity — used by approve and reject.
+    private async Task<Submission> getReviewableSubmissionOrThrowAsync(Guid submissionId, CancellationToken cancellationToken)
     {
         var submission = await _submissionRepository.getByIdAsync(submissionId, cancellationToken);
 
         if (submission is null)
-        {
             throw new InvalidOperationException("submissionId: Submission not found.");
-        }
 
         if (submission.Status == SubmissionStatus.Approved)
-        {
             throw new InvalidOperationException("submissionId: Submission has already been approved.");
-        }
 
         if (submission.Status == SubmissionStatus.Rejected)
-        {
             throw new InvalidOperationException("submissionId: Submission has already been rejected.");
-        }
+
+        return submission;
+    }
+
+    // Only allows Pending — used by holdForSensitivityAsync.
+    private async Task<Submission> getPendingSubmissionOrThrowAsync(Guid submissionId, CancellationToken cancellationToken)
+    {
+        var submission = await getReviewableSubmissionOrThrowAsync(submissionId, cancellationToken);
+
+        if (submission.Status == SubmissionStatus.OnHoldSensitivity)
+            throw new InvalidOperationException("submissionId: Submission is already on hold for sensitivity review.");
 
         return submission;
     }

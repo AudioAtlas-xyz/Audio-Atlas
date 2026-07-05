@@ -8,4 +8,6 @@ public interface ISubmissionRepository
     public Task<Submission?> getByIdAsync(Guid submissionId, CancellationToken cancellationToken = default);
     public Task<ICollection<Submission>> getPendingAsync(CancellationToken cancellationToken = default);
     public Task saveChangesAsync(CancellationToken cancellationToken = default);
+    public Task<RejectionReason?> getActiveRejectionReasonAsync(string code, CancellationToken cancellationToken = default);
+    public Task<ICollection<RejectionReason>> getActiveRejectionReasonsAsync(CancellationToken cancellationToken = default);
 }

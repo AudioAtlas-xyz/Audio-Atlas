@@ -59,7 +59,7 @@ public class RoleChangeTests : IDisposable
         UserManager<ApplicationUser> users,
         Guid callerId)
     {
-        var controller = new AdminController(db, users);
+        var controller = new AdminController(db, users, null!);
         controller.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext

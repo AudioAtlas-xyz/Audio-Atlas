@@ -1,6 +1,8 @@
 namespace AudioAtlasView.Controllers;
 
 using System.Security.Claims;
+using AudioAtlasApplication.DTOs;
+using AudioAtlasApplication.Services;
 using AudioAtlasDomain.Users;
 using AudioAtlasInfrastructure.Database;
 using Microsoft.AspNetCore.Authorization;
@@ -8,10 +10,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-// Admin-only endpoints. Class-level [Authorize] gates everything.
 [ApiController]
 [Route("api/admin")]
-[Authorize(Roles = "Admin")]
+[Authorize]
 public class AdminController : ControllerBase
 {
     // Roles assignable from the admin UI.
@@ -20,17 +21,30 @@ public class AdminController : ControllerBase
 
     private readonly AppDbContext _dbContext;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly ISubmissionService _submissionService;
 
     public AdminController(
         AppDbContext dbContext,
-        UserManager<ApplicationUser> userManager)
+        UserManager<ApplicationUser> userManager,
+        ISubmissionService submissionService)
     {
         _dbContext = dbContext;
         _userManager = userManager;
+        _submissionService = submissionService;
+    }
+
+    // GET: api/admin/rejection-reasons
+    [HttpGet("rejection-reasons")]
+    [Authorize(Roles = "Admin,Curator")]
+    public async Task<ActionResult<IEnumerable<RejectionReasonResponse>>> GetRejectionReasons(CancellationToken cancellationToken)
+    {
+        var reasons = await _submissionService.getActiveRejectionReasonsAsync(cancellationToken);
+        return Ok(reasons);
     }
 
     // GET: api/admin/users
     [HttpGet("users")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<IEnumerable<AdminUserRow>>> GetUsers()
     {
         var users = await _dbContext.Users
@@ -58,6 +72,7 @@ public class AdminController : ControllerBase
 
     // PUT: api/admin/users/{id}/role
     [HttpPut("users/{id:guid}/role")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> ChangeUserRole(Guid id, [FromBody] ChangeRoleRequest request)
     {
         if (request is null || string.IsNullOrWhiteSpace(request.Role))

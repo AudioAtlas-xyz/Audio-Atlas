@@ -54,4 +54,18 @@ public class SubmissionRepository : ISubmissionRepository
     {
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task<RejectionReason?> getActiveRejectionReasonAsync(string code, CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.RejectionReasons
+            .SingleOrDefaultAsync(r => r.Code == code && r.IsActive, cancellationToken);
+    }
+
+    public async Task<ICollection<RejectionReason>> getActiveRejectionReasonsAsync(CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.RejectionReasons
+            .Where(r => r.IsActive)
+            .OrderBy(r => r.SortOrder)
+            .ToListAsync(cancellationToken);
+    }
 }
