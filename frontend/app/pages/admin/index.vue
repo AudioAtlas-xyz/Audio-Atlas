@@ -2,17 +2,12 @@
 import { computed } from 'vue'
 import { useHead } from '#imports'
 import { useAuth } from '@/composables/useAuth'
+import type { UserRole } from '~/types/auth'
 
-/**
- * Admin landing page.
- *
- * Gated by the `admin` route middleware — non-admins are redirected
- * to `/` before this component ever mounts. Backend endpoints called
- * from anywhere under /admin must additionally be protected with
- * `[Authorize(Roles = "Admin")]` since middleware is client-side only.
- */
+// Curator middleware allows Admin + Curator. Individual tools below are
+// further role-gated so Curators only see what they can open.
 definePageMeta({
-  middleware: 'admin'
+  middleware: 'curator'
 })
 
 useHead({
@@ -21,27 +16,31 @@ useHead({
 
 const { user } = useAuth()
 
-/**
- * Breadcrumbs — mirrors the pattern used on `pages/genres.vue` and
- * `pages/CountryPage.vue` so admins land in a familiar visual frame.
- */
 const breadcrumbItems = [
   { label: 'Explore', to: '/' },
   { label: 'Admin', to: '/admin', active: true }
 ]
 
-/**
- * Admin tools — each entry renders as a card linking to a sub-page.
- * Add new admin features here; the grid lays them out automatically.
- */
+// Each tool declares which roles can see and use it.
+// Place dashboard first — it's the overview that leads into deeper tools.
 const adminTools = [
+  {
+    label: 'Metrics',
+    title: 'Metrics dashboard',
+    description:
+      'Monitor catalogue coverage, the submission pipeline, community growth, and search demand.',
+    to: '/admin/dashboard',
+    icon: 'i-lucide-chart-bar',
+    roles: ['Admin', 'Curator'] as UserRole[]
+  },
   {
     label: 'Users',
     title: 'Registered users',
     description:
       'Browse all registered accounts, filter by role, identify active contributors.',
     to: '/admin/users',
-    icon: 'i-lucide-users'
+    icon: 'i-lucide-users',
+    roles: ['Admin'] as UserRole[]
   },
   {
     label: 'Submissions',
@@ -49,9 +48,17 @@ const adminTools = [
     description:
       'View a list of submissions submitted by contributors.',
     to: '/admin/pending-submissions',
-    icon: 'i-lucide-clipboard-list'
+    icon: 'i-lucide-clipboard-list',
+    roles: ['Admin'] as UserRole[]
   }
 ]
+
+// Only show tools the current user's roles permit.
+const visibleTools = computed(() =>
+  adminTools.filter(t =>
+    t.roles.some(r => user.value?.roles?.includes(r))
+  )
+)
 
 const greeting = computed(() =>
   user.value?.username ? `Signed in as ${user.value.username}` : 'Signed in'
@@ -104,14 +111,14 @@ const greeting = computed(() =>
             Tools
           </h2>
           <p class="mt-2 text-xs text-[#373d5a]">
-            {{ adminTools.length }} admin {{ adminTools.length === 1 ? 'tool' : 'tools' }} available
+            {{ visibleTools.length }} admin {{ visibleTools.length === 1 ? 'tool' : 'tools' }} available
           </p>
         </div>
 
         <!-- TOOL GRID -->
         <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           <NuxtLink
-            v-for="tool in adminTools"
+            v-for="tool in visibleTools"
             :key="tool.to"
             :to="tool.to"
             class="group flex flex-col gap-3 rounded-md border border-border bg-surface p-5 transition hover:border-aurora/40"
