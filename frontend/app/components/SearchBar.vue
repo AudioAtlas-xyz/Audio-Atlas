@@ -62,8 +62,33 @@ const countryMatches = computed<Country[]>(() => {
     .slice(0, 5)
 })
 
+type GroupingResult = { label: string; type: 'continent' | 'region' }
+
+// Deduplicate continents and regions from the already-loaded countries list,
+// filter against the search term, and cap results so the dropdown stays short.
+const groupingMatches = computed<GroupingResult[]>(() => {
+  const q = searchTerm.value.trim().toLowerCase()
+  if (q.length < 2) return []
+
+  const seen = new Set<string>()
+  const results: GroupingResult[] = []
+
+  for (const c of allCountries.value) {
+    for (const [value, type] of [
+      [c.continent, 'continent'],
+      [c.region, 'region'],
+    ] as [string, 'continent' | 'region'][]) {
+      if (!value || seen.has(value)) continue
+      seen.add(value)
+      if (value.toLowerCase().includes(q)) results.push({ label: value, type })
+    }
+  }
+
+  return results.slice(0, 5)
+})
+
 const hasResults = computed(
-  () => genres.value.length > 0 || countryMatches.value.length > 0
+  () => genres.value.length > 0 || countryMatches.value.length > 0 || groupingMatches.value.length > 0
 )
 
 let timeout: ReturnType<typeof setTimeout> | null = null
@@ -128,6 +153,21 @@ watch(searchTerm, (value) => {
         </NuxtLink>
       </template>
 
+      <!-- REGIONS & CONTINENTS -->
+      <template v-if="groupingMatches.length">
+        <p class="search-section-label">Regions &amp; Continents</p>
+        <NuxtLink
+          v-for="g in groupingMatches"
+          :key="`grouping-${g.label}`"
+          :to="`/browse/${encodeURIComponent(g.label)}`"
+          class="search-result"
+          @click="closeDropdown"
+        >
+          <strong>{{ g.label }}</strong>
+          <span>{{ g.type }}</span>
+        </NuxtLink>
+      </template>
+
       <!-- GENRES -->
       <template v-if="genres.length">
         <p class="search-section-label">Genres</p>
@@ -150,7 +190,7 @@ watch(searchTerm, (value) => {
       class="search-dropdown"
     >
       <div class="search-result">
-        <strong>No genres or countries found</strong>
+        <strong>No genres, countries or regions found</strong>
       </div>
     </div>
   </div>
