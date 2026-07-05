@@ -2,5 +2,6 @@ namespace AudioAtlasApplication.DTOs;
 
 public class RejectSubmissionRequest
 {
-    public string Reason { get; set; } = string.Empty;
+    public string RejectionReasonCode { get; set; } = string.Empty;
+    public string? Note { get; set; }
 }

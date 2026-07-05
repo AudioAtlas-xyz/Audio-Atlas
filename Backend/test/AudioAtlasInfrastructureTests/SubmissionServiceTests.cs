@@ -17,14 +17,57 @@ namespace AudioAtlasInfrastructureTests;
 
 public class SubmissionServiceTests
 {
-    [Fact]
-    public async Task CreateSubmissionAsync_WithValidRequest_PersistsSubmission()
+    private static (AppDbContext db, SubmissionService service) BuildInMemory()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
 
-        using var dbContext = new AppDbContext(options);
+        var db = new AppDbContext(options);
+
+        var service = new InfrastructureSubmissionService(
+            new InfrastructureCountryRepository(db),
+            new InfrastructureGenreRepository(db),
+            new InfrastructureInstrumentRepository(db),
+            new InfrastructureSubmissionRepository(db));
+
+        return (db, service);
+    }
+
+    private static RejectionReason SeedActiveRejectionReason(AppDbContext db, string code = "duplicate")
+    {
+        var reason = new RejectionReason
+        {
+            Code = code,
+            Label = "Already exists in the atlas",
+            GuidelineRef = "data-integrity",
+            SortOrder = 1,
+            IsActive = true
+        };
+        db.RejectionReasons.Add(reason);
+        db.SaveChanges();
+        return reason;
+    }
+
+    private static Submission SeedPendingSubmission(AppDbContext db)
+    {
+        var submission = new Submission
+        {
+            Id = Guid.NewGuid(),
+            AccountId = Guid.NewGuid(),
+            NewGenreName = "Pending Genre",
+            Description = "Pending description",
+            Sources = [new SubmissionSource { SourceLink = "https://example.com/source" }]
+        };
+        db.Submissions.Add(submission);
+        db.SaveChanges();
+        return submission;
+    }
+
+    [Fact]
+    public async Task CreateSubmissionAsync_WithValidRequest_PersistsSubmission()
+    {
+        var (db, service) = BuildInMemory();
 
         var account = new ApplicationUser
         {
@@ -48,16 +91,10 @@ public class SubmissionServiceTests
             Name = "Folk"
         };
 
-        dbContext.Users.Add(account);
-        dbContext.Countries.Add(country);
-        dbContext.Genres.Add(relatedGenre);
-        await dbContext.SaveChangesAsync();
-
-        var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
-        var countryRepository = new InfrastructureCountryRepository(dbContext);
-        var genreRepository = new InfrastructureGenreRepository(dbContext);
-        var instrumentRepository = new InfrastructureInstrumentRepository(dbContext);
-        var service = new InfrastructureSubmissionService(countryRepository, genreRepository, instrumentRepository, submissionRepository);
+        db.Users.Add(account);
+        db.Countries.Add(country);
+        db.Genres.Add(relatedGenre);
+        await db.SaveChangesAsync();
 
         var command = new CreateSubmissionRequest
         {
@@ -75,7 +112,7 @@ public class SubmissionServiceTests
 
         var submissionId = await service.createSubmissionAsync(account.Id, command);
 
-        var submission = await dbContext.Submissions
+        var submission = await db.Submissions
             .Include(x => x.Aliases)
             .Include(x => x.Sources)
             .Include(x => x.Countries)
@@ -99,25 +136,14 @@ public class SubmissionServiceTests
     [Fact]
     public async Task CreateSubmissionAsync_WhenRequiredFieldsMissing_ThrowsInvalidOperationException()
     {
-        var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(Guid.NewGuid().ToString())
-            .Options;
-
-        using var dbContext = new AppDbContext(options);
-        var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
-        var countryRepository = new InfrastructureCountryRepository(dbContext);
-        var genreRepository = new InfrastructureGenreRepository(dbContext);
-        var instrumentRepository = new InfrastructureInstrumentRepository(dbContext);
-        var service = new InfrastructureSubmissionService(countryRepository, genreRepository, instrumentRepository, submissionRepository);
-
-        var command = new CreateSubmissionRequest
-        {
-            Description = "",
-            SourceLinks = []
-        };
+        var (_, service) = BuildInMemory();
 
         var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
-            service.createSubmissionAsync(Guid.NewGuid(), command));
+            service.createSubmissionAsync(Guid.NewGuid(), new CreateSubmissionRequest
+            {
+                Description = "",
+                SourceLinks = []
+            }));
 
         Assert.Contains("newGenreName", exception.Message);
         Assert.Contains("description", exception.Message);
@@ -126,28 +152,17 @@ public class SubmissionServiceTests
     [Fact]
     public async Task CreateSubmissionAsync_WhenReferencedIdsDoNotExist_ThrowsInvalidOperationException()
     {
-        var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(Guid.NewGuid().ToString())
-            .Options;
-
-        using var dbContext = new AppDbContext(options);
-        var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
-        var countryRepository = new InfrastructureCountryRepository(dbContext);
-        var genreRepository = new InfrastructureGenreRepository(dbContext);
-        var instrumentRepository = new InfrastructureInstrumentRepository(dbContext);
-        var service = new InfrastructureSubmissionService(countryRepository, genreRepository, instrumentRepository, submissionRepository);
-
-        var command = new CreateSubmissionRequest
-        {
-            NewGenreName = "Nordic Wave",
-            Description = "A proposal",
-            SourceLinks = ["https://example.com/source-1"],
-            CountryIds = [Guid.NewGuid()],
-            SimilarGenreIds = [Guid.NewGuid()]
-        };
+        var (_, service) = BuildInMemory();
 
         var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
-            service.createSubmissionAsync(Guid.NewGuid(), command));
+            service.createSubmissionAsync(Guid.NewGuid(), new CreateSubmissionRequest
+            {
+                NewGenreName = "Nordic Wave",
+                Description = "A proposal",
+                SourceLinks = ["https://example.com/source-1"],
+                CountryIds = [Guid.NewGuid()],
+                SimilarGenreIds = [Guid.NewGuid()]
+            }));
 
         Assert.Contains("countryIds", exception.Message);
         Assert.Contains("similarGenreIds", exception.Message);
@@ -156,11 +171,7 @@ public class SubmissionServiceTests
     [Fact]
     public async Task GetPendingAsync_ReturnsOnlyNonRejectedSubmissions()
     {
-        var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(Guid.NewGuid().ToString())
-            .Options;
-
-        using var dbContext = new AppDbContext(options);
+        var (db, service) = BuildInMemory();
 
         var account = new ApplicationUser
         {
@@ -184,11 +195,11 @@ public class SubmissionServiceTests
             Name = "Folk"
         };
 
-        dbContext.Users.Add(account);
-        dbContext.Countries.Add(country);
-        dbContext.Genres.Add(genre);
+        db.Users.Add(account);
+        db.Countries.Add(country);
+        db.Genres.Add(genre);
 
-        dbContext.Submissions.Add(new Submission
+        db.Submissions.Add(new Submission
         {
             AccountId = account.Id,
             Account = account,
@@ -200,7 +211,7 @@ public class SubmissionServiceTests
             SimilarGenres = [genre]
         });
 
-        dbContext.Submissions.Add(new Submission
+        db.Submissions.Add(new Submission
         {
             AccountId = account.Id,
             Account = account,
@@ -210,13 +221,7 @@ public class SubmissionServiceTests
             Sources = [new SubmissionSource { SourceLink = "https://example.com/rejected-source" }]
         });
 
-        await dbContext.SaveChangesAsync();
-
-        var submissionRepository = new InfrastructureSubmissionRepository(dbContext);
-        var countryRepository = new InfrastructureCountryRepository(dbContext);
-        var genreRepository = new InfrastructureGenreRepository(dbContext);
-        var instrumentRepository = new InfrastructureInstrumentRepository(dbContext);
-        var service = new InfrastructureSubmissionService(countryRepository, genreRepository, instrumentRepository, submissionRepository);
+        await db.SaveChangesAsync();
 
         var submissions = await service.getPendingAsync();
 
@@ -233,74 +238,219 @@ public class SubmissionServiceTests
     [Fact]
     public async Task ApproveAsync_MarksSubmissionAsApproved()
     {
-        var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(Guid.NewGuid().ToString())
-            .Options;
+        var (db, service) = BuildInMemory();
+        var submission = SeedPendingSubmission(db);
 
-        using var dbContext = new AppDbContext(options);
+        await service.approveAsync(submission.Id, Guid.NewGuid());
 
-        var submission = new Submission
-        {
-            Id = Guid.NewGuid(),
-            AccountId = Guid.NewGuid(),
-            NewGenreName = "Pending Genre",
-            Description = "Pending description",
-            Sources = [new SubmissionSource { SourceLink = "https://example.com/source" }]
-        };
-
-        dbContext.Submissions.Add(submission);
-        await dbContext.SaveChangesAsync();
-
-        var service = new SubmissionService(
-            new InfrastructureCountryRepository(dbContext),
-            new InfrastructureGenreRepository(dbContext),
-            new InfrastructureInstrumentRepository(dbContext),
-            new InfrastructureSubmissionRepository(dbContext));
-
-        await service.approveAsync(submission.Id);
-
-        var approvedSubmission = await dbContext.Submissions.SingleAsync(x => x.Id == submission.Id);
-        Assert.Equal(SubmissionStatus.Approved, approvedSubmission.Status);
+        var approved = await db.Submissions.SingleAsync(x => x.Id == submission.Id);
+        Assert.Equal(SubmissionStatus.Approved, approved.Status);
     }
 
     [Fact]
-    public async Task RejectAsync_MarksSubmissionAsRejectedAndStoresReason()
+    public async Task ApproveAsync_StampsReviewedAtAndReviewedById()
     {
-        var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(Guid.NewGuid().ToString())
-            .Options;
+        var (db, service) = BuildInMemory();
+        var submission = SeedPendingSubmission(db);
+        var reviewerId = Guid.NewGuid();
+        var before = DateTime.UtcNow;
 
-        using var dbContext = new AppDbContext(options);
+        await service.approveAsync(submission.Id, reviewerId);
+
+        var approved = await db.Submissions.SingleAsync(x => x.Id == submission.Id);
+        Assert.Equal(reviewerId, approved.ReviewedById);
+        Assert.NotNull(approved.ReviewedAt);
+        Assert.True(approved.ReviewedAt >= before);
+    }
+
+    [Fact]
+    public async Task ApproveAsync_CanApproveOnHoldSubmission()
+    {
+        var (db, service) = BuildInMemory();
+        var reviewerId = Guid.NewGuid();
 
         var submission = new Submission
         {
             Id = Guid.NewGuid(),
             AccountId = Guid.NewGuid(),
-            NewGenreName = "Pending Genre",
-            Description = "Pending description",
+            NewGenreName = "On-Hold Genre",
+            Description = "Sensitive description",
+            Status = SubmissionStatus.OnHoldSensitivity,
             Sources = [new SubmissionSource { SourceLink = "https://example.com/source" }]
         };
+        db.Submissions.Add(submission);
+        await db.SaveChangesAsync();
 
-        dbContext.Submissions.Add(submission);
-        await dbContext.SaveChangesAsync();
+        await service.approveAsync(submission.Id, reviewerId);
 
-        var service = new SubmissionService(
-            new InfrastructureCountryRepository(dbContext),
-            new InfrastructureGenreRepository(dbContext),
-            new InfrastructureInstrumentRepository(dbContext),
-            new InfrastructureSubmissionRepository(dbContext));
+        var approved = await db.Submissions.SingleAsync(x => x.Id == submission.Id);
+        Assert.Equal(SubmissionStatus.Approved, approved.Status);
+        Assert.Equal(reviewerId, approved.ReviewedById);
+    }
 
-        await service.rejectAsync(submission.Id, new RejectSubmissionRequest
+    [Fact]
+    public async Task RejectAsync_WithValidReasonCode_MarksRejectedAndStampsFields()
+    {
+        var (db, service) = BuildInMemory();
+        var submission = SeedPendingSubmission(db);
+        SeedActiveRejectionReason(db, "duplicate");
+        var reviewerId = Guid.NewGuid();
+        var before = DateTime.UtcNow;
+
+        await service.rejectAsync(submission.Id, reviewerId, new RejectSubmissionRequest
         {
-            Reason = "Not enough supporting evidence."
+            RejectionReasonCode = "duplicate",
+            Note = "Exact copy already in atlas."
         });
 
-        var rejectedSubmission = await dbContext.Submissions
+        var rejected = await db.Submissions
             .Include(x => x.RejectedSubmission)
             .SingleAsync(x => x.Id == submission.Id);
 
-        Assert.Equal(SubmissionStatus.Rejected, rejectedSubmission.Status);
-        Assert.NotNull(rejectedSubmission.RejectedSubmission);
-        Assert.Equal("Not enough supporting evidence.", rejectedSubmission.RejectedSubmission!.Description);
+        Assert.Equal(SubmissionStatus.Rejected, rejected.Status);
+        Assert.Equal(reviewerId, rejected.ReviewedById);
+        Assert.NotNull(rejected.ReviewedAt);
+        Assert.True(rejected.ReviewedAt >= before);
+        Assert.Equal("duplicate", rejected.RejectionReasonCode);
+        Assert.NotNull(rejected.RejectedSubmission);
+        Assert.Equal("Exact copy already in atlas.", rejected.RejectedSubmission!.Description);
+    }
+
+    [Fact]
+    public async Task RejectAsync_WithValidReasonCodeAndNoNote_StoresEmptyDescription()
+    {
+        var (db, service) = BuildInMemory();
+        var submission = SeedPendingSubmission(db);
+        SeedActiveRejectionReason(db, "duplicate");
+
+        await service.rejectAsync(submission.Id, Guid.NewGuid(), new RejectSubmissionRequest
+        {
+            RejectionReasonCode = "duplicate"
+        });
+
+        var rejected = await db.Submissions
+            .Include(x => x.RejectedSubmission)
+            .SingleAsync(x => x.Id == submission.Id);
+
+        Assert.Equal(SubmissionStatus.Rejected, rejected.Status);
+        Assert.Equal("duplicate", rejected.RejectionReasonCode);
+        Assert.NotNull(rejected.RejectedSubmission);
+        Assert.Equal(string.Empty, rejected.RejectedSubmission!.Description);
+    }
+
+    [Fact]
+    public async Task RejectAsync_WithoutReasonCode_ThrowsInvalidOperationException()
+    {
+        var (db, service) = BuildInMemory();
+        var submission = SeedPendingSubmission(db);
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.rejectAsync(submission.Id, Guid.NewGuid(), new RejectSubmissionRequest
+            {
+                RejectionReasonCode = ""
+            }));
+
+        Assert.Contains("rejectionReasonCode", exception.Message);
+    }
+
+    [Fact]
+    public async Task RejectAsync_WithUnknownReasonCode_ThrowsInvalidOperationException()
+    {
+        var (db, service) = BuildInMemory();
+        var submission = SeedPendingSubmission(db);
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.rejectAsync(submission.Id, Guid.NewGuid(), new RejectSubmissionRequest
+            {
+                RejectionReasonCode = "nonexistent_code"
+            }));
+
+        Assert.Contains("rejectionReasonCode", exception.Message);
+    }
+
+    [Fact]
+    public async Task RejectAsync_WithInactiveReasonCode_ThrowsInvalidOperationException()
+    {
+        var (db, service) = BuildInMemory();
+        var submission = SeedPendingSubmission(db);
+
+        db.RejectionReasons.Add(new RejectionReason
+        {
+            Code = "deprecated_reason",
+            Label = "Old reason",
+            SortOrder = 99,
+            IsActive = false
+        });
+        await db.SaveChangesAsync();
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.rejectAsync(submission.Id, Guid.NewGuid(), new RejectSubmissionRequest
+            {
+                RejectionReasonCode = "deprecated_reason"
+            }));
+
+        Assert.Contains("rejectionReasonCode", exception.Message);
+    }
+
+    [Fact]
+    public async Task HoldForSensitivityAsync_SetsOnHoldStatusAndStampsFields()
+    {
+        var (db, service) = BuildInMemory();
+        var submission = SeedPendingSubmission(db);
+        var reviewerId = Guid.NewGuid();
+        var before = DateTime.UtcNow;
+
+        await service.holdForSensitivityAsync(submission.Id, reviewerId);
+
+        var held = await db.Submissions.SingleAsync(x => x.Id == submission.Id);
+        Assert.Equal(SubmissionStatus.OnHoldSensitivity, held.Status);
+        Assert.Equal(reviewerId, held.ReviewedById);
+        Assert.NotNull(held.ReviewedAt);
+        Assert.True(held.ReviewedAt >= before);
+    }
+
+    [Fact]
+    public async Task HoldForSensitivityAsync_WhenAlreadyOnHold_ThrowsInvalidOperationException()
+    {
+        var (db, service) = BuildInMemory();
+
+        var submission = new Submission
+        {
+            Id = Guid.NewGuid(),
+            AccountId = Guid.NewGuid(),
+            NewGenreName = "Held Genre",
+            Description = "Already held",
+            Status = SubmissionStatus.OnHoldSensitivity,
+            Sources = [new SubmissionSource { SourceLink = "https://example.com/source" }]
+        };
+        db.Submissions.Add(submission);
+        await db.SaveChangesAsync();
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.holdForSensitivityAsync(submission.Id, Guid.NewGuid()));
+
+        Assert.Contains("already on hold", exception.Message);
+    }
+
+    [Fact]
+    public async Task GetActiveRejectionReasonsAsync_ReturnsOnlyActiveReasonsOrderedBySortOrder()
+    {
+        var (db, service) = BuildInMemory();
+
+        db.RejectionReasons.AddRange(
+            new RejectionReason { Code = "c", Label = "Third", SortOrder = 3, IsActive = true },
+            new RejectionReason { Code = "a", Label = "First", SortOrder = 1, IsActive = true },
+            new RejectionReason { Code = "b", Label = "Second", SortOrder = 2, IsActive = true },
+            new RejectionReason { Code = "d", Label = "Inactive", SortOrder = 4, IsActive = false }
+        );
+        await db.SaveChangesAsync();
+
+        var reasons = await service.getActiveRejectionReasonsAsync();
+
+        Assert.Equal(3, reasons.Count);
+        var list = reasons.ToList();
+        Assert.Equal("a", list[0].Code);
+        Assert.Equal("b", list[1].Code);
+        Assert.Equal("c", list[2].Code);
     }
 }

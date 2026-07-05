@@ -20,7 +20,7 @@ public class SubmissionsController : ControllerBase
     }
 
     [HttpGet("pending")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Curator")]
     public async Task<ActionResult<ICollection<PendingSubmissionResponse>>> GetPending(CancellationToken cancellationToken)
     {
         var submissions = await _submissionService.getPendingAsync(cancellationToken);
@@ -28,12 +28,15 @@ public class SubmissionsController : ControllerBase
     }
 
     [HttpPost("{id}/approve")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Curator")]
     public async Task<IActionResult> Approve(Guid id, CancellationToken cancellationToken)
     {
+        var reviewerId = GetReviewerId();
+        if (reviewerId is null) return Unauthorized();
+
         try
         {
-            await _submissionService.approveAsync(id, cancellationToken);
+            await _submissionService.approveAsync(id, reviewerId.Value, cancellationToken);
             return NoContent();
         }
         catch (InvalidOperationException exception)
@@ -43,15 +46,36 @@ public class SubmissionsController : ControllerBase
     }
 
     [HttpPost("{id}/reject")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Curator")]
     public async Task<IActionResult> Reject(
         Guid id,
         [FromBody] RejectSubmissionRequest request,
         CancellationToken cancellationToken)
     {
+        var reviewerId = GetReviewerId();
+        if (reviewerId is null) return Unauthorized();
+
         try
         {
-            await _submissionService.rejectAsync(id, request, cancellationToken);
+            await _submissionService.rejectAsync(id, reviewerId.Value, request, cancellationToken);
+            return NoContent();
+        }
+        catch (InvalidOperationException exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
+    [HttpPost("{id}/hold")]
+    [Authorize(Roles = "Admin,Curator")]
+    public async Task<IActionResult> Hold(Guid id, CancellationToken cancellationToken)
+    {
+        var reviewerId = GetReviewerId();
+        if (reviewerId is null) return Unauthorized();
+
+        try
+        {
+            await _submissionService.holdForSensitivityAsync(id, reviewerId.Value, cancellationToken);
             return NoContent();
         }
         catch (InvalidOperationException exception)
@@ -67,11 +91,8 @@ public class SubmissionsController : ControllerBase
     {
         var userIdValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        // user logged in?
         if (!Guid.TryParse(userIdValue, out var accountId))
-        {
             return Unauthorized();
-        }
 
         // Banned users can browse but can't contribute. Read from the
         // JWT — accepts the same up-to-1-hour staleness as role demotion.
@@ -100,5 +121,11 @@ public class SubmissionsController : ControllerBase
         {
             return BadRequest(exception.Message);
         }
+    }
+
+    private Guid? GetReviewerId()
+    {
+        var value = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        return Guid.TryParse(value, out var id) ? id : null;
     }
 }
