@@ -136,7 +136,7 @@ watch(searchTerm, (value) => {
   logTimeout = setTimeout(() => {
     if (!hasSearched.value) return
     const total = genres.value.length + countryMatches.value.length + groupingMatches.value.length
-    logSearchEvent(value.trim(), total)
+    void logSearchEvent(value.trim(), total)
   }, 500)
 })
 </script>
