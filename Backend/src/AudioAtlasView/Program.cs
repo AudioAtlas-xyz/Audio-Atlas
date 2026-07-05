@@ -7,8 +7,10 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using AudioAtlasView;
 using AudioAtlasApplication.Repositories;
 using AudioAtlasApplication.Services;
+using AudioAtlasApplication.Services.Dashboard;
 using AudioAtlasInfrastructure.Repositories;
 using AudioAtlasInfrastructure.Services;
+using AudioAtlasInfrastructure.Services.Dashboard;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -64,6 +66,10 @@ builder.Services.AddScoped<IInstrumentRepository, InstrumentRepository>();
 builder.Services.AddScoped<IUserDeletionService, UserDeletionService>();
 builder.Services.AddScoped<ISubmissionService, SubmissionService>();
 builder.Services.AddScoped<ISearchQueryRepository, SearchQueryRepository>();
+builder.Services.AddScoped<ICatalogueQueryService, CatalogueQueryService>();
+builder.Services.AddScoped<IPipelineQueryService, PipelineQueryService>();
+builder.Services.AddScoped<ICommunityQueryService, CommunityQueryService>();
+builder.Services.AddScoped<IDiscoveryQueryService, DiscoveryQueryService>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
