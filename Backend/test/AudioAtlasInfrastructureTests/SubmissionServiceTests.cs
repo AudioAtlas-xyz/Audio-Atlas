@@ -34,19 +34,17 @@ public class SubmissionServiceTests
         return (db, service);
     }
 
-    private static RejectionReason SeedActiveRejectionReason(AppDbContext db, string code = "duplicate")
+    private static void SeedActiveRejectionReason(AppDbContext db, string code = "duplicate")
     {
-        var reason = new RejectionReason
+        db.RejectionReasons.Add(new RejectionReason
         {
             Code = code,
             Label = "Already exists in the atlas",
             GuidelineRef = "data-integrity",
             SortOrder = 1,
             IsActive = true
-        };
-        db.RejectionReasons.Add(reason);
+        });
         db.SaveChanges();
-        return reason;
     }
 
     private static Submission SeedPendingSubmission(AppDbContext db)
