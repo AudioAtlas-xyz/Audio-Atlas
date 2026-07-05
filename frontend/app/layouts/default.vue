@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import AppHeader from '@/components/AppHeader.vue'
+import AppBottomNav from '@/components/AppBottomNav.vue'
 import LoginModal from '~/components/UserFlow/LoginModal.vue'
 import UsernameModal from '~/components/UserFlow/UsernameModal.vue'
 import SuccessModal from '~/components/UserFlow/SuccessModal.vue'
@@ -160,11 +161,20 @@ onMounted(async () => {
     <main class="page-content">
       <slot />
     </main>
+
+    <!-- Mobile bottom nav (hidden on desktop via its own media query) -->
+    <AppBottomNav @login="handleLogin" />
   </div>
 </template>
 
 <style scoped>
 .page-content {
   padding-top: 5rem;
+}
+
+@media (max-width: 767px) {
+  .page-content {
+    padding-bottom: calc(3.75rem + env(safe-area-inset-bottom, 0px));
+  }
 }
 </style>

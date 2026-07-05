@@ -1,8 +1,10 @@
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { onMounted, onBeforeUnmount } from 'vue'
 
 export function useScrollIntro({ scrollMultiplier = 0.85 } = {}) {
-  const progress = ref(0)
-  const finished = ref(false)
+  // useState so the layout can observe finished without prop-drilling.
+  // Keyed refs persist across navigations, so we reset them in onMounted.
+  const progress = useState('scroll-intro-progress', () => 0)
+  const finished = useState('scroll-intro-finished', () => false)
 
   let rafId = 0
 
@@ -14,8 +16,9 @@ export function useScrollIntro({ scrollMultiplier = 0.85 } = {}) {
 
     document.documentElement.classList.add('globe-intro-complete')
     requestAnimationFrame(() => {
-     window.scrollTo({ top: 0, left: 0 })
-    })  }
+      window.scrollTo({ top: 0, left: 0 })
+    })
+  }
 
   const update = () => {
     if (finished.value) return
@@ -41,6 +44,10 @@ export function useScrollIntro({ scrollMultiplier = 0.85 } = {}) {
 
   onMounted(() => {
     if (process.server) return
+
+    // Reset so navigating back to the home page always replays the intro.
+    finished.value = false
+    progress.value = 0
 
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual'
