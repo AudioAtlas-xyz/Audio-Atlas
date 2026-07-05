@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref, watch, onBeforeUnmount } from 'vue'
+import { useRoute } from 'vue-router'
 import GlassPanel from '@/components/GlassPanel.vue'
 import GlassButton from '@/components/GlassButton.vue'
 import AccountDetails from '@/components/UserFlow/AccountDetails.vue'
