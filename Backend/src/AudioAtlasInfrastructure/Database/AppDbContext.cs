@@ -1,6 +1,7 @@
 ﻿using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.MusicMetadata;
+using AudioAtlasDomain.Search;
 using AudioAtlasDomain.Submissions;
 using AudioAtlasDomain.Users;
 using Microsoft.AspNetCore.Identity;
@@ -86,6 +87,11 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid
     /// Audit trail for admin-initiated role changes.
     /// </summary>
     public DbSet<RoleChangeAuditLog> RoleChangeAuditLogs => Set<RoleChangeAuditLog>();
+
+    /// <summary>
+    /// Append-only log of search queries for analytics (no PII stored).
+    /// </summary>
+    public DbSet<SearchQuery> SearchQueries => Set<SearchQuery>();
 
     /// <summary>
     /// Configures the entity model and applies all configurations

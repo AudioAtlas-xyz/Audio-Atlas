@@ -63,6 +63,7 @@ builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IInstrumentRepository, InstrumentRepository>();
 builder.Services.AddScoped<IUserDeletionService, UserDeletionService>();
 builder.Services.AddScoped<ISubmissionService, SubmissionService>();
+builder.Services.AddScoped<ISearchQueryRepository, SearchQueryRepository>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
