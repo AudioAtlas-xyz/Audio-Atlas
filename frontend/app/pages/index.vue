@@ -195,7 +195,7 @@ body,
 h1 {
   margin: 0;
   color: #f6fffb;
-  font-size: 6.5rem;
+  font-size: clamp(2.8rem, 15vw, 6.5rem);
   font-weight: 850;
   line-height: 0.88;
 }
