@@ -98,7 +98,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey))
 
         <button
           class="continue"
-          :disabled="!acknowledged || loading"
+          :disabled="!canConfirm()"
           @click="onConfirm"
         >
           {{ loading ? 'Deleting...' : 'Continue' }}
