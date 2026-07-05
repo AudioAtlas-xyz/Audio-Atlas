@@ -132,9 +132,38 @@ public class Submission
     public ICollection<Genre> PredecessorGenres { get; set; } = new List<Genre>();
 
     /// <summary>
+    /// UTC timestamp of when a curator completed their review.
+    /// Null while still pending.
+    /// </summary>
+    public DateTime? ReviewedAt { get; set; }
+
+    /// <summary>
+    /// FK to the curator who completed the review.
+    /// Null while pending; set to null if the reviewer's account is later deleted.
+    /// </summary>
+    public Guid? ReviewedById { get; set; }
+
+    /// <summary>
+    /// Navigation property to the reviewing curator.
+    /// </summary>
+    public ApplicationUser? ReviewedBy { get; set; }
+
+    /// <summary>
+    /// Structured rejection reason code from the RejectionReasons lookup table.
+    /// Null unless the submission has been rejected.
+    /// </summary>
+    public string? RejectionReasonCode { get; set; }
+
+    /// <summary>
+    /// Navigation property to the structured rejection reason.
+    /// </summary>
+    public RejectionReason? RejectionReason { get; set; }
+
+    /// <summary>
     /// Associated rejection record, if the submission has been rejected.
-    /// 
-    /// Contains the reasoning behind the decision.
+    ///
+    /// RejectedSubmission.Description is the free-text curator note.
+    /// The canonical machine-readable reason lives on RejectionReasonCode above.
     /// </summary>
     public RejectedSubmission? RejectedSubmission { get; set; }
 

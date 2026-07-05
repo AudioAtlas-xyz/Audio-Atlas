@@ -4,5 +4,6 @@ public enum SubmissionStatus
 {
     Pending = 0,
     Approved = 1,
-    Rejected = 2
+    Rejected = 2,
+    OnHoldSensitivity = 3
 }

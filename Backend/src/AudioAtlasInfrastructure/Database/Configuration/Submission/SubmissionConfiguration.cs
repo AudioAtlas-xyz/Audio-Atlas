@@ -40,6 +40,10 @@ public class SubmissionConfiguration : IEntityTypeConfiguration<AudioAtlasDomain
             .IsRequired()
             .HasDefaultValue(SubmissionStatus.Pending);
 
+        // Match the DB default added in migration AddSubmittedAtToSubmission.
+        builder.Property(x => x.SubmittedAt)
+            .HasDefaultValueSql("GETUTCDATE()");
+
         /// <summary>
         /// Configures the required relationship to the submitting user.
         /// 
@@ -52,6 +56,24 @@ public class SubmissionConfiguration : IEntityTypeConfiguration<AudioAtlasDomain
         builder.HasOne(x => x.Account)
             .WithMany()
             .HasForeignKey(x => x.AccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Property(x => x.ReviewedAt)
+            .HasColumnType("datetime2");
+
+        builder.HasOne(x => x.ReviewedBy)
+            .WithMany()
+            .HasForeignKey(x => x.ReviewedById)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.Property(x => x.RejectionReasonCode)
+            .HasColumnType("varchar(40)");
+
+        builder.HasOne(x => x.RejectionReason)
+            .WithMany()
+            .HasForeignKey(x => x.RejectionReasonCode)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.Restrict);
 
         /// <summary>
