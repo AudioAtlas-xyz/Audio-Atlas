@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { CataloguePanel } from '~/types/dashboard'
 
 const props = defineProps<{

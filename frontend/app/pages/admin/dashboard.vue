@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, reactive, computed, watch } from 'vue'
-import { useHead } from '#imports'
+import { reactive, computed, watch } from 'vue'
+import { useHead, useAsyncData, useRoute, useRouter } from '#imports'
 import { useApi } from '@/composables/useApi'
 import { useAuth } from '@/composables/useAuth'
 import type { Country } from '~/types/country'
@@ -17,12 +17,12 @@ const router = useRouter()
 
 // ── Filter state, initialised from URL ────────────────────────────────────────
 const filters = reactive({
-  continent: (route.query.continent as string) ?? '',
-  region:    (route.query.region as string) ?? '',
-  country:   (route.query.country as string) ?? '',
-  role:      (route.query.role as string) ?? '',
-  from:      (route.query.from as string) ?? '',
-  to:        (route.query.to as string) ?? ''
+  continent: (route.query.continent as string | null | undefined) ?? '',
+  region:    (route.query.region as string | null | undefined) ?? '',
+  country:   (route.query.country as string | null | undefined) ?? '',
+  role:      (route.query.role as string | null | undefined) ?? '',
+  from:      (route.query.from as string | null | undefined) ?? '',
+  to:        (route.query.to as string | null | undefined) ?? ''
 })
 
 // Cascade resets
