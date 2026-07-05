@@ -92,9 +92,20 @@ const hasResults = computed(
 )
 
 let timeout: ReturnType<typeof setTimeout> | null = null
+let logTimeout: ReturnType<typeof setTimeout> | null = null
+
+async function logSearchEvent(term: string, resultCount: number) {
+  try {
+    await api('/search-events', {
+      method: 'POST',
+      body: { term, resultCount }
+    })
+  } catch { /* fire-and-forget: logging must never affect search UX */ }
+}
 
 watch(searchTerm, (value) => {
   if (timeout) clearTimeout(timeout)
+  if (logTimeout) clearTimeout(logTimeout)
 
   hasSearched.value = false
 
@@ -119,6 +130,14 @@ watch(searchTerm, (value) => {
       hasSearched.value = true
     }
   }, 200)
+
+  // Separate 500ms debounce for logging — fires after typing pauses,
+  // capturing intentful searches (including zero-result ones).
+  logTimeout = setTimeout(() => {
+    if (!hasSearched.value) return
+    const total = genres.value.length + countryMatches.value.length + groupingMatches.value.length
+    logSearchEvent(value.trim(), total)
+  }, 500)
 })
 </script>
 
