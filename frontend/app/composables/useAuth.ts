@@ -65,11 +65,16 @@ export const useAuth = () => {
     Boolean(user.value?.roles?.includes('Admin'))
   )
 
+  const isCurator = computed(() =>
+    Boolean(user.value?.roles?.includes('Curator'))
+  )
+
   return {
     user,
     fetchUser,
     logout,
     hasRole,
-    isAdmin
+    isAdmin,
+    isCurator
   }
 }
