@@ -111,6 +111,10 @@ public class AdminController : ControllerBase
                 return BadRequest(new { message = $"Failed to assign role '{request.Role}'." });
         }
 
+        // Invalidate any existing JWTs for the target user so role changes take
+        // effect immediately rather than waiting for token expiry.
+        await _userManager.UpdateSecurityStampAsync(target);
+
         // Audit row.
         _dbContext.RoleChangeAuditLogs.Add(new RoleChangeAuditLog
         {

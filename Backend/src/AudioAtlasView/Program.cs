@@ -126,6 +126,39 @@ builder.Services.AddAuthentication(options =>
 
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
+
+    options.Events = new JwtBearerEvents
+    {
+        OnTokenValidated = async ctx =>
+        {
+            var stampClaim = ctx.Principal?.FindFirst("stamp")?.Value;
+
+            // Tokens issued before this fix carry no stamp claim. Allow them
+            // through — they will expire naturally within one hour. Once every
+            // token in circulation was issued after this deploy, any token
+            // missing the stamp claim will be rejected automatically.
+            if (string.IsNullOrEmpty(stampClaim))
+                return;
+
+            var userId = ctx.Principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null) { ctx.Fail("Invalid token."); return; }
+
+            try
+            {
+                var userManager = ctx.HttpContext.RequestServices
+                    .GetRequiredService<UserManager<ApplicationUser>>();
+
+                var user = await userManager.FindByIdAsync(userId);
+
+                if (user == null || user.SecurityStamp != stampClaim)
+                    ctx.Fail("Token has been revoked.");
+            }
+            catch
+            {
+                ctx.Fail("Could not validate token.");
+            }
+        }
+    };
 })
 .AddGoogle(options =>
 {
