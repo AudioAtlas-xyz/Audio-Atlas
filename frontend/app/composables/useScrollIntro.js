@@ -1,4 +1,5 @@
 import { onMounted, onBeforeUnmount } from 'vue'
+import { useState } from '#app'
 
 export function useScrollIntro({ scrollMultiplier = 0.85 } = {}) {
   // useState so the layout can observe finished without prop-drilling.

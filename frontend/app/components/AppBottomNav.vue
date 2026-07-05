@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { useState } from '#app'
 import { useAuth } from '@/composables/useAuth'
 import { useUIState } from '@/composables/useUIState'
 
