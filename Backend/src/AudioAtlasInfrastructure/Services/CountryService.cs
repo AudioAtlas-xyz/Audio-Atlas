@@ -73,7 +73,7 @@ public class CountryService : ICountryService
                 contributors.Add(new ContributorSummaryDTO
                 {
                     id = user.Id.ToString(),
-                    username = user.UserName,
+                    username = user.UserName ?? user.Id.ToString(),
                     genreCount = genreCount
                 });
 

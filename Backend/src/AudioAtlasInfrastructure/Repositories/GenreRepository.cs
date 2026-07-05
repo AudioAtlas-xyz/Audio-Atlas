@@ -23,7 +23,7 @@ public class GenreRepository : IGenreRepository
     /// </summary>
     /// <param name="id"> Unique identifier for a specific genre </param>
     /// <returns> The description of a specific genre or null </returns>
-    public string getDescription(Guid id)
+    public string? getDescription(Guid id)
     {
         return _dbcontext.Genres
             .Where(g => g.Id == id)
