@@ -25,9 +25,11 @@ const emit = defineEmits<{
   (e: 'confirm'): void
 }>()
 
-const acknowledged = ref(false)
+const CONFIRM_PHRASE = 'delete my account'
+const typedPhrase = ref('')
 
-const canConfirm = () => acknowledged.value && !props.loading
+const canConfirm = () =>
+  typedPhrase.value.trim().toLowerCase() === CONFIRM_PHRASE && !props.loading
 
 const onConfirm = () => {
   if (!canConfirm()) return
@@ -70,14 +72,20 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey))
         This cannot be undone.
       </p>
 
-      <label class="checkbox-row">
+      <div class="phrase-row">
+        <p class="phrase-label">
+          Type <strong>delete my account</strong> to confirm:
+        </p>
         <input
-          v-model="acknowledged"
-          type="checkbox"
+          v-model="typedPhrase"
+          class="phrase-input"
+          type="text"
+          placeholder="delete my account"
           :disabled="loading"
+          autocomplete="off"
+          spellcheck="false"
         >
-        <span>I understand this action is permanent.</span>
-      </label>
+      </div>
 
       <div class="buttons">
         <button
@@ -193,25 +201,43 @@ h2 {
   line-height: 1.45;
 }
 
-.checkbox-row {
+.phrase-row {
   display: flex;
-  gap: 0.6rem;
-  align-items: center;
-  justify-content: center;
-
+  flex-direction: column;
+  gap: 0.45rem;
   margin-top: 0.25rem;
+  text-align: left;
+}
+
+.phrase-label {
+  margin: 0;
   font-size: 0.85rem;
+  color: #9aa3b8;
+}
+
+.phrase-label strong {
   color: #dffaff;
-
-  cursor: pointer;
 }
 
-.checkbox-row input {
-  accent-color: #ff6b6b;
-  cursor: pointer;
+.phrase-input {
+  width: 100%;
+  padding: 0.55rem 0.85rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(201, 75, 91, 0.3);
+  color: #dffaff;
+  font-size: 0.9rem;
+  box-sizing: border-box;
 }
 
-.checkbox-row input:disabled {
+.phrase-input:focus {
+  outline: none;
+  border-color: rgba(201, 75, 91, 0.7);
+  box-shadow: 0 0 0 1px rgba(201, 75, 91, 0.3);
+}
+
+.phrase-input:disabled {
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
