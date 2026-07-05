@@ -73,6 +73,11 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid
     public DbSet<RejectedSubmission> RejectedSubmissions => Set<RejectedSubmission>();
 
     /// <summary>
+    /// Lookup table of structured rejection reason codes used by curators.
+    /// </summary>
+    public DbSet<RejectionReason> RejectionReasons => Set<RejectionReason>();
+
+    /// <summary>
     /// Pending external logins that still need onboarding completion.
     /// </summary>
     public DbSet<PendingExternalRegistration> PendingExternalRegistrations => Set<PendingExternalRegistration>();
