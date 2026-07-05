@@ -318,7 +318,8 @@ public class AuthController : ControllerBase
         {
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new(ClaimTypes.Email, user.Email!),
-            new(ClaimTypes.Name, user.UserName!)
+            new(ClaimTypes.Name, user.UserName!),
+            new("stamp", user.SecurityStamp ?? string.Empty)
         };
 
         var roles = await _userManager.GetRolesAsync(user);
