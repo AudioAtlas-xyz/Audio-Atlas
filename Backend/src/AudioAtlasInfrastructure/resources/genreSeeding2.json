@@ -1,0 +1,5890 @@
+{
+  "existingGenreRefs": {
+    "acid-house": "Acid House",
+    "house": "House",
+    "chicago-house": "Chicago House",
+    "deep-house": "Deep House",
+    "garage-house": "Garage (US Garage)",
+    "hip-hop": "Hip Hop",
+    "trap": "Trap",
+    "drill": "Drill",
+    "dub": "Dub",
+    "reggae": "Reggae",
+    "dancehall": "Dancehall",
+    "soul": "Soul",
+    "funk": "Funk",
+    "disco": "Disco",
+    "ska": "Ska",
+    "rocksteady": "Rocksteady",
+    "roots-reggae": "Roots Reggae",
+    "lovers-rock": "Lovers Rock",
+    "boom-bap": "Boom Bap",
+    "golden-age-hip-hop": "Golden Age Hip-Hop",
+    "gangsta-rap": "Gangsta Rap",
+    "southern-hip-hop": "Southern Hip-Hop",
+    "cloud-rap": "Cloud Rap",
+    "alternative-hip-hop": "Alternative Hip-Hop",
+    "french-house": "French House",
+    "italo-disco": "Italo Disco",
+    "hi-nrg": "Hi-NRG",
+    "boogie-funk": "Boogie (Post-Disco)",
+    "p-funk": "P-Funk",
+    "afrobeat": "Afrobeat",
+    "afrobeats": "Afrobeats",
+    "bhangra": "Bhangra",
+    "k-pop": "K-Pop",
+    "j-pop": "J-Pop",
+    "latin-trap": "Latin Trap",
+    "cumbia": "Cumbia",
+    "salsa": "Salsa",
+    "bossa-nova": "Bossa Nova",
+    "samba": "Samba",
+    "flamenco": "Flamenco",
+    "reggaeton": "Reggaeton",
+    "alte": "Alte",
+    "kwaito": "Kwaito",
+    "amapiano": "Amapiano"
+  },
+  "existingInstrumentRefs": {
+    "guitar": "Guitar",
+    "electric-guitar": "Electric Guitar",
+    "bass": "Bass",
+    "electric-bass-guitar": "Electric Bass Guitar",
+    "drum-kit": "Drum Kit",
+    "drum-machine": "Drum Machine",
+    "synthesizer": "Synthesizer",
+    "piano": "Piano",
+    "organ-pipe": "Organ (Pipe)",
+    "turntables": "Turntables",
+    "turntable": "Turntable",
+    "samplers": "Samplers",
+    "sampler": "Sampler",
+    "horn-section": "Horn Section",
+    "harmonica": "Harmonica",
+    "banjo": "Banjo",
+    "beatboxing": "Beatboxing",
+    "accordion": "Accordion",
+    "bandoneon": "Bandoneon",
+    "conga": "Conga",
+    "bongos": "Bongos",
+    "tin-whistle": "Tin Whistle"
+  },
+  "genres": [
+    {
+      "id": "jungle",
+      "name": "Jungle",
+      "startDate": "1992-01-01",
+      "description": "Jungle emerged from the British rave scene in the early 1990s, combining chopped Amen-break drums at 160–180 BPM with deep reggae basslines, ragga vocal samples, and pitched sub-bass. It was the direct precursor to drum and bass and one of the UK's most significant dance-music inventions.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "UK genre fusing fast chopped breakbeats with reggae sub-bass and ragga vocals, born from the early-1990s rave scene…"
+    },
+    {
+      "id": "drum-and-bass",
+      "name": "Drum and Bass",
+      "startDate": "1994-01-01",
+      "description": "Drum and bass grew from jungle in mid-1990s Britain, refining breakbeat tempos around 170 BPM with deeper sub-bass, sophisticated sampling, and sub-genres from liquid to neurofunk. Goldie, LTJ Bukem, and labels like Moving Shadow and Metalheadz defined its first decade.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Fast-tempo UK electronic genre built on frenetic breakbeats and deep sub-bass, evolved from jungle in the mid-1990s…"
+    },
+    {
+      "id": "uk-garage",
+      "name": "UK Garage",
+      "startDate": "1995-01-01",
+      "description": "UK Garage emerged in mid-1990s London from US house and New Jersey garage styles, characterised by shuffled 4/4 rhythms, pitch-shifted vocal chops, and heavy sub-bass. It was the parent genre of two-step, grime, bassline, and dubstep.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "London dance genre evolved from US garage house, featuring shuffled rhythms and pitch-shifted vocals — parent of grime, two-step, and dubstep…"
+    },
+    {
+      "id": "two-step-garage",
+      "name": "Two-Step Garage",
+      "startDate": "1997-01-01",
+      "description": "Two-step is the pop-crossover arm of UK garage, defined by a syncopated kick pattern, pitched-up diva vocals, and romantic themes. Craig David, Artful Dodger, and Oxide & Neutrino gave it mainstream chart success around 1999–2001.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Polished pop subgenre of UK garage with syncopated kicks and pitched vocals, reaching UK mainstream charts around 2000…"
+    },
+    {
+      "id": "grime",
+      "name": "Grime",
+      "startDate": "2002-01-01",
+      "description": "Grime emerged in early-2000s East London, blending UK garage's rhythmic template with rapid-fire MC vocals over angular, minimalist 140-BPM beats. Dizzee Rascal, Wiley, Skepta, and Stormzy carried it from pirate radio to global recognition and Mercury Prize wins.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "East London genre combining MC-driven rapid lyrics with angular 140-BPM beats, from pirate radio origins to global acclaim…"
+    },
+    {
+      "id": "uk-drill",
+      "name": "UK Drill",
+      "startDate": "2012-01-01",
+      "description": "UK Drill began in South London around 2012, adapting Chicago drill's heavy 808 bass and dark minor-key melodies to British street experience, with sliding trap hi-hats and heavily auto-tuned vocals. Headie One, Digga D, and 67 brought it to the UK top ten by the late 2010s.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "South London genre adapting Chicago drill's dark 808 production to British street realities, dominant in UK charts from around 2018…"
+    },
+    {
+      "id": "dubstep",
+      "name": "Dubstep",
+      "startDate": "2001-01-01",
+      "description": "Dubstep emerged from South London's underground around 2001, fusing UK garage's rhythmic template with dub's cavernous sub-bass in half-time beats at 140 BPM. Skream, Benga, and Digital Mystikz defined the original dark, minimal sound before international commercial offshoots took hold.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "South London electronic genre fusing UK garage rhythms with dub sub-bass and half-time beats — the dark original sound before global commercial mutation…"
+    },
+    {
+      "id": "breakbeat-hardcore",
+      "name": "Breakbeat Hardcore",
+      "startDate": "1990-01-01",
+      "description": "Breakbeat hardcore dominated UK raves in 1990–1992, combining sped-up sampled breakbeats with hooky piano riffs, pitched-up vocal samples, and heavyweight bass drops. It spawned jungle, drum and bass, and happy hardcore, making it arguably the most generative UK dance genre ever.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "UK rave music of 1990–1992 built on fast breakbeats, piano stabs, and pitched vocals — direct parent of jungle and drum and bass…"
+    },
+    {
+      "id": "happy-hardcore",
+      "name": "Happy Hardcore",
+      "startDate": "1992-01-01",
+      "description": "Happy hardcore branched from breakbeat hardcore in the early 1990s, pushing tempos to 160–180 BPM with euphoric major-key melodies and chipmunk-pitched vocals. It thrived in UK warehouse raves and later in Australia, producing dedicated club nights and independent labels still active today.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "UK rave subgenre with fast tempos, euphoric melodies, and pitched-up vocals, a fixture of warehouse parties and still active in underground clubs…"
+    },
+    {
+      "id": "rave",
+      "name": "Rave",
+      "startDate": "1988-01-01",
+      "description": "UK rave culture and its acid-house, techno, and breakbeat soundtrack exploded in 1988–1992 across illegal warehouse parties, seeding almost every subsequent UK dance genre. The second summer of love made rave a mass phenomenon that transformed British youth culture.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "UK late-1980s mass movement of illegal warehouse parties playing acid house and breakbeat, seeding jungle, drum and bass, and the modern club scene…"
+    },
+    {
+      "id": "big-beat",
+      "name": "Big Beat",
+      "startDate": "1994-01-01",
+      "description": "Big beat blended breakbeats and hip-hop samples with distorted guitars and rock energy, peaking in the UK in the late 1990s via Chemical Brothers, Fatboy Slim, Prodigy, and the Wall of Sound label. Its crossover appeal made it one of the decade's best-selling dance styles.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Mid-1990s UK genre combining loud breakbeats, hip-hop samples, and rock guitars — the Chemical Brothers and Fatboy Slim sound of stadium dance…"
+    },
+    {
+      "id": "intelligent-dance-music",
+      "name": "Intelligent Dance Music",
+      "startDate": "1992-01-01",
+      "description": "IDM emerged from UK and US electronica in the early 1990s, prioritising complex rhythmic structures, unusual timbres, and emotional depth over dancefloor function. Warp Records — home to Aphex Twin, Autechre, and Boards of Canada — became its central institution.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Cerebral electronic music emphasising rhythmic complexity and texture, centred on Warp Records and figures like Aphex Twin since the early 1990s…"
+    },
+    {
+      "id": "bleep-techno",
+      "name": "Bleep Techno",
+      "startDate": "1989-01-01",
+      "description": "Bleep techno originated in Sheffield and Leeds around 1989, featuring stark synthesised basslines, sparse percussion, and ascending high-pitched synth tones. Warp Records' early releases by LFO and Forgemasters defined this distinctly northern English take on electronic dance music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Yorkshire-born electronic music defined by deep bass drops and piercing synth bleeps, an early Warp Records sound from 1989…"
+    },
+    {
+      "id": "progressive-house",
+      "name": "Progressive House",
+      "startDate": "1992-01-01",
+      "description": "Progressive house developed from house music in early-1990s UK, defined by long evolving structures, gradual filter sweeps, and atmospheric synthesiser layers. Sasha, John Digweed, and labels like Guerrilla and Platipus built its reputation as a sophisticated alternative to mainstream rave.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Long-form, melodically evolving UK house from the early 1990s — Sasha and John Digweed's genre, influential on the global trance scene…"
+    },
+    {
+      "id": "trip-hop",
+      "name": "Trip Hop",
+      "startDate": "1991-01-01",
+      "description": "Trip hop emerged from Bristol in the early 1990s, fusing hip-hop's slow dusty beats with atmospheric samples, jazz textures, and melancholic vocals. Massive Attack, Portishead, and Tricky defined its introspective, cinematic character and enduring critical prestige.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Bristol-born genre fusing slow hip-hop beats, jazz samples, and melancholic vocals — Massive Attack, Portishead, and Tricky are its defining acts…"
+    },
+    {
+      "id": "afroswing",
+      "name": "Afroswing",
+      "startDate": "2016-01-01",
+      "description": "Afroswing emerged in the UK mid-2010s, blending Afrobeats' Nigerian-influenced melodies with grime and R&B production. J Hus, Kojo Funds, and Afro B gave it a distinct presence on UK charts, while MoStack and Hardy Caprio broadened its mainstream reach.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "UK fusion of Afrobeats melody with grime and R&B production, emerging around 2016 through J Hus and reaching the mainstream by 2018…"
+    },
+    {
+      "id": "uk-hip-hop",
+      "name": "UK Hip-Hop",
+      "startDate": "1983-01-01",
+      "description": "UK hip-hop evolved from American imports in the early 1980s into a distinct British identity through the 1990s–2000s underground, with Roots Manuva, Taskforce, and Skinnyman bringing regional voices and class politics. It is the cultural root of grime, UK drill, and the modern British rap mainstream.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "British hip-hop with distinct regional voices, evolving from 1980s imports through a 1990s–2000s underground to its role as parent of grime and UK drill…"
+    },
+    {
+      "id": "uk-r-and-b",
+      "name": "UK R&B",
+      "startDate": "1997-01-01",
+      "description": "UK R&B developed a distinct British character from American R&B and UK garage in the late 1990s through Craig David and Ms Dynamite, later fusing with grime, Afroswing, and contemporary production in the 2010s via Ella Mai, Mahalia, and Jorja Smith.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "British R&B blending American soul influences with UK urban production styles from Craig David and Ms Dynamite to Jorja Smith and Mahalia…"
+    },
+    {
+      "id": "bassline",
+      "name": "Bassline",
+      "startDate": "2003-01-01",
+      "description": "Bassline (niche or 4×4) developed in Sheffield, Leeds, and Nottingham from UK garage, distinguished by a four-to-the-floor kick, heavy rolling bass riffs, and vocal samples. It dominated northern English club scenes in the mid-2000s before spreading nationally.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Northern English dance genre evolved from UK garage with pounding 4/4 kicks and heavy bass riffs, the sound of northern clubs in the mid-2000s…"
+    },
+    {
+      "id": "future-garage",
+      "name": "Future Garage",
+      "startDate": "2008-01-01",
+      "description": "Future garage revived UK garage's shuffled rhythms around 2008 with spacious, atmospheric production, pitched vocal chops, and deep sub-bass. Burial's influence — particularly Untrue — defined the genre's melancholic, introspective character.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "UK electronic genre reviving garage rhythms with atmospheric depth and melancholic pitched vocals, Burial's Untrue as its touchstone…"
+    },
+    {
+      "id": "uk-funky",
+      "name": "UK Funky",
+      "startDate": "2007-01-01",
+      "description": "UK Funky emerged in London around 2007–2009, fusing UK garage's shuffled rhythms with Afrobeats, soca, and Nigerian percussion. Centred on East London pirate radio, it produced a short but influential wave of energetic dancefloor music led by producers like Roska and Cooly G.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "London dancefloor genre blending UK garage rhythms with Afrobeats and Caribbean percussion, thriving on East London pirate radio around 2008…"
+    },
+    {
+      "id": "broken-beat",
+      "name": "Broken Beat",
+      "startDate": "1999-01-01",
+      "description": "Broken beat developed in London at the turn of the millennium, combining jazz harmony and soul sensibility with complex polyrhythmic breakbeats and synthesiser bass. Labels like Atone and artists such as 4hero, Kaidi Tatham, and IG Culture formed a small but influential scene.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "London jazz-electronic hybrid with polyrhythmic breakbeats and sophisticated harmony, a small but influential movement from the late 1990s…"
+    },
+    {
+      "id": "post-dubstep",
+      "name": "Post-Dubstep",
+      "startDate": "2009-01-01",
+      "description": "Post-dubstep describes artists who absorbed dubstep's sparse rhythms and heavy sub-bass into more song-focused contexts, incorporating R&B and soul. James Blake, Jamie Woon, and Mount Kimbie were its defining voices, and it was one of the most critically acclaimed UK sounds of the early 2010s.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Early-2010s UK movement absorbing dubstep's production techniques into intimate, soul-influenced song forms — James Blake and Mount Kimbie as key figures…"
+    },
+    {
+      "id": "uk-bass",
+      "name": "UK Bass",
+      "startDate": "2010-01-01",
+      "description": "UK bass is an umbrella for bass-heavy UK electronic music from the 2010s that defies sub-genre classification — blending footwork, grime instrumentals, and experimental club tracks. Labels such as Hyperdub, Hessle Audio, and Night Slugs were its institutional centres.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Umbrella term for experimentally inclined bass-heavy UK electronic music from Hyperdub and Night Slugs in the early 2010s…"
+    },
+    {
+      "id": "uk-hardcore",
+      "name": "UK Hardcore",
+      "startDate": "1993-01-01",
+      "description": "UK hardcore settled into a distinct style by 1993–1994 with 4/4 kicks, euphoric synthesiser leads, and layered breakbeats at 150–180 BPM. It remained active in the UK underground through dedicated labels like Evolution Records and massive club events like Slammin' Vinyl.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "UK dance genre combining hard 4/4 kicks with euphoric synth leads and fast breakbeats, active from the mid-1990s rave era through to today…"
+    },
+    {
+      "id": "post-punk",
+      "name": "Post-Punk",
+      "startDate": "1977-01-01",
+      "description": "Post-punk extended punk's energy into experimental territory, incorporating art rock, funk, dub, and electronics while keeping DIY independence. Gang of Four, Wire, Joy Division, PiL, and Talking Heads redefined the limits of guitar-based music and seeded indie rock, gothic rock, and new wave.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Late-1970s genre pushing punk into experimental art-rock, funk, and dub, with Gang of Four, Joy Division, and Wire as its defining acts…"
+    },
+    {
+      "id": "new-wave",
+      "name": "New Wave",
+      "startDate": "1978-01-01",
+      "description": "New wave grew from punk into a danceable, keyboard-driven pop form in the late 1970s and early 1980s, dominating British and American charts with acts like Talking Heads, Blondie, Duran Duran, and The Police. Its embrace of synthesisers and slick production distinguished it from raw punk.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Pop-driven offshoot of punk combining electronic keyboards with catchy hooks — Talking Heads, Blondie, and Duran Duran's genre…"
+    },
+    {
+      "id": "britpop",
+      "name": "Britpop",
+      "startDate": "1993-01-01",
+      "description": "Britpop was a mid-1990s UK guitar-pop movement reasserting British musical identity against American grunge, drawing on Mod and Kinks influences. The Blur–Oasis chart battle of 1995 was a national event, and Pulp, Elastica, and Supergrass were among its principal voices.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Mid-1990s UK guitar-pop movement asserting British identity through Mod and 1960s influences — the Blur vs. Oasis era…"
+    },
+    {
+      "id": "shoegaze",
+      "name": "Shoegaze",
+      "startDate": "1988-01-01",
+      "description": "Shoegaze emerged from UK alternative rock in the late 1980s, defined by densely layered guitars with heavy tremolo, walls of distortion, and often buried vocals. My Bloody Valentine's Loveless (1991) is its benchmark, while Ride, Slowdive, and Lush defined the surrounding scene.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "UK indie genre built on layered tremolo guitars and hazy vocals, with My Bloody Valentine's Loveless as the definitive statement…"
+    },
+    {
+      "id": "madchester",
+      "name": "Madchester",
+      "startDate": "1988-01-01",
+      "description": "Madchester was a late-1980s Manchester scene fusing indie guitars with the energy of acid house, producing a euphoric, baggy groove. The Hacienda club was its crucible; the Happy Mondays, Stone Roses, and 808 State were its principal acts.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Late-1980s Manchester scene merging indie guitars with acid house energy — the Stone Roses, Happy Mondays, and the Hacienda club…"
+    },
+    {
+      "id": "indie-rock",
+      "name": "Indie Rock",
+      "startDate": "1984-01-01",
+      "description": "Indie rock emerged from post-punk as guitar music released on independent labels, evolving from a distribution category to a stylistic one. It spans jangly college rock (REM, The Smiths) to lo-fi noise (Pavement, Guided by Voices) to polished indie anthems (Arcade Fire, Arctic Monkeys).",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Guitar-led rock originating on independent labels in the 1980s, encompassing decades of alternative styles from The Smiths to Arctic Monkeys…"
+    },
+    {
+      "id": "indie-pop",
+      "name": "Indie Pop",
+      "startDate": "1984-01-01",
+      "description": "Indie pop distils indie rock's independent ethos into a melodically brighter, more hook-driven form rooted in 1960s pop, jangly guitar, and C86 aesthetics. Belle and Sebastian, The Pastels, Camera Obscura, and later Alvvays carry the lineage.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Melodically bright, jangly pop subgenre of indie rooted in the 1980s C86 cassette scene and 1960s pop influences…"
+    },
+    {
+      "id": "gothic-rock",
+      "name": "Gothic Rock",
+      "startDate": "1979-01-01",
+      "description": "Gothic rock grew from post-punk in the late 1970s UK, adopting darker aesthetics — minor-key basslines, atmospheric guitar, operatic vocals, and morbid themes. Bauhaus, Siouxsie and the Banshees, and Sisters of Mercy created the foundation of goth subculture.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Dark UK post-punk offshoot defined by minor-key atmospherics and theatrical vocals — the musical foundation of goth subculture…"
+    },
+    {
+      "id": "darkwave",
+      "name": "Darkwave",
+      "startDate": "1980-01-01",
+      "description": "Darkwave fused gothic rock's dark atmospherics with synthesiser textures and minimal electronic production, creating brooding, melancholic music. Clan of Xymox, Dead Can Dance, and This Mortal Coil were its key acts across UK and European scenes.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Dark electronic-rock genre blending goth aesthetics with synthesisers, spanning UK and European underground scenes from the early 1980s…"
+    },
+    {
+      "id": "northern-soul",
+      "name": "Northern Soul",
+      "startDate": "1968-01-01",
+      "description": "Northern soul was a UK working-class dance movement from the late 1960s centred on rare American soul 45s that the mainstream market had overlooked. The Wigan Casino and Twisted Wheel in Manchester were its temples, and its athletic dance style became a defining subcultural marker.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Northern English dance movement of the late 1960s built around rare American soul singles, with the Wigan Casino as its spiritual home…"
+    },
+    {
+      "id": "uk-soul",
+      "name": "UK Soul",
+      "startDate": "1985-01-01",
+      "description": "UK soul describes British artists recording soul, R&B, and jazz-influenced pop from the mid-1980s onwards — from Sade and Soul II Soul's international breakthrough to Amy Winehouse and Adele. It blends American soul traditions with understated British sensibility.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "British soul tradition from Sade and Soul II Soul in the 1980s to Amy Winehouse and Adele, blending American influences with British refinement…"
+    },
+    {
+      "id": "2-tone",
+      "name": "2 Tone",
+      "startDate": "1979-01-01",
+      "description": "2 Tone was a late-1970s UK movement centred on The Specials' Coventry label, fusing ska and rocksteady with punk energy. The Specials, Madness, and Selecter paired anti-racist messaging with irresistibly danceable music, and the movement remains one of Britain's most politically significant pop moments.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Late-1970s UK ska-punk fusion from The Specials' Coventry label, combining anti-racist politics with infectious danceable energy…"
+    },
+    {
+      "id": "dream-pop",
+      "name": "Dream Pop",
+      "startDate": "1985-01-01",
+      "description": "Dream pop evolved from post-punk and new wave in the mid-1980s UK, prioritising lush reverb-soaked guitars, introspective vocals, and atmospheric layering. Cocteau Twins and This Mortal Coil were its founding figures; Beach House and Mazzy Star carried the aesthetic into the 21st century.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Atmospheric pop built on reverb-saturated guitars and ethereal vocals, rooted in 1980s UK indie with Cocteau Twins as its archetype…"
+    },
+    {
+      "id": "post-rock",
+      "name": "Post-Rock",
+      "startDate": "1991-01-01",
+      "description": "Post-rock uses rock instruments — guitars, bass, drums — to create largely instrumental music organised around texture, dynamics, and slow-build crescendos rather than songs and solos. Bark Psychosis, Slint, Mogwai, and Godspeed You! Black Emperor are its canonical acts.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Instrumental genre using rock instruments to explore gradual dynamics and texture rather than traditional songs — Mogwai and Godspeed You! Black Emperor as touchstones…"
+    },
+    {
+      "id": "britcore",
+      "name": "Britcore",
+      "startDate": "1987-01-01",
+      "description": "Britcore was a UK hip-hop movement of the late 1980s and early 1990s combining American hip-hop production with aggressive British lyricism, often politically engaged. Silver Bullet, Ruthless Rap Assassins, and Gunshot were key figures in this short-lived but influential underground.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Aggressive, politically conscious UK hip-hop from the late 1980s blending American production with confrontational British MC culture…"
+    },
+    {
+      "id": "techno",
+      "name": "Techno",
+      "startDate": "1985-01-01",
+      "description": "Techno originated in Detroit in the mid-1980s through Juan Atkins, Derrick May, and Kevin Saunderson, synthesising European electronic music, Chicago house, and Afrofuturist ideology into repetitive, machine-driven dance music. It arrived in Berlin after reunification and became the heartbeat of global club culture.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Detroit-born electronic dance music built on repetitive 4/4 beats and synthesisers — became the defining sound of Berlin's post-Wall club culture…"
+    },
+    {
+      "id": "berlin-techno",
+      "name": "Berlin Techno",
+      "startDate": "1989-01-01",
+      "description": "Berlin techno developed after German reunification in 1989, when derelict East Berlin buildings became venues for all-night parties. Artists like Hardfloor and Tanith, later Berghain residents, built a harder, darker, more industrial sound than Detroit's original, and Berlin became the world capital of club culture.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Dark, industrial techno style born in post-reunification East Berlin warehouses — Berghain is its temple and the global benchmark for club culture…"
+    },
+    {
+      "id": "minimal-techno",
+      "name": "Minimal Techno",
+      "startDate": "1995-01-01",
+      "description": "Minimal techno stripped the genre to its bare elements — subtle rhythmic variations, sparse textures, and long hypnotic structures. Richie Hawtin (Plastikman), Basic Channel, and Robert Hood defined its aesthetic in the mid-1990s, and it influenced the microhouse and tech-house movements that followed.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Stripped-down techno emphasising subtle rhythmic variation and hypnotic repetition, pioneered by Richie Hawtin and Basic Channel in the mid-1990s…"
+    },
+    {
+      "id": "eurodance",
+      "name": "Eurodance",
+      "startDate": "1989-01-01",
+      "description": "Eurodance dominated European pop charts in the early 1990s with hooky synthesiser riffs, female sung choruses, male rap verses, and hard-hitting beats at 130–160 BPM. Acts like Ace of Base, 2 Unlimited, Snap!, and Haddaway sold tens of millions of records globally.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "European pop-dance genre with sing-along synth hooks and rap verses, dominating charts across Europe and worldwide in the early 1990s…"
+    },
+    {
+      "id": "electronic-body-music",
+      "name": "Electronic Body Music",
+      "startDate": "1981-01-01",
+      "description": "EBM emerged from Belgium and Germany in the early 1980s, combining industrial electronic textures with hard metronomic beats and aggressive vocalisations to produce a physically demanding dancefloor sound. Front 242, Nitzer Ebb, and D.A.F. defined its aesthetic.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Belgian-German dance genre fusing industrial electronics with hard beats — Front 242 and Nitzer Ebb's body-centred club music from the 1980s…"
+    },
+    {
+      "id": "gabber",
+      "name": "Gabber",
+      "startDate": "1992-01-01",
+      "description": "Gabber emerged in Rotterdam in the early 1990s as an extreme, high-tempo hardcore techno subgenre, with distorted bass drum kicks at 160–220 BPM and heavy synthesiser stabs. Rotterdam clubs and labels like Rotterdam Records created a distinct working-class rave culture.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Rotterdam's extreme hardcore techno with distorted kicks at 160+ BPM and aggressive aesthetics, born in early-1990s Netherlands…"
+    },
+    {
+      "id": "hardcore-techno",
+      "name": "Hardcore Techno",
+      "startDate": "1990-01-01",
+      "description": "Hardcore techno pushed dance music tempos and intensity to extremes in the early 1990s, encompassing Rotterdam gabber, Belgian new beat mutations, and related high-BPM styles. It spawned hardstyle, industrial hardcore, and speedcore, with a dedicated global following.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Umbrella term for extreme-tempo, aggressive electronic dance music that spawned gabber, hardstyle, and industrial hardcore in the early 1990s…"
+    },
+    {
+      "id": "hardstyle",
+      "name": "Hardstyle",
+      "startDate": "2000-01-01",
+      "description": "Hardstyle emerged from the Netherlands in the early 2000s, combining hard kick drums with melodic synthesiser leads at 140–160 BPM. It developed its own massive festival circuit — Qlimax, Defqon.1 — and a dedicated global fanbase, making it the most commercially successful offshoot of hardcore techno.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Dutch hard-electronic genre with melodic synth leads and powerful kicks, with its own festival circuit and global following since the early 2000s…"
+    },
+    {
+      "id": "progressive-trance",
+      "name": "Progressive Trance",
+      "startDate": "1993-01-01",
+      "description": "Progressive trance developed in the mid-1990s from progressive house and European trance, defined by long gradual builds, layered synthesiser arpeggios, and euphoric releases. BT, Sasha, and labels like Platipus and Hooj Choons shaped its evolution, and it became one of the biggest festival sounds of the late 1990s.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Long-form trance subgenre built on gradual synth-arpeggio builds and euphoric climaxes, one of the biggest festival sounds of the late 1990s…"
+    },
+    {
+      "id": "psytrance",
+      "name": "Psytrance",
+      "startDate": "1990-01-01",
+      "description": "Psytrance grew from the Goa trance scene of the early 1990s, combining fast tempos (140–150 BPM) with layered synthesiser sequences and mind-altering sonic textures aimed at trance-inducing dancefloor experiences. Israel's outdoor festival culture became its global home.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Fast, hypnotic trance rooted in Goa beach parties and Israeli festival culture, built on layered synth sequences at 140–150 BPM…"
+    },
+    {
+      "id": "krautrock",
+      "name": "Krautrock",
+      "startDate": "1968-01-01",
+      "description": "Krautrock was a West German experimental rock movement rejecting Anglo-American conventions in favour of motorik rhythms, long improvised passages, and electronic textures. Can, Kraftwerk, Neu!, Faust, and Tangerine Dream were its central acts, and its influence on post-punk, electronic music, and ambient was enormous.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "West German experimental rock movement of 1968–1978 blending motorik rhythms, improvisation, and electronics — foundational to post-punk and electronic music…"
+    },
+    {
+      "id": "neue-deutsche-welle",
+      "name": "Neue Deutsche Welle",
+      "startDate": "1979-01-01",
+      "description": "Neue Deutsche Welle (NDW) was Germany's new wave movement from the late 1970s to the mid-1980s, producing German-language punk and synth-pop with humour and absurdist lyrics. Nena, Trio, and Falco crossed over to international charts.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "German-language new wave of 1979–1984, producing quirky synth-pop and punk hits — Nena's '99 Luftballons' and Trio's 'Da Da Da'…"
+    },
+    {
+      "id": "deutschrap",
+      "name": "Deutschrap",
+      "startDate": "1992-01-01",
+      "description": "Deutschrap (German rap) emerged with German-language hip-hop in the early 1990s through Advanced Chemistry and Die Fantastischen Vier, evolving into Germany's dominant pop genre by the 2010s through Capital Bra, Shindy, and Sido.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "German-language hip-hop from 1990s underground origins to 2010s mainstream dominance, the biggest-selling popular music genre in modern Germany…"
+    },
+    {
+      "id": "industrial",
+      "name": "Industrial",
+      "startDate": "1976-01-01",
+      "description": "Industrial music emerged from conceptual art and electronic experimentation in the mid-1970s, pioneered by Throbbing Gristle and later Einstürzende Neubauten, using noise, tape manipulation, and confrontational imagery to interrogate society. It seeded EBM, power electronics, noise, and metal crossovers.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Experimental genre rooted in noise, tape manipulation, and provocative art — Throbbing Gristle and Einstürzende Neubauten's confrontational sound from the mid-1970s…"
+    },
+    {
+      "id": "dutch-house",
+      "name": "Dutch House",
+      "startDate": "2008-01-01",
+      "description": "Dutch house emerged around 2008 as a percussive, melodically catchy variant of electro house and progressive house, driven by Tiësto, Afrojack, Nicky Romero, and Martin Garrix. It became a dominant strand of mainstream EDM worldwide in the 2010s.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Energetic Dutch electro-house style dominant in mainstream EDM in the 2010s, exemplified by Tiësto, Afrojack, and Martin Garrix…"
+    },
+    {
+      "id": "blues",
+      "name": "Blues",
+      "startDate": "1900-01-01",
+      "description": "Blues is an African-American genre from the Deep South rooted in spirituals, work songs, and field hollers, crystallised in the late 19th and early 20th centuries. Its twelve-bar form, blue notes, and emotional guitar and vocal expression became the foundation of rock, jazz, soul, and virtually all Western popular music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "African-American genre from the Deep South built on twelve-bar forms and blue notes — the root of rock, jazz, soul, and all modern Western popular music…"
+    },
+    {
+      "id": "jazz",
+      "name": "Jazz",
+      "startDate": "1900-01-01",
+      "description": "Jazz emerged in New Orleans around the turn of the 20th century from African-American blues, ragtime, gospel, and European harmonics. Its emphasis on improvisation, swing feel, and collective interplay made it one of the most intellectually rich and globally influential music forms of the century, spawning bebop, fusion, free jazz, and dozens of regional variants.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "African-American genre born in New Orleans from blues and ragtime — defined by improvisation and swing, one of the 20th century's most globally influential forms…"
+    },
+    {
+      "id": "country",
+      "name": "Country",
+      "startDate": "1920-01-01",
+      "description": "Country music developed in rural America and Appalachia in the 1920s from folk ballads, old-time string bands, blues, and gospel. From Jimmie Rodgers and the Carter Family through Hank Williams and Johnny Cash to Taylor Swift, it remains one of America's most commercially dominant genres.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "American genre from Appalachian folk and blues, spanning Jimmie Rodgers and Hank Williams to modern billion-stream country pop…"
+    },
+    {
+      "id": "folk",
+      "name": "Folk",
+      "startDate": "1800-01-01",
+      "description": "Folk music encompasses the traditional acoustic musical traditions of communities, transmitted orally across generations. The US folk revival of the 1950s–60s — Pete Seeger, Woody Guthrie, Bob Dylan — turned it into a vehicle for social protest; the UK tradition runs from Cecil Sharp through Fairport Convention to contemporary folk-rock.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Acoustic communal music transmitted through generations — the 1950s–60s American folk revival turned it into a vehicle for social change through Dylan and Guthrie…"
+    },
+    {
+      "id": "rock-and-roll",
+      "name": "Rock and Roll",
+      "startDate": "1951-01-01",
+      "description": "Rock and roll emerged from African-American blues, gospel, and country in the early 1950s. Chuck Berry, Little Richard, and Elvis Presley fused boogie-woogie and R&B into an electrifying form that became the most transformative youth music movement of the 20th century and the foundation of virtually all subsequent Western popular music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "American genre fusing blues, gospel, and country in the early 1950s — Chuck Berry, Little Richard, and Elvis Presley's revolution that changed popular music forever…"
+    },
+    {
+      "id": "psychedelic-rock",
+      "name": "Psychedelic Rock",
+      "startDate": "1965-01-01",
+      "description": "Psychedelic rock emerged mid-1960s in the US and UK, using studio manipulation, distorted guitars, and extended structures to evoke altered states. Jimi Hendrix, Jefferson Airplane, Pink Floyd, and The Beatles' late work defined its many variants, seeding progressive rock, heavy metal, and alternative music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Mid-1960s rock using studio experimentation and distorted guitars to evoke altered states — foundational to progressive rock, heavy metal, and alternative music…"
+    },
+    {
+      "id": "punk-rock",
+      "name": "Punk Rock",
+      "startDate": "1974-01-01",
+      "description": "Punk rock emerged in New York and London in the mid-1970s as a raw, aggressive rejection of progressive and classic rock excess. The Ramones, Sex Pistols, and The Clash established short fast songs, distorted guitars, and DIY ethos that spawned post-punk, hardcore, and alternative rock.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Mid-1970s genre defined by short fast songs, distorted guitars, and radical DIY ethos — the Ramones, Sex Pistols, and Clash launched a decades-long counterculture…"
+    },
+    {
+      "id": "heavy-metal",
+      "name": "Heavy Metal",
+      "startDate": "1968-01-01",
+      "description": "Heavy metal evolved from hard rock and blues-rock in the late 1960s, pioneered by Black Sabbath, Led Zeppelin, and Deep Purple with loud, distorted guitars, powerful drumming, and amplified bass. Its many subgenres — glam, thrash, death, black, doom — have given it a durable global following across five decades.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Hard-rock offshoot of the late 1960s defined by loud distorted guitars and power — Black Sabbath and Led Zeppelin's genre, with subgenres spanning every continent…"
+    },
+    {
+      "id": "grunge",
+      "name": "Grunge",
+      "startDate": "1987-01-01",
+      "description": "Grunge emerged from Seattle in the late 1980s, fusing heavy metal distortion with punk anger and indie rock sensibility. Nirvana, Pearl Jam, Soundgarden, and Alice in Chains made it the defining rock sound of the early 1990s before its rapid commercial co-option.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Seattle alternative rock fusing metal and punk into raw, emotionally direct music — Nirvana and Pearl Jam made it the dominant rock sound of the early 1990s…"
+    },
+    {
+      "id": "alternative-rock",
+      "name": "Alternative Rock",
+      "startDate": "1979-01-01",
+      "description": "Alternative rock is a broad category for guitar-led rock outside the mainstream from the late 1970s onwards, originally a chart designation that became associated with college radio, independent labels, and a DIY ethic. It went mainstream in the early 1990s with Nirvana, Radiohead, and R.E.M.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Broad category of guitar rock outside the mainstream, from post-punk college radio to 1990s Nirvana and Radiohead, rooted in independent-label culture…"
+    },
+    {
+      "id": "emo",
+      "name": "Emo",
+      "startDate": "1985-01-01",
+      "description": "Emo (emotional hardcore) evolved from Washington DC's hardcore punk scene in the mid-1980s, emphasising confessional, emotionally intense lyrics. It moved from underground (Sunny Day Real Estate, Jawbreaker) to 2000s pop-punk mainstream via My Chemical Romance and Fall Out Boy.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Genre rooted in confessional lyrics and post-hardcore energy, from DC underground origins to global 2000s pop-punk mainstream…"
+    },
+    {
+      "id": "pop-punk",
+      "name": "Pop Punk",
+      "startDate": "1989-01-01",
+      "description": "Pop punk fuses punk rock's guitar energy with melodic hooks, pioneered by Green Day and The Offspring in the early 1990s and dominant in the 2000s mainstream through Blink-182, Sum 41, and Paramore.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Melodic punk-rock hybrid dominant in 1990s–2000s rock mainstream through Green Day and Blink-182…"
+    },
+    {
+      "id": "r-and-b",
+      "name": "R&B",
+      "startDate": "1940-01-01",
+      "description": "Rhythm and blues emerged in 1940s African-American communities as a commercialisation of jazz, blues, and gospel for dance. Its evolution through soul, funk, new jack swing, and contemporary production made it one of the most continuously dominant forces in American popular music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "African-American genre synthesising jazz, blues, and gospel into danceable popular forms, evolving through eight decades to remain at the heart of popular music…"
+    },
+    {
+      "id": "gospel",
+      "name": "Gospel",
+      "startDate": "1920-01-01",
+      "description": "Gospel music is African-American Christian music rooted in church traditions, drawing on blues, spirituals, and hymns. Thomas A. Dorsey codified gospel as a genre in the 1920s, and it has been the emotional and musical bedrock of soul, R&B, and rock and roll.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "African-American Christian music tradition blending spirituals, blues, and choir performance — the foundational bedrock of soul, R&B, and rock and roll…"
+    },
+    {
+      "id": "americana",
+      "name": "Americana",
+      "startDate": "1995-01-01",
+      "description": "Americana is a contemporary US roots genre drawing on country, folk, blues, and rock traditions with a focus on songwriting and authenticity. Wilco, Ryan Adams, and the Americana Music Association formalised it in the late 1990s as a distinct alternative to mainstream country.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Contemporary US roots genre blending country, folk, and blues with a songwriter-centred ethos, formalised as a category in the late 1990s…"
+    },
+    {
+      "id": "neo-soul",
+      "name": "Neo Soul",
+      "startDate": "1994-01-01",
+      "description": "Neo soul emerged in the mid-1990s US as a revival of classic soul's artistry — warm analogue textures, complex harmony, and emotionally rich vocals — combined with hip-hop and funk production. D'Angelo, Erykah Badu, Maxwell, and Lauryn Hill defined its aesthetic and earned it critical acclaim.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Mid-1990s US movement reviving classic soul's emotional depth with hip-hop and funk production — D'Angelo, Erykah Badu, and Lauryn Hill as its defining voices…"
+    },
+    {
+      "id": "lo-fi-hip-hop",
+      "name": "Lo-Fi Hip-Hop",
+      "startDate": "2010-01-01",
+      "description": "Lo-fi hip-hop draws on boom bap and jazz rap traditions but prioritises warm dusty production — vinyl crackle, muffled drums, and jazzy samples — over dancefloor energy. It became a ubiquitous streaming phenomenon in the 2010s through YouTube live-radio channels and playlist culture.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Relaxed, sample-based hip-hop combining jazz harmonies with vintage tape aesthetics — a dominant streaming phenomenon of the 2010s through YouTube 'study music' channels…"
+    },
+    {
+      "id": "blues-rock",
+      "name": "Blues Rock",
+      "startDate": "1963-01-01",
+      "description": "Blues rock fused American blues guitar forms with rock instrumentation and energy, pioneered in the UK by the Rolling Stones and Yardbirds and in the US by Jimi Hendrix and ZZ Top. It bridged traditional blues and hard rock and gave rise to heavy metal.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Genre fusing American blues guitar with rock instrumentation and energy — the Rolling Stones and Yardbirds' meeting point between blues and hard rock…"
+    },
+    {
+      "id": "rockabilly",
+      "name": "Rockabilly",
+      "startDate": "1953-01-01",
+      "description": "Rockabilly was one of the earliest rock and roll styles, fusing country, blues, and boogie-woogie with slap bass and echo-heavy guitar, pioneered at Sun Records by Elvis Presley, Carl Perkins, and Jerry Lee Lewis. It remains the sonic template for countless revival acts.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Early rock and roll fusion of country, blues, and boogie-woogie born at Sun Records — Elvis Presley, Carl Perkins, and Jerry Lee Lewis in the mid-1950s…"
+    },
+    {
+      "id": "synth-pop",
+      "name": "Synth-Pop",
+      "startDate": "1978-01-01",
+      "description": "Synth-pop emerged from British post-punk and new wave in the late 1970s, replacing rock instruments with synthesisers and drum machines to create a cool, futuristic pop. Kraftwerk's electronic aesthetic, channelled through Human League, Depeche Mode, and Erasure, defined the form.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "UK-pioneered pop genre replacing guitars with synthesisers and drum machines — the Human League, Depeche Mode, and Pet Shop Boys' world…"
+    },
+    {
+      "id": "post-hardcore",
+      "name": "Post-Hardcore",
+      "startDate": "1985-01-01",
+      "description": "Post-hardcore evolved from US hardcore punk in the mid-1980s, maintaining intense energy while exploring more complex song structures, emotional depth, and unconventional sounds. Fugazi, At the Drive-In, Refused, and Hum are key acts; it seeded emo, screamo, and math rock.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "US genre extending hardcore punk's intensity into complex, emotionally expansive song forms — Fugazi and At the Drive-In as its canonical acts…"
+    },
+    {
+      "id": "hardcore-punk",
+      "name": "Hardcore Punk",
+      "startDate": "1978-01-01",
+      "description": "Hardcore punk emerged in the late 1970s US and UK as a faster, more aggressive evolution of punk rock, with Black Flag, Dead Kennedys, and Minor Threat as defining acts. Its DIY ethics produced a global network of independent labels, zines, and all-ages venues that continues to this day.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Faster, more aggressive punk variant from the late 1970s US — Black Flag, Dead Kennedys, and Minor Threat's DIY underground network…"
+    },
+    {
+      "id": "bebop",
+      "name": "Bebop",
+      "startDate": "1940-01-01",
+      "description": "Bebop emerged in early-1940s New York as a radical reimagining of jazz, emphasising virtuosity, complex harmonic progressions, and fast tempos as a vehicle for improvisation rather than dance. Charlie Parker, Dizzy Gillespie, Thelonious Monk, and Miles Davis defined its vocabulary.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Early-1940s New York jazz revolution emphasising virtuosic improvisation and complex harmony — Charlie Parker and Dizzy Gillespie's genre…"
+    },
+    {
+      "id": "swing",
+      "name": "Swing",
+      "startDate": "1930-01-01",
+      "description": "Swing was the dominant popular music of the USA in the 1930s and early 1940s, played by large orchestras and featuring syncopated rhythms, arranged horn sections, and a driving groove that became a national dance craze. Benny Goodman, Duke Ellington, Count Basie, and Glenn Miller led the swing era.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "American popular music of the 1930s–40s played by big bands — Benny Goodman, Duke Ellington, and Glenn Miller's era of mass dance music…"
+    },
+    {
+      "id": "delta-blues",
+      "name": "Delta Blues",
+      "startDate": "1900-01-01",
+      "description": "Delta blues is the foundational blues style from the Mississippi Delta region, characterised by raw vocals, slide guitar, and call-and-response forms. Robert Johnson, Charley Patton, and Son House are its iconic figures, and their recordings — many made in the 1930s — remain among the most influential in American music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Raw, slide-guitar-driven blues from the Mississippi Delta — Robert Johnson and Son House's foundational recordings from the 1920s–30s…"
+    },
+    {
+      "id": "chicago-blues",
+      "name": "Chicago Blues",
+      "startDate": "1940-01-01",
+      "description": "Chicago blues developed from the Delta blues brought north by the Great Migration, adding electric guitar, amplification, harmonica, and a rhythm section. Muddy Waters, Howlin' Wolf, Little Walter, and Chess Records created a louder, urban sound that directly inspired British rock and roll.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Electric, amplified blues developed in Chicago by Muddy Waters and Howlin' Wolf — the direct inspiration for the British rock and roll explosion…"
+    },
+    {
+      "id": "jazz-fusion",
+      "name": "Jazz Fusion",
+      "startDate": "1968-01-01",
+      "description": "Jazz fusion emerged in the late 1960s as jazz musicians incorporated rock's electric instruments, amplification, and groove into jazz improvisation. Miles Davis' Bitches Brew (1970), Weather Report, and Mahavishnu Orchestra were its defining forces, creating music of extraordinary rhythmic complexity.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Late-1960s hybrid fusing jazz improvisation with rock's electric instruments and groove — Miles Davis' Bitches Brew and Weather Report as touchstones…"
+    },
+    {
+      "id": "smooth-jazz",
+      "name": "Smooth Jazz",
+      "startDate": "1975-01-01",
+      "description": "Smooth jazz emerged from jazz fusion's more accessible, radio-friendly tendencies, combining jazz harmonics and improvisation with R&B and pop grooves. Kenny G, Grover Washington Jr., Dave Koz, and Bob James brought it to mass commercial success in the 1980s and 1990s.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Commercially accessible jazz variant blending improvisation with R&B and pop grooves — Kenny G and Grover Washington Jr.'s radio-friendly sound…"
+    },
+    {
+      "id": "acid-jazz",
+      "name": "Acid Jazz",
+      "startDate": "1988-01-01",
+      "description": "Acid jazz emerged in late-1980s London clubs, fusing jazz harmony and instrumentation with funk grooves, hip-hop sampling, and club culture. The Acid Jazz Records label, Jamiroquai, Brand New Heavies, and Incognito were its commercial face.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Late-1980s London genre fusing jazz harmonics with funk grooves and hip-hop sampling — Jamiroquai and Brand New Heavies' club-ready jazz revival…"
+    },
+    {
+      "id": "thrash-metal",
+      "name": "Thrash Metal",
+      "startDate": "1981-01-01",
+      "description": "Thrash metal emerged in the early 1980s US, combining heavy metal's guitar riffing with hardcore punk's speed and aggression. Metallica, Slayer, Megadeth, and Anthrax — the 'Big Four' — defined it, and it influenced every subsequent extreme metal style.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Early-1980s US genre combining metal riffs with hardcore speed — Metallica, Slayer, and the Big Four's blueprint for extreme metal…"
+    },
+    {
+      "id": "death-metal",
+      "name": "Death Metal",
+      "startDate": "1983-01-01",
+      "description": "Death metal emerged from thrash in the early 1980s with heavily distorted down-tuned guitars, blast-beat drumming, and growled or guttural vocals. Death, Morbid Angel, and Obituary in Florida, and later Scandinavian acts, developed it into a globally active extreme metal genre.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Extreme metal genre from early-1980s Florida featuring down-tuned guitars, blast beats, and growled vocals — Death and Morbid Angel's founding sound…"
+    },
+    {
+      "id": "black-metal",
+      "name": "Black Metal",
+      "startDate": "1982-01-01",
+      "description": "Black metal emerged in the early 1980s with Venom and Bathory, crystallising in 1990s Norway into a deliberately primitive, atmospheric style with tremolo-picked guitars, blast beats, shrieked vocals, and lo-fi production. Mayhem, Burzum, Darkthrone, and Emperor are its canonical acts.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Extreme metal genre crystallised in 1990s Norway featuring tremolo guitars, blast beats, and shrieked vocals — Mayhem and Burzum's lo-fi darkness…"
+    },
+    {
+      "id": "doom-metal",
+      "name": "Doom Metal",
+      "startDate": "1970-01-01",
+      "description": "Doom metal takes its slow tempos, heavy riffing, and atmosphere of dread from early Black Sabbath, developing into distinct sub-styles from traditional doom to funeral doom. Candlemass, Cathedral, My Dying Bride, and Electric Wizard are key acts.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Slow, heavy metal subgenre rooted in early Black Sabbath, emphasising atmosphere and dread over speed — Candlemass, My Dying Bride, and Electric Wizard…"
+    },
+    {
+      "id": "power-metal",
+      "name": "Power Metal",
+      "startDate": "1984-01-01",
+      "description": "Power metal developed in the mid-1980s in Europe, combining heavy metal's guitar work with melodic, soaring vocal lines, fast tempos, and epic fantasy themes. Helloween, Blind Guardian, DragonForce, and Rhapsody defined a cheerful, bombastic alternative to extreme metal.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Melodic, fast, and epic heavy metal subgenre from mid-1980s Europe — Helloween and Blind Guardian's soaring vocals and fantasy themes…"
+    },
+    {
+      "id": "ambient",
+      "name": "Ambient",
+      "startDate": "1978-01-01",
+      "description": "Ambient music prioritises atmosphere and texture over melody and rhythm, designed to be as ignorable as it is listenable. Brian Eno coined the term with Ambient 1: Music for Airports (1978), and the genre expanded through Tangerine Dream, Stars of the Lid, and thousands of electronic artists into a vast and active field.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Atmospheric, texture-focused electronic music coined by Brian Eno with Ambient 1 (1978) — designed to be as much environment as music…"
+    },
+    {
+      "id": "vaporwave",
+      "name": "Vaporwave",
+      "startDate": "2011-01-01",
+      "description": "Vaporwave emerged as an internet-native microgenre around 2011, slowing down, pitch-shifting, and chopping smooth jazz, elevator music, and 1980s–90s commercial pop into dreamlike, ironic soundscapes. Macintosh Plus's Floral Shoppe (2011) and later James Ferraro popularised it online.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Internet-born microgenre of slowed, pitch-shifted 1980s–90s commercial music — Macintosh Plus's Floral Shoppe as the defining artefact…"
+    },
+    {
+      "id": "hyperpop",
+      "name": "Hyperpop",
+      "startDate": "2019-01-01",
+      "description": "Hyperpop emerged from London's PC Music label and surrounding online communities, pushing pop production to extremes — heavily pitch-shifted vocals, distorted 808 beats, maximalist sound design, and internet-era aesthetics. 100 gecs, Charli XCX, and SOPHIE brought it to mainstream attention.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Maximalist internet pop genre from PC Music and 100 gecs pushing production to extremes with pitch-shifted vocals and distorted 808 beats…"
+    },
+    {
+      "id": "synthwave",
+      "name": "Synthwave",
+      "startDate": "2012-01-01",
+      "description": "Synthwave is a modern electronic genre drawing on the synthesiser and drum machine sounds of 1980s film scores, television, and synth-pop, evoking a nostalgic retro-futurism. Artists like Kavinsky, Perturbator, Carpenter Brut, and Gunship gained global audiences through streaming and video game soundtracks.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Modern electronic genre reviving 1980s synthesiser aesthetics and film-score nostalgia through Kavinsky, Perturbator, and Carpenter Brut…"
+    },
+    {
+      "id": "future-bass",
+      "name": "Future Bass",
+      "startDate": "2013-01-01",
+      "description": "Future bass emerged around 2013, combining dubstep's sub-bass influence with bright, major-key chords, chopped vocal samples, and electronic pop aesthetics. Flume, Rustie, ODESZA, and Cashmere Cat popularised it, and it became a significant streaming genre in the mid-2010s.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Emotionally bright electronic pop genre blending dubstep bass with chopped vocals and major-key chords — Flume and ODESZA's signature sound…"
+    },
+    {
+      "id": "city-pop",
+      "name": "City Pop",
+      "startDate": "1977-01-01",
+      "description": "City pop was a Japanese urban pop style from the late 1970s to early 1990s, characterised by polished production, sophisticated chord voicings, funk and R&B influences, and aspirational imagery of modern consumer life. Tatsuro Yamashita, Mariya Takeuchi, and Anri were its leading artists, and it experienced a major global streaming revival in the 2010s.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Japanese urban pop of 1977–1991 with polished production and R&B influences — Mariya Takeuchi and Tatsuro Yamashita experienced a global streaming revival in the 2010s…"
+    },
+    {
+      "id": "j-rock",
+      "name": "J-Rock",
+      "startDate": "1960-01-01",
+      "description": "J-rock (Japanese rock) encompasses the wide range of rock music produced in Japan, from the Group Sounds movement of the 1960s through 1980s–90s acts like X Japan, B'z, and BUCK-TICK, to 2000s alternative rock acts like Asian Kung-Fu Generation and ONE OK ROCK.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Japanese rock spanning the Group Sounds movement of the 1960s through X Japan and ONE OK ROCK, adapting Western rock traditions with Japanese aesthetics…"
+    },
+    {
+      "id": "visual-kei",
+      "name": "Visual Kei",
+      "startDate": "1985-01-01",
+      "description": "Visual kei is a Japanese music movement combining theatrical performances and elaborate costumes with hard rock, glam, and gothic aesthetics. X Japan, BUCK-TICK, Dir en grey, and the GazettE are defining acts; it became a major cultural export in the 2000s via anime and online fandom.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Japanese rock movement fusing elaborate theatricality and costumes with glam-metal and gothic aesthetics — X Japan and Dir en grey as its icons…"
+    },
+    {
+      "id": "k-hip-hop",
+      "name": "K-Hip-Hop",
+      "startDate": "1992-01-01",
+      "description": "K-hip-hop (Korean hip-hop) developed from imported American styles in the early 1990s and gradually forged a distinct Korean identity, addressing social issues and cultural identity. Artists like Jay Park, Epik High, and the SMTM franchise elevated it, and the genre now coexists with and influences K-pop.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Korean hip-hop from 1990s underground origins to mainstream coexistence with K-pop, forging a distinct voice through Epik High and the SMTM franchise…"
+    },
+    {
+      "id": "k-rnb",
+      "name": "K-R&B",
+      "startDate": "2012-01-01",
+      "description": "K-R&B emerged as a distinct strain of Korean pop in the 2010s, influenced by contemporary American R&B, with more introspective, mature themes than mainstream K-pop. Dean, Crush, Heize, and pH-1 built a devoted domestic and international following.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Korean R&B subgenre from the 2010s influenced by contemporary American R&B — Dean, Crush, and Heize's more introspective alternative to mainstream K-pop…"
+    },
+    {
+      "id": "tango",
+      "name": "Tango",
+      "startDate": "1880-01-01",
+      "description": "Tango originated in the working-class ports and suburbs of Buenos Aires and Montevideo in the late 19th century, fusing African rhythms, European polka, and milonga. It became a global dance craze in the 1920s and was declared a UNESCO Intangible Cultural Heritage in 2009.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Buenos Aires port genre fusing African rhythms, polka, and milonga into one of the world's great couple dances — UNESCO Intangible Heritage since 2009…"
+    },
+    {
+      "id": "latin-pop",
+      "name": "Latin Pop",
+      "startDate": "1960-01-01",
+      "description": "Latin pop blends Spanish-language songwriting with mainstream pop production, gaining international prominence through artists like Julio Iglesias in the 1970s–80s and exploding with the Latin pop boom of the late 1990s (Ricky Martin, Jennifer Lopez, Shakira) and 2010s streaming era.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Spanish-language pop genre that dominated international charts in the late 1990s boom through Ricky Martin and Shakira and into the streaming era…"
+    },
+    {
+      "id": "latin-jazz",
+      "name": "Latin Jazz",
+      "startDate": "1940-01-01",
+      "description": "Latin jazz fuses Afro-Cuban and Brazilian rhythmic structures — clave, bossa nova, samba — with jazz harmony and improvisation. Tito Puente, Chucho Valdés, and later Arturo Sandoval and Paquito D'Rivera built a genre that spans Afro-Cuban jazz to Bossa Nova and beyond.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Fusion of Afro-Cuban and Brazilian rhythms with jazz improvisation and harmony — Tito Puente and Chucho Valdés as its foundational figures…"
+    },
+    {
+      "id": "latin-rock",
+      "name": "Latin Rock",
+      "startDate": "1965-01-01",
+      "description": "Latin rock emerged in 1960s California, blending rock guitar with Afro-Cuban percussion and Latin rhythms. Carlos Santana defined its sound in 1969, and subsequent generations — Los Lobos, Maná, Molotov, and Café Tacvba — broadened it into a pan-American genre.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Genre blending rock guitar with Afro-Cuban percussion, defined by Carlos Santana in 1969 and developed by pan-American acts like Maná and Café Tacvba…"
+    },
+    {
+      "id": "chanson-francaise",
+      "name": "Chanson Française",
+      "startDate": "1900-01-01",
+      "description": "Chanson française is France's lyric-centred popular song tradition, prioritising poetic text and emotional expression over rhythm. Édith Piaf, Charles Aznavour, Jacques Brel, and later Françoise Hardy and Serge Gainsbourg defined its artistry; it remains central to French cultural identity.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "French lyric-centred popular song tradition prioritising poetic text — Piaf, Aznavour, and Gainsbourg's genre, central to French cultural identity…"
+    },
+    {
+      "id": "french-rap",
+      "name": "French Rap",
+      "startDate": "1988-01-01",
+      "description": "French rap emerged in the late 1980s in Paris suburbs populated by North and sub-Saharan African and Caribbean communities, giving voice to immigration, racism, and precarity. IAM, NTM, and MC Solaar established it; Booba, Jul, and Nekfeu made it France's dominant pop genre.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "French hip-hop rooted in Parisian suburb communities, from IAM and NTM's political 1990s to Booba and Jul's mainstream dominance today…"
+    },
+    {
+      "id": "afropop",
+      "name": "Afropop",
+      "startDate": "1970-01-01",
+      "description": "Afropop (or Afro-pop) is a broad umbrella for African popular music from the 1970s onwards that fuses traditional African elements with Western pop and rock structures — distinct from Afrobeats, which is the 21st-century Nigerian-led style. It encompasses diverse traditions from highlife pop to pan-African crossover.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Broad umbrella for 1970s-onwards African popular music fusing traditional elements with Western pop — distinct from and older than the specific 21st-century Afrobeats sound…"
+    },
+    {
+      "id": "folk-rock",
+      "name": "Folk Rock",
+      "startDate": "1964-01-01",
+      "description": "Folk rock emerged in the mid-1960s when Bob Dylan went electric and The Byrds applied jangling guitars and close harmonies to folk songs. It spawned American country rock, the British folk rock of Fairport Convention and Pentangle, and remains a vital sub-tradition through Fleet Foxes and Mumford & Sons.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Mid-1960s fusion of folk songwriting with rock instrumentation — Dylan going electric and The Byrds' jangle, spawning a transatlantic tradition still active today…"
+    },
+    {
+      "id": "celtic-punk",
+      "name": "Celtic Punk",
+      "startDate": "1977-01-01",
+      "description": "Celtic punk fuses punk rock's energy with Celtic folk instruments and melodies — tin whistles, uilleann pipes, fiddles, and accordions alongside electric guitars and drums. The Pogues pioneered the combination in 1980s London; Flogging Molly and Dropkick Murphys built it into a global genre.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Genre fusing punk rock with Celtic folk instruments and melodies — The Pogues in 1980s London, Flogging Molly and Dropkick Murphys globally…"
+    }
+  ],
+  "genreCountry": [
+    {
+      "genreId": "jungle",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "drum-and-bass",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "uk-garage",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "two-step-garage",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "grime",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "uk-drill",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "dubstep",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "breakbeat-hardcore",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "happy-hardcore",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "happy-hardcore",
+      "countryId": "AUS"
+    },
+    {
+      "genreId": "rave",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "big-beat",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "intelligent-dance-music",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "intelligent-dance-music",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "bleep-techno",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "progressive-house",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "trip-hop",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "afroswing",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "afroswing",
+      "countryId": "NGA"
+    },
+    {
+      "genreId": "uk-hip-hop",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "uk-r-and-b",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "bassline",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "future-garage",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "uk-funky",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "broken-beat",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "post-dubstep",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "uk-bass",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "uk-hardcore",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "post-punk",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "post-punk",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "new-wave",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "new-wave",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "britpop",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "shoegaze",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "madchester",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "indie-rock",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "indie-rock",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "indie-rock",
+      "countryId": "CAN"
+    },
+    {
+      "genreId": "indie-rock",
+      "countryId": "AUS"
+    },
+    {
+      "genreId": "indie-pop",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "indie-pop",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "gothic-rock",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "darkwave",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "darkwave",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "darkwave",
+      "countryId": "BEL"
+    },
+    {
+      "genreId": "northern-soul",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "northern-soul",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "uk-soul",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "2-tone",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "dream-pop",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "dream-pop",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "post-rock",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "post-rock",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "post-rock",
+      "countryId": "CAN"
+    },
+    {
+      "genreId": "britcore",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "techno",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "techno",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "berlin-techno",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "minimal-techno",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "minimal-techno",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "eurodance",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "eurodance",
+      "countryId": "SWE"
+    },
+    {
+      "genreId": "eurodance",
+      "countryId": "NLD"
+    },
+    {
+      "genreId": "eurodance",
+      "countryId": "BEL"
+    },
+    {
+      "genreId": "electronic-body-music",
+      "countryId": "BEL"
+    },
+    {
+      "genreId": "electronic-body-music",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "gabber",
+      "countryId": "NLD"
+    },
+    {
+      "genreId": "hardcore-techno",
+      "countryId": "NLD"
+    },
+    {
+      "genreId": "hardcore-techno",
+      "countryId": "BEL"
+    },
+    {
+      "genreId": "hardcore-techno",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "hardcore-techno",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "hardstyle",
+      "countryId": "NLD"
+    },
+    {
+      "genreId": "hardstyle",
+      "countryId": "BEL"
+    },
+    {
+      "genreId": "progressive-trance",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "progressive-trance",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "progressive-trance",
+      "countryId": "NLD"
+    },
+    {
+      "genreId": "psytrance",
+      "countryId": "ISR"
+    },
+    {
+      "genreId": "psytrance",
+      "countryId": "IND"
+    },
+    {
+      "genreId": "psytrance",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "psytrance",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "krautrock",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "neue-deutsche-welle",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "neue-deutsche-welle",
+      "countryId": "AUT"
+    },
+    {
+      "genreId": "neue-deutsche-welle",
+      "countryId": "CHE"
+    },
+    {
+      "genreId": "deutschrap",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "deutschrap",
+      "countryId": "AUT"
+    },
+    {
+      "genreId": "deutschrap",
+      "countryId": "CHE"
+    },
+    {
+      "genreId": "industrial",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "industrial",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "industrial",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "dutch-house",
+      "countryId": "NLD"
+    },
+    {
+      "genreId": "blues",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "jazz",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "country",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "folk",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "folk",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "folk",
+      "countryId": "IRL"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "psychedelic-rock",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "psychedelic-rock",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "punk-rock",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "punk-rock",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "heavy-metal",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "heavy-metal",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "grunge",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "alternative-rock",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "alternative-rock",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "alternative-rock",
+      "countryId": "AUS"
+    },
+    {
+      "genreId": "alternative-rock",
+      "countryId": "CAN"
+    },
+    {
+      "genreId": "emo",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "pop-punk",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "pop-punk",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "pop-punk",
+      "countryId": "CAN"
+    },
+    {
+      "genreId": "r-and-b",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "gospel",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "americana",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "neo-soul",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "lo-fi-hip-hop",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "lo-fi-hip-hop",
+      "countryId": "JPN"
+    },
+    {
+      "genreId": "blues-rock",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "blues-rock",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "rockabilly",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "synth-pop",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "synth-pop",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "post-hardcore",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "hardcore-punk",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "hardcore-punk",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "bebop",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "swing",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "delta-blues",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "chicago-blues",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "jazz-fusion",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "smooth-jazz",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "acid-jazz",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "acid-jazz",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "thrash-metal",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "death-metal",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "death-metal",
+      "countryId": "SWE"
+    },
+    {
+      "genreId": "death-metal",
+      "countryId": "NOR"
+    },
+    {
+      "genreId": "black-metal",
+      "countryId": "NOR"
+    },
+    {
+      "genreId": "black-metal",
+      "countryId": "SWE"
+    },
+    {
+      "genreId": "black-metal",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "doom-metal",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "doom-metal",
+      "countryId": "SWE"
+    },
+    {
+      "genreId": "doom-metal",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "power-metal",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "power-metal",
+      "countryId": "SWE"
+    },
+    {
+      "genreId": "power-metal",
+      "countryId": "ITA"
+    },
+    {
+      "genreId": "ambient",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "ambient",
+      "countryId": "DEU"
+    },
+    {
+      "genreId": "ambient",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "vaporwave",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "hyperpop",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "hyperpop",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "synthwave",
+      "countryId": "FRA"
+    },
+    {
+      "genreId": "synthwave",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "synthwave",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "future-bass",
+      "countryId": "AUS"
+    },
+    {
+      "genreId": "future-bass",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "future-bass",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "city-pop",
+      "countryId": "JPN"
+    },
+    {
+      "genreId": "j-rock",
+      "countryId": "JPN"
+    },
+    {
+      "genreId": "visual-kei",
+      "countryId": "JPN"
+    },
+    {
+      "genreId": "k-hip-hop",
+      "countryId": "KOR"
+    },
+    {
+      "genreId": "k-rnb",
+      "countryId": "KOR"
+    },
+    {
+      "genreId": "tango",
+      "countryId": "ARG"
+    },
+    {
+      "genreId": "tango",
+      "countryId": "URY"
+    },
+    {
+      "genreId": "latin-pop",
+      "countryId": "MEX"
+    },
+    {
+      "genreId": "latin-pop",
+      "countryId": "ESP"
+    },
+    {
+      "genreId": "latin-pop",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "latin-pop",
+      "countryId": "COL"
+    },
+    {
+      "genreId": "latin-jazz",
+      "countryId": "CUB"
+    },
+    {
+      "genreId": "latin-jazz",
+      "countryId": "BRA"
+    },
+    {
+      "genreId": "latin-jazz",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "latin-rock",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "latin-rock",
+      "countryId": "MEX"
+    },
+    {
+      "genreId": "chanson-francaise",
+      "countryId": "FRA"
+    },
+    {
+      "genreId": "chanson-francaise",
+      "countryId": "BEL"
+    },
+    {
+      "genreId": "chanson-francaise",
+      "countryId": "CHE"
+    },
+    {
+      "genreId": "french-rap",
+      "countryId": "FRA"
+    },
+    {
+      "genreId": "afropop",
+      "countryId": "NGA"
+    },
+    {
+      "genreId": "afropop",
+      "countryId": "GHA"
+    },
+    {
+      "genreId": "afropop",
+      "countryId": "KEN"
+    },
+    {
+      "genreId": "afropop",
+      "countryId": "ZAF"
+    },
+    {
+      "genreId": "folk-rock",
+      "countryId": "USA"
+    },
+    {
+      "genreId": "folk-rock",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "celtic-punk",
+      "countryId": "GBR"
+    },
+    {
+      "genreId": "celtic-punk",
+      "countryId": "IRL"
+    },
+    {
+      "genreId": "celtic-punk",
+      "countryId": "USA"
+    }
+  ],
+  "genreHierarchy": [
+    {
+      "genreId": "rave",
+      "subgenreId": "jungle"
+    },
+    {
+      "genreId": "breakbeat-hardcore",
+      "subgenreId": "jungle"
+    },
+    {
+      "genreId": "jungle",
+      "subgenreId": "drum-and-bass"
+    },
+    {
+      "genreId": "garage-house",
+      "subgenreId": "uk-garage"
+    },
+    {
+      "genreId": "house",
+      "subgenreId": "uk-garage"
+    },
+    {
+      "genreId": "uk-garage",
+      "subgenreId": "two-step-garage"
+    },
+    {
+      "genreId": "uk-garage",
+      "subgenreId": "grime"
+    },
+    {
+      "genreId": "uk-hip-hop",
+      "subgenreId": "grime"
+    },
+    {
+      "genreId": "drill",
+      "subgenreId": "uk-drill"
+    },
+    {
+      "genreId": "grime",
+      "subgenreId": "uk-drill"
+    },
+    {
+      "genreId": "uk-garage",
+      "subgenreId": "dubstep"
+    },
+    {
+      "genreId": "dub",
+      "subgenreId": "dubstep"
+    },
+    {
+      "genreId": "rave",
+      "subgenreId": "breakbeat-hardcore"
+    },
+    {
+      "genreId": "breakbeat-hardcore",
+      "subgenreId": "happy-hardcore"
+    },
+    {
+      "genreId": "uk-hardcore",
+      "subgenreId": "happy-hardcore"
+    },
+    {
+      "genreId": "acid-house",
+      "subgenreId": "rave"
+    },
+    {
+      "genreId": "house",
+      "subgenreId": "rave"
+    },
+    {
+      "genreId": "breakbeat-hardcore",
+      "subgenreId": "big-beat"
+    },
+    {
+      "genreId": "rave",
+      "subgenreId": "big-beat"
+    },
+    {
+      "genreId": "rave",
+      "subgenreId": "intelligent-dance-music"
+    },
+    {
+      "genreId": "techno",
+      "subgenreId": "intelligent-dance-music"
+    },
+    {
+      "genreId": "techno",
+      "subgenreId": "bleep-techno"
+    },
+    {
+      "genreId": "house",
+      "subgenreId": "bleep-techno"
+    },
+    {
+      "genreId": "house",
+      "subgenreId": "progressive-house"
+    },
+    {
+      "genreId": "hip-hop",
+      "subgenreId": "trip-hop"
+    },
+    {
+      "genreId": "uk-hip-hop",
+      "subgenreId": "trip-hop"
+    },
+    {
+      "genreId": "afrobeats",
+      "subgenreId": "afroswing"
+    },
+    {
+      "genreId": "uk-r-and-b",
+      "subgenreId": "afroswing"
+    },
+    {
+      "genreId": "hip-hop",
+      "subgenreId": "uk-hip-hop"
+    },
+    {
+      "genreId": "soul",
+      "subgenreId": "uk-r-and-b"
+    },
+    {
+      "genreId": "r-and-b",
+      "subgenreId": "uk-r-and-b"
+    },
+    {
+      "genreId": "uk-garage",
+      "subgenreId": "bassline"
+    },
+    {
+      "genreId": "uk-garage",
+      "subgenreId": "future-garage"
+    },
+    {
+      "genreId": "dubstep",
+      "subgenreId": "future-garage"
+    },
+    {
+      "genreId": "uk-garage",
+      "subgenreId": "uk-funky"
+    },
+    {
+      "genreId": "uk-garage",
+      "subgenreId": "broken-beat"
+    },
+    {
+      "genreId": "dubstep",
+      "subgenreId": "post-dubstep"
+    },
+    {
+      "genreId": "dubstep",
+      "subgenreId": "uk-bass"
+    },
+    {
+      "genreId": "uk-garage",
+      "subgenreId": "uk-bass"
+    },
+    {
+      "genreId": "breakbeat-hardcore",
+      "subgenreId": "uk-hardcore"
+    },
+    {
+      "genreId": "punk-rock",
+      "subgenreId": "post-punk"
+    },
+    {
+      "genreId": "post-punk",
+      "subgenreId": "new-wave"
+    },
+    {
+      "genreId": "punk-rock",
+      "subgenreId": "new-wave"
+    },
+    {
+      "genreId": "indie-rock",
+      "subgenreId": "britpop"
+    },
+    {
+      "genreId": "indie-rock",
+      "subgenreId": "shoegaze"
+    },
+    {
+      "genreId": "post-punk",
+      "subgenreId": "shoegaze"
+    },
+    {
+      "genreId": "indie-rock",
+      "subgenreId": "madchester"
+    },
+    {
+      "genreId": "rave",
+      "subgenreId": "madchester"
+    },
+    {
+      "genreId": "alternative-rock",
+      "subgenreId": "indie-rock"
+    },
+    {
+      "genreId": "post-punk",
+      "subgenreId": "indie-rock"
+    },
+    {
+      "genreId": "indie-rock",
+      "subgenreId": "indie-pop"
+    },
+    {
+      "genreId": "post-punk",
+      "subgenreId": "gothic-rock"
+    },
+    {
+      "genreId": "gothic-rock",
+      "subgenreId": "darkwave"
+    },
+    {
+      "genreId": "new-wave",
+      "subgenreId": "darkwave"
+    },
+    {
+      "genreId": "soul",
+      "subgenreId": "northern-soul"
+    },
+    {
+      "genreId": "soul",
+      "subgenreId": "uk-soul"
+    },
+    {
+      "genreId": "ska",
+      "subgenreId": "2-tone"
+    },
+    {
+      "genreId": "punk-rock",
+      "subgenreId": "2-tone"
+    },
+    {
+      "genreId": "indie-pop",
+      "subgenreId": "dream-pop"
+    },
+    {
+      "genreId": "post-punk",
+      "subgenreId": "dream-pop"
+    },
+    {
+      "genreId": "indie-rock",
+      "subgenreId": "post-rock"
+    },
+    {
+      "genreId": "alternative-rock",
+      "subgenreId": "post-rock"
+    },
+    {
+      "genreId": "uk-hip-hop",
+      "subgenreId": "britcore"
+    },
+    {
+      "genreId": "house",
+      "subgenreId": "techno"
+    },
+    {
+      "genreId": "techno",
+      "subgenreId": "berlin-techno"
+    },
+    {
+      "genreId": "techno",
+      "subgenreId": "minimal-techno"
+    },
+    {
+      "genreId": "house",
+      "subgenreId": "eurodance"
+    },
+    {
+      "genreId": "synth-pop",
+      "subgenreId": "eurodance"
+    },
+    {
+      "genreId": "industrial",
+      "subgenreId": "electronic-body-music"
+    },
+    {
+      "genreId": "hardcore-techno",
+      "subgenreId": "gabber"
+    },
+    {
+      "genreId": "techno",
+      "subgenreId": "hardcore-techno"
+    },
+    {
+      "genreId": "gabber",
+      "subgenreId": "hardstyle"
+    },
+    {
+      "genreId": "hardcore-techno",
+      "subgenreId": "hardstyle"
+    },
+    {
+      "genreId": "progressive-house",
+      "subgenreId": "progressive-trance"
+    },
+    {
+      "genreId": "techno",
+      "subgenreId": "progressive-trance"
+    },
+    {
+      "genreId": "progressive-trance",
+      "subgenreId": "psytrance"
+    },
+    {
+      "genreId": "techno",
+      "subgenreId": "psytrance"
+    },
+    {
+      "genreId": "psychedelic-rock",
+      "subgenreId": "krautrock"
+    },
+    {
+      "genreId": "new-wave",
+      "subgenreId": "neue-deutsche-welle"
+    },
+    {
+      "genreId": "synth-pop",
+      "subgenreId": "neue-deutsche-welle"
+    },
+    {
+      "genreId": "hip-hop",
+      "subgenreId": "deutschrap"
+    },
+    {
+      "genreId": "progressive-house",
+      "subgenreId": "dutch-house"
+    },
+    {
+      "genreId": "house",
+      "subgenreId": "dutch-house"
+    },
+    {
+      "genreId": "blues",
+      "subgenreId": "jazz"
+    },
+    {
+      "genreId": "folk",
+      "subgenreId": "country"
+    },
+    {
+      "genreId": "blues",
+      "subgenreId": "country"
+    },
+    {
+      "genreId": "blues",
+      "subgenreId": "rock-and-roll"
+    },
+    {
+      "genreId": "country",
+      "subgenreId": "rock-and-roll"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "subgenreId": "psychedelic-rock"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "subgenreId": "punk-rock"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "subgenreId": "heavy-metal"
+    },
+    {
+      "genreId": "blues-rock",
+      "subgenreId": "heavy-metal"
+    },
+    {
+      "genreId": "heavy-metal",
+      "subgenreId": "grunge"
+    },
+    {
+      "genreId": "punk-rock",
+      "subgenreId": "grunge"
+    },
+    {
+      "genreId": "alternative-rock",
+      "subgenreId": "grunge"
+    },
+    {
+      "genreId": "punk-rock",
+      "subgenreId": "alternative-rock"
+    },
+    {
+      "genreId": "post-punk",
+      "subgenreId": "alternative-rock"
+    },
+    {
+      "genreId": "post-hardcore",
+      "subgenreId": "emo"
+    },
+    {
+      "genreId": "punk-rock",
+      "subgenreId": "emo"
+    },
+    {
+      "genreId": "punk-rock",
+      "subgenreId": "pop-punk"
+    },
+    {
+      "genreId": "blues",
+      "subgenreId": "r-and-b"
+    },
+    {
+      "genreId": "soul",
+      "subgenreId": "r-and-b"
+    },
+    {
+      "genreId": "country",
+      "subgenreId": "americana"
+    },
+    {
+      "genreId": "folk",
+      "subgenreId": "americana"
+    },
+    {
+      "genreId": "soul",
+      "subgenreId": "neo-soul"
+    },
+    {
+      "genreId": "r-and-b",
+      "subgenreId": "neo-soul"
+    },
+    {
+      "genreId": "hip-hop",
+      "subgenreId": "lo-fi-hip-hop"
+    },
+    {
+      "genreId": "boom-bap",
+      "subgenreId": "lo-fi-hip-hop"
+    },
+    {
+      "genreId": "blues",
+      "subgenreId": "blues-rock"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "subgenreId": "blues-rock"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "subgenreId": "rockabilly"
+    },
+    {
+      "genreId": "country",
+      "subgenreId": "rockabilly"
+    },
+    {
+      "genreId": "new-wave",
+      "subgenreId": "synth-pop"
+    },
+    {
+      "genreId": "post-punk",
+      "subgenreId": "synth-pop"
+    },
+    {
+      "genreId": "hardcore-punk",
+      "subgenreId": "post-hardcore"
+    },
+    {
+      "genreId": "punk-rock",
+      "subgenreId": "hardcore-punk"
+    },
+    {
+      "genreId": "jazz",
+      "subgenreId": "bebop"
+    },
+    {
+      "genreId": "jazz",
+      "subgenreId": "swing"
+    },
+    {
+      "genreId": "blues",
+      "subgenreId": "delta-blues"
+    },
+    {
+      "genreId": "blues",
+      "subgenreId": "chicago-blues"
+    },
+    {
+      "genreId": "delta-blues",
+      "subgenreId": "chicago-blues"
+    },
+    {
+      "genreId": "jazz",
+      "subgenreId": "jazz-fusion"
+    },
+    {
+      "genreId": "funk",
+      "subgenreId": "jazz-fusion"
+    },
+    {
+      "genreId": "jazz",
+      "subgenreId": "smooth-jazz"
+    },
+    {
+      "genreId": "jazz",
+      "subgenreId": "acid-jazz"
+    },
+    {
+      "genreId": "funk",
+      "subgenreId": "acid-jazz"
+    },
+    {
+      "genreId": "heavy-metal",
+      "subgenreId": "thrash-metal"
+    },
+    {
+      "genreId": "punk-rock",
+      "subgenreId": "thrash-metal"
+    },
+    {
+      "genreId": "heavy-metal",
+      "subgenreId": "death-metal"
+    },
+    {
+      "genreId": "thrash-metal",
+      "subgenreId": "death-metal"
+    },
+    {
+      "genreId": "heavy-metal",
+      "subgenreId": "black-metal"
+    },
+    {
+      "genreId": "thrash-metal",
+      "subgenreId": "black-metal"
+    },
+    {
+      "genreId": "heavy-metal",
+      "subgenreId": "doom-metal"
+    },
+    {
+      "genreId": "heavy-metal",
+      "subgenreId": "power-metal"
+    },
+    {
+      "genreId": "synthwave",
+      "subgenreId": "vaporwave"
+    },
+    {
+      "genreId": "ambient",
+      "subgenreId": "vaporwave"
+    },
+    {
+      "genreId": "indie-pop",
+      "subgenreId": "hyperpop"
+    },
+    {
+      "genreId": "synth-pop",
+      "subgenreId": "synthwave"
+    },
+    {
+      "genreId": "dubstep",
+      "subgenreId": "future-bass"
+    },
+    {
+      "genreId": "house",
+      "subgenreId": "future-bass"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "subgenreId": "j-rock"
+    },
+    {
+      "genreId": "j-rock",
+      "subgenreId": "visual-kei"
+    },
+    {
+      "genreId": "gothic-rock",
+      "subgenreId": "visual-kei"
+    },
+    {
+      "genreId": "hip-hop",
+      "subgenreId": "k-hip-hop"
+    },
+    {
+      "genreId": "r-and-b",
+      "subgenreId": "k-rnb"
+    },
+    {
+      "genreId": "salsa",
+      "subgenreId": "latin-pop"
+    },
+    {
+      "genreId": "jazz",
+      "subgenreId": "latin-jazz"
+    },
+    {
+      "genreId": "salsa",
+      "subgenreId": "latin-jazz"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "subgenreId": "latin-rock"
+    },
+    {
+      "genreId": "hip-hop",
+      "subgenreId": "french-rap"
+    },
+    {
+      "genreId": "afrobeat",
+      "subgenreId": "afropop"
+    },
+    {
+      "genreId": "folk",
+      "subgenreId": "folk-rock"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "subgenreId": "folk-rock"
+    },
+    {
+      "genreId": "punk-rock",
+      "subgenreId": "celtic-punk"
+    },
+    {
+      "genreId": "folk",
+      "subgenreId": "celtic-punk"
+    }
+  ],
+  "genreSimilarity": [
+    {
+      "similarId1": "drum-and-bass",
+      "similarId2": "jungle"
+    },
+    {
+      "similarId1": "breakbeat-hardcore",
+      "similarId2": "jungle"
+    },
+    {
+      "similarId1": "two-step-garage",
+      "similarId2": "uk-garage"
+    },
+    {
+      "similarId1": "grime",
+      "similarId2": "uk-garage"
+    },
+    {
+      "similarId1": "two-step-garage",
+      "similarId2": "uk-r-and-b"
+    },
+    {
+      "similarId1": "grime",
+      "similarId2": "uk-drill"
+    },
+    {
+      "similarId1": "grime",
+      "similarId2": "uk-hip-hop"
+    },
+    {
+      "similarId1": "drill",
+      "similarId2": "uk-drill"
+    },
+    {
+      "similarId1": "dubstep",
+      "similarId2": "uk-garage"
+    },
+    {
+      "similarId1": "dubstep",
+      "similarId2": "grime"
+    },
+    {
+      "similarId1": "dubstep",
+      "similarId2": "future-garage"
+    },
+    {
+      "similarId1": "breakbeat-hardcore",
+      "similarId2": "happy-hardcore"
+    },
+    {
+      "similarId1": "breakbeat-hardcore",
+      "similarId2": "rave"
+    },
+    {
+      "similarId1": "happy-hardcore",
+      "similarId2": "uk-hardcore"
+    },
+    {
+      "similarId1": "acid-house",
+      "similarId2": "rave"
+    },
+    {
+      "similarId1": "big-beat",
+      "similarId2": "breakbeat-hardcore"
+    },
+    {
+      "similarId1": "big-beat",
+      "similarId2": "intelligent-dance-music"
+    },
+    {
+      "similarId1": "ambient",
+      "similarId2": "intelligent-dance-music"
+    },
+    {
+      "similarId1": "bleep-techno",
+      "similarId2": "techno"
+    },
+    {
+      "similarId1": "bleep-techno",
+      "similarId2": "intelligent-dance-music"
+    },
+    {
+      "similarId1": "progressive-house",
+      "similarId2": "progressive-trance"
+    },
+    {
+      "similarId1": "trip-hop",
+      "similarId2": "uk-hip-hop"
+    },
+    {
+      "similarId1": "intelligent-dance-music",
+      "similarId2": "trip-hop"
+    },
+    {
+      "similarId1": "afroswing",
+      "similarId2": "grime"
+    },
+    {
+      "similarId1": "afrobeats",
+      "similarId2": "afroswing"
+    },
+    {
+      "similarId1": "afroswing",
+      "similarId2": "uk-r-and-b"
+    },
+    {
+      "similarId1": "bassline",
+      "similarId2": "uk-garage"
+    },
+    {
+      "similarId1": "bassline",
+      "similarId2": "grime"
+    },
+    {
+      "similarId1": "future-garage",
+      "similarId2": "uk-garage"
+    },
+    {
+      "similarId1": "future-garage",
+      "similarId2": "post-dubstep"
+    },
+    {
+      "similarId1": "uk-funky",
+      "similarId2": "uk-garage"
+    },
+    {
+      "similarId1": "afroswing",
+      "similarId2": "uk-funky"
+    },
+    {
+      "similarId1": "broken-beat",
+      "similarId2": "uk-garage"
+    },
+    {
+      "similarId1": "broken-beat",
+      "similarId2": "trip-hop"
+    },
+    {
+      "similarId1": "dubstep",
+      "similarId2": "post-dubstep"
+    },
+    {
+      "similarId1": "post-dubstep",
+      "similarId2": "uk-bass"
+    },
+    {
+      "similarId1": "grime",
+      "similarId2": "uk-bass"
+    },
+    {
+      "similarId1": "breakbeat-hardcore",
+      "similarId2": "uk-hardcore"
+    },
+    {
+      "similarId1": "new-wave",
+      "similarId2": "post-punk"
+    },
+    {
+      "similarId1": "gothic-rock",
+      "similarId2": "post-punk"
+    },
+    {
+      "similarId1": "indie-rock",
+      "similarId2": "post-punk"
+    },
+    {
+      "similarId1": "new-wave",
+      "similarId2": "synth-pop"
+    },
+    {
+      "similarId1": "britpop",
+      "similarId2": "indie-rock"
+    },
+    {
+      "similarId1": "britpop",
+      "similarId2": "madchester"
+    },
+    {
+      "similarId1": "dream-pop",
+      "similarId2": "shoegaze"
+    },
+    {
+      "similarId1": "indie-rock",
+      "similarId2": "shoegaze"
+    },
+    {
+      "similarId1": "indie-rock",
+      "similarId2": "madchester"
+    },
+    {
+      "similarId1": "alternative-rock",
+      "similarId2": "indie-rock"
+    },
+    {
+      "similarId1": "indie-rock",
+      "similarId2": "post-rock"
+    },
+    {
+      "similarId1": "indie-pop",
+      "similarId2": "indie-rock"
+    },
+    {
+      "similarId1": "dream-pop",
+      "similarId2": "indie-pop"
+    },
+    {
+      "similarId1": "darkwave",
+      "similarId2": "gothic-rock"
+    },
+    {
+      "similarId1": "darkwave",
+      "similarId2": "industrial"
+    },
+    {
+      "similarId1": "northern-soul",
+      "similarId2": "soul"
+    },
+    {
+      "similarId1": "northern-soul",
+      "similarId2": "uk-soul"
+    },
+    {
+      "similarId1": "neo-soul",
+      "similarId2": "uk-soul"
+    },
+    {
+      "similarId1": "2-tone",
+      "similarId2": "ska"
+    },
+    {
+      "similarId1": "2-tone",
+      "similarId2": "punk-rock"
+    },
+    {
+      "similarId1": "post-rock",
+      "similarId2": "shoegaze"
+    },
+    {
+      "similarId1": "ambient",
+      "similarId2": "post-rock"
+    },
+    {
+      "similarId1": "britcore",
+      "similarId2": "uk-hip-hop"
+    },
+    {
+      "similarId1": "britcore",
+      "similarId2": "trip-hop"
+    },
+    {
+      "similarId1": "house",
+      "similarId2": "techno"
+    },
+    {
+      "similarId1": "minimal-techno",
+      "similarId2": "techno"
+    },
+    {
+      "similarId1": "berlin-techno",
+      "similarId2": "techno"
+    },
+    {
+      "similarId1": "berlin-techno",
+      "similarId2": "minimal-techno"
+    },
+    {
+      "similarId1": "eurodance",
+      "similarId2": "synth-pop"
+    },
+    {
+      "similarId1": "eurodance",
+      "similarId2": "progressive-trance"
+    },
+    {
+      "similarId1": "electronic-body-music",
+      "similarId2": "industrial"
+    },
+    {
+      "similarId1": "darkwave",
+      "similarId2": "electronic-body-music"
+    },
+    {
+      "similarId1": "gabber",
+      "similarId2": "hardcore-techno"
+    },
+    {
+      "similarId1": "gabber",
+      "similarId2": "hardstyle"
+    },
+    {
+      "similarId1": "hardcore-techno",
+      "similarId2": "hardstyle"
+    },
+    {
+      "similarId1": "hardstyle",
+      "similarId2": "progressive-trance"
+    },
+    {
+      "similarId1": "progressive-trance",
+      "similarId2": "psytrance"
+    },
+    {
+      "similarId1": "krautrock",
+      "similarId2": "psychedelic-rock"
+    },
+    {
+      "similarId1": "ambient",
+      "similarId2": "krautrock"
+    },
+    {
+      "similarId1": "neue-deutsche-welle",
+      "similarId2": "new-wave"
+    },
+    {
+      "similarId1": "neue-deutsche-welle",
+      "similarId2": "synth-pop"
+    },
+    {
+      "similarId1": "deutschrap",
+      "similarId2": "french-rap"
+    },
+    {
+      "similarId1": "dutch-house",
+      "similarId2": "progressive-house"
+    },
+    {
+      "similarId1": "blues",
+      "similarId2": "delta-blues"
+    },
+    {
+      "similarId1": "blues",
+      "similarId2": "chicago-blues"
+    },
+    {
+      "similarId1": "blues",
+      "similarId2": "jazz"
+    },
+    {
+      "similarId1": "bebop",
+      "similarId2": "jazz"
+    },
+    {
+      "similarId1": "jazz",
+      "similarId2": "swing"
+    },
+    {
+      "similarId1": "country",
+      "similarId2": "folk"
+    },
+    {
+      "similarId1": "blues-rock",
+      "similarId2": "country"
+    },
+    {
+      "similarId1": "americana",
+      "similarId2": "country"
+    },
+    {
+      "similarId1": "americana",
+      "similarId2": "folk"
+    },
+    {
+      "similarId1": "blues",
+      "similarId2": "rock-and-roll"
+    },
+    {
+      "similarId1": "blues-rock",
+      "similarId2": "rock-and-roll"
+    },
+    {
+      "similarId1": "country",
+      "similarId2": "rock-and-roll"
+    },
+    {
+      "similarId1": "psychedelic-rock",
+      "similarId2": "rock-and-roll"
+    },
+    {
+      "similarId1": "post-punk",
+      "similarId2": "punk-rock"
+    },
+    {
+      "similarId1": "hardcore-punk",
+      "similarId2": "punk-rock"
+    },
+    {
+      "similarId1": "new-wave",
+      "similarId2": "punk-rock"
+    },
+    {
+      "similarId1": "blues-rock",
+      "similarId2": "heavy-metal"
+    },
+    {
+      "similarId1": "doom-metal",
+      "similarId2": "heavy-metal"
+    },
+    {
+      "similarId1": "alternative-rock",
+      "similarId2": "grunge"
+    },
+    {
+      "similarId1": "grunge",
+      "similarId2": "punk-rock"
+    },
+    {
+      "similarId1": "alternative-rock",
+      "similarId2": "post-punk"
+    },
+    {
+      "similarId1": "emo",
+      "similarId2": "post-hardcore"
+    },
+    {
+      "similarId1": "emo",
+      "similarId2": "pop-punk"
+    },
+    {
+      "similarId1": "pop-punk",
+      "similarId2": "punk-rock"
+    },
+    {
+      "similarId1": "r-and-b",
+      "similarId2": "soul"
+    },
+    {
+      "similarId1": "neo-soul",
+      "similarId2": "r-and-b"
+    },
+    {
+      "similarId1": "gospel",
+      "similarId2": "soul"
+    },
+    {
+      "similarId1": "blues",
+      "similarId2": "gospel"
+    },
+    {
+      "similarId1": "neo-soul",
+      "similarId2": "soul"
+    },
+    {
+      "similarId1": "boom-bap",
+      "similarId2": "lo-fi-hip-hop"
+    },
+    {
+      "similarId1": "lo-fi-hip-hop",
+      "similarId2": "trip-hop"
+    },
+    {
+      "similarId1": "blues",
+      "similarId2": "blues-rock"
+    },
+    {
+      "similarId1": "rock-and-roll",
+      "similarId2": "rockabilly"
+    },
+    {
+      "similarId1": "country",
+      "similarId2": "rockabilly"
+    },
+    {
+      "similarId1": "hardcore-punk",
+      "similarId2": "post-hardcore"
+    },
+    {
+      "similarId1": "bebop",
+      "similarId2": "swing"
+    },
+    {
+      "similarId1": "chicago-blues",
+      "similarId2": "delta-blues"
+    },
+    {
+      "similarId1": "blues-rock",
+      "similarId2": "chicago-blues"
+    },
+    {
+      "similarId1": "jazz",
+      "similarId2": "jazz-fusion"
+    },
+    {
+      "similarId1": "acid-jazz",
+      "similarId2": "jazz-fusion"
+    },
+    {
+      "similarId1": "jazz",
+      "similarId2": "smooth-jazz"
+    },
+    {
+      "similarId1": "jazz-fusion",
+      "similarId2": "smooth-jazz"
+    },
+    {
+      "similarId1": "acid-jazz",
+      "similarId2": "jazz"
+    },
+    {
+      "similarId1": "acid-jazz",
+      "similarId2": "neo-soul"
+    },
+    {
+      "similarId1": "heavy-metal",
+      "similarId2": "thrash-metal"
+    },
+    {
+      "similarId1": "death-metal",
+      "similarId2": "thrash-metal"
+    },
+    {
+      "similarId1": "black-metal",
+      "similarId2": "death-metal"
+    },
+    {
+      "similarId1": "black-metal",
+      "similarId2": "doom-metal"
+    },
+    {
+      "similarId1": "doom-metal",
+      "similarId2": "gothic-rock"
+    },
+    {
+      "similarId1": "heavy-metal",
+      "similarId2": "power-metal"
+    },
+    {
+      "similarId1": "synthwave",
+      "similarId2": "vaporwave"
+    },
+    {
+      "similarId1": "future-bass",
+      "similarId2": "hyperpop"
+    },
+    {
+      "similarId1": "hyperpop",
+      "similarId2": "indie-pop"
+    },
+    {
+      "similarId1": "synth-pop",
+      "similarId2": "synthwave"
+    },
+    {
+      "similarId1": "dubstep",
+      "similarId2": "future-bass"
+    },
+    {
+      "similarId1": "city-pop",
+      "similarId2": "j-pop"
+    },
+    {
+      "similarId1": "city-pop",
+      "similarId2": "lo-fi-hip-hop"
+    },
+    {
+      "similarId1": "j-rock",
+      "similarId2": "visual-kei"
+    },
+    {
+      "similarId1": "j-pop",
+      "similarId2": "j-rock"
+    },
+    {
+      "similarId1": "gothic-rock",
+      "similarId2": "visual-kei"
+    },
+    {
+      "similarId1": "k-hip-hop",
+      "similarId2": "k-rnb"
+    },
+    {
+      "similarId1": "hip-hop",
+      "similarId2": "k-hip-hop"
+    },
+    {
+      "similarId1": "k-rnb",
+      "similarId2": "neo-soul"
+    },
+    {
+      "similarId1": "latin-pop",
+      "similarId2": "reggaeton"
+    },
+    {
+      "similarId1": "latin-pop",
+      "similarId2": "latin-rock"
+    },
+    {
+      "similarId1": "jazz",
+      "similarId2": "latin-jazz"
+    },
+    {
+      "similarId1": "latin-jazz",
+      "similarId2": "salsa"
+    },
+    {
+      "similarId1": "latin-rock",
+      "similarId2": "psychedelic-rock"
+    },
+    {
+      "similarId1": "chanson-francaise",
+      "similarId2": "folk"
+    },
+    {
+      "similarId1": "french-rap",
+      "similarId2": "hip-hop"
+    },
+    {
+      "similarId1": "afrobeats",
+      "similarId2": "afropop"
+    },
+    {
+      "similarId1": "afrobeat",
+      "similarId2": "afropop"
+    },
+    {
+      "similarId1": "folk",
+      "similarId2": "folk-rock"
+    },
+    {
+      "similarId1": "americana",
+      "similarId2": "folk-rock"
+    },
+    {
+      "similarId1": "celtic-punk",
+      "similarId2": "punk-rock"
+    },
+    {
+      "similarId1": "celtic-punk",
+      "similarId2": "folk-rock"
+    }
+  ],
+  "genreInstrument": [
+    {
+      "genreId": "jungle",
+      "instrumentId": "amen-break"
+    },
+    {
+      "genreId": "jungle",
+      "instrumentId": "sub-bass"
+    },
+    {
+      "genreId": "jungle",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "jungle",
+      "instrumentId": "tr-909"
+    },
+    {
+      "genreId": "drum-and-bass",
+      "instrumentId": "amen-break"
+    },
+    {
+      "genreId": "drum-and-bass",
+      "instrumentId": "sub-bass"
+    },
+    {
+      "genreId": "drum-and-bass",
+      "instrumentId": "reese-bass"
+    },
+    {
+      "genreId": "drum-and-bass",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "drum-and-bass",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "uk-garage",
+      "instrumentId": "sub-bass"
+    },
+    {
+      "genreId": "uk-garage",
+      "instrumentId": "vocal-chops"
+    },
+    {
+      "genreId": "uk-garage",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "uk-garage",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "two-step-garage",
+      "instrumentId": "vocal-chops"
+    },
+    {
+      "genreId": "two-step-garage",
+      "instrumentId": "sub-bass"
+    },
+    {
+      "genreId": "two-step-garage",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "grime",
+      "instrumentId": "sub-bass"
+    },
+    {
+      "genreId": "grime",
+      "instrumentId": "808-bass"
+    },
+    {
+      "genreId": "grime",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "uk-drill",
+      "instrumentId": "808-bass"
+    },
+    {
+      "genreId": "uk-drill",
+      "instrumentId": "auto-tune"
+    },
+    {
+      "genreId": "uk-drill",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "uk-drill",
+      "instrumentId": "tr-808"
+    },
+    {
+      "genreId": "dubstep",
+      "instrumentId": "sub-bass"
+    },
+    {
+      "genreId": "dubstep",
+      "instrumentId": "808-bass"
+    },
+    {
+      "genreId": "dubstep",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "dubstep",
+      "instrumentId": "reese-bass"
+    },
+    {
+      "genreId": "breakbeat-hardcore",
+      "instrumentId": "amen-break"
+    },
+    {
+      "genreId": "breakbeat-hardcore",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "breakbeat-hardcore",
+      "instrumentId": "tr-909"
+    },
+    {
+      "genreId": "breakbeat-hardcore",
+      "instrumentId": "sub-bass"
+    },
+    {
+      "genreId": "happy-hardcore",
+      "instrumentId": "tr-909"
+    },
+    {
+      "genreId": "happy-hardcore",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "happy-hardcore",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "happy-hardcore",
+      "instrumentId": "synth-lead"
+    },
+    {
+      "genreId": "rave",
+      "instrumentId": "tr-909"
+    },
+    {
+      "genreId": "rave",
+      "instrumentId": "tr-808"
+    },
+    {
+      "genreId": "rave",
+      "instrumentId": "tb-303"
+    },
+    {
+      "genreId": "rave",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "big-beat",
+      "instrumentId": "amen-break"
+    },
+    {
+      "genreId": "big-beat",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "big-beat",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "big-beat",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "intelligent-dance-music",
+      "instrumentId": "modular-synth"
+    },
+    {
+      "genreId": "intelligent-dance-music",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "intelligent-dance-music",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "intelligent-dance-music",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "bleep-techno",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "bleep-techno",
+      "instrumentId": "tr-909"
+    },
+    {
+      "genreId": "bleep-techno",
+      "instrumentId": "sub-bass"
+    },
+    {
+      "genreId": "progressive-house",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "progressive-house",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "progressive-house",
+      "instrumentId": "roland-juno"
+    },
+    {
+      "genreId": "progressive-house",
+      "instrumentId": "synth-lead"
+    },
+    {
+      "genreId": "trip-hop",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "trip-hop",
+      "instrumentId": "turntables"
+    },
+    {
+      "genreId": "trip-hop",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "trip-hop",
+      "instrumentId": "fender-rhodes"
+    },
+    {
+      "genreId": "afroswing",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "afroswing",
+      "instrumentId": "vocal-chops"
+    },
+    {
+      "genreId": "afroswing",
+      "instrumentId": "808-bass"
+    },
+    {
+      "genreId": "uk-hip-hop",
+      "instrumentId": "turntables"
+    },
+    {
+      "genreId": "uk-hip-hop",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "uk-hip-hop",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "uk-hip-hop",
+      "instrumentId": "beatboxing"
+    },
+    {
+      "genreId": "uk-r-and-b",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "uk-r-and-b",
+      "instrumentId": "vocal-chops"
+    },
+    {
+      "genreId": "uk-r-and-b",
+      "instrumentId": "auto-tune"
+    },
+    {
+      "genreId": "bassline",
+      "instrumentId": "sub-bass"
+    },
+    {
+      "genreId": "bassline",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "bassline",
+      "instrumentId": "vocal-chops"
+    },
+    {
+      "genreId": "future-garage",
+      "instrumentId": "sub-bass"
+    },
+    {
+      "genreId": "future-garage",
+      "instrumentId": "vocal-chops"
+    },
+    {
+      "genreId": "future-garage",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "uk-funky",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "uk-funky",
+      "instrumentId": "vocal-chops"
+    },
+    {
+      "genreId": "uk-funky",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "broken-beat",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "broken-beat",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "broken-beat",
+      "instrumentId": "fender-rhodes"
+    },
+    {
+      "genreId": "post-dubstep",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "post-dubstep",
+      "instrumentId": "sub-bass"
+    },
+    {
+      "genreId": "post-dubstep",
+      "instrumentId": "auto-tune"
+    },
+    {
+      "genreId": "uk-bass",
+      "instrumentId": "sub-bass"
+    },
+    {
+      "genreId": "uk-bass",
+      "instrumentId": "808-bass"
+    },
+    {
+      "genreId": "uk-bass",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "uk-hardcore",
+      "instrumentId": "tr-909"
+    },
+    {
+      "genreId": "uk-hardcore",
+      "instrumentId": "synth-lead"
+    },
+    {
+      "genreId": "uk-hardcore",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "post-punk",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "post-punk",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "post-punk",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "post-punk",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "new-wave",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "new-wave",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "new-wave",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "britpop",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "britpop",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "britpop",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "britpop",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "shoegaze",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "shoegaze",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "shoegaze",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "madchester",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "madchester",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "madchester",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "indie-rock",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "indie-rock",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "indie-rock",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "indie-pop",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "indie-pop",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "indie-pop",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "gothic-rock",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "gothic-rock",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "gothic-rock",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "darkwave",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "darkwave",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "darkwave",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "northern-soul",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "northern-soul",
+      "instrumentId": "horn-section"
+    },
+    {
+      "genreId": "northern-soul",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "uk-soul",
+      "instrumentId": "horn-section"
+    },
+    {
+      "genreId": "uk-soul",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "uk-soul",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "uk-soul",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "2-tone",
+      "instrumentId": "horn-section"
+    },
+    {
+      "genreId": "2-tone",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "2-tone",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "2-tone",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "dream-pop",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "dream-pop",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "dream-pop",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "post-rock",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "post-rock",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "post-rock",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "britcore",
+      "instrumentId": "turntables"
+    },
+    {
+      "genreId": "britcore",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "britcore",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "techno",
+      "instrumentId": "tr-909"
+    },
+    {
+      "genreId": "techno",
+      "instrumentId": "tr-808"
+    },
+    {
+      "genreId": "techno",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "techno",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "techno",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "berlin-techno",
+      "instrumentId": "tr-909"
+    },
+    {
+      "genreId": "berlin-techno",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "berlin-techno",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "minimal-techno",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "minimal-techno",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "minimal-techno",
+      "instrumentId": "tr-909"
+    },
+    {
+      "genreId": "eurodance",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "eurodance",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "eurodance",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "electronic-body-music",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "electronic-body-music",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "gabber",
+      "instrumentId": "tr-909"
+    },
+    {
+      "genreId": "gabber",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "gabber",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "hardcore-techno",
+      "instrumentId": "tr-909"
+    },
+    {
+      "genreId": "hardcore-techno",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "hardcore-techno",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "hardstyle",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "hardstyle",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "hardstyle",
+      "instrumentId": "synth-lead"
+    },
+    {
+      "genreId": "progressive-trance",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "progressive-trance",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "progressive-trance",
+      "instrumentId": "synth-lead"
+    },
+    {
+      "genreId": "psytrance",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "psytrance",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "psytrance",
+      "instrumentId": "modular-synth"
+    },
+    {
+      "genreId": "krautrock",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "krautrock",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "krautrock",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "neue-deutsche-welle",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "neue-deutsche-welle",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "neue-deutsche-welle",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "deutschrap",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "deutschrap",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "deutschrap",
+      "instrumentId": "turntables"
+    },
+    {
+      "genreId": "industrial",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "industrial",
+      "instrumentId": "tape-machine"
+    },
+    {
+      "genreId": "industrial",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "dutch-house",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "dutch-house",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "dutch-house",
+      "instrumentId": "synth-lead"
+    },
+    {
+      "genreId": "blues",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "blues",
+      "instrumentId": "harmonica"
+    },
+    {
+      "genreId": "blues",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "blues",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "jazz",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "jazz",
+      "instrumentId": "horn-section"
+    },
+    {
+      "genreId": "jazz",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "jazz",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "country",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "country",
+      "instrumentId": "banjo"
+    },
+    {
+      "genreId": "country",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "folk",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "folk",
+      "instrumentId": "banjo"
+    },
+    {
+      "genreId": "folk",
+      "instrumentId": "harmonica"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "psychedelic-rock",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "psychedelic-rock",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "psychedelic-rock",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "punk-rock",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "punk-rock",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "punk-rock",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "heavy-metal",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "heavy-metal",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "heavy-metal",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "grunge",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "grunge",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "grunge",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "alternative-rock",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "alternative-rock",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "alternative-rock",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "emo",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "emo",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "emo",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "pop-punk",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "pop-punk",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "pop-punk",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "r-and-b",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "r-and-b",
+      "instrumentId": "horn-section"
+    },
+    {
+      "genreId": "r-and-b",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "r-and-b",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "gospel",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "gospel",
+      "instrumentId": "organ-pipe"
+    },
+    {
+      "genreId": "gospel",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "gospel",
+      "instrumentId": "horn-section"
+    },
+    {
+      "genreId": "americana",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "americana",
+      "instrumentId": "banjo"
+    },
+    {
+      "genreId": "americana",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "neo-soul",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "neo-soul",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "neo-soul",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "neo-soul",
+      "instrumentId": "fender-rhodes"
+    },
+    {
+      "genreId": "lo-fi-hip-hop",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "lo-fi-hip-hop",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "lo-fi-hip-hop",
+      "instrumentId": "turntables"
+    },
+    {
+      "genreId": "lo-fi-hip-hop",
+      "instrumentId": "fender-rhodes"
+    },
+    {
+      "genreId": "blues-rock",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "blues-rock",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "blues-rock",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "rockabilly",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "rockabilly",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "rockabilly",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "synth-pop",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "synth-pop",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "synth-pop",
+      "instrumentId": "roland-juno"
+    },
+    {
+      "genreId": "synth-pop",
+      "instrumentId": "dx7"
+    },
+    {
+      "genreId": "post-hardcore",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "post-hardcore",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "post-hardcore",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "hardcore-punk",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "hardcore-punk",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "hardcore-punk",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "bebop",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "bebop",
+      "instrumentId": "horn-section"
+    },
+    {
+      "genreId": "bebop",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "bebop",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "swing",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "swing",
+      "instrumentId": "horn-section"
+    },
+    {
+      "genreId": "swing",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "swing",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "delta-blues",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "delta-blues",
+      "instrumentId": "harmonica"
+    },
+    {
+      "genreId": "chicago-blues",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "chicago-blues",
+      "instrumentId": "harmonica"
+    },
+    {
+      "genreId": "chicago-blues",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "chicago-blues",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "jazz-fusion",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "jazz-fusion",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "jazz-fusion",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "jazz-fusion",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "smooth-jazz",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "smooth-jazz",
+      "instrumentId": "horn-section"
+    },
+    {
+      "genreId": "smooth-jazz",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "smooth-jazz",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "acid-jazz",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "acid-jazz",
+      "instrumentId": "horn-section"
+    },
+    {
+      "genreId": "acid-jazz",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "acid-jazz",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "thrash-metal",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "thrash-metal",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "thrash-metal",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "death-metal",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "death-metal",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "death-metal",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "black-metal",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "black-metal",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "black-metal",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "doom-metal",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "doom-metal",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "doom-metal",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "power-metal",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "power-metal",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "power-metal",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "power-metal",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "ambient",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "ambient",
+      "instrumentId": "tape-machine"
+    },
+    {
+      "genreId": "ambient",
+      "instrumentId": "modular-synth"
+    },
+    {
+      "genreId": "ambient",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "vaporwave",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "vaporwave",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "hyperpop",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "hyperpop",
+      "instrumentId": "auto-tune"
+    },
+    {
+      "genreId": "hyperpop",
+      "instrumentId": "808-bass"
+    },
+    {
+      "genreId": "synthwave",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "synthwave",
+      "instrumentId": "drum-machine"
+    },
+    {
+      "genreId": "synthwave",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "future-bass",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "future-bass",
+      "instrumentId": "sub-bass"
+    },
+    {
+      "genreId": "future-bass",
+      "instrumentId": "vocal-chops"
+    },
+    {
+      "genreId": "future-bass",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "city-pop",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "city-pop",
+      "instrumentId": "electric-bass-guitar"
+    },
+    {
+      "genreId": "city-pop",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "city-pop",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "j-rock",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "j-rock",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "j-rock",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "visual-kei",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "visual-kei",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "visual-kei",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "k-hip-hop",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "k-hip-hop",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "k-hip-hop",
+      "instrumentId": "turntables"
+    },
+    {
+      "genreId": "k-rnb",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "k-rnb",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "k-rnb",
+      "instrumentId": "auto-tune"
+    },
+    {
+      "genreId": "tango",
+      "instrumentId": "bandoneon"
+    },
+    {
+      "genreId": "tango",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "tango",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "latin-pop",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "latin-pop",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "latin-pop",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "latin-pop",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "latin-jazz",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "latin-jazz",
+      "instrumentId": "horn-section"
+    },
+    {
+      "genreId": "latin-jazz",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "latin-jazz",
+      "instrumentId": "bongos"
+    },
+    {
+      "genreId": "latin-rock",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "latin-rock",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "latin-rock",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "latin-rock",
+      "instrumentId": "conga"
+    },
+    {
+      "genreId": "chanson-francaise",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "chanson-francaise",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "chanson-francaise",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "french-rap",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "french-rap",
+      "instrumentId": "samplers"
+    },
+    {
+      "genreId": "afropop",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "afropop",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "afropop",
+      "instrumentId": "horn-section"
+    },
+    {
+      "genreId": "afropop",
+      "instrumentId": "daw"
+    },
+    {
+      "genreId": "folk-rock",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "folk-rock",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "folk-rock",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "folk-rock",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "celtic-punk",
+      "instrumentId": "electric-guitar"
+    },
+    {
+      "genreId": "celtic-punk",
+      "instrumentId": "tin-whistle"
+    },
+    {
+      "genreId": "celtic-punk",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "celtic-punk",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "celtic-punk",
+      "instrumentId": "accordion"
+    }
+  ],
+  "genreSources": [
+    {
+      "genreId": "jungle",
+      "sourceLink": "https://en.wikipedia.org/wiki/Jungle_music"
+    },
+    {
+      "genreId": "jungle",
+      "sourceLink": "https://www.factmag.com/2016/08/22/jungle-music-history/"
+    },
+    {
+      "genreId": "drum-and-bass",
+      "sourceLink": "https://en.wikipedia.org/wiki/Drum_and_bass"
+    },
+    {
+      "genreId": "drum-and-bass",
+      "sourceLink": "https://ra.co/features/2992"
+    },
+    {
+      "genreId": "uk-garage",
+      "sourceLink": "https://en.wikipedia.org/wiki/UK_garage"
+    },
+    {
+      "genreId": "uk-garage",
+      "sourceLink": "https://www.redbullmusicacademy.com/lectures/dj-zinc-lecture"
+    },
+    {
+      "genreId": "two-step-garage",
+      "sourceLink": "https://en.wikipedia.org/wiki/2-step_garage"
+    },
+    {
+      "genreId": "grime",
+      "sourceLink": "https://en.wikipedia.org/wiki/Grime_(music_genre)"
+    },
+    {
+      "genreId": "grime",
+      "sourceLink": "https://www.theguardian.com/music/2017/may/24/grime-music-history-uk-subculture"
+    },
+    {
+      "genreId": "uk-drill",
+      "sourceLink": "https://en.wikipedia.org/wiki/UK_drill"
+    },
+    {
+      "genreId": "uk-drill",
+      "sourceLink": "https://djmag.com/longreads/uk-drills-london-origin-story"
+    },
+    {
+      "genreId": "dubstep",
+      "sourceLink": "https://en.wikipedia.org/wiki/Dubstep"
+    },
+    {
+      "genreId": "dubstep",
+      "sourceLink": "https://www.factmag.com/2013/05/09/roots-of-dubstep/"
+    },
+    {
+      "genreId": "breakbeat-hardcore",
+      "sourceLink": "https://en.wikipedia.org/wiki/Breakbeat_hardcore"
+    },
+    {
+      "genreId": "happy-hardcore",
+      "sourceLink": "https://en.wikipedia.org/wiki/Happy_hardcore"
+    },
+    {
+      "genreId": "rave",
+      "sourceLink": "https://en.wikipedia.org/wiki/Rave"
+    },
+    {
+      "genreId": "rave",
+      "sourceLink": "https://www.bbc.co.uk/music/articles/acid-house-rave-history"
+    },
+    {
+      "genreId": "big-beat",
+      "sourceLink": "https://en.wikipedia.org/wiki/Big_beat"
+    },
+    {
+      "genreId": "intelligent-dance-music",
+      "sourceLink": "https://en.wikipedia.org/wiki/Intelligent_dance_music"
+    },
+    {
+      "genreId": "bleep-techno",
+      "sourceLink": "https://en.wikipedia.org/wiki/Bleep_techno"
+    },
+    {
+      "genreId": "progressive-house",
+      "sourceLink": "https://en.wikipedia.org/wiki/Progressive_house"
+    },
+    {
+      "genreId": "trip-hop",
+      "sourceLink": "https://en.wikipedia.org/wiki/Trip_hop"
+    },
+    {
+      "genreId": "afroswing",
+      "sourceLink": "https://en.wikipedia.org/wiki/Afroswing"
+    },
+    {
+      "genreId": "uk-hip-hop",
+      "sourceLink": "https://en.wikipedia.org/wiki/UK_hip_hop"
+    },
+    {
+      "genreId": "uk-r-and-b",
+      "sourceLink": "https://en.wikipedia.org/wiki/UK_R%26B"
+    },
+    {
+      "genreId": "bassline",
+      "sourceLink": "https://en.wikipedia.org/wiki/Bassline_(genre)"
+    },
+    {
+      "genreId": "future-garage",
+      "sourceLink": "https://en.wikipedia.org/wiki/Future_garage"
+    },
+    {
+      "genreId": "uk-funky",
+      "sourceLink": "https://en.wikipedia.org/wiki/UK_funky"
+    },
+    {
+      "genreId": "broken-beat",
+      "sourceLink": "https://en.wikipedia.org/wiki/Broken_beat"
+    },
+    {
+      "genreId": "post-dubstep",
+      "sourceLink": "https://en.wikipedia.org/wiki/Post-dubstep"
+    },
+    {
+      "genreId": "uk-bass",
+      "sourceLink": "https://en.wikipedia.org/wiki/UK_bass"
+    },
+    {
+      "genreId": "uk-hardcore",
+      "sourceLink": "https://en.wikipedia.org/wiki/UK_hardcore"
+    },
+    {
+      "genreId": "post-punk",
+      "sourceLink": "https://en.wikipedia.org/wiki/Post-punk"
+    },
+    {
+      "genreId": "new-wave",
+      "sourceLink": "https://en.wikipedia.org/wiki/New_wave_music"
+    },
+    {
+      "genreId": "britpop",
+      "sourceLink": "https://en.wikipedia.org/wiki/Britpop"
+    },
+    {
+      "genreId": "shoegaze",
+      "sourceLink": "https://en.wikipedia.org/wiki/Shoegaze"
+    },
+    {
+      "genreId": "madchester",
+      "sourceLink": "https://en.wikipedia.org/wiki/Madchester"
+    },
+    {
+      "genreId": "indie-rock",
+      "sourceLink": "https://en.wikipedia.org/wiki/Indie_rock"
+    },
+    {
+      "genreId": "indie-pop",
+      "sourceLink": "https://en.wikipedia.org/wiki/Indie_pop"
+    },
+    {
+      "genreId": "gothic-rock",
+      "sourceLink": "https://en.wikipedia.org/wiki/Gothic_rock"
+    },
+    {
+      "genreId": "darkwave",
+      "sourceLink": "https://en.wikipedia.org/wiki/Darkwave"
+    },
+    {
+      "genreId": "northern-soul",
+      "sourceLink": "https://en.wikipedia.org/wiki/Northern_soul"
+    },
+    {
+      "genreId": "uk-soul",
+      "sourceLink": "https://en.wikipedia.org/wiki/British_soul"
+    },
+    {
+      "genreId": "2-tone",
+      "sourceLink": "https://en.wikipedia.org/wiki/2_Tone"
+    },
+    {
+      "genreId": "dream-pop",
+      "sourceLink": "https://en.wikipedia.org/wiki/Dream_pop"
+    },
+    {
+      "genreId": "post-rock",
+      "sourceLink": "https://en.wikipedia.org/wiki/Post-rock"
+    },
+    {
+      "genreId": "britcore",
+      "sourceLink": "https://en.wikipedia.org/wiki/Britcore"
+    },
+    {
+      "genreId": "techno",
+      "sourceLink": "https://en.wikipedia.org/wiki/Techno"
+    },
+    {
+      "genreId": "techno",
+      "sourceLink": "https://www.residentadvisor.net/features/techno-history"
+    },
+    {
+      "genreId": "berlin-techno",
+      "sourceLink": "https://en.wikipedia.org/wiki/Berlin_techno"
+    },
+    {
+      "genreId": "minimal-techno",
+      "sourceLink": "https://en.wikipedia.org/wiki/Minimal_techno"
+    },
+    {
+      "genreId": "eurodance",
+      "sourceLink": "https://en.wikipedia.org/wiki/Eurodance"
+    },
+    {
+      "genreId": "electronic-body-music",
+      "sourceLink": "https://en.wikipedia.org/wiki/Electronic_body_music"
+    },
+    {
+      "genreId": "gabber",
+      "sourceLink": "https://en.wikipedia.org/wiki/Gabber"
+    },
+    {
+      "genreId": "hardcore-techno",
+      "sourceLink": "https://en.wikipedia.org/wiki/Hardcore_techno"
+    },
+    {
+      "genreId": "hardstyle",
+      "sourceLink": "https://en.wikipedia.org/wiki/Hardstyle"
+    },
+    {
+      "genreId": "progressive-trance",
+      "sourceLink": "https://en.wikipedia.org/wiki/Progressive_trance"
+    },
+    {
+      "genreId": "psytrance",
+      "sourceLink": "https://en.wikipedia.org/wiki/Psytrance"
+    },
+    {
+      "genreId": "krautrock",
+      "sourceLink": "https://en.wikipedia.org/wiki/Krautrock"
+    },
+    {
+      "genreId": "neue-deutsche-welle",
+      "sourceLink": "https://en.wikipedia.org/wiki/Neue_Deutsche_Welle"
+    },
+    {
+      "genreId": "deutschrap",
+      "sourceLink": "https://en.wikipedia.org/wiki/Hip_hop_in_Germany"
+    },
+    {
+      "genreId": "industrial",
+      "sourceLink": "https://en.wikipedia.org/wiki/Industrial_music"
+    },
+    {
+      "genreId": "dutch-house",
+      "sourceLink": "https://en.wikipedia.org/wiki/Dutch_house"
+    },
+    {
+      "genreId": "blues",
+      "sourceLink": "https://en.wikipedia.org/wiki/Blues"
+    },
+    {
+      "genreId": "blues",
+      "sourceLink": "https://www.allmusic.com/genre/blues-ma0000002567"
+    },
+    {
+      "genreId": "jazz",
+      "sourceLink": "https://en.wikipedia.org/wiki/Jazz"
+    },
+    {
+      "genreId": "country",
+      "sourceLink": "https://en.wikipedia.org/wiki/Country_music"
+    },
+    {
+      "genreId": "folk",
+      "sourceLink": "https://en.wikipedia.org/wiki/Folk_music"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "sourceLink": "https://en.wikipedia.org/wiki/Rock_and_roll"
+    },
+    {
+      "genreId": "psychedelic-rock",
+      "sourceLink": "https://en.wikipedia.org/wiki/Psychedelic_rock"
+    },
+    {
+      "genreId": "punk-rock",
+      "sourceLink": "https://en.wikipedia.org/wiki/Punk_rock"
+    },
+    {
+      "genreId": "heavy-metal",
+      "sourceLink": "https://en.wikipedia.org/wiki/Heavy_metal_music"
+    },
+    {
+      "genreId": "grunge",
+      "sourceLink": "https://en.wikipedia.org/wiki/Grunge"
+    },
+    {
+      "genreId": "alternative-rock",
+      "sourceLink": "https://en.wikipedia.org/wiki/Alternative_rock"
+    },
+    {
+      "genreId": "emo",
+      "sourceLink": "https://en.wikipedia.org/wiki/Emo"
+    },
+    {
+      "genreId": "pop-punk",
+      "sourceLink": "https://en.wikipedia.org/wiki/Pop_punk"
+    },
+    {
+      "genreId": "r-and-b",
+      "sourceLink": "https://en.wikipedia.org/wiki/Rhythm_and_blues"
+    },
+    {
+      "genreId": "gospel",
+      "sourceLink": "https://en.wikipedia.org/wiki/Gospel_music"
+    },
+    {
+      "genreId": "americana",
+      "sourceLink": "https://en.wikipedia.org/wiki/Americana_(music)"
+    },
+    {
+      "genreId": "neo-soul",
+      "sourceLink": "https://en.wikipedia.org/wiki/Neo_soul"
+    },
+    {
+      "genreId": "lo-fi-hip-hop",
+      "sourceLink": "https://en.wikipedia.org/wiki/Lo-fi_hip_hop"
+    },
+    {
+      "genreId": "blues-rock",
+      "sourceLink": "https://en.wikipedia.org/wiki/Blues_rock"
+    },
+    {
+      "genreId": "rockabilly",
+      "sourceLink": "https://en.wikipedia.org/wiki/Rockabilly"
+    },
+    {
+      "genreId": "synth-pop",
+      "sourceLink": "https://en.wikipedia.org/wiki/Synthpop"
+    },
+    {
+      "genreId": "post-hardcore",
+      "sourceLink": "https://en.wikipedia.org/wiki/Post-hardcore"
+    },
+    {
+      "genreId": "hardcore-punk",
+      "sourceLink": "https://en.wikipedia.org/wiki/Hardcore_punk"
+    },
+    {
+      "genreId": "bebop",
+      "sourceLink": "https://en.wikipedia.org/wiki/Bebop"
+    },
+    {
+      "genreId": "swing",
+      "sourceLink": "https://en.wikipedia.org/wiki/Swing_music"
+    },
+    {
+      "genreId": "delta-blues",
+      "sourceLink": "https://en.wikipedia.org/wiki/Delta_blues"
+    },
+    {
+      "genreId": "chicago-blues",
+      "sourceLink": "https://en.wikipedia.org/wiki/Chicago_blues"
+    },
+    {
+      "genreId": "jazz-fusion",
+      "sourceLink": "https://en.wikipedia.org/wiki/Jazz_fusion"
+    },
+    {
+      "genreId": "smooth-jazz",
+      "sourceLink": "https://en.wikipedia.org/wiki/Smooth_jazz"
+    },
+    {
+      "genreId": "acid-jazz",
+      "sourceLink": "https://en.wikipedia.org/wiki/Acid_jazz"
+    },
+    {
+      "genreId": "thrash-metal",
+      "sourceLink": "https://en.wikipedia.org/wiki/Thrash_metal"
+    },
+    {
+      "genreId": "death-metal",
+      "sourceLink": "https://en.wikipedia.org/wiki/Death_metal"
+    },
+    {
+      "genreId": "black-metal",
+      "sourceLink": "https://en.wikipedia.org/wiki/Black_metal"
+    },
+    {
+      "genreId": "doom-metal",
+      "sourceLink": "https://en.wikipedia.org/wiki/Doom_metal"
+    },
+    {
+      "genreId": "power-metal",
+      "sourceLink": "https://en.wikipedia.org/wiki/Power_metal"
+    },
+    {
+      "genreId": "ambient",
+      "sourceLink": "https://en.wikipedia.org/wiki/Ambient_music"
+    },
+    {
+      "genreId": "vaporwave",
+      "sourceLink": "https://en.wikipedia.org/wiki/Vaporwave"
+    },
+    {
+      "genreId": "hyperpop",
+      "sourceLink": "https://en.wikipedia.org/wiki/Hyperpop"
+    },
+    {
+      "genreId": "synthwave",
+      "sourceLink": "https://en.wikipedia.org/wiki/Synthwave"
+    },
+    {
+      "genreId": "future-bass",
+      "sourceLink": "https://en.wikipedia.org/wiki/Future_bass"
+    },
+    {
+      "genreId": "city-pop",
+      "sourceLink": "https://en.wikipedia.org/wiki/City_pop"
+    },
+    {
+      "genreId": "city-pop",
+      "sourceLink": "https://www.factmag.com/2019/06/21/city-pop-history/"
+    },
+    {
+      "genreId": "j-rock",
+      "sourceLink": "https://en.wikipedia.org/wiki/Rock_music_in_Japan"
+    },
+    {
+      "genreId": "visual-kei",
+      "sourceLink": "https://en.wikipedia.org/wiki/Visual_kei"
+    },
+    {
+      "genreId": "k-hip-hop",
+      "sourceLink": "https://en.wikipedia.org/wiki/Hip_hop_in_South_Korea"
+    },
+    {
+      "genreId": "k-rnb",
+      "sourceLink": "https://en.wikipedia.org/wiki/Korean_R%26B"
+    },
+    {
+      "genreId": "tango",
+      "sourceLink": "https://en.wikipedia.org/wiki/Tango"
+    },
+    {
+      "genreId": "latin-pop",
+      "sourceLink": "https://en.wikipedia.org/wiki/Latin_pop"
+    },
+    {
+      "genreId": "latin-jazz",
+      "sourceLink": "https://en.wikipedia.org/wiki/Latin_jazz"
+    },
+    {
+      "genreId": "latin-rock",
+      "sourceLink": "https://en.wikipedia.org/wiki/Latin_rock"
+    },
+    {
+      "genreId": "chanson-francaise",
+      "sourceLink": "https://en.wikipedia.org/wiki/Chanson"
+    },
+    {
+      "genreId": "french-rap",
+      "sourceLink": "https://en.wikipedia.org/wiki/French_hip_hop"
+    },
+    {
+      "genreId": "afropop",
+      "sourceLink": "https://en.wikipedia.org/wiki/Afrobeats"
+    },
+    {
+      "genreId": "afropop",
+      "sourceLink": "https://www.allmusic.com/genre/afropop-ma0000011741"
+    },
+    {
+      "genreId": "folk-rock",
+      "sourceLink": "https://en.wikipedia.org/wiki/Folk_rock"
+    },
+    {
+      "genreId": "celtic-punk",
+      "sourceLink": "https://en.wikipedia.org/wiki/Celtic_punk"
+    }
+  ],
+  "genreAliases": [
+    {
+      "genreId": "jungle",
+      "alias": "Jungle Techno"
+    },
+    {
+      "genreId": "jungle",
+      "alias": "Ragga Jungle"
+    },
+    {
+      "genreId": "jungle",
+      "alias": "Darkside Jungle"
+    },
+    {
+      "genreId": "drum-and-bass",
+      "alias": "D&B"
+    },
+    {
+      "genreId": "drum-and-bass",
+      "alias": "DnB"
+    },
+    {
+      "genreId": "drum-and-bass",
+      "alias": "Drum 'n' Bass"
+    },
+    {
+      "genreId": "uk-garage",
+      "alias": "UKG"
+    },
+    {
+      "genreId": "uk-garage",
+      "alias": "UK Garage House"
+    },
+    {
+      "genreId": "two-step-garage",
+      "alias": "2-Step"
+    },
+    {
+      "genreId": "two-step-garage",
+      "alias": "2Step Garage"
+    },
+    {
+      "genreId": "grime",
+      "alias": "UK Grime"
+    },
+    {
+      "genreId": "uk-drill",
+      "alias": "UK Drill Music"
+    },
+    {
+      "genreId": "uk-drill",
+      "alias": "British Drill"
+    },
+    {
+      "genreId": "dubstep",
+      "alias": "Original Dubstep"
+    },
+    {
+      "genreId": "dubstep",
+      "alias": "UK Dubstep"
+    },
+    {
+      "genreId": "breakbeat-hardcore",
+      "alias": "Hardcore Rave"
+    },
+    {
+      "genreId": "breakbeat-hardcore",
+      "alias": "Ardcore"
+    },
+    {
+      "genreId": "happy-hardcore",
+      "alias": "Happy Rave"
+    },
+    {
+      "genreId": "happy-hardcore",
+      "alias": "Happy House"
+    },
+    {
+      "genreId": "rave",
+      "alias": "UK Rave"
+    },
+    {
+      "genreId": "rave",
+      "alias": "Second Summer of Love"
+    },
+    {
+      "genreId": "big-beat",
+      "alias": "Breakbeat Rock"
+    },
+    {
+      "genreId": "intelligent-dance-music",
+      "alias": "IDM"
+    },
+    {
+      "genreId": "intelligent-dance-music",
+      "alias": "Braindance"
+    },
+    {
+      "genreId": "intelligent-dance-music",
+      "alias": "Electronica"
+    },
+    {
+      "genreId": "bleep-techno",
+      "alias": "Bleep and Bass"
+    },
+    {
+      "genreId": "bleep-techno",
+      "alias": "Sheffield Techno"
+    },
+    {
+      "genreId": "progressive-house",
+      "alias": "Prog House"
+    },
+    {
+      "genreId": "trip-hop",
+      "alias": "Bristol Sound"
+    },
+    {
+      "genreId": "trip-hop",
+      "alias": "Downtempo"
+    },
+    {
+      "genreId": "afroswing",
+      "alias": "Afro-Bashment"
+    },
+    {
+      "genreId": "afroswing",
+      "alias": "UK Afrobeats"
+    },
+    {
+      "genreId": "uk-hip-hop",
+      "alias": "British Hip-Hop"
+    },
+    {
+      "genreId": "uk-hip-hop",
+      "alias": "UK Rap"
+    },
+    {
+      "genreId": "uk-r-and-b",
+      "alias": "British R&B"
+    },
+    {
+      "genreId": "bassline",
+      "alias": "Niche"
+    },
+    {
+      "genreId": "bassline",
+      "alias": "4x4"
+    },
+    {
+      "genreId": "bassline",
+      "alias": "UK Bassline"
+    },
+    {
+      "genreId": "future-garage",
+      "alias": "Post-Dubstep Garage"
+    },
+    {
+      "genreId": "uk-funky",
+      "alias": "Funky House (UK)"
+    },
+    {
+      "genreId": "uk-funky",
+      "alias": "London Funky"
+    },
+    {
+      "genreId": "broken-beat",
+      "alias": "Bruk"
+    },
+    {
+      "genreId": "broken-beat",
+      "alias": "Nu-Jazz (UK)"
+    },
+    {
+      "genreId": "post-dubstep",
+      "alias": "Wonky"
+    },
+    {
+      "genreId": "uk-hardcore",
+      "alias": "Hard Trance (UK)"
+    },
+    {
+      "genreId": "uk-hardcore",
+      "alias": "Happy Trance"
+    },
+    {
+      "genreId": "post-punk",
+      "alias": "Art-Punk"
+    },
+    {
+      "genreId": "new-wave",
+      "alias": "New Wave Pop"
+    },
+    {
+      "genreId": "britpop",
+      "alias": "British Pop"
+    },
+    {
+      "genreId": "shoegaze",
+      "alias": "Shoegazing"
+    },
+    {
+      "genreId": "shoegaze",
+      "alias": "Dream Rock"
+    },
+    {
+      "genreId": "madchester",
+      "alias": "Baggy"
+    },
+    {
+      "genreId": "madchester",
+      "alias": "Indie Dance"
+    },
+    {
+      "genreId": "madchester",
+      "alias": "Manchester Sound"
+    },
+    {
+      "genreId": "indie-rock",
+      "alias": "Independent Rock"
+    },
+    {
+      "genreId": "indie-rock",
+      "alias": "College Rock"
+    },
+    {
+      "genreId": "indie-pop",
+      "alias": "Twee Pop"
+    },
+    {
+      "genreId": "indie-pop",
+      "alias": "C86"
+    },
+    {
+      "genreId": "gothic-rock",
+      "alias": "Goth Rock"
+    },
+    {
+      "genreId": "gothic-rock",
+      "alias": "Dark Rock"
+    },
+    {
+      "genreId": "darkwave",
+      "alias": "Dark Wave"
+    },
+    {
+      "genreId": "northern-soul",
+      "alias": "Northern Soul Scene"
+    },
+    {
+      "genreId": "uk-soul",
+      "alias": "British Soul"
+    },
+    {
+      "genreId": "2-tone",
+      "alias": "Two Tone"
+    },
+    {
+      "genreId": "2-tone",
+      "alias": "2nd Wave Ska"
+    },
+    {
+      "genreId": "dream-pop",
+      "alias": "Ethereal Pop"
+    },
+    {
+      "genreId": "britcore",
+      "alias": "UK Hardcore Hip-Hop"
+    },
+    {
+      "genreId": "techno",
+      "alias": "Detroit Techno"
+    },
+    {
+      "genreId": "berlin-techno",
+      "alias": "German Techno"
+    },
+    {
+      "genreId": "minimal-techno",
+      "alias": "Minimal"
+    },
+    {
+      "genreId": "minimal-techno",
+      "alias": "Microhouse"
+    },
+    {
+      "genreId": "eurodance",
+      "alias": "Euro Dance"
+    },
+    {
+      "genreId": "eurodance",
+      "alias": "Euro House"
+    },
+    {
+      "genreId": "electronic-body-music",
+      "alias": "EBM"
+    },
+    {
+      "genreId": "electronic-body-music",
+      "alias": "Hard Electronic"
+    },
+    {
+      "genreId": "electronic-body-music",
+      "alias": "Industrial Dance"
+    },
+    {
+      "genreId": "gabber",
+      "alias": "Dutch Gabber"
+    },
+    {
+      "genreId": "gabber",
+      "alias": "Hardcore (Dutch)"
+    },
+    {
+      "genreId": "hardcore-techno",
+      "alias": "Hard Techno"
+    },
+    {
+      "genreId": "progressive-trance",
+      "alias": "Prog Trance"
+    },
+    {
+      "genreId": "progressive-trance",
+      "alias": "Progressive"
+    },
+    {
+      "genreId": "psytrance",
+      "alias": "Psychedelic Trance"
+    },
+    {
+      "genreId": "psytrance",
+      "alias": "Goa Trance"
+    },
+    {
+      "genreId": "krautrock",
+      "alias": "Kosmische Musik"
+    },
+    {
+      "genreId": "neue-deutsche-welle",
+      "alias": "NDW"
+    },
+    {
+      "genreId": "neue-deutsche-welle",
+      "alias": "German New Wave"
+    },
+    {
+      "genreId": "deutschrap",
+      "alias": "German Rap"
+    },
+    {
+      "genreId": "deutschrap",
+      "alias": "German Hip-Hop"
+    },
+    {
+      "genreId": "industrial",
+      "alias": "Industrial Music"
+    },
+    {
+      "genreId": "industrial",
+      "alias": "Power Electronics"
+    },
+    {
+      "genreId": "dutch-house",
+      "alias": "Dutch EDM"
+    },
+    {
+      "genreId": "blues",
+      "alias": "American Blues"
+    },
+    {
+      "genreId": "jazz",
+      "alias": "American Jazz"
+    },
+    {
+      "genreId": "country",
+      "alias": "Country Music"
+    },
+    {
+      "genreId": "country",
+      "alias": "Country and Western"
+    },
+    {
+      "genreId": "folk",
+      "alias": "Folk Music"
+    },
+    {
+      "genreId": "folk",
+      "alias": "Traditional Folk"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "alias": "Rock & Roll"
+    },
+    {
+      "genreId": "rock-and-roll",
+      "alias": "Rock 'n' Roll"
+    },
+    {
+      "genreId": "psychedelic-rock",
+      "alias": "Psych Rock"
+    },
+    {
+      "genreId": "psychedelic-rock",
+      "alias": "Acid Rock"
+    },
+    {
+      "genreId": "punk-rock",
+      "alias": "Punk"
+    },
+    {
+      "genreId": "heavy-metal",
+      "alias": "Metal"
+    },
+    {
+      "genreId": "heavy-metal",
+      "alias": "Hard Rock"
+    },
+    {
+      "genreId": "grunge",
+      "alias": "Seattle Sound"
+    },
+    {
+      "genreId": "alternative-rock",
+      "alias": "Alt-Rock"
+    },
+    {
+      "genreId": "alternative-rock",
+      "alias": "College Rock"
+    },
+    {
+      "genreId": "emo",
+      "alias": "Emotional Hardcore"
+    },
+    {
+      "genreId": "emo",
+      "alias": "Emocore"
+    },
+    {
+      "genreId": "pop-punk",
+      "alias": "Melodic Punk"
+    },
+    {
+      "genreId": "r-and-b",
+      "alias": "Rhythm and Blues"
+    },
+    {
+      "genreId": "r-and-b",
+      "alias": "Contemporary R&B"
+    },
+    {
+      "genreId": "gospel",
+      "alias": "Gospel Music"
+    },
+    {
+      "genreId": "gospel",
+      "alias": "Black Gospel"
+    },
+    {
+      "genreId": "americana",
+      "alias": "American Roots Music"
+    },
+    {
+      "genreId": "americana",
+      "alias": "Alt-Country"
+    },
+    {
+      "genreId": "neo-soul",
+      "alias": "New Soul"
+    },
+    {
+      "genreId": "lo-fi-hip-hop",
+      "alias": "Chill Hop"
+    },
+    {
+      "genreId": "lo-fi-hip-hop",
+      "alias": "Study Beats"
+    },
+    {
+      "genreId": "rockabilly",
+      "alias": "Hillbilly Rock"
+    },
+    {
+      "genreId": "synth-pop",
+      "alias": "Synthpop"
+    },
+    {
+      "genreId": "synth-pop",
+      "alias": "Electropop"
+    },
+    {
+      "genreId": "hardcore-punk",
+      "alias": "Hardcore"
+    },
+    {
+      "genreId": "hardcore-punk",
+      "alias": "HC Punk"
+    },
+    {
+      "genreId": "bebop",
+      "alias": "Bop"
+    },
+    {
+      "genreId": "swing",
+      "alias": "Swing Jazz"
+    },
+    {
+      "genreId": "swing",
+      "alias": "Big Band"
+    },
+    {
+      "genreId": "delta-blues",
+      "alias": "Mississippi Delta Blues"
+    },
+    {
+      "genreId": "chicago-blues",
+      "alias": "Urban Blues"
+    },
+    {
+      "genreId": "chicago-blues",
+      "alias": "Electric Blues"
+    },
+    {
+      "genreId": "jazz-fusion",
+      "alias": "Fusion"
+    },
+    {
+      "genreId": "jazz-fusion",
+      "alias": "Jazz-Rock"
+    },
+    {
+      "genreId": "smooth-jazz",
+      "alias": "Adult Contemporary Jazz"
+    },
+    {
+      "genreId": "smooth-jazz",
+      "alias": "Quiet Storm"
+    },
+    {
+      "genreId": "thrash-metal",
+      "alias": "Speed Metal (US)"
+    },
+    {
+      "genreId": "thrash-metal",
+      "alias": "Bay Area Thrash"
+    },
+    {
+      "genreId": "death-metal",
+      "alias": "DM"
+    },
+    {
+      "genreId": "black-metal",
+      "alias": "BM"
+    },
+    {
+      "genreId": "doom-metal",
+      "alias": "Doom"
+    },
+    {
+      "genreId": "power-metal",
+      "alias": "Euro Power Metal"
+    },
+    {
+      "genreId": "ambient",
+      "alias": "Ambient Music"
+    },
+    {
+      "genreId": "ambient",
+      "alias": "Atmospheric"
+    },
+    {
+      "genreId": "hyperpop",
+      "alias": "Digicore"
+    },
+    {
+      "genreId": "hyperpop",
+      "alias": "PC Music"
+    },
+    {
+      "genreId": "synthwave",
+      "alias": "Outrun"
+    },
+    {
+      "genreId": "synthwave",
+      "alias": "Retrowave"
+    },
+    {
+      "genreId": "synthwave",
+      "alias": "80s-Style Synth"
+    },
+    {
+      "genreId": "city-pop",
+      "alias": "Japanese City Pop"
+    },
+    {
+      "genreId": "city-pop",
+      "alias": "Siti-Poppu"
+    },
+    {
+      "genreId": "j-rock",
+      "alias": "Japanese Rock"
+    },
+    {
+      "genreId": "visual-kei",
+      "alias": "VK"
+    },
+    {
+      "genreId": "k-hip-hop",
+      "alias": "Korean Hip-Hop"
+    },
+    {
+      "genreId": "k-hip-hop",
+      "alias": "Korean Rap"
+    },
+    {
+      "genreId": "k-rnb",
+      "alias": "Korean R&B"
+    },
+    {
+      "genreId": "tango",
+      "alias": "Argentine Tango"
+    },
+    {
+      "genreId": "tango",
+      "alias": "Tango Argentino"
+    },
+    {
+      "genreId": "latin-pop",
+      "alias": "Spanish Pop"
+    },
+    {
+      "genreId": "latin-pop",
+      "alias": "Espaniol Pop"
+    },
+    {
+      "genreId": "latin-jazz",
+      "alias": "Afro-Cuban Jazz"
+    },
+    {
+      "genreId": "latin-jazz",
+      "alias": "Afro-Latin Jazz"
+    },
+    {
+      "genreId": "chanson-francaise",
+      "alias": "French Chanson"
+    },
+    {
+      "genreId": "chanson-francaise",
+      "alias": "Chanson"
+    },
+    {
+      "genreId": "french-rap",
+      "alias": "Rap Français"
+    },
+    {
+      "genreId": "french-rap",
+      "alias": "French Hip-Hop"
+    },
+    {
+      "genreId": "afropop",
+      "alias": "African Pop"
+    },
+    {
+      "genreId": "afropop",
+      "alias": "Afro Pop"
+    },
+    {
+      "genreId": "folk-rock",
+      "alias": "Electric Folk"
+    },
+    {
+      "genreId": "celtic-punk",
+      "alias": "Celtic Rock Punk"
+    },
+    {
+      "genreId": "celtic-punk",
+      "alias": "Irish Punk"
+    }
+  ]
+}

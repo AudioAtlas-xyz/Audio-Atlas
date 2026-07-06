@@ -45,6 +45,14 @@
 		  <Link>instrumentSeeding.json</Link>
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
+	  <Content Include="..\AudioAtlasInfrastructure\resources\instrumentSeeding2.json">
+		  <Link>instrumentSeeding2.json</Link>
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="..\AudioAtlasInfrastructure\resources\genreSeeding2.json">
+		  <Link>genreSeeding2.json</Link>
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1production_1json__JsonSchema="https://www.schemastore.org/appveyor.json" /></VisualStudio></ProjectExtensions>

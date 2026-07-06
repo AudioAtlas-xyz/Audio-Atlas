@@ -34,7 +34,8 @@ public class DbInitializer
 
         if (dbContext.Instruments.Any() || dbContext.Genres.Any() || dbContext.Countries.Any())
         {
-            logger.LogWarning("Skipping seeding as database contains data.");
+            logger.LogWarning("Skipping initial seeding as database already contains data.");
+            await SeedAdditionalDataAsync(dbContext, systemUser, logger);
             return;
         }
 
@@ -78,7 +79,268 @@ public class DbInitializer
 
             dbContext.SaveChanges();
         }
+
+        await SeedAdditionalDataAsync(dbContext, systemUser, logger);
     }
+
+    private static async Task SeedAdditionalDataAsync(AppDbContext dbContext, ApplicationUser systemUser, ILogger<DbInitializer> logger)
+    {
+        string? instrument2Path = null;
+        string? genre2Path = null;
+
+        try { instrument2Path = GetSeedFilePath("instrumentSeeding2.json"); } catch (FileNotFoundException) { }
+        try { genre2Path = GetSeedFilePath("genreSeeding2.json"); } catch (FileNotFoundException) { }
+
+        if (instrument2Path == null && genre2Path == null)
+        {
+            logger.LogInformation("No supplemental seed files found; skipping additional seeding.");
+            return;
+        }
+
+        logger.LogInformation("Running supplemental seeder...");
+
+        // ── New instruments ─────────────────────────────────────────────────────
+        var instMapping = new Dictionary<string, Instrument>(StringComparer.OrdinalIgnoreCase);
+
+        if (instrument2Path != null)
+        {
+            using JsonDocument instDoc = JsonDocument.Parse(File.ReadAllText(instrument2Path));
+            foreach (JsonElement obj in instDoc.RootElement.EnumerateArray())
+            {
+                string? seedId = obj.GetProperty("Id").GetString();
+                string? name = obj.GetProperty("Name").GetString();
+                if (string.IsNullOrWhiteSpace(seedId) || string.IsNullOrWhiteSpace(name)) continue;
+
+                Instrument? inst = dbContext.Instruments.Local.FirstOrDefault(i => i.Type == name)
+                    ?? await dbContext.Instruments.FirstOrDefaultAsync(i => i.Type == name);
+                if (inst == null)
+                {
+                    inst = new Instrument { Type = name, Description = TryGetStringProperty(obj, "Description") };
+                    dbContext.Instruments.Add(inst);
+                }
+                instMapping[seedId] = inst;
+            }
+            await dbContext.SaveChangesAsync();
+            logger.LogInformation("Supplemental instruments: {Count} mapped", instMapping.Count);
+        }
+
+        if (genre2Path == null) return;
+
+        using JsonDocument genreDoc = JsonDocument.Parse(File.ReadAllText(genre2Path));
+        JsonElement root = genreDoc.RootElement;
+
+        // Resolve existingInstrumentRefs into instMapping
+        if (root.TryGetProperty("existingInstrumentRefs", out JsonElement existingInstRefs))
+        {
+            foreach (JsonProperty prop in existingInstRefs.EnumerateObject())
+            {
+                if (instMapping.ContainsKey(prop.Name)) continue;
+                string instName = prop.Value.GetString()!;
+                Instrument? inst = dbContext.Instruments.Local.FirstOrDefault(i => i.Type == instName)
+                    ?? await dbContext.Instruments.FirstOrDefaultAsync(i => i.Type == instName);
+                if (inst != null) instMapping[prop.Name] = inst;
+            }
+        }
+
+        // ── New genres ──────────────────────────────────────────────────────────
+        var genreMapping = new Dictionary<string, Genre>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (JsonElement obj in root.GetProperty("genres").EnumerateArray())
+        {
+            string? seedId = TryGetStringProperty(obj, "id");
+            string? name = TryGetStringProperty(obj, "name");
+            if (string.IsNullOrWhiteSpace(seedId) || string.IsNullOrWhiteSpace(name)) continue;
+
+            Genre? genre = dbContext.Genres.Local.FirstOrDefault(g => g.Name == name)
+                ?? await dbContext.Genres.FirstOrDefaultAsync(g => g.Name == name);
+            if (genre == null)
+            {
+                genre = new Genre
+                {
+                    Name = name,
+                    Description = TryGetStringProperty(obj, "description"),
+                    Summary = TryGetStringProperty(obj, "summary"),
+                    StartYear = ParseStartYear(obj),
+                    IsSensitive = TryGetBoolProperty(obj, "isSensitive"),
+                    SensitiveDescription = TryGetStringProperty(obj, "sensitiveDescription"),
+                    PlaylistLink = TryGetStringProperty(obj, "playlistLink"),
+                    AuthorId = systemUser.Id
+                };
+                dbContext.Genres.Add(genre);
+            }
+            genreMapping[seedId] = genre;
+        }
+        await dbContext.SaveChangesAsync();
+        logger.LogInformation("Supplemental genres: {Count} mapped", genreMapping.Count);
+
+        // Resolve existingGenreRefs into genreMapping
+        if (root.TryGetProperty("existingGenreRefs", out JsonElement existingGenreRefs))
+        {
+            foreach (JsonProperty prop in existingGenreRefs.EnumerateObject())
+            {
+                if (genreMapping.ContainsKey(prop.Name)) continue;
+                string genreName = prop.Value.GetString()!;
+                Genre? genre = dbContext.Genres.Local.FirstOrDefault(g => g.Name == genreName)
+                    ?? await dbContext.Genres.FirstOrDefaultAsync(g => g.Name == genreName);
+                if (genre != null) genreMapping[prop.Name] = genre;
+            }
+        }
+
+        // ── Countries lookup ────────────────────────────────────────────────────
+        var countryLookup = await dbContext.Countries.ToDictionaryAsync(c => c.isoCode);
+
+        // ── Helper: get Guid set of genres involved in a section ────────────────
+        static HashSet<Guid> CollectGenreIds(JsonElement arr, string key, Dictionary<string, Genre> map)
+        {
+            var ids = new HashSet<Guid>();
+            foreach (JsonElement obj in arr.EnumerateArray())
+            {
+                string? sid = TryGetStringPropertyStatic(obj, key);
+                if (sid != null && map.TryGetValue(sid, out Genre? g)) ids.Add(g.Id);
+            }
+            return ids;
+        }
+
+        // ── genreCountry ────────────────────────────────────────────────────────
+        if (root.TryGetProperty("genreCountry", out JsonElement gcArr) && gcArr.ValueKind == JsonValueKind.Array)
+        {
+            var ids = CollectGenreIds(gcArr, "genreId", genreMapping);
+            var loaded = await dbContext.Genres.Include(g => g.Countries)
+                .Where(g => ids.Contains(g.Id)).ToDictionaryAsync(g => g.Id);
+            int n = 0;
+            foreach (JsonElement obj in gcArr.EnumerateArray())
+            {
+                if (!genreMapping.TryGetValue(TryGetStringProperty(obj, "genreId") ?? "", out Genre? gRef)) continue;
+                if (!loaded.TryGetValue(gRef.Id, out Genre? genre)) continue;
+                if (!countryLookup.TryGetValue(TryGetStringProperty(obj, "countryId") ?? "", out Country? country)) continue;
+                if (!genre.Countries.Any(c => c.Id == country.Id)) { genre.Countries.Add(country); n++; }
+            }
+            await dbContext.SaveChangesAsync();
+            logger.LogInformation("Supplemental genreCountry: {Count} added", n);
+        }
+
+        // ── genreInstrument ─────────────────────────────────────────────────────
+        if (root.TryGetProperty("genreInstrument", out JsonElement giArr) && giArr.ValueKind == JsonValueKind.Array)
+        {
+            var ids = CollectGenreIds(giArr, "genreId", genreMapping);
+            var loaded = await dbContext.Genres.Include(g => g.Instruments)
+                .Where(g => ids.Contains(g.Id)).ToDictionaryAsync(g => g.Id);
+            int n = 0;
+            foreach (JsonElement obj in giArr.EnumerateArray())
+            {
+                if (!genreMapping.TryGetValue(TryGetStringProperty(obj, "genreId") ?? "", out Genre? gRef)) continue;
+                if (!loaded.TryGetValue(gRef.Id, out Genre? genre)) continue;
+                if (!instMapping.TryGetValue(TryGetStringProperty(obj, "instrumentId") ?? "", out Instrument? inst)) continue;
+                if (!genre.Instruments.Any(i => i.Id == inst.Id)) { genre.Instruments.Add(inst); n++; }
+            }
+            await dbContext.SaveChangesAsync();
+            logger.LogInformation("Supplemental genreInstrument: {Count} added", n);
+        }
+
+        // ── genreHierarchy ──────────────────────────────────────────────────────
+        if (root.TryGetProperty("genreHierarchy", out JsonElement ghArr) && ghArr.ValueKind == JsonValueKind.Array)
+        {
+            var ids = new HashSet<Guid>();
+            foreach (JsonElement obj in ghArr.EnumerateArray())
+            {
+                foreach (string key in new[] { "genreId", "subgenreId" })
+                {
+                    if (genreMapping.TryGetValue(TryGetStringProperty(obj, key) ?? "", out Genre? g)) ids.Add(g.Id);
+                }
+            }
+            var loaded = await dbContext.Genres.Include(g => g.SubGenres)
+                .Where(g => ids.Contains(g.Id)).ToDictionaryAsync(g => g.Id);
+            int n = 0;
+            foreach (JsonElement obj in ghArr.EnumerateArray())
+            {
+                if (!genreMapping.TryGetValue(TryGetStringProperty(obj, "genreId") ?? "", out Genre? pRef)) continue;
+                if (!genreMapping.TryGetValue(TryGetStringProperty(obj, "subgenreId") ?? "", out Genre? cRef)) continue;
+                if (!loaded.TryGetValue(pRef.Id, out Genre? parent)) continue;
+                if (!loaded.TryGetValue(cRef.Id, out Genre? child)) continue;
+                if (!parent.SubGenres.Any(s => s.Id == child.Id)) { parent.SubGenres.Add(child); n++; }
+            }
+            await dbContext.SaveChangesAsync();
+            logger.LogInformation("Supplemental genreHierarchy: {Count} added", n);
+        }
+
+        // ── genreSimilarity ─────────────────────────────────────────────────────
+        if (root.TryGetProperty("genreSimilarity", out JsonElement gsArr) && gsArr.ValueKind == JsonValueKind.Array)
+        {
+            var ids = new HashSet<Guid>();
+            foreach (JsonElement obj in gsArr.EnumerateArray())
+            {
+                foreach (string key in new[] { "similarId1", "similarId2" })
+                {
+                    if (genreMapping.TryGetValue(TryGetStringProperty(obj, key) ?? "", out Genre? g)) ids.Add(g.Id);
+                }
+            }
+            var loaded = await dbContext.Genres.Include(g => g.SimilarGenres)
+                .Where(g => ids.Contains(g.Id)).ToDictionaryAsync(g => g.Id);
+            int n = 0;
+            foreach (JsonElement obj in gsArr.EnumerateArray())
+            {
+                if (!genreMapping.TryGetValue(TryGetStringProperty(obj, "similarId1") ?? "", out Genre? r1)) continue;
+                if (!genreMapping.TryGetValue(TryGetStringProperty(obj, "similarId2") ?? "", out Genre? r2)) continue;
+                if (!loaded.TryGetValue(r1.Id, out Genre? g1)) continue;
+                if (!loaded.TryGetValue(r2.Id, out Genre? g2)) continue;
+                if (!g1.SimilarGenres.Any(s => s.Id == g2.Id)) { g1.SimilarGenres.Add(g2); n++; }
+                if (!g2.SimilarGenres.Any(s => s.Id == g1.Id)) { g2.SimilarGenres.Add(g1); n++; }
+            }
+            await dbContext.SaveChangesAsync();
+            logger.LogInformation("Supplemental genreSimilarity: {Count} added", n);
+        }
+
+        // ── genreAliases ────────────────────────────────────────────────────────
+        if (root.TryGetProperty("genreAliases", out JsonElement gaArr) && gaArr.ValueKind == JsonValueKind.Array)
+        {
+            var ids = CollectGenreIds(gaArr, "genreId", genreMapping);
+            var loaded = await dbContext.Genres.Include(g => g.Aliases)
+                .Where(g => ids.Contains(g.Id)).ToDictionaryAsync(g => g.Id);
+            int n = 0;
+            foreach (JsonElement obj in gaArr.EnumerateArray())
+            {
+                if (!genreMapping.TryGetValue(TryGetStringProperty(obj, "genreId") ?? "", out Genre? gRef)) continue;
+                if (!loaded.TryGetValue(gRef.Id, out Genre? genre)) continue;
+                string? alias = TryGetStringProperty(obj, "alias");
+                if (string.IsNullOrWhiteSpace(alias)) continue;
+                if (!genre.Aliases.Any(a => string.Equals(a.Alias, alias, StringComparison.OrdinalIgnoreCase)))
+                {
+                    genre.Aliases.Add(new GenreAlias { Genre = genre, GenreId = genre.Id, Alias = alias });
+                    n++;
+                }
+            }
+            await dbContext.SaveChangesAsync();
+            logger.LogInformation("Supplemental genreAliases: {Count} added", n);
+        }
+
+        // ── genreSources ────────────────────────────────────────────────────────
+        if (root.TryGetProperty("genreSources", out JsonElement gsSrcArr) && gsSrcArr.ValueKind == JsonValueKind.Array)
+        {
+            var ids = CollectGenreIds(gsSrcArr, "genreId", genreMapping);
+            var loaded = await dbContext.Genres.Include(g => g.Sources)
+                .Where(g => ids.Contains(g.Id)).ToDictionaryAsync(g => g.Id);
+            int n = 0;
+            foreach (JsonElement obj in gsSrcArr.EnumerateArray())
+            {
+                if (!genreMapping.TryGetValue(TryGetStringProperty(obj, "genreId") ?? "", out Genre? gRef)) continue;
+                if (!loaded.TryGetValue(gRef.Id, out Genre? genre)) continue;
+                string? src = TryGetStringProperty(obj, "sourceLink");
+                if (string.IsNullOrWhiteSpace(src)) continue;
+                if (!genre.Sources.Any(s => string.Equals(s.SourceLink, src, StringComparison.OrdinalIgnoreCase)))
+                {
+                    genre.Sources.Add(new GenreSource { Genre = genre, GenreId = genre.Id, SourceLink = src });
+                    n++;
+                }
+            }
+            await dbContext.SaveChangesAsync();
+            logger.LogInformation("Supplemental genreSources: {Count} added", n);
+        }
+
+        logger.LogInformation("Supplemental seeding complete.");
+    }
+
+    private static string? TryGetStringPropertyStatic(JsonElement element, string propertyName)
+        => TryGetStringProperty(element, propertyName);
 
     // Grants Admin to every email in Admin:SeedEmails. Runs on every
     // startup, skips users already in the role, warns (and retries next

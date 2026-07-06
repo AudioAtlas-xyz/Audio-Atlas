@@ -43,6 +43,14 @@
             <Link>genreSeeding.json</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
+        <Content Include="../../src/AudioAtlasInfrastructure/resources/instrumentSeeding2.json">
+            <Link>instrumentSeeding2.json</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="../../src/AudioAtlasInfrastructure/resources/genreSeeding2.json">
+            <Link>genreSeeding2.json</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>
