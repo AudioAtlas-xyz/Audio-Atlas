@@ -13,6 +13,9 @@ useHead({
   title: 'Audio Atlas',
   meta: [
     { name: 'description', content: 'Explore music genres around the world' }
+  ],
+  link: [
+    { rel: 'preload', as: 'image', href: '/earth-1k.webp', type: 'image/webp' }
   ]
 })
 
