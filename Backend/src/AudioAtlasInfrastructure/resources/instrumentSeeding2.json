@@ -1,0 +1,212 @@
+[
+  {
+    "Id": "tr-808",
+    "Name": "Roland TR-808",
+    "Type": "Electronic",
+    "Description": "Roland's 1980 programmable drum machine whose booming kick, snappy snare, and open hi-hat became the sonic foundation of hip-hop, trap, Miami bass, and UK grime. The 808 bass kick is one of the most recognisable sounds in modern popular music."
+  },
+  {
+    "Id": "tr-909",
+    "Name": "Roland TR-909",
+    "Type": "Electronic",
+    "Description": "Roland's 1983 drum machine, largely responsible for the sound of house and techno. Its crisp, punchy kick and open hi-hat drive four-to-the-floor dance music worldwide and remain heavily used in electronic production."
+  },
+  {
+    "Id": "tr-707",
+    "Name": "Roland TR-707",
+    "Type": "Electronic",
+    "Description": "Roland's 1984 fully digital drum machine with MIDI, widely used in early UK dance music, electro, and synth-pop. Its precise, quantised patterns shaped the transition from analogue to digital production."
+  },
+  {
+    "Id": "tr-606",
+    "Name": "Roland TR-606",
+    "Type": "Electronic",
+    "Description": "Roland's 1981 compact analogue drum machine, designed as a companion to the TB-303. Its bright, thin kick and metallic hi-hats feature heavily in acid house, early techno, and lo-fi electronic music."
+  },
+  {
+    "Id": "tb-303",
+    "Name": "Roland TB-303",
+    "Type": "Electronic",
+    "Description": "Roland's 1981 bass synthesiser, originally intended to simulate bass guitar. Its squelching, resonant glide became the defining sound of acid house when repurposed by Chicago DJs, and remains central to acid, psytrance, and electronic bass music."
+  },
+  {
+    "Id": "akai-mpc",
+    "Name": "Akai MPC",
+    "Type": "Electronic",
+    "Description": "Akai's Music Production Centre sampler-sequencer, introduced in 1988 in collaboration with Roger Linn. Its finger-drumming workflow and tight swing quantisation defined hip-hop beatmaking and influenced virtually every production genre that followed."
+  },
+  {
+    "Id": "sp-1200",
+    "Name": "E-mu SP-1200",
+    "Type": "Electronic",
+    "Description": "E-mu's 1987 sampling drum machine renowned for its warm, gritty 12-bit sound character. Heavily used in late-1980s and 1990s hip-hop production to chop and loop soul, funk, and jazz records."
+  },
+  {
+    "Id": "linndrum",
+    "Name": "LinnDrum",
+    "Type": "Electronic",
+    "Description": "Roger Linn's 1982 digital drum machine with sampled acoustic drum sounds. Defines the clean, punchy sound of 1980s pop, funk, and soul production, heard on countless major recordings of the decade."
+  },
+  {
+    "Id": "oberheim-dmx",
+    "Name": "Oberheim DMX",
+    "Type": "Electronic",
+    "Description": "Oberheim's 1981 drum machine whose distinctive snare and kick drove early hip-hop and electro. Heavily used by producers like Afrika Bambaataa and throughout New York club music in the early 1980s."
+  },
+  {
+    "Id": "daw",
+    "Name": "DAW (Digital Audio Workstation)",
+    "Type": "Electronic",
+    "Description": "Software environments such as Ableton Live, Logic Pro, FL Studio, Pro Tools, and GarageBand used to record, sequence, edit, and mix music. Since the 1990s the DAW has replaced the studio desk as the central tool of music production across virtually every genre."
+  },
+  {
+    "Id": "vocal-chops",
+    "Name": "Vocal Chops",
+    "Type": "Electronic",
+    "Description": "A production technique in which recorded vocal phrases are sliced, pitch-shifted, and reassembled into melodic or rhythmic patterns. Prevalent in UK garage, dance, EDM, Afrobeats, and contemporary pop production since the late 1990s."
+  },
+  {
+    "Id": "808-bass",
+    "Name": "808 Bass",
+    "Type": "Electronic",
+    "Description": "The pitched, sustaining sub-bass tone derived from the Roland TR-808 kick drum, tuned and played melodically. A cornerstone of trap, UK drill, grime, and contemporary hip-hop, providing a deeply resonant low-frequency foundation."
+  },
+  {
+    "Id": "sub-bass",
+    "Name": "Sub Bass",
+    "Type": "Electronic",
+    "Description": "Extremely low-frequency bass content below approximately 80 Hz, felt as much as heard. Central to dubstep, drum and bass, UK bass music, and grime — designed to maximise the physical impact of large sound systems."
+  },
+  {
+    "Id": "vocoder",
+    "Name": "Vocoder",
+    "Type": "Electronic",
+    "Description": "A device that analyses and resynthesises the human voice through a synthesiser's timbre, creating robotic or harmonised vocal textures. Used in electronic music, Afrobeats, hip-hop, and pop since the 1970s."
+  },
+  {
+    "Id": "auto-tune",
+    "Name": "Auto-Tune / Pitch Corrector",
+    "Type": "Electronic",
+    "Description": "Software pitch correction originally designed as a transparent correction tool, later used stylistically — most notably in trap, drill, R&B, and pop — to create sustained, gliding vocal tones associated with artists like T-Pain, Future, and many UK drill MCs."
+  },
+  {
+    "Id": "midi-controller",
+    "Name": "MIDI Controller",
+    "Type": "Electronic",
+    "Description": "Hardware devices that send MIDI data to control software instruments, including keyboard controllers, pad controllers, and wind controllers. Since the 1980s, MIDI has standardised the interface between performers and electronic instruments across every genre."
+  },
+  {
+    "Id": "pad-controller",
+    "Name": "Pad Controller",
+    "Type": "Electronic",
+    "Description": "A grid-based MIDI performance device with velocity-sensitive rubber pads, exemplified by the Akai MPC and Native Instruments Maschine. Widely used for finger-drumming, clip launching, and sample triggering in hip-hop and electronic music."
+  },
+  {
+    "Id": "step-sequencer",
+    "Name": "Step Sequencer",
+    "Type": "Electronic",
+    "Description": "A device or software function that triggers notes or events across a fixed number of programmable steps. Fundamental to electronic and dance music production since the 1970s, enabling repetitive rhythmic patterns in techno, house, and acid music."
+  },
+  {
+    "Id": "fender-rhodes",
+    "Name": "Fender Rhodes",
+    "Type": "Keyboard",
+    "Description": "An electric piano developed in the 1960s that produces warm, bell-like tones through electromagnetic pickups striking metal tines. Foundational to jazz fusion, soul, funk, R&B, and neo soul, and widely sampled in hip-hop and contemporary production."
+  },
+  {
+    "Id": "wurlitzer",
+    "Name": "Wurlitzer Electric Piano",
+    "Type": "Keyboard",
+    "Description": "An electromechanical piano producing a reedy, slightly buzzy tone via vibrating metal reeds. Heard throughout 1970s soul, R&B, and pop, and heavily sampled in hip-hop, with a distinctive presence in Stax and Motown recordings."
+  },
+  {
+    "Id": "moog",
+    "Name": "Moog Synthesizer",
+    "Type": "Electronic",
+    "Description": "The landmark analogue synthesiser series designed by Robert Moog from 1964, introducing voltage-controlled oscillators, filters, and a keyboard interface. Its warm, expressive sound defined psychedelic rock, electronic music, and progressive rock, and remains highly influential."
+  },
+  {
+    "Id": "roland-juno",
+    "Name": "Roland Juno",
+    "Type": "Electronic",
+    "Description": "Roland's affordable polyphonic analogue synthesiser series (Juno-60, Juno-106), introduced in 1982. Its lush chorus effect and smooth pads are instantly recognisable in synth-pop, new wave, house, and contemporary pop and electronic production."
+  },
+  {
+    "Id": "dx7",
+    "Name": "Yamaha DX7",
+    "Type": "Electronic",
+    "Description": "Yamaha's 1983 FM synthesis digital synthesiser, one of the best-selling synthesisers of all time. Its electric piano, marimba, and bass sounds defined the sound of 1980s pop, R&B, and new wave."
+  },
+  {
+    "Id": "korg-m1",
+    "Name": "Korg M1",
+    "Type": "Electronic",
+    "Description": "Korg's 1988 workstation synthesiser, the best-selling synth of all time. Its organ and piano presets drove the early house and rave music explosion, particularly in the UK and Europe."
+  },
+  {
+    "Id": "roland-sh101",
+    "Name": "Roland SH-101",
+    "Type": "Electronic",
+    "Description": "Roland's 1982 monophonic analogue synthesiser. Its bright, aggressive bass lines and leads became fundamental sounds in acid house, early techno, and UK rave music."
+  },
+  {
+    "Id": "ms-20",
+    "Name": "Korg MS-20",
+    "Type": "Electronic",
+    "Description": "Korg's 1978 semi-modular analogue synthesiser with an aggressive, distinctive filter. Used extensively in industrial, techno, and electronic bass music for its raw, harsh timbres."
+  },
+  {
+    "Id": "modular-synth",
+    "Name": "Modular Synthesiser",
+    "Type": "Electronic",
+    "Description": "A system of interconnected voltage-controlled modules — oscillators, filters, sequencers, and effects — patched together with cables to generate sound. Central to experimental electronic music, ambient, noise, and contemporary techno production."
+  },
+  {
+    "Id": "reese-bass",
+    "Name": "Reese Bass",
+    "Type": "Electronic",
+    "Description": "A detuned, heavily filtered synthesiser bass sound derived from Kevin Saunderson's 1988 track 'Just Want Another Chance'. A defining timbre of drum and bass, jungle, and darkstep production."
+  },
+  {
+    "Id": "amen-break",
+    "Name": "Amen Break",
+    "Type": "Electronic",
+    "Description": "A six-second drum solo from The Winstons' 1969 track 'Amen, Brother', sampled and time-stretched into the rhythmic foundation of jungle, drum and bass, breakbeat hardcore, and countless other genres since the late 1980s."
+  },
+  {
+    "Id": "loop-pedal",
+    "Name": "Loop Pedal",
+    "Type": "Electronic",
+    "Description": "A device that records a live audio passage and plays it back in a continuous loop, allowing one performer to build layered arrangements in real time. Used extensively in experimental, folk, hip-hop, and live electronic performance."
+  },
+  {
+    "Id": "talk-box",
+    "Name": "Talk Box",
+    "Type": "Electronic",
+    "Description": "A device that routes a musical instrument's signal into the performer's mouth via a tube, allowing them to shape the sound with their lips and mouth cavity. Associated with funk, rock, and hip-hop, notably used by Peter Frampton and Roger Troutman."
+  },
+  {
+    "Id": "wah-pedal",
+    "Name": "Wah Pedal",
+    "Type": "Electronic",
+    "Description": "An effects pedal that sweeps a band-pass filter across the audio frequency spectrum using a rocker mechanism, producing a vocal-like tone. Fundamental to psychedelic rock, funk guitar, and blues-rock since the late 1960s."
+  },
+  {
+    "Id": "tape-machine",
+    "Name": "Tape Machine",
+    "Type": "Electronic",
+    "Description": "Reel-to-reel magnetic tape recorders used both for recording and as creative instruments through techniques like tape loops, reverse, and saturation. Central to psychedelic rock, musique concrète, dub, and ambient music production."
+  },
+  {
+    "Id": "electric-piano",
+    "Name": "Electric Piano",
+    "Type": "Keyboard",
+    "Description": "A category of electromechanical keyboard instruments including the Fender Rhodes and Wurlitzer, producing sound through vibrating metal elements amplified electronically. Foundational to soul, jazz, funk, R&B, and neo soul."
+  },
+  {
+    "Id": "synth-lead",
+    "Name": "Synthesiser Lead",
+    "Type": "Electronic",
+    "Description": "A high-pitched, sustaining melodic synthesiser line typically played over dance music productions. Defining the soaring melodies of trance, progressive house, and Eurodance, often programmed on synthesisers such as the Roland JP-8000 or virtual instruments."
+  }
+]
