@@ -1,5 +1,6 @@
 using AudioAtlasInfrastructure.Database;
 using AudioAtlasInfrastructure.Database.Seed;
+using Microsoft.EntityFrameworkCore;
 using AudioAtlasDomain.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -70,6 +71,8 @@ builder.Services.AddScoped<ICatalogueQueryService, CatalogueQueryService>();
 builder.Services.AddScoped<IPipelineQueryService, PipelineQueryService>();
 builder.Services.AddScoped<ICommunityQueryService, CommunityQueryService>();
 builder.Services.AddScoped<IDiscoveryQueryService, DiscoveryQueryService>();
+
+builder.Services.AddHostedService<SupplementalSeedBackgroundService>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

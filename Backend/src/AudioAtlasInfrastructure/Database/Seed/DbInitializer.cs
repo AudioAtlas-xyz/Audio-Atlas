@@ -35,7 +35,6 @@ public class DbInitializer
         if (dbContext.Instruments.Any() || dbContext.Genres.Any() || dbContext.Countries.Any())
         {
             logger.LogWarning("Skipping initial seeding as database already contains data.");
-            await SeedAdditionalDataAsync(dbContext, systemUser, logger);
             return;
         }
 
@@ -80,11 +79,17 @@ public class DbInitializer
             dbContext.SaveChanges();
         }
 
-        await SeedAdditionalDataAsync(dbContext, systemUser, logger);
     }
 
-    private static async Task SeedAdditionalDataAsync(AppDbContext dbContext, ApplicationUser systemUser, ILogger<DbInitializer> logger)
+    internal static async Task SeedAdditionalDataAsync(AppDbContext dbContext, ILogger<DbInitializer> logger)
     {
+        ApplicationUser? systemUser = await dbContext.Users.FirstOrDefaultAsync(u => u.IsSystemUser);
+        if (systemUser == null)
+        {
+            logger.LogWarning("Supplemental seeder: system user not found, skipping.");
+            return;
+        }
+
         string? instrument2Path = null;
         string? genre2Path = null;
 
