@@ -8,7 +8,6 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
-import * as THREE from 'three'
 
 const { api } = useApi()
 
@@ -100,7 +99,10 @@ onMounted(async () => {
     }
   }
 
-  const Globe = (await globeImport).default
+  const [Globe, THREE] = await Promise.all([
+    globeImport.then(m => m.default),
+    import('three')
+  ])
 
   const { countries, tinyCountries, genreCounts } = data
 
@@ -146,7 +148,7 @@ onMounted(async () => {
 
   globeInstance = Globe()(globeDiv.value)
     .globeImageUrl('/earth-1k.webp')
-    .backgroundImageUrl('https://unpkg.com/three-globe@2.45.2/example/img/night-sky.png')
+    .backgroundImageUrl('/night-sky.png')
     .showAtmosphere(true)
     .atmosphereColor('#78d8ff')
     .atmosphereAltitude(0.24)
