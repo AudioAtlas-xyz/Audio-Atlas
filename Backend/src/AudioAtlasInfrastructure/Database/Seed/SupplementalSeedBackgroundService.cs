@@ -19,6 +19,9 @@ public sealed class SupplementalSeedBackgroundService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        // Wait for Azure SQL to stabilize after cold start before seeding.
+        await Task.Delay(TimeSpan.FromSeconds(15), stoppingToken);
+
         try
         {
             using IServiceScope scope = _scopeFactory.CreateScope();
