@@ -141,9 +141,15 @@ public class DbInitializerTests
 
         await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Configuration, harness.Logger);
 
+        // Initial domain seed is skipped (existing data), but supplemental seeder still runs.
+        using JsonDocument inst2Doc = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "instrumentSeeding2.json")));
+        using JsonDocument genre2Doc2 = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "genreSeeding2.json")));
+        int expectedInstruments = inst2Doc.RootElement.GetArrayLength();
+        int expectedGenres = genre2Doc2.RootElement.GetProperty("genres").GetArrayLength();
+
         Assert.Equal(1, await harness.Context.Countries.CountAsync());
-        Assert.Empty(await harness.Context.Instruments.ToListAsync());
-        Assert.Empty(await harness.Context.Genres.ToListAsync());
+        Assert.Equal(expectedInstruments, await harness.Context.Instruments.CountAsync());
+        Assert.Equal(expectedGenres, await harness.Context.Genres.CountAsync());
         Assert.NotNull(await harness.UserManager.FindByNameAsync("System"));
     }
 
@@ -152,31 +158,44 @@ public class DbInitializerTests
         string countryPath = Path.Combine(AppContext.BaseDirectory, "countrySeeding.json");
         string instrumentPath = Path.Combine(AppContext.BaseDirectory, "instrumentSeeding.json");
         string genrePath = Path.Combine(AppContext.BaseDirectory, "genreSeeding.json");
+        string instrument2Path = Path.Combine(AppContext.BaseDirectory, "instrumentSeeding2.json");
+        string genre2Path = Path.Combine(AppContext.BaseDirectory, "genreSeeding2.json");
 
         using JsonDocument countryDoc = JsonDocument.Parse(File.ReadAllText(countryPath));
         using JsonDocument instrumentDoc = JsonDocument.Parse(File.ReadAllText(instrumentPath));
         using JsonDocument genreDoc = JsonDocument.Parse(File.ReadAllText(genrePath));
+        using JsonDocument instrument2Doc = JsonDocument.Parse(File.ReadAllText(instrument2Path));
+        using JsonDocument genre2Doc = JsonDocument.Parse(File.ReadAllText(genre2Path));
 
         JsonElement genreRoot = genreDoc.RootElement;
-        HashSet<string> validGenreIds = genreRoot.GetProperty("genres")
-            .EnumerateArray()
-            .Select(item => item.TryGetProperty("id", out JsonElement idProperty) ? idProperty.GetString() : null)
-            .Where(id => !string.IsNullOrWhiteSpace(id))
-            .Cast<string>()
-            .ToHashSet(StringComparer.Ordinal);
+        JsonElement genre2Root = genre2Doc.RootElement;
+
+        HashSet<string> validGenreIds = ExtractValidGenreIds(genreRoot);
+        HashSet<string> validGenre2Ids = ExtractValidGenreIds(genre2Root);
+        HashSet<string> allValidGenreIds = new(validGenreIds.Concat(validGenre2Ids), StringComparer.Ordinal);
 
         return new SeedCounts(
             countryDoc.RootElement.GetArrayLength(),
-            instrumentDoc.RootElement.GetArrayLength(),
-            genreRoot.GetProperty("genres").GetArrayLength(),
-            CountDistinctValuesPerGenre(genreRoot, "genreAliases", "genreId", "alias", validGenreIds),
-            CountDistinctValuesPerGenre(genreRoot, "genreSources", "genreId", "sourceLink", validGenreIds),
-            CountDistinctPairs(genreRoot, "genreCountry", "genreId", "countryId"),
-            CountDistinctPairs(genreRoot, "genreInstrument", "genreId", "instrumentId"),
-            CountDistinctPairs(genreRoot, "genreHierarchy", "genreId", "subgenreId"),
-            CountDistinctPairs(genreRoot, "genreSimilarity", "similarId1", "similarId2"),
+            instrumentDoc.RootElement.GetArrayLength() + instrument2Doc.RootElement.GetArrayLength(),
+            genreRoot.GetProperty("genres").GetArrayLength() + genre2Root.GetProperty("genres").GetArrayLength(),
+            CountDistinctValuesPerGenre(genreRoot, "genreAliases", "genreId", "alias", allValidGenreIds)
+                + CountDistinctValuesPerGenre(genre2Root, "genreAliases", "genreId", "alias", allValidGenreIds),
+            CountDistinctValuesPerGenre(genreRoot, "genreSources", "genreId", "sourceLink", allValidGenreIds)
+                + CountDistinctValuesPerGenre(genre2Root, "genreSources", "genreId", "sourceLink", allValidGenreIds),
+            CountDistinctPairsUnion(genreRoot, genre2Root, "genreCountry", "genreId", "countryId"),
+            CountDistinctPairsUnion(genreRoot, genre2Root, "genreInstrument", "genreId", "instrumentId"),
+            CountDistinctPairsUnion(genreRoot, genre2Root, "genreHierarchy", "genreId", "subgenreId"),
+            CountDistinctPairsUnion(genreRoot, genre2Root, "genreSimilarity", "similarId1", "similarId2"),
             3);
     }
+
+    private static HashSet<string> ExtractValidGenreIds(JsonElement genreRoot) =>
+        genreRoot.GetProperty("genres")
+            .EnumerateArray()
+            .Select(item => item.TryGetProperty("id", out JsonElement idProp) ? idProp.GetString() : null)
+            .Where(id => !string.IsNullOrWhiteSpace(id))
+            .Cast<string>()
+            .ToHashSet(StringComparer.Ordinal);
 
     private static int CountDistinctPairs(JsonElement root, string propertyName, string leftPropertyName, string rightPropertyName)
     {
@@ -195,6 +214,30 @@ public class DbInitializerTests
             if (!string.IsNullOrWhiteSpace(left) && !string.IsNullOrWhiteSpace(right))
             {
                 pairs.Add((left, right));
+            }
+        }
+
+        return pairs.Count;
+    }
+
+    // Counts unique pairs across two seed files — deduplicating pairs that appear in both
+    // (e.g. supplemental genre-instrument links that the original seed already contains).
+    private static int CountDistinctPairsUnion(JsonElement root1, JsonElement root2, string propertyName, string leftPropertyName, string rightPropertyName)
+    {
+        HashSet<(string Left, string Right)> pairs = new();
+
+        foreach (JsonElement root in (JsonElement[])[root1, root2])
+        {
+            if (!root.TryGetProperty(propertyName, out JsonElement element) || element.ValueKind != JsonValueKind.Array)
+                continue;
+
+            foreach (JsonElement item in element.EnumerateArray())
+            {
+                string? left = item.TryGetProperty(leftPropertyName, out JsonElement leftProp) ? leftProp.GetString() : null;
+                string? right = item.TryGetProperty(rightPropertyName, out JsonElement rightProp) ? rightProp.GetString() : null;
+
+                if (!string.IsNullOrWhiteSpace(left) && !string.IsNullOrWhiteSpace(right))
+                    pairs.Add((left, right));
             }
         }
 

@@ -62,7 +62,12 @@
     "horn-section": "Horn Section",
     "harmonica": "Harmonica",
     "banjo": "Banjo",
-    "beatboxing": "Beatboxing"
+    "beatboxing": "Beatboxing",
+    "accordion": "Accordion",
+    "bandoneon": "Bandoneon",
+    "conga": "Conga",
+    "bongos": "Bongos",
+    "tin-whistle": "Tin Whistle"
   },
   "genres": [
     {

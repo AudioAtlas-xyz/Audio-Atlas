@@ -73,6 +73,11 @@ EXISTING_INSTRUMENT_REFS = {
     "harmonica":            "Harmonica",
     "banjo":                "Banjo",
     "beatboxing":           "Beatboxing",
+    "accordion":            "Accordion",
+    "bandoneon":            "Bandoneon",
+    "conga":                "Conga",
+    "bongos":               "Bongos",
+    "tin-whistle":          "Tin Whistle",
 }
 
 # ─── Genre data ────────────────────────────────────────────────────────────────
@@ -1807,7 +1812,7 @@ out_path = os.path.join(os.path.dirname(__file__), "genreSeeding2.json")
 with open(out_path, "w", encoding="utf-8") as f:
     json.dump(output, f, indent=2, ensure_ascii=False)
 
-print(f"genreSeeding2.json written:")
+print("genreSeeding2.json written:")
 print(f"  genres:           {len(genre_records)}")
 print(f"  genreCountry:     {len(genre_country)}")
 print(f"  genreHierarchy:   {len(genre_hierarchy)}")
