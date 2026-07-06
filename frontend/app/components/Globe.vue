@@ -79,7 +79,8 @@ async function fetchGlobeData() {
 }
 
 onMounted(async () => {
-  const Globe = (await import('globe.gl')).default
+  // Fire both in parallel: module load + data fetch
+  const globeImport = import('globe.gl')
 
   let data = null
   for (let attempt = 0; attempt <= RETRY_DELAYS_MS.length; attempt++) {
@@ -98,6 +99,8 @@ onMounted(async () => {
       }
     }
   }
+
+  const Globe = (await globeImport).default
 
   const { countries, tinyCountries, genreCounts } = data
 
@@ -142,7 +145,7 @@ onMounted(async () => {
   }
 
   globeInstance = Globe()(globeDiv.value)
-    .globeImageUrl('/2_no_clouds_8k.jpg')
+    .globeImageUrl('/earth-1k.webp')
     .backgroundImageUrl('https://unpkg.com/three-globe@2.45.2/example/img/night-sky.png')
     .showAtmosphere(true)
     .atmosphereColor('#78d8ff')
@@ -201,6 +204,13 @@ onMounted(async () => {
   globeMaterial.specular = new THREE.Color('#7fd4ff')
   globeMaterial.shininess = 8
   globeMaterial.needsUpdate = true
+
+  // Upgrade to 4k texture in the background once the globe is painted
+  const img = new Image()
+  img.onload = () => {
+    globeInstance?.globeImageUrl('/earth-4k.webp')
+  }
+  img.src = '/earth-4k.webp'
 
   // Track initial size
   lastWidth = globeDiv.value.clientWidth
