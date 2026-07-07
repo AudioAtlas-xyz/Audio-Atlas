@@ -199,8 +199,44 @@ public class GenreConfiguration : IEntityTypeConfiguration<AudioAtlasDomain.Genr
                 {
                     j.HasKey("GenreId", "SimilarGenreId");
                 });
-        
-        
-        
+
+        // ── Soft-delete ───────────────────────────────────────────────────────
+
+        builder.Property(x => x.IsArchived)
+            .IsRequired()
+            .HasDefaultValue(false);
+
+        builder.Property(x => x.ArchivedAt)
+            .HasColumnType("datetime2");
+
+        builder.HasOne(x => x.ArchivedBy)
+            .WithMany()
+            .HasForeignKey(x => x.ArchivedById)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.ClientSetNull);
+
+        // ── Edit audit ────────────────────────────────────────────────────────
+
+        builder.Property(x => x.LastEditedAt)
+            .HasColumnType("datetime2");
+
+        builder.HasOne(x => x.LastEditedBy)
+            .WithMany()
+            .HasForeignKey(x => x.LastEditedById)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.ClientSetNull);
+
+        // ── Optimistic concurrency ────────────────────────────────────────────
+
+        // Maps to SQL Server rowversion (timestamp): auto-incremented on every
+        // UPDATE, used as an EF Core concurrency token for the admin PUT endpoint.
+        builder.Property(x => x.RowVersion)
+            .IsRowVersion();
+
+        // ── Global query filter ───────────────────────────────────────────────
+
+        // Archived genres are hidden from all public queries. Admin endpoints
+        // that need to see archived records must call .IgnoreQueryFilters().
+        builder.HasQueryFilter(g => !g.IsArchived);
     }
 }

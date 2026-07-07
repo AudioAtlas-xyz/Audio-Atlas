@@ -129,4 +129,57 @@ public class Genre
     /// </summary>
     public ICollection<Genre> ParentGenres { get; set; } = new List<Genre>();
 
+    // ── Soft-delete ───────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// When true the genre is hidden from public queries but not removed from
+    /// the database. Set via the admin archive action.
+    /// </summary>
+    public bool IsArchived { get; set; } = false;
+
+    /// <summary>
+    /// UTC timestamp of when the genre was archived. Null while active.
+    /// </summary>
+    public DateTime? ArchivedAt { get; set; }
+
+    /// <summary>
+    /// FK to the admin/curator who archived the genre.
+    /// Set to null if the user account is later deleted.
+    /// </summary>
+    public Guid? ArchivedById { get; set; }
+
+    /// <summary>
+    /// Navigation property to the archiving user.
+    /// </summary>
+    public ApplicationUser? ArchivedBy { get; set; }
+
+    // ── Edit audit ────────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// UTC timestamp of the most recent curator/admin edit.
+    /// Null until first edit via the admin catalogue tool.
+    /// </summary>
+    public DateTime? LastEditedAt { get; set; }
+
+    /// <summary>
+    /// FK to the admin/curator who last edited the genre.
+    /// Set to null if the user account is later deleted.
+    /// </summary>
+    public Guid? LastEditedById { get; set; }
+
+    /// <summary>
+    /// Navigation property to the last editor.
+    /// </summary>
+    public ApplicationUser? LastEditedBy { get; set; }
+
+    // ── Optimistic concurrency ────────────────────────────────────────────────
+
+    /// <summary>
+    /// Azure SQL rowversion column used as an EF Core concurrency token.
+    /// Automatically incremented on every UPDATE by the database.
+    /// The admin PUT endpoint must send this token and will receive a 409
+    /// if another edit has landed since the client last loaded the record.
+    /// </summary>
+    public byte[] RowVersion { get; set; } = null!;
+
 }
