@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
-import { useAsyncData } from '#imports'
-import { useApi } from '@/composables/useApi'
+import { useAsyncData, useApi } from '#imports'
 import type { Country } from '~/types/country'
 import type {Genre} from "~/types/genre";
 import type { CreateSubmissionRequest } from "~/types/CreateSubmissionRequest"

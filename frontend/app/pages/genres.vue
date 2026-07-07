@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useRoute, useAsyncData, useHead } from '#imports'
-import { useApi } from '@/composables/useApi'
+import { useRoute, useAsyncData, useHead, useApi } from '#imports'
 import type { Genre } from '~/types/genre'
 import SourceList from '~/components/SourceList.vue'
 
