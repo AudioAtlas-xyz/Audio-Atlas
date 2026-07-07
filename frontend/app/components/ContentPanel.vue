@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute, useAsyncData } from '#imports'
 import type { Country } from '~/types/country'
 import { useApi } from '@/composables/useApi'
 

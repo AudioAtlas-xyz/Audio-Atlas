@@ -3,6 +3,7 @@ import { ref, watch, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import GlassButton from '@/components/GlassButton.vue'
 import { useAuth } from '@/composables/useAuth'
 import { useApi } from '@/composables/useApi'
+import { useUIState } from '@/composables/useUIState'
 
 /**
  * API

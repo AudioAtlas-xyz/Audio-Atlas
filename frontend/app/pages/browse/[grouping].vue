@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute, useAsyncData, useHead, useApi } from '#imports'
 import type { Genre } from '~/types/genre'
 
 const route = useRoute()
