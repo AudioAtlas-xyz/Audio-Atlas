@@ -105,5 +105,17 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+
+        // IsRowVersion() sets ValueGeneratedOnAddOrUpdate, which tells EF to omit
+        // RowVersion from INSERTs and let SQL Server auto-generate it. SQLite (used
+        // in tests) has no rowversion equivalent, so switch to ValueGeneratedNever
+        // so EF sends the property value on INSERT, satisfying the NOT NULL constraint.
+        if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
+        {
+            modelBuilder.Entity<AudioAtlasDomain.Genres.Genre>()
+                .Property(g => g.RowVersion)
+                .IsConcurrencyToken()
+                .ValueGeneratedNever();
+        }
     }
 }

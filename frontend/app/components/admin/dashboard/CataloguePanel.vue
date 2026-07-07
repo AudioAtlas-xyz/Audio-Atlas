@@ -29,7 +29,10 @@ const geographicItems = computed(() =>
     <div class="border-b border-border pb-4">
       <h2 class="font-display text-[22px] tracking-[-0.02em] text-space-50">Catalogue</h2>
       <p class="mt-1 text-xs text-[#7a84a8]">
-        {{ data.genreCountryLinkCount.toLocaleString() }} genre–country links · {{ data.totalGenres.toLocaleString() }} genres in scope
+        {{ data.genreCountryLinkCount.toLocaleString() }} genre–country links ·
+        <NuxtLink to="/admin/genres" class="underline decoration-dotted hover:text-aurora transition-colors">
+          {{ data.totalGenres.toLocaleString() }} genres in scope
+        </NuxtLink>
       </p>
     </div>
 
@@ -106,27 +109,39 @@ const geographicItems = computed(() =>
             />
           </div>
           <p class="mt-1 text-[11px] text-[#7a84a8]">
-            {{ data.contentGate.ready.toLocaleString() }} ready · {{ data.contentGate.notReady.toLocaleString() }} not ready
+            {{ data.contentGate.ready.toLocaleString() }} ready ·
+            <NuxtLink
+              to="/admin/genres?filter=below-gate"
+              class="underline decoration-dotted hover:text-aurora transition-colors"
+            >{{ data.contentGate.notReady.toLocaleString() }} not ready</NuxtLink>
           </p>
         </div>
 
         <!-- Completeness flags -->
         <ul class="space-y-2.5" aria-label="Data completeness flags">
           <li class="flex items-center justify-between gap-2">
-            <span class="text-xs text-space-300">Orphan genres (no country)</span>
-            <span
-              class="font-mono text-xs"
+            <NuxtLink
+              to="/admin/genres?filter=orphans"
+              class="text-xs text-space-300 underline decoration-dotted hover:text-aurora transition-colors"
+            >Orphan genres (no country)</NuxtLink>
+            <NuxtLink
+              to="/admin/genres?filter=orphans"
+              class="font-mono text-xs transition-colors hover:underline"
               :class="data.dataCompleteness.orphanGenres > 0 ? 'text-[#e05570]' : 'text-aurora'"
               :aria-label="`${data.dataCompleteness.orphanGenres} orphan genres`"
-            >{{ data.dataCompleteness.orphanGenres.toLocaleString() }}</span>
+            >{{ data.dataCompleteness.orphanGenres.toLocaleString() }}</NuxtLink>
           </li>
           <li class="flex items-center justify-between gap-2">
-            <span class="text-xs text-space-300">Missing origins note</span>
-            <span
-              class="font-mono text-xs"
+            <NuxtLink
+              to="/admin/genres?filter=missing-note"
+              class="text-xs text-space-300 underline decoration-dotted hover:text-aurora transition-colors"
+            >Missing origins note</NuxtLink>
+            <NuxtLink
+              to="/admin/genres?filter=missing-note"
+              class="font-mono text-xs transition-colors hover:underline"
               :class="data.dataCompleteness.missingOriginsNote > 0 ? 'text-[#e05570]' : 'text-aurora'"
               :aria-label="`${data.dataCompleteness.missingOriginsNote} missing origins notes`"
-            >{{ data.dataCompleteness.missingOriginsNote.toLocaleString() }}</span>
+            >{{ data.dataCompleteness.missingOriginsNote.toLocaleString() }}</NuxtLink>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="text-xs text-space-300">Missing media link</span>
