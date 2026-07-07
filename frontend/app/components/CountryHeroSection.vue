@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
-import type { useAuth } from '~/composables/useAuth'
+import { useAuth } from '~/composables/useAuth'
 import LoginModal from "~/components/UserFlow/LoginModal.vue";
 
 const { breadCrumbItems, locationBadges, countryName, description } = defineProps<{

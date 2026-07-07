@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { ref, reactive, computed, useTemplateRef } from 'vue'
+import { useAsyncData } from '#imports'
+import { useApi } from '@/composables/useApi'
 import type {Genre} from "~/types/genre";
 import Stepper from '../components/submission/Stepper.vue';
 import SubmissionHeader from "~/components/submission/SubmissionHeader.vue";

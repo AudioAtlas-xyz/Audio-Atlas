@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { ref, reactive, computed } from 'vue'
+import { useAsyncData } from '#imports'
+import { useApi } from '@/composables/useApi'
 import type { Country } from '~/types/country'
 import type {Genre} from "~/types/genre";
 import type { CreateSubmissionRequest } from "~/types/CreateSubmissionRequest"
 import * as z from 'zod'
- //npm install @johmun/vue-tags-input
 import Stepper from '../components/submission/Stepper.vue';
 import SubmissionHeader from "~/components/submission/SubmissionHeader.vue";
 import FormSubmittedCard from '~/components/submission/FormSubmittedCard.vue';
