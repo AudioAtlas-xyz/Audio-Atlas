@@ -95,6 +95,14 @@ onBeforeUnmount(() => {
     <Transition name="drawer">
       <div v-if="menuOpen" class="mobile-drawer">
 
+        <!-- Drawer header with close button -->
+        <div class="drawer-header">
+          <span class="drawer-header__title">Menu</span>
+          <button class="drawer-close-btn" aria-label="Close menu" @click="menuOpen = false">
+            <UIcon name="i-lucide-x" class="drawer-close-btn__icon" />
+          </button>
+        </div>
+
         <!-- Search -->
         <div class="drawer-search">
           <SearchBar />
@@ -357,6 +365,46 @@ onBeforeUnmount(() => {
   .mobile-drawer {
     display: none;
   }
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+}
+
+.drawer-header__title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4a6070;
+}
+
+.drawer-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  background: rgba(141, 219, 230, 0.08);
+  border: 1px solid rgba(141, 219, 230, 0.18);
+  border-radius: 8px;
+  color: #8ddbe6;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.drawer-close-btn:hover,
+.drawer-close-btn:active {
+  background: rgba(141, 219, 230, 0.16);
+}
+
+.drawer-close-btn__icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: #8ddbe6;
 }
 
 .drawer-search :deep(.search-wrapper) {
