@@ -180,6 +180,6 @@ public class Genre
     /// The admin PUT endpoint must send this token and will receive a 409
     /// if another edit has landed since the client last loaded the record.
     /// </summary>
-    public byte[] RowVersion { get; set; } = null!;
+    public byte[] RowVersion { get; set; } = [];
 
 }
