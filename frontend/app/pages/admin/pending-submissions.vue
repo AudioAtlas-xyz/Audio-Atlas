@@ -631,11 +631,11 @@ const breadcrumbItems = [
                   Countries
                 </label>
                 <USelectMenu
-                  v-model="editForm.countryIds"
+                  :model-value="countryOptions.filter(o => editForm.countryIds.includes(o.value))"
                   :items="countryOptions"
-                  value-key="value"
                   multiple
                   class="w-full"
+                  @update:model-value="(items) => editForm.countryIds = items.map(i => i.value)"
                 />
               </div>
 
@@ -645,11 +645,11 @@ const breadcrumbItems = [
                   Instruments
                 </label>
                 <USelectMenu
-                  v-model="editForm.instrumentIds"
+                  :model-value="instrumentOptions.filter(o => editForm.instrumentIds.includes(o.value))"
                   :items="instrumentOptions"
-                  value-key="value"
                   multiple
                   class="w-full"
+                  @update:model-value="(items) => editForm.instrumentIds = items.map(i => i.value)"
                 />
               </div>
 
@@ -659,11 +659,12 @@ const breadcrumbItems = [
                   Similar genres
                 </label>
                 <USelectMenu
-                  v-model="editForm.similarGenreIds"
+                  :model-value="genreOptions.filter(o => editForm.similarGenreIds.includes(o.value))"
                   :items="genreOptions"
-                  value-key="value"
                   multiple
+                  searchable
                   class="w-full"
+                  @update:model-value="(items) => editForm.similarGenreIds = items.map(i => i.value)"
                 />
               </div>
 
@@ -673,11 +674,12 @@ const breadcrumbItems = [
                   Subgenres
                 </label>
                 <USelectMenu
-                  v-model="editForm.subGenreIds"
+                  :model-value="genreOptions.filter(o => editForm.subGenreIds.includes(o.value))"
                   :items="genreOptions"
-                  value-key="value"
                   multiple
+                  searchable
                   class="w-full"
+                  @update:model-value="(items) => editForm.subGenreIds = items.map(i => i.value)"
                 />
               </div>
 
@@ -687,11 +689,12 @@ const breadcrumbItems = [
                   Predecessor genres
                 </label>
                 <USelectMenu
-                  v-model="editForm.predecessorGenreIds"
+                  :model-value="genreOptions.filter(o => editForm.predecessorGenreIds.includes(o.value))"
                   :items="genreOptions"
-                  value-key="value"
                   multiple
+                  searchable
                   class="w-full"
+                  @update:model-value="(items) => editForm.predecessorGenreIds = items.map(i => i.value)"
                 />
               </div>
 
