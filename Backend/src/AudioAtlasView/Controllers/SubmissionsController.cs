@@ -84,6 +84,32 @@ public class SubmissionsController : ControllerBase
         }
     }
 
+    [HttpGet("rejection-reasons")]
+    [Authorize(Roles = "Admin,Curator")]
+    public async Task<ActionResult<ICollection<RejectionReasonResponse>>> GetRejectionReasons(CancellationToken cancellationToken)
+    {
+        var reasons = await _submissionService.getActiveRejectionReasonsAsync(cancellationToken);
+        return Ok(reasons);
+    }
+
+    [HttpPut("{id}")]
+    [Authorize(Roles = "Admin,Curator")]
+    public async Task<IActionResult> Update(
+        Guid id,
+        [FromBody] UpdateSubmissionRequest request,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _submissionService.updateSubmissionAsync(id, request, cancellationToken);
+            return NoContent();
+        }
+        catch (InvalidOperationException exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
     [HttpPost]
     public async Task<ActionResult<CreateSubmissionResponse>> Post(
         [FromBody] CreateSubmissionRequest request,

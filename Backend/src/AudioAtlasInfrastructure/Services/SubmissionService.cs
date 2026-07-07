@@ -251,6 +251,88 @@ public class SubmissionService : ISubmissionService
             .ToList();
     }
 
+    public async Task updateSubmissionAsync(Guid submissionId, UpdateSubmissionRequest request, CancellationToken cancellationToken = default)
+    {
+        var submission = await getReviewableSubmissionOrThrowAsync(submissionId, cancellationToken);
+
+        var errors = new Dictionary<string, string[]>();
+
+        var normalizedGenreName = normalizeText(request.NewGenreName);
+        var normalizedDescription = normalizeText(request.Description);
+        var normalizedPlaylistLink = normalizeOptionalUrl(request.PlaylistLink, "playlistLink", errors);
+        var aliasValues = normalizeDistinctTexts(request.Aliases ?? []);
+        var normalizedSourceLinks = normalizeDistinctUrls(request.SourceLinks ?? [], "sourceLinks", errors);
+        var countryIds = distinctIds(request.CountryIds ?? []);
+        var instrumentIds = distinctIds(request.InstrumentIds ?? []);
+        var similarGenreIds = distinctIds(request.SimilarGenreIds ?? []);
+        var subGenreIds = distinctIds(request.SubGenreIds ?? []);
+        var predecessorGenreIds = distinctIds(request.PredecessorGenreIds ?? []);
+
+        if (string.IsNullOrWhiteSpace(normalizedGenreName))
+            errors["newGenreName"] = ["New genre name is required."];
+        else if (normalizedGenreName.Length > MaxNameLength)
+            errors["newGenreName"] = [$"New genre name must be at most {MaxNameLength} characters."];
+
+        if (string.IsNullOrWhiteSpace(normalizedDescription))
+            errors["description"] = ["Description is required."];
+        else if (normalizedDescription.Length > MaxDescriptionLength)
+            errors["description"] = [$"Description must be at most {MaxDescriptionLength} characters."];
+
+        if (request.StartDate.HasValue && request.EndDate.HasValue && request.StartDate.Value > request.EndDate.Value)
+            errors["dateRange"] = ["Start date must be earlier than or equal to end date."];
+
+        if (errors.Count > 0)
+            throw new InvalidOperationException(buildErrorMessage(errors));
+
+        var countries = await _countryRepository.getCountriesByIdsAsync(countryIds, cancellationToken);
+        var instruments = await _instrumentRepository.getInstrumentsByIdsAsync(instrumentIds, cancellationToken);
+        var similarGenres = await _genreRepository.getGenresByIdsAsync(similarGenreIds, cancellationToken);
+        var subGenres = await _genreRepository.getGenresByIdsAsync(subGenreIds, cancellationToken);
+        var predecessorGenres = await _genreRepository.getGenresByIdsAsync(predecessorGenreIds, cancellationToken);
+
+        addMissingIdErrors(errors, "countryIds", countryIds, countries.Select(c => c.Id));
+        addMissingIdErrors(errors, "instrumentIds", instrumentIds, instruments.Select(i => i.Id));
+        addMissingIdErrors(errors, "similarGenreIds", similarGenreIds, similarGenres.Select(g => g.Id));
+        addMissingIdErrors(errors, "subGenreIds", subGenreIds, subGenres.Select(g => g.Id));
+        addMissingIdErrors(errors, "predecessorGenreIds", predecessorGenreIds, predecessorGenres.Select(g => g.Id));
+
+        if (errors.Count > 0)
+            throw new InvalidOperationException(buildErrorMessage(errors));
+
+        submission.NewGenreName = normalizedGenreName;
+        submission.Description = normalizedDescription;
+        submission.IsSensitive = request.IsSensitive;
+        submission.SensitiveDescription = request.IsSensitive ? normalizeText(request.SensitiveDescription) : null;
+        submission.PlaylistLink = normalizedPlaylistLink;
+        submission.StartDate = request.StartDate;
+        submission.EndDate = request.EndDate;
+
+        submission.Aliases.Clear();
+        foreach (var alias in aliasValues.Where(a => a.Length <= MaxAliasLength))
+            submission.Aliases.Add(new SubmissionAlias { Alias = alias });
+
+        submission.Sources.Clear();
+        foreach (var link in normalizedSourceLinks)
+            submission.Sources.Add(new SubmissionSource { SourceLink = link });
+
+        submission.Countries.Clear();
+        foreach (var c in countries) submission.Countries.Add(c);
+
+        submission.Instruments.Clear();
+        foreach (var i in instruments) submission.Instruments.Add(i);
+
+        submission.SimilarGenres.Clear();
+        foreach (var g in similarGenres) submission.SimilarGenres.Add(g);
+
+        submission.SubGenres.Clear();
+        foreach (var g in subGenres) submission.SubGenres.Add(g);
+
+        submission.PredecessorGenres.Clear();
+        foreach (var g in predecessorGenres) submission.PredecessorGenres.Add(g);
+
+        await _submissionRepository.saveChangesAsync(cancellationToken);
+    }
+
     private static void addMissingIdErrors(
         Dictionary<string, string[]> errors,
         string key,
