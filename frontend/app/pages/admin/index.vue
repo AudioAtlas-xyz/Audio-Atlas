@@ -50,6 +50,15 @@ const adminTools = [
     to: '/admin/pending-submissions',
     icon: 'i-lucide-clipboard-list',
     roles: ['Admin'] as UserRole[]
+  },
+  {
+    label: 'Catalogue',
+    title: 'Genre catalogue',
+    description:
+      'Edit genre data, manage relations, fix quality gaps, and archive or remove entries.',
+    to: '/admin/genres',
+    icon: 'i-lucide-library',
+    roles: ['Admin', 'Curator'] as UserRole[]
   }
 ]
 
