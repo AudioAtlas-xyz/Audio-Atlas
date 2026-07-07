@@ -52,28 +52,6 @@ const similarGenres = computed(() => genre.value?.similarGenres ?? [])
 const subGenres = computed(() => genre.value?.subGenres ?? [])
 
 /**
- * Counts
- */
-const relatedCount = computed(() => {
-  if (!genre.value) return '0'
-
-  const total =
-    (genre.value.similarGenres?.length || 0) +
-    (genre.value.subGenres?.length || 0) +
-    (genre.value.parentGenres?.length || 0)
-
-  return total.toString()
-})
-
-const contributorsCount = computed(() =>
-  contributors.value.length.toString()
-)
-
-const instrumentCount = computed(() =>
-  instruments.value.length.toString()
-)
-
-/**
  * Country badges
  */
 const countryBadges = computed(() =>
@@ -155,13 +133,6 @@ useHead(() => ({
             description="Open this page with a ?genreId=... query so the page can request genre data from the backend."
           />
 
-          <!-- PANEL -->
-          <GenrePanel
-            class="lg:translate-x-[2.25rem]"
-            :related-count="relatedCount"
-            :contributor-count="contributorsCount"
-            :instrument-count="instrumentCount"
-          />
         </div>
       </section>
 

@@ -93,7 +93,7 @@ const errorMessage = computed(() => {
                 <NuxtLink :to="countryPageHref" class="text-3xl font-bold text-space-50 transition hover:text-aurora">
                   {{ data.name }}
                 </NuxtLink>
-                <UButton icon="i-heroicons-x-mark" variant="ghost" @click="emit('close')" class="text-aurora"/>
+                <UButton icon="i-heroicons-x-mark" variant="ghost" color="primary" @click="emit('close')" />
               </div>
               <div v-if="data.region || data.continent" class="flex flex-wrap gap-2">
                 <NuxtLink
