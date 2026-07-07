@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { ref, computed, reactive } from 'vue'
+import { useHead, useAsyncData } from '#imports'
+import { useApi } from '@/composables/useApi'
 import type { PendingSubmissionResponse } from '~/types/pendingSubmissionResponse'
 import type { Country } from '~/types/country'
 import type { Genre } from '~/types/genre'
@@ -11,15 +14,23 @@ const { api } = useApi()
 
 // ── Reference data ──────────────────────────────────────────────────────────
 
-const [
-  { data: countriesData },
-  { data: genresData },
-  { data: instrumentData }
-] = await Promise.all([
-  useAsyncData<Country[]>('sub-countries', () => api('/countries/all')),
-  useAsyncData<Genre[]>('sub-genres', () => api('/genres')),
-  useAsyncData<Instrument[]>('sub-instruments', () => api('/instruments'))
-])
+const { data: countriesData } = await useAsyncData<Country[]>(
+  'sub-countries',
+  () => api('/countries/all'),
+  { default: () => [] }
+)
+
+const { data: genresData } = await useAsyncData<Genre[]>(
+  'sub-genres',
+  () => api('/genres'),
+  { default: () => [] }
+)
+
+const { data: instrumentData } = await useAsyncData<Instrument[]>(
+  'sub-instruments',
+  () => api('/instruments'),
+  { default: () => [] }
+)
 
 // ── Rejection reasons ────────────────────────────────────────────────────────
 
@@ -83,36 +94,37 @@ const visibleSubmissions = computed(() => {
 
 // ── Action state ──────────────────────────────────────────────────────────────
 
-const actionLoading = ref<Record<string, boolean>>({})
-const selectedRejectReason = ref<Record<string, string>>({})
-const showRejectForm = ref<Record<string, boolean>>({})
+const loadingIds = reactive(new Set<string>())
+const rejectReasonMap = reactive(new Map<string, string>())
 
 const toast = useToast()
 
 async function approve(id: string) {
-  actionLoading.value[id] = true
+  loadingIds.add(id)
   try {
     await api(`/submissions/${id}/approve`, { method: 'POST' })
     pendingSubmissions.value = pendingSubmissions.value?.filter(s => s.id !== id) ?? []
     toast.add({ title: 'Approved', color: 'success' })
-  } catch (err) {
+  }
+  catch (err) {
     toast.add({
       title: 'Approval failed',
       description: err instanceof Error ? err.message : 'Unexpected error.',
       color: 'error'
     })
-  } finally {
-    actionLoading.value[id] = false
+  }
+  finally {
+    loadingIds.delete(id)
   }
 }
 
 async function reject(id: string) {
-  const code = selectedRejectReason.value[id]
+  const code = rejectReasonMap.get(id)
   if (!code) {
     toast.add({ title: 'Select a rejection reason first', color: 'warning' })
     return
   }
-  actionLoading.value[id] = true
+  loadingIds.add(id)
   try {
     await api(`/submissions/${id}/reject`, {
       method: 'POST',
@@ -120,14 +132,16 @@ async function reject(id: string) {
     })
     pendingSubmissions.value = pendingSubmissions.value?.filter(s => s.id !== id) ?? []
     toast.add({ title: 'Rejected', color: 'neutral' })
-  } catch (err) {
+  }
+  catch (err) {
     toast.add({
       title: 'Rejection failed',
       description: err instanceof Error ? err.message : 'Unexpected error.',
       color: 'error'
     })
-  } finally {
-    actionLoading.value[id] = false
+  }
+  finally {
+    loadingIds.delete(id)
   }
 }
 
@@ -195,14 +209,15 @@ function openEdit(submission: PendingSubmissionResponse) {
 }
 
 async function saveEdit() {
-  if (!editTarget.value) return
+  const target = editTarget.value
+  if (!target) return
   editLoading.value = true
   editError.value = null
   try {
     const aliasLines = editForm.value.aliases.split('\n').map(s => s.trim()).filter(Boolean)
     const sourceLines = editForm.value.sourceLinks.split('\n').map(s => s.trim()).filter(Boolean)
 
-    await api(`/submissions/${editTarget.value.id}`, {
+    await api(`/submissions/${target.id}`, {
       method: 'PUT',
       body: {
         newGenreName: editForm.value.newGenreName,
@@ -222,34 +237,35 @@ async function saveEdit() {
       }
     })
 
-    // Patch local submission to reflect edits
-    const idx = pendingSubmissions.value?.findIndex(s => s.id === editTarget.value!.id) ?? -1
-    const existing = idx !== -1 ? pendingSubmissions.value?.[idx] : undefined
-    if (existing && pendingSubmissions.value) {
-      pendingSubmissions.value[idx] = {
-        ...existing,
-        newGenreName: editForm.value.newGenreName,
-        description: editForm.value.description,
-        isSensitive: editForm.value.isSensitive,
-        sensitiveDescription: editForm.value.sensitiveDescription,
-        playlistLink: editForm.value.playlistLink,
-        startDate: editForm.value.startDate || null,
-        endDate: editForm.value.endDate || null,
-        aliases: editForm.value.aliases.split('\n').map(s => s.trim()).filter(Boolean),
-        sourceLinks: editForm.value.sourceLinks.split('\n').map(s => s.trim()).filter(Boolean),
-        countryIds: editForm.value.countryIds,
-        instrumentIds: editForm.value.instrumentIds,
-        similarGenreIds: editForm.value.similarGenreIds,
-        subGenreIds: editForm.value.subGenreIds,
-        predecessorGenreIds: editForm.value.predecessorGenreIds
-      }
+    // Patch the local list in-place using map to avoid index mutation
+    const patches = {
+      newGenreName: editForm.value.newGenreName,
+      description: editForm.value.description,
+      isSensitive: editForm.value.isSensitive,
+      sensitiveDescription: editForm.value.sensitiveDescription,
+      playlistLink: editForm.value.playlistLink,
+      startDate: editForm.value.startDate || null,
+      endDate: editForm.value.endDate || null,
+      aliases: aliasLines,
+      sourceLinks: sourceLines,
+      countryIds: editForm.value.countryIds,
+      instrumentIds: editForm.value.instrumentIds,
+      similarGenreIds: editForm.value.similarGenreIds,
+      subGenreIds: editForm.value.subGenreIds,
+      predecessorGenreIds: editForm.value.predecessorGenreIds
     }
+
+    pendingSubmissions.value = (pendingSubmissions.value ?? []).map(s =>
+      s.id === target.id ? { ...s, ...patches } : s
+    )
 
     toast.add({ title: 'Submission updated', color: 'success' })
     editOpen.value = false
-  } catch (err) {
+  }
+  catch (err) {
     editError.value = err instanceof Error ? err.message : 'Failed to save changes.'
-  } finally {
+  }
+  finally {
     editLoading.value = false
   }
 }
@@ -494,7 +510,7 @@ const breadcrumbItems = [
                       color="primary"
                       variant="solid"
                       block
-                      :loading="actionLoading[item.id]"
+                      :loading="loadingIds.has(item.id)"
                       @click="approve(item.id)"
                     >
                       Approve
@@ -512,18 +528,19 @@ const breadcrumbItems = [
                     <div class="space-y-2 rounded-md border border-border bg-surface-2 p-3">
                       <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Reject</p>
                       <USelectMenu
-                        v-model="selectedRejectReason[item.id]"
+                        :model-value="rejectReasonMap.get(item.id)"
                         :items="rejectionReasonOptions"
                         value-key="value"
                         placeholder="Choose reason…"
                         class="w-full"
+                        @update:model-value="(v) => rejectReasonMap.set(item.id, v as string)"
                       />
                       <UButton
                         color="error"
                         variant="soft"
                         block
-                        :disabled="!selectedRejectReason[item.id]"
-                        :loading="actionLoading[item.id]"
+                        :disabled="!rejectReasonMap.get(item.id)"
+                        :loading="loadingIds.has(item.id)"
                         @click="reject(item.id)"
                       >
                         Confirm reject
