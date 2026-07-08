@@ -110,6 +110,40 @@ public class SubmissionsController : ControllerBase
         }
     }
 
+    [HttpPost("suggest/{genreId:guid}")]
+    public async Task<ActionResult<CreateSubmissionResponse>> SuggestEdit(
+        Guid genreId,
+        [FromBody] SuggestEditRequest request,
+        CancellationToken cancellationToken)
+    {
+        var userIdValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (!Guid.TryParse(userIdValue, out var accountId))
+            return Unauthorized();
+
+        if (User.IsInRole("Banned"))
+        {
+            return StatusCode(
+                StatusCodes.Status403Forbidden,
+                new { message = "Your account is banned from contributing." });
+        }
+
+        try
+        {
+            var submissionId = await _submissionService.suggestEditAsync(
+                accountId,
+                genreId,
+                request,
+                cancellationToken);
+
+            return StatusCode(StatusCodes.Status201Created, new CreateSubmissionResponse { Id = submissionId });
+        }
+        catch (InvalidOperationException exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
     [HttpPost]
     public async Task<ActionResult<CreateSubmissionResponse>> Post(
         [FromBody] CreateSubmissionRequest request,

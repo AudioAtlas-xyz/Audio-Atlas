@@ -145,7 +145,9 @@ public class SubmissionService : ISubmissionService
                 InstrumentIds = submission.Instruments.Select(instrument => instrument.Id).ToList(),
                 SimilarGenreIds = submission.SimilarGenres.Select(genre => genre.Id).ToList(),
                 SubGenreIds = submission.SubGenres.Select(genre => genre.Id).ToList(),
-                PredecessorGenreIds = submission.PredecessorGenres.Select(genre => genre.Id).ToList()
+                PredecessorGenreIds = submission.PredecessorGenres.Select(genre => genre.Id).ToList(),
+                TargetGenreId = submission.TargetGenreId,
+                TargetGenreName = submission.TargetGenre?.Name
             })
             .ToList();
     }
@@ -154,6 +156,21 @@ public class SubmissionService : ISubmissionService
     {
         var submission = await getReviewableSubmissionOrThrowAsync(submissionId, cancellationToken);
 
+        if (submission.TargetGenreId.HasValue)
+            await approveEditSuggestionAsync(submission, cancellationToken);
+        else
+            await approveNewGenreAsync(submission, cancellationToken);
+
+        submission.Status = SubmissionStatus.Approved;
+        submission.ReviewedAt = DateTime.UtcNow;
+        submission.ReviewedById = reviewerId;
+        submission.RejectedSubmission = null;
+
+        await _submissionRepository.saveChangesAsync(cancellationToken);
+    }
+
+    private async Task approveNewGenreAsync(Submission submission, CancellationToken cancellationToken)
+    {
         var genre = new AudioAtlasDomain.Genres.Genre
         {
             AuthorId = submission.AccountId,
@@ -177,13 +194,140 @@ public class SubmissionService : ISubmissionService
         };
 
         await _genreRepository.AddAsync(genre, cancellationToken);
+    }
 
-        submission.Status = SubmissionStatus.Approved;
-        submission.ReviewedAt = DateTime.UtcNow;
-        submission.ReviewedById = reviewerId;
-        submission.RejectedSubmission = null;
+    private async Task approveEditSuggestionAsync(Submission submission, CancellationToken cancellationToken)
+    {
+        var genre = await _genreRepository.GetByIdWithRelationsAsync(submission.TargetGenreId!.Value, cancellationToken)
+            ?? throw new InvalidOperationException("The target genre no longer exists.");
 
-        await _submissionRepository.saveChangesAsync(cancellationToken);
+        if (submission.Description is not null)
+            genre.Description = submission.Description;
+
+        if (submission.PlaylistLink is not null)
+            genre.PlaylistLink = submission.PlaylistLink;
+
+        if (submission.StartDate.HasValue)
+            genre.StartYear = submission.StartDate.Value.Year;
+
+        genre.IsSensitive = submission.IsSensitive;
+        genre.SensitiveDescription = submission.IsSensitive ? submission.SensitiveDescription : null;
+
+        if (submission.Aliases.Count > 0)
+        {
+            genre.Aliases.Clear();
+            foreach (var a in submission.Aliases)
+                genre.Aliases.Add(new AudioAtlasDomain.Genres.GenreAlias { Alias = a.Alias });
+        }
+
+        if (submission.Sources.Count > 0)
+        {
+            genre.Sources.Clear();
+            foreach (var s in submission.Sources)
+                genre.Sources.Add(new AudioAtlasDomain.Genres.GenreSource { SourceLink = s.SourceLink });
+        }
+
+        if (submission.Countries.Count > 0)
+        {
+            genre.Countries.Clear();
+            foreach (var c in submission.Countries) genre.Countries.Add(c);
+        }
+
+        if (submission.Instruments.Count > 0)
+        {
+            genre.Instruments.Clear();
+            foreach (var i in submission.Instruments) genre.Instruments.Add(i);
+        }
+
+        if (submission.SubGenres.Count > 0)
+        {
+            genre.SubGenres.Clear();
+            foreach (var g in submission.SubGenres) genre.SubGenres.Add(g);
+        }
+
+        if (submission.PredecessorGenres.Count > 0)
+        {
+            genre.ParentGenres.Clear();
+            foreach (var g in submission.PredecessorGenres) genre.ParentGenres.Add(g);
+        }
+
+        if (submission.SimilarGenres.Count > 0)
+            await _genreRepository.SyncSimilarGenresBidirectionalAsync(genre, submission.SimilarGenres.ToList(), cancellationToken);
+    }
+
+    public async Task<Guid> suggestEditAsync(Guid accountId, Guid targetGenreId, SuggestEditRequest request, CancellationToken cancellationToken = default)
+    {
+        var errors = new Dictionary<string, string[]>();
+
+        var normalizedDescription = normalizeText(request.Description);
+        var normalizedPlaylistLink = normalizeOptionalUrl(request.PlaylistLink, "playlistLink", errors);
+        var aliasValues = normalizeDistinctTexts(request.Aliases ?? []);
+        var normalizedSourceLinks = normalizeDistinctUrls(request.SourceLinks ?? [], "sourceLinks", errors);
+        var countryIds = distinctIds(request.CountryIds ?? []);
+        var instrumentIds = distinctIds(request.InstrumentIds ?? []);
+        var similarGenreIds = distinctIds(request.SimilarGenreIds ?? []);
+        var subGenreIds = distinctIds(request.SubGenreIds ?? []);
+        var predecessorGenreIds = distinctIds(request.PredecessorGenreIds ?? []);
+
+        if (normalizedDescription is { Length: > MaxDescriptionLength })
+            errors["description"] = [$"Description must be at most {MaxDescriptionLength} characters."];
+
+        if (normalizedPlaylistLink is { Length: > MaxUrlLength })
+            errors["playlistLink"] = [$"Playlist link must be at most {MaxUrlLength} characters."];
+
+        if (aliasValues.Any(a => a.Length > MaxAliasLength))
+            errors["aliases"] = [$"Aliases must be at most {MaxAliasLength} characters."];
+
+        if (errors.Count > 0)
+            throw new InvalidOperationException(buildErrorMessage(errors));
+
+        var targetGenre = await _genreRepository.getGenresByIdsAsync([targetGenreId], cancellationToken);
+        if (!targetGenre.Any())
+            throw new InvalidOperationException("targetGenreId: Genre not found.");
+
+        var countries = await _countryRepository.getCountriesByIdsAsync(countryIds, cancellationToken);
+        var instruments = await _instrumentRepository.getInstrumentsByIdsAsync(instrumentIds, cancellationToken);
+        var similarGenres = await _genreRepository.getGenresByIdsAsync(similarGenreIds, cancellationToken);
+        var subGenres = await _genreRepository.getGenresByIdsAsync(subGenreIds, cancellationToken);
+        var predecessorGenres = await _genreRepository.getGenresByIdsAsync(predecessorGenreIds, cancellationToken);
+
+        addMissingIdErrors(errors, "countryIds", countryIds, countries.Select(c => c.Id));
+        addMissingIdErrors(errors, "instrumentIds", instrumentIds, instruments.Select(i => i.Id));
+        addMissingIdErrors(errors, "similarGenreIds", similarGenreIds, similarGenres.Select(g => g.Id));
+        addMissingIdErrors(errors, "subGenreIds", subGenreIds, subGenres.Select(g => g.Id));
+        addMissingIdErrors(errors, "predecessorGenreIds", predecessorGenreIds, predecessorGenres.Select(g => g.Id));
+
+        if (errors.Count > 0)
+            throw new InvalidOperationException(buildErrorMessage(errors));
+
+        var submission = new Submission
+        {
+            AccountId = accountId,
+            TargetGenreId = targetGenreId,
+            Description = normalizedDescription,
+            IsSensitive = request.IsSensitive,
+            SensitiveDescription = request.IsSensitive ? normalizeText(request.SensitiveDescription) : null,
+            PlaylistLink = normalizedPlaylistLink,
+            StartDate = request.StartDate,
+            EndDate = request.EndDate,
+            Status = SubmissionStatus.Pending,
+            Aliases = aliasValues
+                .Where(a => a.Length <= MaxAliasLength)
+                .Select(a => new SubmissionAlias { Alias = a })
+                .ToList(),
+            Sources = normalizedSourceLinks
+                .Select(l => new SubmissionSource { SourceLink = l })
+                .ToList(),
+            Countries = countries.ToList(),
+            Instruments = instruments.ToList(),
+            SimilarGenres = similarGenres.ToList(),
+            SubGenres = subGenres.ToList(),
+            PredecessorGenres = predecessorGenres.ToList()
+        };
+
+        await _submissionRepository.addAsync(submission, cancellationToken);
+
+        return submission.Id;
     }
 
     public async Task rejectAsync(Guid submissionId, Guid reviewerId, RejectSubmissionRequest request, CancellationToken cancellationToken = default)

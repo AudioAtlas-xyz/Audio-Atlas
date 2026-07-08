@@ -17,4 +17,7 @@ export interface PendingSubmissionResponse {
   similarGenreIds: string[];
   subGenreIds: string[];
   predecessorGenreIds: string[];
+  targetGenreId: string | null;
+  targetGenreName: string | null;
+  isEditSuggestion: boolean;
 }

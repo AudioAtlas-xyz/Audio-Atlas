@@ -198,4 +198,58 @@ public class GenreRepository : IGenreRepository
     {
         await _dbcontext.SaveChangesAsync();
     }
+
+    public async Task<Genre?> GetByIdWithRelationsAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return await _dbcontext.Genres
+            .IgnoreQueryFilters()
+            .Include(g => g.Aliases)
+            .Include(g => g.Sources)
+            .Include(g => g.Countries)
+            .Include(g => g.Instruments)
+            .Include(g => g.SimilarGenres)
+            .Include(g => g.SubGenres)
+            .Include(g => g.ParentGenres)
+            .FirstOrDefaultAsync(g => g.Id == id, cancellationToken);
+    }
+
+    public async Task SyncSimilarGenresBidirectionalAsync(Genre genre, IReadOnlyCollection<Genre> newSimilar, CancellationToken cancellationToken = default)
+    {
+        var oldSimilarIds = genre.SimilarGenres.Select(g => g.Id).ToHashSet();
+        var newSimilarIds = newSimilar.Select(g => g.Id).ToHashSet();
+
+        var added = newSimilarIds.Except(oldSimilarIds).ToHashSet();
+        var removed = oldSimilarIds.Except(newSimilarIds).ToHashSet();
+
+        genre.SimilarGenres.Clear();
+        foreach (var g in newSimilar) genre.SimilarGenres.Add(g);
+
+        // Mirror: add this genre into newly linked genres' SimilarGenres.
+        if (added.Count > 0)
+        {
+            var addedGenres = await _dbcontext.Genres
+                .Include(g => g.SimilarGenres)
+                .Where(g => added.Contains(g.Id))
+                .ToListAsync(cancellationToken);
+
+            foreach (var peer in addedGenres)
+                if (peer.SimilarGenres.All(g => g.Id != genre.Id))
+                    peer.SimilarGenres.Add(genre);
+        }
+
+        // Mirror: remove this genre from genres that were de-linked.
+        if (removed.Count > 0)
+        {
+            var removedGenres = await _dbcontext.Genres
+                .Include(g => g.SimilarGenres)
+                .Where(g => removed.Contains(g.Id))
+                .ToListAsync(cancellationToken);
+
+            foreach (var peer in removedGenres)
+            {
+                var link = peer.SimilarGenres.FirstOrDefault(g => g.Id == genre.Id);
+                if (link is not null) peer.SimilarGenres.Remove(link);
+            }
+        }
+    }
 }

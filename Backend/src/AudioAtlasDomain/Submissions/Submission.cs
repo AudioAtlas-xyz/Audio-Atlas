@@ -171,4 +171,16 @@ public class Submission
     /// Navigation property to the submitting user.
     /// </summary>
     public ApplicationUser Account { get; set; } = null!;
+
+    /// <summary>
+    /// When set, this submission is an edit suggestion for an existing genre
+    /// rather than a proposal for a new one.
+    /// Null means this is a new-genre proposal.
+    /// </summary>
+    public Guid? TargetGenreId { get; set; }
+
+    /// <summary>
+    /// Navigation property to the genre being suggested for editing.
+    /// </summary>
+    public Genre? TargetGenre { get; set; }
 }

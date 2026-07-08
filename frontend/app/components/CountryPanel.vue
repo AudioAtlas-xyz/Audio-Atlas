@@ -156,8 +156,8 @@ const errorMessage = computed(() => {
                     <h5 class="text-base font-semibold text-space-50">
                       {{ genre.name }}
                     </h5>
-                    <p v-if="genre.summary || genre.description" class="text-sm leading-6 text-[#b9c6df]">
-                      {{ genre.summary || genre.description }}
+                    <p v-if="genre.description" class="text-sm leading-6 text-[#b9c6df]">
+                      {{ genre.description }}
                     </p>
 
                   </div>

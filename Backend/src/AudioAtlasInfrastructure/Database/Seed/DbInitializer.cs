@@ -164,7 +164,6 @@ public class DbInitializer
                 {
                     Name = name,
                     Description = TryGetStringProperty(obj, "description"),
-                    Summary = TryGetStringProperty(obj, "summary"),
                     StartYear = ParseStartYear(obj),
                     IsSensitive = TryGetBoolProperty(obj, "isSensitive"),
                     SensitiveDescription = TryGetStringProperty(obj, "sensitiveDescription"),
@@ -620,7 +619,6 @@ public class DbInitializer
             {
                 Name = name,
                 Description = TryGetStringProperty(obj, "description"),
-                Summary = TryGetStringProperty(obj, "summary"),
                 StartYear = ParseStartYear(obj),
                 IsSensitive = TryGetBoolProperty(obj, "isSensitive"),
                 SensitiveDescription = TryGetStringProperty(obj, "sensitiveDescription"),

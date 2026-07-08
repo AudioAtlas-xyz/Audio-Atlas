@@ -47,6 +47,7 @@ public class SubmissionRepository : ISubmissionRepository
             .Include(submission => submission.SimilarGenres)
             .Include(submission => submission.SubGenres)
             .Include(submission => submission.PredecessorGenres)
+            .Include(submission => submission.TargetGenre)
             .ToListAsync(cancellationToken);
     }
 
