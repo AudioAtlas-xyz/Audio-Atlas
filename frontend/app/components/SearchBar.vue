@@ -198,7 +198,7 @@ watch(searchTerm, (value) => {
           @click="closeDropdown"
         >
           <strong>{{ genre.name }} | {{ genre.countries?.[0]?.name || 'Unknown' }}</strong>
-          <span>{{ genre.summary }}</span>
+          <span>{{ genre.description }}</span>
         </NuxtLink>
       </template>
     </div>

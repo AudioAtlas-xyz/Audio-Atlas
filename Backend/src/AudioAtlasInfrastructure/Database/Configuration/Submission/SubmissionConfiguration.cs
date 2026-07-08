@@ -76,6 +76,12 @@ public class SubmissionConfiguration : IEntityTypeConfiguration<AudioAtlasDomain
             .IsRequired(false)
             .OnDelete(DeleteBehavior.Restrict);
 
+        builder.HasOne(x => x.TargetGenre)
+            .WithMany()
+            .HasForeignKey(x => x.TargetGenreId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.Restrict);
+
         /// <summary>
         /// Configures one-to-many relationships for proposed aliases and sources.
         /// </summary>

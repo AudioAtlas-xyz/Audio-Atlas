@@ -135,12 +135,12 @@ const geographicItems = computed(() =>
             <NuxtLink
               to="/admin/genres?filter=missing-note"
               class="text-xs text-space-300 underline decoration-dotted hover:text-aurora transition-colors"
-            >Missing origins note</NuxtLink>
+            >Missing description</NuxtLink>
             <NuxtLink
               to="/admin/genres?filter=missing-note"
               class="font-mono text-xs transition-colors hover:underline"
               :class="data.dataCompleteness.missingOriginsNote > 0 ? 'text-[#e05570]' : 'text-aurora'"
-              :aria-label="`${data.dataCompleteness.missingOriginsNote} missing origins notes`"
+              :aria-label="`${data.dataCompleteness.missingOriginsNote} missing descriptions`"
             >{{ data.dataCompleteness.missingOriginsNote.toLocaleString() }}</NuxtLink>
           </li>
           <li class="flex items-center justify-between gap-2">

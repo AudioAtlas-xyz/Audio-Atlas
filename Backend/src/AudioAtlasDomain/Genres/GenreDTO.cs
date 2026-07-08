@@ -10,7 +10,6 @@ public class GenreDTO : IComparable<GenreDTO>
     public Guid? AuthorId { get; set; }
     public string Name { get; set; } = null!;
     public string? Description { get; set; }
-    public string? Summary { get; set; }
     public int? StartYear { get; set; }
     public bool IsSensitive { get; set; }
     public string? SensitiveDescription { get; set; }

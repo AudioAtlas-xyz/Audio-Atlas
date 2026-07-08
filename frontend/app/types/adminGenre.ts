@@ -7,7 +7,6 @@ export interface AdminGenreRow {
   id: string
   name: string
   hasDescription: boolean
-  hasSummary: boolean
   countryNames: string[]
   isArchived: boolean
   archivedAt: string | null
@@ -26,7 +25,6 @@ export interface AdminGenreDetail {
   id: string
   name: string
   description: string | null
-  summary: string | null
   startYear: number | null
   isSensitive: boolean
   sensitiveDescription: string | null

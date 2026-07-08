@@ -31,7 +31,7 @@ const filterOptions = [
   { label: 'Active only',      value: 'active' },
   { label: 'Archived',         value: 'archived' },
   { label: 'No description',   value: 'below-gate' },
-  { label: 'No summary',       value: 'missing-note' },
+  { label: 'No description',   value: 'missing-note' },
   { label: 'No countries',     value: 'orphans' }
 ]
 
@@ -131,7 +131,6 @@ const detail = ref<AdminGenreDetail | null>(null)
 interface EditForm {
   name: string
   description: string
-  summary: string
   startYear: string
   isSensitive: boolean
   sensitiveDescription: string
@@ -146,7 +145,7 @@ interface EditForm {
 }
 
 const editForm = reactive<EditForm>({
-  name: '', description: '', summary: '', startYear: '',
+  name: '', description: '', startYear: '',
   isSensitive: false, sensitiveDescription: '', playlistLink: '',
   countryIds: [], instrumentIds: [],
   similarGenreIds: [], subGenreIds: [], parentGenreIds: [],
@@ -192,7 +191,6 @@ function closePanel() {
 function populateForm(d: AdminGenreDetail) {
   editForm.name = d.name
   editForm.description = d.description ?? ''
-  editForm.summary = d.summary ?? ''
   editForm.startYear = d.startYear != null ? String(d.startYear) : ''
   editForm.isSensitive = d.isSensitive
   editForm.sensitiveDescription = d.sensitiveDescription ?? ''
@@ -219,7 +217,6 @@ async function save() {
   const body = {
     name: editForm.name.trim(),
     description: editForm.description.trim() || null,
-    summary: editForm.summary.trim() || null,
     startYear: startYearNum,
     isSensitive: editForm.isSensitive,
     sensitiveDescription: editForm.sensitiveDescription.trim() || null,
@@ -415,7 +412,6 @@ const breadcrumbItems = [
                 <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Name</th>
                 <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Countries</th>
                 <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Desc</th>
-                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Note</th>
                 <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Status</th>
                 <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Last edited</th>
               </tr>
@@ -448,11 +444,6 @@ const breadcrumbItems = [
                       {{ row.hasDescription ? '✓' : '✗' }}
                     </span>
                   </td>
-                  <td class="px-4 py-3 text-[12px]">
-                    <span :class="row.hasSummary ? 'text-[#3de8c8]' : 'text-[#ff6b6b]'">
-                      {{ row.hasSummary ? '✓' : '✗' }}
-                    </span>
-                  </td>
                   <td class="px-4 py-3">
                     <span
                       class="rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em]"
@@ -470,7 +461,7 @@ const breadcrumbItems = [
 
                 <!-- Expand panel -->
                 <tr v-if="expandedId === row.id" :key="`${row.id}-panel`">
-                  <td colspan="6" class="border-t border-border bg-[#0a0c18] p-0">
+                  <td colspan="5" class="border-t border-border bg-[#0a0c18] p-0">
 
                     <!-- Loading -->
                     <div v-if="detailLoading" class="flex items-center gap-3 px-6 py-6 text-sm text-[#7a84a8]">
@@ -500,12 +491,6 @@ const breadcrumbItems = [
                           <div>
                             <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Description</label>
                             <UTextarea v-model="editForm.description" :rows="4" class="w-full" />
-                          </div>
-
-                          <!-- Summary / Note -->
-                          <div>
-                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Summary (note)</label>
-                            <UTextarea v-model="editForm.summary" :rows="2" class="w-full" />
                           </div>
 
                           <!-- Start year + playlist -->

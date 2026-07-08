@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useRoute, useAsyncData, useHead, useApi } from '#imports'
 import type { Genre } from '~/types/genre'
 import SourceList from '~/components/SourceList.vue'
+import { useAuth } from '~/composables/useAuth'
 
 const route = useRoute()
 const { api } = useApi()
@@ -80,6 +81,14 @@ useHead(() => ({
     ? `${genre.value.name} | Audio Atlas`
     : 'Genre | Audio Atlas'
 }))
+
+const { user } = useAuth()
+const canSuggest = computed(() =>
+  !!user.value && !user.value.roles?.includes('Banned')
+)
+const suggestHref = computed(() =>
+  genreId.value ? `/submission-suggest?genreId=${genreId.value}` : null
+)
 </script>
 
 <template>
@@ -155,6 +164,17 @@ useHead(() => ({
             <CountryContributorsCard v-if="contributors.length" :contributors="contributors" />
             <SourceList :sources="sources" />
             <InstrumentList v-if="instruments.length" :instruments="instruments" />
+
+            <NuxtLink v-if="canSuggest && suggestHref" :to="suggestHref">
+              <UButton
+                block
+                color="neutral"
+                variant="outline"
+                icon="i-lucide-pencil"
+              >
+                Suggest an edit
+              </UButton>
+            </NuxtLink>
           </div>
 
         </div>

@@ -11,4 +11,5 @@ public interface ISubmissionService
     public Task holdForSensitivityAsync(Guid submissionId, Guid reviewerId, CancellationToken cancellationToken = default);
     public Task<ICollection<RejectionReasonResponse>> getActiveRejectionReasonsAsync(CancellationToken cancellationToken = default);
     public Task updateSubmissionAsync(Guid submissionId, UpdateSubmissionRequest request, CancellationToken cancellationToken = default);
+    public Task<Guid> suggestEditAsync(Guid accountId, Guid targetGenreId, SuggestEditRequest request, CancellationToken cancellationToken = default);
 }

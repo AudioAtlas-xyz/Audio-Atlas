@@ -4,7 +4,6 @@ public sealed class AdminGenrePutRequest
 {
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }
-    public string? Summary { get; set; }
     public int? StartYear { get; set; }
     public bool IsSensitive { get; set; }
     public string? SensitiveDescription { get; set; }

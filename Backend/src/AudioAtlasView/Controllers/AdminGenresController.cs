@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using AudioAtlasApplication.DTOs.AdminGenres;
+using AudioAtlasDomain.Enums;
 using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.MusicMetadata;
@@ -47,7 +48,7 @@ public class AdminGenresController : ControllerBase
             "active"     => query.Where(g => !g.IsArchived),
             "archived"   => query.Where(g => g.IsArchived),
             "below-gate" => query.Where(g => !g.IsArchived && string.IsNullOrEmpty(g.Description)),
-            "missing-note" => query.Where(g => !g.IsArchived && string.IsNullOrEmpty(g.Summary)),
+            "missing-note" => query.Where(g => !g.IsArchived && string.IsNullOrEmpty(g.Description)),
             "orphans"    => query.Where(g => !g.IsArchived && !g.Countries.Any()),
             _            => query
         };
@@ -63,7 +64,6 @@ public class AdminGenresController : ControllerBase
                 g.Id,
                 g.Name,
                 HasDescription = !string.IsNullOrEmpty(g.Description),
-                HasSummary = !string.IsNullOrEmpty(g.Summary),
                 CountryNames = g.Countries.Select(c => c.Name).ToList(),
                 g.IsArchived,
                 g.ArchivedAt,
@@ -77,7 +77,6 @@ public class AdminGenresController : ControllerBase
             Id = r.Id,
             Name = r.Name,
             HasDescription = r.HasDescription,
-            HasSummary = r.HasSummary,
             CountryNames = r.CountryNames,
             IsArchived = r.IsArchived,
             ArchivedAt = r.ArchivedAt,
@@ -167,7 +166,6 @@ public class AdminGenresController : ControllerBase
         // Scalar fields — AuthorId is intentionally never touched here.
         genre.Name = request.Name.Trim();
         genre.Description = string.IsNullOrWhiteSpace(request.Description) ? null : request.Description.Trim();
-        genre.Summary = string.IsNullOrWhiteSpace(request.Summary) ? null : request.Summary.Trim();
         genre.StartYear = request.StartYear;
         genre.IsSensitive = request.IsSensitive;
         genre.SensitiveDescription = string.IsNullOrWhiteSpace(request.SensitiveDescription) ? null : request.SensitiveDescription.Trim();
@@ -283,6 +281,12 @@ public class AdminGenresController : ControllerBase
 
         if (genre is null) return NotFound();
 
+        var hasPendingSuggestions = await _db.Submissions
+            .AnyAsync(s => s.TargetGenreId == id && s.Status == SubmissionStatus.Pending, ct);
+
+        if (hasPendingSuggestions)
+            return Conflict(new { message = "This genre has pending edit suggestions. Approve or reject them before deleting." });
+
         _db.Genres.Remove(genre);
         await _db.SaveChangesAsync(ct);
         return NoContent();
@@ -325,7 +329,6 @@ public class AdminGenresController : ControllerBase
         Id = g.Id,
         Name = g.Name,
         Description = g.Description,
-        Summary = g.Summary,
         StartYear = g.StartYear,
         IsSensitive = g.IsSensitive,
         SensitiveDescription = g.SensitiveDescription,

@@ -18,4 +18,6 @@ public interface IGenreRepository
     public Task<ICollection<Genre>> SearchForGenres(string keyword);
     public Task AddAsync(Genre genre, CancellationToken cancellationToken = default);
     public Task SaveChangesAsync();
+    public Task<Genre?> GetByIdWithRelationsAsync(Guid id, CancellationToken cancellationToken = default);
+    public Task SyncSimilarGenresBidirectionalAsync(Genre genre, IReadOnlyCollection<Genre> newSimilar, CancellationToken cancellationToken = default);
 }

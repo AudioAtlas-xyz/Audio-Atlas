@@ -89,7 +89,12 @@ const visibleSubmissions = computed(() => {
   const all = [...(pendingSubmissions.value ?? [])].sort(
     (a, b) => new Date(a.submittedAt).getTime() - new Date(b.submittedAt).getTime()
   )
-  return q ? all.filter(s => s.newGenreName?.toLowerCase().includes(q)) : all
+  return q
+    ? all.filter(s =>
+        s.newGenreName?.toLowerCase().includes(q) ||
+        s.targetGenreName?.toLowerCase().includes(q)
+      )
+    : all
 })
 
 // ── Action state ──────────────────────────────────────────────────────────────
@@ -387,9 +392,19 @@ const breadcrumbItems = [
             >
               <div class="flex w-full items-center justify-between gap-4">
                 <div class="min-w-0 flex-1">
-                  <p class="truncate font-semibold text-space-50">
-                    {{ item.newGenreName }}
-                  </p>
+                  <div class="flex items-center gap-2">
+                    <p class="truncate font-semibold text-space-50">
+                      {{ item.isEditSuggestion ? item.targetGenreName : item.newGenreName }}
+                    </p>
+                    <UBadge
+                      :color="item.isEditSuggestion ? 'warning' : 'primary'"
+                      variant="subtle"
+                      size="xs"
+                      class="shrink-0"
+                    >
+                      {{ item.isEditSuggestion ? 'Suggestion' : 'New genre' }}
+                    </UBadge>
+                  </div>
                   <p class="mt-0.5 font-mono text-[11px] text-[#7a84a8]">
                     @{{ item.accountUsername }} · {{ formatDate(item.submittedAt) }}
                   </p>
@@ -429,6 +444,19 @@ const breadcrumbItems = [
 
                   <!-- Left: details -->
                   <div class="space-y-4">
+
+                    <!-- Suggestion target genre link -->
+                    <div v-if="item.isEditSuggestion" class="rounded border border-[#8ddbe6]/20 bg-[#8ddbe6]/5 px-3 py-2">
+                      <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#8ddbe6]">Edit suggestion for</p>
+                      <NuxtLink
+                        :to="`/genres?genreId=${item.targetGenreId}`"
+                        class="mt-0.5 text-sm font-semibold text-aurora hover:opacity-70"
+                        target="_blank"
+                      >
+                        {{ item.targetGenreName }} →
+                      </NuxtLink>
+                    </div>
+
                     <div class="grid gap-3 sm:grid-cols-2">
                       <div>
                         <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Description</p>
@@ -576,8 +604,12 @@ const breadcrumbItems = [
           <!-- Slideover header -->
           <div class="flex items-center justify-between border-b border-border px-6 py-4">
             <div>
-              <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Edit submission</p>
-              <p class="mt-0.5 font-semibold text-space-50">{{ editForm.newGenreName || 'Unnamed genre' }}</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">
+                {{ editTarget?.isEditSuggestion ? 'Edit suggestion' : 'Edit submission' }}
+              </p>
+              <p class="mt-0.5 font-semibold text-space-50">
+                {{ editTarget?.isEditSuggestion ? editTarget.targetGenreName : (editForm.newGenreName || 'Unnamed genre') }}
+              </p>
             </div>
             <UButton icon="i-heroicons-x-mark" variant="ghost" color="primary" @click="editOpen = false" />
           </div>
@@ -593,8 +625,8 @@ const breadcrumbItems = [
                 :description="editError"
               />
 
-              <!-- Genre name -->
-              <div>
+              <!-- Genre name (new submissions only) -->
+              <div v-if="!editTarget?.isEditSuggestion">
                 <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
                   Genre name
                 </label>
