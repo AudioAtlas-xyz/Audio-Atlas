@@ -5,7 +5,6 @@ import LoginModal from '~/components/UserFlow/LoginModal.vue'
 import UsernameModal from '~/components/UserFlow/UsernameModal.vue'
 import SuccessModal from '~/components/UserFlow/SuccessModal.vue'
 import AppBanner from '@/components/Banners/AppBanner.vue'
-import Footer from '@/components/Footer.vue'
 
 import { useAuth } from '@/composables/useAuth'
 import { useUIState } from '@/composables/useUIState'
