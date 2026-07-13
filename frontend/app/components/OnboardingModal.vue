@@ -13,15 +13,15 @@ const emit = defineEmits<{ (e: 'start'): void }>()
 
         <ul class="features">
           <li class="feature">
-            <UIcon name="i-lucide-globe" class="feature__icon" />
+            <UIcon name="i-heroicons-globe-alt-20-solid" class="feature__icon" />
             <span>Spin the globe and click any country to discover its genres</span>
           </li>
           <li class="feature">
-            <UIcon name="i-lucide-search" class="feature__icon" />
+            <UIcon name="i-heroicons-magnifying-glass-20-solid" class="feature__icon" />
             <span>Search across cultures, eras, and continents</span>
           </li>
           <li class="feature">
-            <UIcon name="i-lucide-pencil" class="feature__icon" />
+            <UIcon name="i-heroicons-pencil-square-20-solid" class="feature__icon" />
             <span>Sign in to contribute genres and suggest edits</span>
           </li>
         </ul>
