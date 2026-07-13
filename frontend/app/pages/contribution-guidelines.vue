@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useHead } from '#imports'
-
-/**
- * Set page title for Contribution Guidelines
- */
-useHead({
-  title: 'Contribution Guidelines - Audio Atlas'
+useSeoMeta({
+  title: 'Contribution Guidelines | Audio Atlas',
+  description: 'Learn how to submit and edit music genres on Audio Atlas — our standards for descriptions, sources, cultural sensitivity and curator review.',
+  ogTitle: 'Contribution Guidelines | Audio Atlas',
+  ogDescription: 'Learn how to submit and edit music genres on Audio Atlas — our standards for descriptions, sources, cultural sensitivity and curator review.',
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
 })
 </script>
 
@@ -13,7 +13,6 @@ useHead({
   <!-- Main page wrapper -->
   <main class="legal-page">
     <div class="legal-container">
-
       <!-- Page title -->
       <h1>Contribution Guidelines</h1>
 
@@ -136,7 +135,6 @@ useHead({
           </a>
         </p>
       </section>
-
     </div>
   </main>
 </template>

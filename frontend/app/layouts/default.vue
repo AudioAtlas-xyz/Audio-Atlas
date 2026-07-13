@@ -9,6 +9,16 @@ import AppBanner from '@/components/Banners/AppBanner.vue'
 import { useAuth } from '@/composables/useAuth'
 import { useUIState } from '@/composables/useUIState'
 
+useSchemaOrg([
+  defineOrganization({
+    name: 'Audio Atlas',
+    url: 'https://audioatlas.xyz',
+    logo: 'https://audioatlas.xyz/logo.png',
+    sameAs: ['https://github.com/AudioAtlas-xyz/Audio-Atlas'],
+    description: 'A community-built, curated map of the world\'s music genres, licensed under CC BY-NC-SA 4.0.'
+  })
+])
+
 const { fetchUser, user } = useAuth()
 
 const {

@@ -2,13 +2,14 @@
 import { ref } from 'vue'
 import Globe from '@/components/Globe.vue'
 import CountryPanel from '@/components/CountryPanel.vue'
-import { useHead } from '#imports'
 
-useHead({
-  title: 'Explore - Audio Atlas',
-  meta: [
-    { name: 'description', content: 'Explore music genres around the world' }
-  ]
+useSeoMeta({
+  title: 'Explore Genres | Audio Atlas',
+  description: 'Browse every genre on Audio Atlas — filter by continent, region or country and dive into the cultural stories behind each one.',
+  ogTitle: 'Explore Genres | Audio Atlas',
+  ogDescription: 'Browse every genre on Audio Atlas — filter by continent, region or country and dive into the cultural stories behind each one.',
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
 })
 
 // Globe in its settled state, no scroll intro. The landing page at /
@@ -18,8 +19,8 @@ const settledPov = { lat: 54, lng: 12, altitude: 2.2 }
 const selectedCountryId = ref<string | null>(null)
 
 const handleCountryClick = (country: { isoA3: string } | string) => {
-  selectedCountryId.value =
-    typeof country === 'string' ? country : country.isoA3
+  selectedCountryId.value
+    = typeof country === 'string' ? country : country.isoA3
 }
 
 const closeCountryPanel = () => {

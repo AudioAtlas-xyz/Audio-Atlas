@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useHead } from '#imports'
-
-/**
- * Set page title for About page
- */
-useHead({
-  title: 'About - Audio Atlas'
+useSeoMeta({
+  title: 'About | Audio Atlas',
+  description: 'Audio Atlas is a community-built, curator-reviewed map of the world\'s music genres, licensed under CC BY-NC-SA 4.0 to support cultural preservation.',
+  ogTitle: 'About | Audio Atlas',
+  ogDescription: 'Audio Atlas is a community-built, curator-reviewed map of the world\'s music genres, licensed under CC BY-NC-SA 4.0 to support cultural preservation.',
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
 })
 </script>
 
@@ -13,7 +13,6 @@ useHead({
   <!-- Main page wrapper -->
   <main class="about-page">
     <div class="about-container">
-
       <!-- Page title -->
       <h1>About</h1>
 
@@ -43,11 +42,17 @@ useHead({
         <p>
           Create a free account with GitHub or Google.
           Read our
-          <NuxtLink to="/contribution-guidelines" class="link-green">
+          <NuxtLink
+            to="/contribution-guidelines"
+            class="link-green"
+          >
             Contribution Guidelines
           </NuxtLink>
           and
-          <NuxtLink to="/privacy-policy" class="link-green">
+          <NuxtLink
+            to="/privacy-policy"
+            class="link-green"
+          >
             Privacy Policy
           </NuxtLink>.
           Then submit genres using our structured form.
@@ -93,12 +98,14 @@ useHead({
         </p>
 
         <p>
-          <a href="mailto:projectaudioatlas@gmail.com" class="link-green">
+          <a
+            href="mailto:projectaudioatlas@gmail.com"
+            class="link-green"
+          >
             projectaudioatlas@gmail.com
           </a>
         </p>
       </section>
-
     </div>
   </main>
 </template>
