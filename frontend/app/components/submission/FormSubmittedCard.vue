@@ -18,9 +18,16 @@ defineEmits<{ (e: 'submit-another'): void }>()
       team. You'll be notified when it's approved or if the team has questions.
     </p>
 
-    <UButton style="background-color: #3DE8C8" @click="$emit('submit-another')">
-      Submit another genre
-    </UButton>
+    <div :class="$style.actions">
+      <NuxtLink to="/explore">
+        <UButton :class="$style.exploreBtn">
+          Continue exploring
+        </UButton>
+      </NuxtLink>
+      <UButton style="background-color: #3DE8C8; color: #02070a; font-weight: 600;" @click="$emit('submit-another')">
+        Submit another genre
+      </UButton>
+    </div>
   </div>
 </template>
 
@@ -73,5 +80,24 @@ defineEmits<{ (e: 'submit-another'): void }>()
   font-weight: 300;
   line-height: 1.75;
   color: #7a84a8;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.exploreBtn {
+  width: 100%;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(141, 219, 230, 0.25);
+  color: #8ddbe6;
+}
+
+.exploreBtn:hover {
+  background: rgba(141, 219, 230, 0.07);
 }
 </style>

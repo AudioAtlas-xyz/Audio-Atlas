@@ -24,89 +24,114 @@ function removeItem(value: string) {
 </script>
 
 <template>
-  <div class="select-wrapper">
-    <USelectMenu
-      :model-value="selectedItems"
-      :items="itemList"
-      multiple
-      searchable
-      search-attribute="label"
-      trailing-icon="i-lucide-chevrons-up-down"
-      placeholder="Search and select…"
-      class="w-full"
-      @update:model-value="(items) => emit('update:modelValue', items.map((i: { value: string }) => i.value))"
-    />
-
-    <div v-if="selectedItems.length > 0" class="chips">
-      <span
-        v-for="item in selectedItems"
-        :key="item.value"
-        class="chip"
-      >
-        {{ item.label }}
-        <button
-          type="button"
-          class="chip-x"
-          :aria-label="`Remove ${item.label}`"
-          @click="removeItem(item.value)"
-        >
-          <UIcon name="i-lucide-x" class="chip-x__icon" />
-        </button>
-      </span>
-    </div>
-  </div>
+  <USelectMenu
+    :model-value="selectedItems"
+    :items="itemList"
+    multiple
+    searchable
+    search-attribute="label"
+    class="w-full"
+    @update:model-value="(items) => emit('update:modelValue', items.map((i: { value: string }) => i.value))"
+  >
+    <template #default>
+      <div class="trigger">
+        <div class="trigger__body">
+          <span v-if="!selectedItems.length" class="trigger__placeholder">
+            Search and select…
+          </span>
+          <template v-else>
+            <span
+              v-for="item in selectedItems"
+              :key="item.value"
+              class="chip"
+              @click.stop
+            >
+              {{ item.label }}
+              <span
+                role="button"
+                tabindex="0"
+                class="chip__x"
+                :aria-label="`Remove ${item.label}`"
+                @click.stop="removeItem(item.value)"
+                @keydown.enter.stop="removeItem(item.value)"
+                @keydown.space.prevent.stop="removeItem(item.value)"
+              >
+                <UIcon name="i-lucide-x" class="chip__x-icon" />
+              </span>
+            </span>
+          </template>
+        </div>
+        <UIcon name="i-lucide-chevrons-up-down" class="trigger__chevron" />
+      </div>
+    </template>
+  </USelectMenu>
 </template>
 
 <style scoped>
-.select-wrapper {
+.trigger {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 1.75rem;
+  gap: 0.5rem;
 }
 
-.chips {
+.trigger__body {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.trigger__placeholder {
+  font-size: 0.875rem;
+  color: #4a6070;
+}
+
+.trigger__chevron {
+  width: 1rem;
+  height: 1rem;
+  color: #4a6070;
+  flex-shrink: 0;
 }
 
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 0 6px 0 10px;
-  height: 24px;
-  border-radius: 12px;
+  gap: 3px;
+  padding: 0 4px 0 8px;
+  height: 20px;
+  border-radius: 10px;
   background: rgba(136, 153, 255, 0.12);
   border: 1px solid #8899ff;
   font-size: 11px;
   color: #8899ff;
   font-family: 'Space Grotesk', sans-serif;
   white-space: nowrap;
+  user-select: none;
 }
 
-.chip-x {
+.chip__x {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  border: none;
   background: rgba(136, 153, 255, 0.2);
-  color: #8899ff;
   cursor: pointer;
-  padding: 0;
   flex-shrink: 0;
   transition: background 0.15s ease;
 }
 
-.chip-x:hover {
+.chip__x:hover {
   background: rgba(136, 153, 255, 0.45);
 }
 
-.chip-x__icon {
-  width: 9px;
-  height: 9px;
+.chip__x-icon {
+  width: 8px;
+  height: 8px;
 }
 </style>
