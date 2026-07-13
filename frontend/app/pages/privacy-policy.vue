@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { useHead } from '#imports'
-
-useHead({
-  title: 'Privacy Policy - Audio Atlas'
+useSeoMeta({
+  title: 'Privacy Policy | Audio Atlas',
+  description: 'Read the Audio Atlas privacy policy — how we collect, use and protect your data when you use the site or sign in with Google or GitHub.',
+  ogTitle: 'Privacy Policy | Audio Atlas',
+  ogDescription: 'Read the Audio Atlas privacy policy — how we collect, use and protect your data when you use the site or sign in with Google or GitHub.',
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
 })
 </script>
 

@@ -13,31 +13,36 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     '@nuxt/eslint',
-    '@nuxtjs/google-fonts'
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/seo'
   ],
 
-  googleFonts: {
-    families: {
-      'Space Grotesk': [300, 400, 500, 600],
-      'Space Mono': [400, 700]
-    }
+  devtools: {
+    enabled: true
   },
 
   css: ['~/assets/css/main.css'],
 
-  vite: {
-    optimizeDeps: {
-      include: [
-        'globe.gl',
-        '@vue/devtools-core',
-        '@vue/devtools-kit',
-        'three'
-      ]
-    }
+  site: {
+    url: 'https://audioatlas.xyz',
+    name: 'Audio Atlas',
+    description: 'Explore, discover and contribute to a living map of the world\'s music genres — from Afrobeats to Zydeco.',
+    defaultLocale: 'en'
   },
 
-  devtools: {
-    enabled: true
+  colorMode: {
+    preference: 'dark',
+    fallback: 'dark',
+    storageKey: 'aa-color-mode'
+  },
+
+  runtimeConfig: {
+    apiProxyTarget,
+
+    public: {
+      apiBase,
+      backendBaseUrl
+    }
   },
 
   routeRules: {
@@ -50,13 +55,18 @@ export default defineNuxtConfig({
     '/auth/callback': { ssr: false }
   },
 
-  colorMode: {
-    preference: 'dark',
-    fallback: 'dark',
-    storageKey: 'aa-color-mode'
-  },
-
   compatibilityDate: '2025-01-15',
+
+  vite: {
+    optimizeDeps: {
+      include: [
+        'globe.gl',
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        'three'
+      ]
+    }
+  },
 
   eslint: {
     config: {
@@ -67,12 +77,31 @@ export default defineNuxtConfig({
     }
   },
 
-  runtimeConfig: {
-    apiProxyTarget,
-
-    public: {
-      apiBase,
-      backendBaseUrl
+  googleFonts: {
+    families: {
+      'Space Grotesk': [300, 400, 500, 600],
+      'Space Mono': [400, 700]
     }
+  },
+
+  // OG image generation is disabled until an asset is designed.
+  // To enable: install @takumi-rs/core@rc and remove this block.
+  ogImage: {
+    enabled: false
+  },
+
+  // No static robots.txt exists. The robots module generates one and adds a Sitemap directive.
+  // If AI content-signal directives are needed in future, configure them here via the `robots` key
+  // rather than a static file so the Sitemap line is never lost.
+  robots: {
+    disallow: [],
+    sitemap: 'https://audioatlas.xyz/sitemap.xml'
+  },
+
+  // Genre pages use /genres?genreId=... (query-string, not path segments) and are SSR not prerendered.
+  // They cannot be auto-discovered by the sitemap crawler. They will be added in a future phase
+  // once a /genres listing endpoint exists to enumerate them programmatically.
+  sitemap: {
+    strictNuxtContentPaths: false
   }
 })

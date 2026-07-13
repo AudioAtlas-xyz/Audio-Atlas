@@ -4,17 +4,15 @@ import Globe from '@/components/Globe.vue'
 import CountryPanel from '@/components/CountryPanel.vue'
 
 import { useScrollIntro } from '@/composables/useScrollIntro'
-import { useHead } from '#imports'
 
-/**
- * Page meta
- */
-useHead({
-  title: 'Audio Atlas',
-  meta: [
-    { name: 'description', content: 'Explore music genres around the world' }
-  ],
-  link: []
+useSeoMeta({
+  title: 'Audio Atlas — A living map of the world\'s music',
+  description: 'Spin an interactive globe to explore music genres by country. Discover the origins, connections and cultural context of hundreds of genres worldwide.',
+  ogTitle: 'Audio Atlas — A living map of the world\'s music',
+  ogDescription: 'Spin an interactive globe to explore music genres by country. Discover the origins, connections and cultural context of hundreds of genres worldwide.',
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
+  // TODO: add ogImage once OG image asset is designed
 })
 
 const viewportHeight = ref(0)
@@ -58,8 +56,6 @@ const eased = computed(() => {
 })
 
 const globeOffset = computed<[number, number]>(() => {
-  const p = finished.value ? 1 : progress.value
-
   // positive Y moves globe down, negative moves it up
   const y = Math.round((1 - eased.value) * 260)
 
@@ -87,8 +83,8 @@ const pageStyle = computed(() => {
 const selectedCountryId = ref<string | null>(null)
 
 const handleCountryClick = (country: { isoA3: string } | string) => {
-  selectedCountryId.value =
-    typeof country === 'string' ? country : country.isoA3
+  selectedCountryId.value
+    = typeof country === 'string' ? country : country.isoA3
 }
 
 const closeCountryPanel = () => {
@@ -97,8 +93,10 @@ const closeCountryPanel = () => {
 </script>
 
 <template>
-  <main class="landing-page" :style="pageStyle">
-
+  <main
+    class="landing-page"
+    :style="pageStyle"
+  >
     <!-- Hero -->
     <div class="hero-title">
       <p class="eyebrow">
@@ -130,7 +128,10 @@ const closeCountryPanel = () => {
       :style="{ opacity: Math.max(0, 1 - progress * 6) }"
     >
       <span class="scroll-cue__label">scroll to explore</span>
-      <UIcon name="i-heroicons-chevron-down-20-solid" class="scroll-cue__chevron" />
+      <UIcon
+        name="i-heroicons-chevron-down-20-solid"
+        class="scroll-cue__chevron"
+      />
     </div>
 
     <!-- Country panel -->
@@ -145,9 +146,11 @@ const closeCountryPanel = () => {
 
     <!-- Onboarding modal — client-side only, shown once per browser -->
     <ClientOnly>
-      <OnboardingModal v-if="showOnboarding" @start="startExploring" />
+      <OnboardingModal
+        v-if="showOnboarding"
+        @start="startExploring"
+      />
     </ClientOnly>
-
   </main>
 </template>
 
