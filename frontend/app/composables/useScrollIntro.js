@@ -69,5 +69,5 @@ export function useScrollIntro({ scrollMultiplier = 0.85 } = {}) {
     }
   })
 
-  return { progress, finished }
+  return { progress, finished, lock }
 }
