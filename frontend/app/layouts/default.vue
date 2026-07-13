@@ -5,6 +5,7 @@ import LoginModal from '~/components/UserFlow/LoginModal.vue'
 import UsernameModal from '~/components/UserFlow/UsernameModal.vue'
 import SuccessModal from '~/components/UserFlow/SuccessModal.vue'
 import AppBanner from '@/components/Banners/AppBanner.vue'
+import Footer from '@/components/Footer.vue'
 
 import { useAuth } from '@/composables/useAuth'
 import { useUIState } from '@/composables/useUIState'
@@ -160,11 +161,14 @@ onMounted(async () => {
     <main class="page-content">
       <slot />
     </main>
+
+    <Footer />
   </div>
 </template>
 
 <style scoped>
 .page-content {
   padding-top: 5rem;
+  padding-bottom: 2.5rem;
 }
 </style>

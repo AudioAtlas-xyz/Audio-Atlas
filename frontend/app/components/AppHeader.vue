@@ -57,8 +57,6 @@ onBeforeUnmount(() => {
       <!-- Desktop nav -->
       <nav class="nav-links">
         <NuxtLink to="/explore">Explore</NuxtLink>
-        <NuxtLink to="/about">About</NuxtLink>
-        <NuxtLink to="/privacy-policy">Privacy Policy</NuxtLink>
         <NuxtLink v-if="isAdmin" to="/admin" class="nav-admin">Admin</NuxtLink>
         <NuxtLink v-if="user" to="/submission-form" class="nav-contribute">Contribute</NuxtLink>
         <button v-else class="nav-contribute" @click="emit('login')">Contribute</button>
@@ -113,14 +111,6 @@ onBeforeUnmount(() => {
           <NuxtLink to="/explore" class="drawer-link" @click="menuOpen = false">
             <UIcon name="i-lucide-globe" class="drawer-link__icon" />
             Explore
-          </NuxtLink>
-          <NuxtLink to="/about" class="drawer-link" @click="menuOpen = false">
-            <UIcon name="i-lucide-info" class="drawer-link__icon" />
-            About
-          </NuxtLink>
-          <NuxtLink to="/privacy-policy" class="drawer-link" @click="menuOpen = false">
-            <UIcon name="i-lucide-shield" class="drawer-link__icon" />
-            Privacy Policy
           </NuxtLink>
           <NuxtLink
             v-if="isAdmin"
@@ -269,15 +259,16 @@ onBeforeUnmount(() => {
     color: #3de8c8;
     font-weight: 600;
     text-decoration: none;
-    background: none;
-    border: none;
-    padding: 0;
+    background: rgba(61, 232, 200, 0.08);
+    border: 1px solid rgba(61, 232, 200, 0.3);
+    border-radius: 8px;
+    padding: 0.35rem 0.85rem;
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    transition: background 0.2s ease;
   }
 
   .nav-contribute:hover {
-    opacity: 0.7;
+    background: rgba(61, 232, 200, 0.15);
   }
 
   .right {
