@@ -5,7 +5,9 @@ useSeoMeta({
   ogTitle: 'Privacy Policy | Audio Atlas',
   ogDescription: 'Read the Audio Atlas privacy policy — how we collect, use and protect your data when you use the site or sign in with Google or GitHub.',
   ogType: 'website',
-  twitterCard: 'summary_large_image'
+  ogImage: 'https://audioatlas.xyz/og-image.png',
+  twitterCard: 'summary_large_image',
+  twitterImage: 'https://audioatlas.xyz/og-image.png'
 })
 </script>
 

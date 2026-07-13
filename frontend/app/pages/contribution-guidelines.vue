@@ -5,7 +5,9 @@ useSeoMeta({
   ogTitle: 'Contribution Guidelines | Audio Atlas',
   ogDescription: 'Learn how to submit and edit music genres on Audio Atlas — our standards for descriptions, sources, cultural sensitivity and curator review.',
   ogType: 'website',
-  twitterCard: 'summary_large_image'
+  ogImage: 'https://audioatlas.xyz/og-image.png',
+  twitterCard: 'summary_large_image',
+  twitterImage: 'https://audioatlas.xyz/og-image.png'
 })
 </script>
 

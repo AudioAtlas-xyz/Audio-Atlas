@@ -84,8 +84,7 @@ export default defineNuxtConfig({
     }
   },
 
-  // OG image generation is disabled until an asset is designed.
-  // To enable: install @takumi-rs/core@rc and remove this block.
+  // Runtime OG image generation is disabled — we serve a static /og-image.png instead.
   ogImage: {
     enabled: false
   },

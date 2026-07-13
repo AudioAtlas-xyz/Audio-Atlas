@@ -11,8 +11,9 @@ useSeoMeta({
   ogTitle: 'Audio Atlas — A living map of the world\'s music',
   ogDescription: 'Spin an interactive globe to explore music genres by country. Discover the origins, connections and cultural context of hundreds of genres worldwide.',
   ogType: 'website',
-  twitterCard: 'summary_large_image'
-  // TODO: add ogImage once OG image asset is designed
+  ogImage: 'https://audioatlas.xyz/og-image.png',
+  twitterCard: 'summary_large_image',
+  twitterImage: 'https://audioatlas.xyz/og-image.png'
 })
 
 const viewportHeight = ref(0)
