@@ -19,12 +19,21 @@ defineEmits<{ (e: 'submit-another'): void }>()
     </p>
 
     <div :class="$style.actions">
-      <NuxtLink to="/explore">
-        <UButton :class="$style.exploreBtn">
+      <NuxtLink to="/explore" class="block">
+        <UButton
+          block
+          class="justify-center"
+          style="background: transparent; border: 1px solid rgba(141, 219, 230, 0.25); color: #8ddbe6;"
+        >
           Continue exploring
         </UButton>
       </NuxtLink>
-      <UButton style="background-color: #3DE8C8; color: #02070a; font-weight: 600;" @click="$emit('submit-another')">
+      <UButton
+        block
+        class="justify-center"
+        style="background-color: #3DE8C8; color: #02070a; font-weight: 600;"
+        @click="$emit('submit-another')"
+      >
         Submit another genre
       </UButton>
     </div>
@@ -89,15 +98,5 @@ defineEmits<{ (e: 'submit-another'): void }>()
   width: 100%;
 }
 
-.exploreBtn {
-  width: 100%;
-  justify-content: center;
-  background: transparent;
-  border: 1px solid rgba(141, 219, 230, 0.25);
-  color: #8ddbe6;
-}
 
-.exploreBtn:hover {
-  background: rgba(141, 219, 230, 0.07);
-}
 </style>
