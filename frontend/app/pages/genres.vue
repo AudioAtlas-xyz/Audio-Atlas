@@ -168,10 +168,10 @@ const suggestHref = computed(() =>
             <NuxtLink v-if="canSuggest && suggestHref" :to="suggestHref">
               <UButton
                 block
-                color="neutral"
-                variant="outline"
-                icon="i-lucide-pencil"
+                class="justify-center gap-2 font-semibold"
+                style="background-color: #3de8c8; color: #02070a; border: none;"
               >
+                <UIcon name="i-lucide-pencil" class="w-4 h-4" />
                 Suggest an edit
               </UButton>
             </NuxtLink>

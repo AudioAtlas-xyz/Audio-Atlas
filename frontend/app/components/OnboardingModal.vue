@@ -21,7 +21,7 @@ const emit = defineEmits<{ (e: 'start'): void }>()
             <span>Search across cultures, eras, and continents</span>
           </li>
           <li class="feature">
-            <UIcon name="i-lucide-pencil-line" class="feature__icon" />
+            <UIcon name="i-lucide-pencil" class="feature__icon" />
             <span>Sign in to contribute genres and suggest edits</span>
           </li>
         </ul>
