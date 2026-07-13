@@ -160,11 +160,14 @@ onMounted(async () => {
     <main class="page-content">
       <slot />
     </main>
+
+    <Footer />
   </div>
 </template>
 
 <style scoped>
 .page-content {
   padding-top: 5rem;
+  padding-bottom: 2.5rem;
 }
 </style>
