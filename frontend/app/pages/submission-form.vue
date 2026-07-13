@@ -57,14 +57,17 @@ const submitError = ref<string | null>(null)
 type ValidStep = 1 | 2 | 3 | 4 | 5;
 
 function nextStep() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
   currentStep.value++
 }
 
 function prevStep() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
   currentStep.value--
 }
 
 function goToStep(step: ValidStep){
+  window.scrollTo({ top: 0, behavior: 'smooth' })
   currentStep.value = step;
 }
 async function submitForm() {
@@ -367,13 +370,16 @@ const submissionData = reactive ({
 
             <div :class="$style.subjectName">Aliases</div>
             <div :class="$style.wrapper">
-              <span
-                v-for="(item, index) in submissionData.Aliases"
-                :key="index"
-                :class="$style.chip"
+              <template v-if="submissionData.Aliases.length">
+                <span
+                  v-for="(item, index) in submissionData.Aliases"
+                  :key="index"
+                  :class="$style.chip"
                 >
-                {{ item }}
+                  {{ item }}
                 </span>
+              </template>
+              <span v-else style="font-size: 11px; color: #4a6070; font-style: italic">None added</span>
             </div>
 
             <div :class="$style.subjectName">Countries of origin</div>
@@ -401,17 +407,29 @@ const submissionData = reactive ({
             <div :class = "$style.textfield">{{submissionData.Description}}</div>
             <div :class="$style.subjectName">Instruments</div>
             <div :class="$style.wrapper">
-              <span
-                v-for="(item, index) in submissionData.InstrumentIds"
-                :key="index"
-                :class="$style.chip"
+              <template v-if="submissionData.InstrumentIds.length">
+                <span
+                  v-for="(item, index) in submissionData.InstrumentIds"
+                  :key="index"
+                  :class="$style.chip"
                 >
-                {{ instrumentNameMap[item] ?? item }}
+                  {{ instrumentNameMap[item] ?? item }}
                 </span>
+              </template>
+              <span v-else style="font-size: 11px; color: #4a6070; font-style: italic">None added</span>
             </div>
 
             <div :class="$style.subjectName">Playlist</div>
-            <div :class = "$style.textfield">{{submissionData.PlaylistLink}}</div>
+            <div :class="$style.textfield">
+              <a
+                v-if="submissionData.PlaylistLink"
+                :href="submissionData.PlaylistLink"
+                target="_blank"
+                rel="noopener"
+                style="color: #7a84a8; text-decoration: underline; text-underline-offset: 2px; word-break: break-all"
+              >{{ submissionData.PlaylistLink }}</a>
+              <span v-else style="font-size: 11px; color: #4a6070; font-style: italic">No playlist link provided</span>
+            </div>
           </div>
 
           <USeparator orientation="horizontal" class="my-8" />
@@ -425,42 +443,55 @@ const submissionData = reactive ({
             </div>
             <div :class="$style.subjectName">Evolved from</div>
             <div :class="$style.wrapper">
-              <span
-                v-for="(item, index) in submissionData.PredecessorGenreIds"
-                :key="index"
-                :class="$style.chip"
+              <template v-if="submissionData.PredecessorGenreIds.length">
+                <span
+                  v-for="(item, index) in submissionData.PredecessorGenreIds"
+                  :key="index"
+                  :class="$style.chip"
                 >
-                {{ genreNameMap[item] ?? item }}
+                  {{ genreNameMap[item] ?? item }}
                 </span>
+              </template>
+              <span v-else style="font-size: 11px; color: #4a6070; font-style: italic">None added</span>
             </div>
-            <div :class="$style.subjectName"> Gave rise to </div>
+            <div :class="$style.subjectName">Gave rise to</div>
             <div :class="$style.wrapper">
-              <span
-                v-for="(item, index) in submissionData.SubGenreIds"
-                :key="index"
-                :class="$style.chip"
+              <template v-if="submissionData.SubGenreIds.length">
+                <span
+                  v-for="(item, index) in submissionData.SubGenreIds"
+                  :key="index"
+                  :class="$style.chip"
                 >
-                {{ genreNameMap[item] ?? item }}
+                  {{ genreNameMap[item] ?? item }}
                 </span>
+              </template>
+              <span v-else style="font-size: 11px; color: #4a6070; font-style: italic">None added</span>
             </div>
-            <div :class="$style.subjectName">Similar to </div>
+            <div :class="$style.subjectName">Similar to</div>
             <div :class="$style.wrapper">
-              <span
-                v-for="(item, index) in submissionData.SimilarGenreIds"
-                :key="index"
-                :class="$style.chip"
+              <template v-if="submissionData.SimilarGenreIds.length">
+                <span
+                  v-for="(item, index) in submissionData.SimilarGenreIds"
+                  :key="index"
+                  :class="$style.chip"
                 >
-                {{ genreNameMap[item] ?? item }}
+                  {{ genreNameMap[item] ?? item }}
                 </span>
+              </template>
+              <span v-else style="font-size: 11px; color: #4a6070; font-style: italic">None added</span>
             </div>
             <div :class="$style.subjectName">Sources</div>
-            <div :class = "$style.wrapper">
-              <span
-                v-for="(item, index) in submissionData.SourceLinks"
-                :key="index"
-                :class="$style.chip">
-              {{ item }}
-              </span>
+            <div :class="$style.wrapper">
+              <template v-if="submissionData.SourceLinks.length">
+                <span
+                  v-for="(item, index) in submissionData.SourceLinks"
+                  :key="index"
+                  :class="$style.chip"
+                >
+                  {{ item }}
+                </span>
+              </template>
+              <span v-else style="font-size: 11px; color: #4a6070; font-style: italic">None added</span>
             </div>
 
           </div>
