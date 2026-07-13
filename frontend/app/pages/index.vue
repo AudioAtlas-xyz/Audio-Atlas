@@ -18,6 +18,7 @@ useHead({
 })
 
 const viewportHeight = ref(0)
+const showOnboarding = ref(false)
 
 onMounted(() => {
   viewportHeight.value = window.innerHeight
@@ -25,12 +26,22 @@ onMounted(() => {
   window.addEventListener('resize', () => {
     viewportHeight.value = window.innerHeight
   })
+
+  if (!localStorage.getItem('audio_atlas_onboarded')) {
+    showOnboarding.value = true
+  }
 })
+
+function startExploring() {
+  localStorage.setItem('audio_atlas_onboarded', '1')
+  showOnboarding.value = false
+  lock()
+}
 
 /**
  * Scroll intro
  */
-const { progress, finished } = useScrollIntro()
+const { progress, finished, lock } = useScrollIntro()
 
 /**
  * Globe setup
@@ -131,6 +142,11 @@ const closeCountryPanel = () => {
     />
 
     <div class="scroll-spacer" />
+
+    <!-- Onboarding modal — client-side only, shown once per browser -->
+    <ClientOnly>
+      <OnboardingModal v-if="showOnboarding" @start="startExploring" />
+    </ClientOnly>
 
   </main>
 </template>
