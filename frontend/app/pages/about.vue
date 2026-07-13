@@ -5,7 +5,9 @@ useSeoMeta({
   ogTitle: 'About | Audio Atlas',
   ogDescription: 'Audio Atlas is a community-built, curator-reviewed map of the world\'s music genres, licensed under CC BY-NC-SA 4.0 to support cultural preservation.',
   ogType: 'website',
-  twitterCard: 'summary_large_image'
+  ogImage: 'https://audioatlas.xyz/og-image.png',
+  twitterCard: 'summary_large_image',
+  twitterImage: 'https://audioatlas.xyz/og-image.png'
 })
 </script>
 

@@ -9,7 +9,9 @@ useSeoMeta({
   ogTitle: 'Explore Genres | Audio Atlas',
   ogDescription: 'Browse every genre on Audio Atlas — filter by continent, region or country and dive into the cultural stories behind each one.',
   ogType: 'website',
-  twitterCard: 'summary_large_image'
+  ogImage: 'https://audioatlas.xyz/og-image.png',
+  twitterCard: 'summary_large_image',
+  twitterImage: 'https://audioatlas.xyz/og-image.png'
 })
 
 // Globe in its settled state, no scroll intro. The landing page at /
