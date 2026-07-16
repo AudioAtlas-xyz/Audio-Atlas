@@ -69,6 +69,15 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-01-15',
 
+  // Deployed as a pure static site (Azure Static Web Apps receives only .output/public,
+  // no Node runtime). The default node-server preset only prerenders routes listed in
+  // routeRules above and never emits sitemap.xml/robots.txt as files, which is why
+  // Google Search Console could never fetch them. The static preset crawls the whole
+  // app and writes every discoverable route (incl. sitemap.xml/robots.txt) to disk.
+  nitro: {
+    preset: 'static'
+  },
+
   vite: {
     optimizeDeps: {
       include: [
@@ -105,7 +114,7 @@ export default defineNuxtConfig({
   // If AI content-signal directives are needed in future, configure them here via the `robots` key
   // rather than a static file so the Sitemap line is never lost.
   robots: {
-    disallow: [],
+    disallow: ['/admin', '/auth/callback'],
     sitemap: 'https://audioatlas.xyz/sitemap.xml'
   },
 
@@ -113,6 +122,7 @@ export default defineNuxtConfig({
   // They cannot be auto-discovered by the sitemap crawler. They will be added in a future phase
   // once a /genres listing endpoint exists to enumerate them programmatically.
   sitemap: {
-    strictNuxtContentPaths: false
+    strictNuxtContentPaths: false,
+    exclude: ['/admin/**', '/auth/callback', '/CountryPage', '/submission-form3']
   }
 })
