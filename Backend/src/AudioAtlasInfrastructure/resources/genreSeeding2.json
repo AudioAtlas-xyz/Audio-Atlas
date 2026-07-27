@@ -80,7 +80,25 @@
     "baithak-gana": "Baithak Gana",
     "cueca-brava": "Cueca Brava",
     "zamacueca": "Zamacueca",
-    "guarania": "Guarania"
+    "guarania": "Guarania",
+    "ethio-jazz": "Ethio-Jazz",
+    "griot-tradition": "Griot Tradition",
+    "soukous": "Soukous",
+    "taarab": "Taarab",
+    "nasheed": "Nasheed",
+    "maskandi": "Maskandi",
+    "morna": "Morna",
+    "sega": "Sega",
+    "moutya": "Moutya",
+    "salegy": "Salegy",
+    "tsapiky": "Tsapiky",
+    "isicathamiya": "Isicathamiya",
+    "beni-ngoma": "Beni Ngoma",
+    "chimurenga": "Chimurenga Music",
+    "zamrock": "Zamrock",
+    "jit": "Jit",
+    "sungura": "Sungura",
+    "maloya": "Maloya"
   },
   "existingInstrumentRefs": {
     "guitar": "Guitar",
@@ -114,7 +132,13 @@
     "cuatro": "Cuatro",
     "maracas": "Maracas",
     "steelpan": "Steelpan",
-    "cajon": "Cajon"
+    "cajon": "Cajon",
+    "masinko": "Masinko",
+    "oud": "Oud",
+    "ravanne": "Ravanne",
+    "valiha": "Valiha",
+    "tar": "Tar",
+    "concertina": "Concertina"
   },
   "genres": [
     {
@@ -1964,6 +1988,226 @@
       "playlistLink": null,
       "authorId": "system",
       "summary": "Bright improvised folk song of Margarita Island, eastern Venezuela."
+    },
+    {
+      "id": "tizita",
+      "name": "Tizita",
+      "startDate": "1960-01-01",
+      "description": "Tizita is a melancholic Ethiopian and Eritrean song genre named after the tizita qeñet, one of the pentatonic modes of highland Amharic music. Its name means 'nostalgia' or 'longing', and the mode's yearning quality has led many to compare it to the blues or to Portuguese saudade. Rooted in older folk and Ethiopian Orthodox musical traditions, it flowered as a popular form during the 'Swinging Addis' years of 1960s and 1970s Addis Ababa.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Melancholic Ethiopian pentatonic song genre of nostalgia and longing."
+    },
+    {
+      "id": "azmari",
+      "name": "Azmari",
+      "startDate": null,
+      "description": "Azmari are the wandering minstrels of the Ethiopian and Eritrean highlands, singer-poets comparable to West African griots or medieval European bards. Accompanying themselves on the one-stringed masenqo fiddle or the krar lyre, they improvise witty, allusive verses laden with metaphor, double meaning and sly social commentary. Their song is a centuries-old oral art still heard in the azmari bét taverns of Ethiopia's towns.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Improvising minstrel-poet tradition of the Ethiopian highlands."
+    },
+    {
+      "id": "kadongo-kamu",
+      "name": "Kadongo Kamu",
+      "startDate": "1950-01-01",
+      "description": "Kadongo kamu, Luganda for 'one little guitar', is the oldest mainstream popular genre of Uganda, grown from Baganda folk song and oral storytelling. Built around a single guitar and voice, it prizes narrative over dance, its lyrics spinning witty love songs, moral tales and pointed commentary on current events. Pioneered from the 1950s by artists such as Elly Wamala and Fred Masagazi, it remains a touchstone of Ugandan music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Narrative single-guitar song genre, the oldest mainstream music of Uganda."
+    },
+    {
+      "id": "kidandali",
+      "name": "Kidandali",
+      "startDate": "1994-01-01",
+      "description": "Kidandali, from the Luganda word for a party or celebration, is a Ugandan popular genre that emerged in the mid-1990s as an evolution of kadongo kamu fused with the guitar language of Congolese soukous. Pioneered by the Afrigo Band, it began as live-band music before turning increasingly electronic and absorbing the dancehall and ragga rhythms popular across East Africa. It is one of the mainstays of contemporary Ugandan pop.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Ugandan dance-pop evolved from kadongo kamu and soukous in the 1990s."
+    },
+    {
+      "id": "kalindula",
+      "name": "Kalindula",
+      "startDate": "1970-01-01",
+      "description": "Kalindula is a bass-driven Zambian popular genre named after the akalindula, a homemade bass instrument, and rooted in the Luapula-region dances of the mid-twentieth century. A neo-traditional style, it blends banjo, booming bass and stick-struck drums with electric-band arrangements in urban settings, its lyrics preserving folklore, custom and everyday life. It is one of Zambia's most distinctive national sounds.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Bass-driven Zambian neo-traditional popular genre."
+    },
+    {
+      "id": "burundi-royal-drumming",
+      "name": "Burundi Royal Drumming",
+      "startDate": null,
+      "description": "The royal drumming of Burundi is a ceremonial ensemble tradition built on the sacred karyenda log drums, historically emblems of the mwami (king) and of fertility and regeneration. Drummers carry the drums on their heads in choreographed, physically intense routines of thunderous polyrhythm, a practice passed from father to son and dating back centuries. The Ritual Dance of the Royal Drum was inscribed on UNESCO's Intangible Cultural Heritage list in 2014.",
+      "isSensitive": true,
+      "sensitiveDescription": "The karyenda drums of Burundi are sacred emblems of kingship, historically kept in sacred groves and played by ritual specialists for royal ceremonies; the tradition is inscribed on UNESCO's Intangible Cultural Heritage list. It is documented here respectfully from public sources and is not intended to reproduce its sacred or restricted ceremonial dimensions.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Sacred royal karyenda log-drum ensemble tradition of Burundi (UNESCO)."
+    },
+    {
+      "id": "dhaanto",
+      "name": "Dhaanto",
+      "startDate": null,
+      "description": "Dhaanto is a Somali song-and-dance genre whose swaying movements are said to mimic the gait of camels, traditionally kept in time by handclaps and foot-stamping rather than instruments. Traced to the Somali region of the Horn of Africa and revived in the late nineteenth century by the Dervish movement to rally fighters, it has since become a celebratory national form carried into modern Somali pop. Its lilting rhythm has even been cited as a distant cousin of reggae.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Camel-inspired Somali song-and-dance genre, once a Dervish rallying music."
+    },
+    {
+      "id": "qaraami",
+      "name": "Qaraami",
+      "startDate": "1944-01-01",
+      "description": "Qaraami is the classic popular song of mid-twentieth-century Somalia, an intimate, lyric-focused style built around the oud, voice and light drumming over a pentatonic base. Pioneered from the 1940s by figures such as Abdullahi Qarshe and the 'king of oud' Ahmed Ismail Hussein, it wove Arabic modal ideas into Somali melody, its love lyrics often veiling deeper commentary on politics and injustice. It remains cherished as Somalia's golden-age song tradition.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Oud-based classic Somali love-song genre of the mid-twentieth century."
+    },
+    {
+      "id": "haqiba",
+      "name": "Haqiba",
+      "startDate": "1930-01-01",
+      "description": "Haqiba is the foundational popular song style of urban Sudan, a largely vocal art of poetry set to handclaps and light percussion that took shape in the 1920s and 1930s. Emerging as the secular successor to Sufi madeeh devotional chant, it filled weddings and gatherings and laid the groundwork for all later Sudanese popular music. Singers and lyricists such as Khalil Farah were central to its rise.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Foundational vocal-and-percussion popular song style of urban Sudan."
+    },
+    {
+      "id": "agbadza",
+      "name": "Agbadza",
+      "startDate": "1920-01-01",
+      "description": "Agbadza is an Ewe music-and-dance of the West African coast, spanning Togo, Benin, southern Ghana and beyond, that evolved from the old Atrikpui war dance into a beloved recreational form. Driven by the gankogui bell, axatse rattle and a battery of drums, its sequence of movements ranges from an opening prayer to the ancestors to extended communal dancing. It is a centrepiece of Ewe festivals such as Hogbetsotso.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Ewe bell-and-drum dance of Togo and Benin, evolved from a war dance."
+    },
+    {
+      "id": "zinli",
+      "name": "Zinli",
+      "startDate": null,
+      "description": "Zinli is a Fon drum-dance genre of the Abomey plateau in Benin, created in the nineteenth century within the royal court of Dahomey and long tied to funerals and mourning. Its name comes from the zinli clay drum-vase at its heart, joined by gongs, rattles, handclaps and song. From the 1980s the artist Alèkpéhanhou renewed it into a celebrated popular form while keeping its solemn ancestral roots.",
+      "isSensitive": true,
+      "sensitiveDescription": "Zinli originated as a Fon funeral music of the Abomey royal court and retains a solemn, ancestral role alongside its later popular form. Its mourning context is documented here respectfully from public sources rather than reproduced.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Fon drum-vase dance of Benin, born as royal funeral music of Dahomey."
+    },
+    {
+      "id": "famo",
+      "name": "Famo",
+      "startDate": "1920-01-01",
+      "description": "Famo is the accordion music of Lesotho, sung by the Basotho over accordion, drum and sometimes bass, and grown from the setolotolo bow songs of highland shepherds. It took shape in the 1920s as Basotho migrant miners carried their music into South Africa's mining towns, where it became a bond among men in the shebeens. Earthy and improvisatory, it remains a defining Basotho popular tradition.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Basotho accordion song tradition of Lesotho, born of shepherd and miner life."
+    },
+    {
+      "id": "socope",
+      "name": "Socopé",
+      "startDate": null,
+      "description": "Socopé is a cheerful music-and-dance of São Tomé and Príncipe, one of the islands' signature Creole ballroom rhythms shaped by the meeting of African tradition and Portuguese social dance. Danced in couples to a swinging beat, it stands beside ússua and dêxa among the archipelago's most cherished cultural expressions. It reflects the plantation-era blending that defines São Toméan culture.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Cheerful Creole ballroom dance-music of São Tomé and Príncipe."
+    },
+    {
+      "id": "seggae",
+      "name": "Seggae",
+      "startDate": "1985-01-01",
+      "description": "Seggae is a Mauritian fusion of the island's Creole sega with Jamaican roots reggae, invented in the mid-1980s by the Rastafari singer Kaya (Joseph Reginald Topize). It marries sega's lively ravanne-driven rhythm with reggae's deep bass and relaxed groove, and its lyrics frequently voice social and political calls for unity. It became one of the most popular and identity-defining genres of Mauritius.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Mauritian fusion of Creole sega and Jamaican reggae, created by Kaya."
+    },
+    {
+      "id": "hira-gasy",
+      "name": "Hira Gasy",
+      "startDate": null,
+      "description": "Hira gasy is a day-long open-air spectacle of the Merina highlands of Madagascar that fuses song, dance and kabary oratory into a single communal performance. Staged by costumed troupes, often related by blood or marriage, and sometimes as a contest between two groups, it carries moral, civic and cultural teaching to its audiences. Traced to the eighteenth-century court of Andrianampoinimerina, it was inscribed on UNESCO's Intangible Cultural Heritage list in 2023.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Malagasy highland spectacle of song, dance and oratory (UNESCO)."
+    },
+    {
+      "id": "kilalaky",
+      "name": "Kilalaky",
+      "startDate": null,
+      "description": "Kilalaky is a fast, frantic 6/8 dance-music from the Menabe region of southwestern Madagascar, rooted in the traditions of the Sakalava and Bara peoples. Punctuated by percussive breakdowns and built around the kabosy lute, it was modernised in the mid-2000s with keyboards, bass and drum kit while keeping its role in local ceremonies and festivals. It became one of Madagascar's most infectious dance crazes.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Frantic 6/8 dance-music of southwestern Madagascar."
+    },
+    {
+      "id": "intore",
+      "name": "Intore",
+      "startDate": null,
+      "description": "Intore, the 'dance of heroes', is a Rwandan warrior dance-music historically performed by elite Tutsi military dancers and accompanied by an ensemble of ingoma drums and the eight-stringed lulunga harp. War-themed and once danced with real weapons to celebrate victory, it is now a centrepiece of national and family celebrations across Rwanda and neighbouring Burundi. Its hypnotic drumming and leaping, headdress-crowned dancers are among the most iconic images of Rwandan culture.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Rwandan warrior dance-music driven by ingoma drum ensembles."
+    },
+    {
+      "id": "kanmtole",
+      "name": "Kanmtole",
+      "startDate": null,
+      "description": "Kanmtole is a lively Seychellois dance-music, the Creole reworking of the European ballroom dances — contredanse, polka, mazurka, waltz and quadrille — that reached the islands in the early nineteenth century. Played on accordion, violin and banjo, it turns the old salon repertoire into a spirited, percussion-rich island form. It stands alongside moutya and sega as a pillar of Seychellois musical heritage.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Seychellois Creole ballroom dance-music on accordion, violin and banjo."
+    },
+    {
+      "id": "oviritje",
+      "name": "Oviritje",
+      "startDate": "1968-01-01",
+      "description": "Oviritje is a popular music of the Ovaherero people of Namibia that began in the late 1960s as a cappella group singing and dancing at school and community gatherings. Built on tight vocal harmony, it later adopted keyboards and electronic production to become one of Namibia's most widely loved genres across ethnic lines. Its groups blend proverb-rich Otjiherero lyrics with call-and-response and synchronised dance.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Ovaherero harmony-vocal popular music of Namibia."
+    },
+    {
+      "id": "malipenga",
+      "name": "Malipenga",
+      "startDate": "1920-01-01",
+      "description": "Malipenga is a competitive ngoma dance of the Tonga people of northern Malawi, born after the First World War when returning soldiers of the King's African Rifles inspired youths to imitate British military brass bands. Performers hum through gourd kazoos fitted with a mirliton to mimic the bugles that give the dance its name, marching in disciplined formation with prescribed ranks. It spread into Tumbuka areas and remains a highlight of community gatherings.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Competitive military-style gourd-kazoo ngoma dance of northern Malawi."
     }
   ],
   "genreCountry": [
@@ -3006,6 +3250,142 @@
     {
       "genreId": "polo-margariteno",
       "countryId": "VEN"
+    },
+    {
+      "genreId": "tizita",
+      "countryId": "ETH"
+    },
+    {
+      "genreId": "tizita",
+      "countryId": "ERI"
+    },
+    {
+      "genreId": "azmari",
+      "countryId": "ETH"
+    },
+    {
+      "genreId": "azmari",
+      "countryId": "ERI"
+    },
+    {
+      "genreId": "kadongo-kamu",
+      "countryId": "UGA"
+    },
+    {
+      "genreId": "kidandali",
+      "countryId": "UGA"
+    },
+    {
+      "genreId": "kalindula",
+      "countryId": "ZMB"
+    },
+    {
+      "genreId": "burundi-royal-drumming",
+      "countryId": "BDI"
+    },
+    {
+      "genreId": "dhaanto",
+      "countryId": "SOM"
+    },
+    {
+      "genreId": "qaraami",
+      "countryId": "SOM"
+    },
+    {
+      "genreId": "haqiba",
+      "countryId": "SDN"
+    },
+    {
+      "genreId": "agbadza",
+      "countryId": "TGO"
+    },
+    {
+      "genreId": "agbadza",
+      "countryId": "BEN"
+    },
+    {
+      "genreId": "zinli",
+      "countryId": "BEN"
+    },
+    {
+      "genreId": "famo",
+      "countryId": "LSO"
+    },
+    {
+      "genreId": "socope",
+      "countryId": "STP"
+    },
+    {
+      "genreId": "seggae",
+      "countryId": "MUS"
+    },
+    {
+      "genreId": "hira-gasy",
+      "countryId": "MDG"
+    },
+    {
+      "genreId": "kilalaky",
+      "countryId": "MDG"
+    },
+    {
+      "genreId": "intore",
+      "countryId": "RWA"
+    },
+    {
+      "genreId": "intore",
+      "countryId": "BDI"
+    },
+    {
+      "genreId": "kanmtole",
+      "countryId": "SYC"
+    },
+    {
+      "genreId": "oviritje",
+      "countryId": "NAM"
+    },
+    {
+      "genreId": "malipenga",
+      "countryId": "MWI"
+    },
+    {
+      "genreId": "ethio-jazz",
+      "countryId": "ETH"
+    },
+    {
+      "genreId": "chimurenga",
+      "countryId": "ZWE"
+    },
+    {
+      "genreId": "zamrock",
+      "countryId": "ZMB"
+    },
+    {
+      "genreId": "salegy",
+      "countryId": "MDG"
+    },
+    {
+      "genreId": "tsapiky",
+      "countryId": "MDG"
+    },
+    {
+      "genreId": "maloya",
+      "countryId": "REU"
+    },
+    {
+      "genreId": "sega",
+      "countryId": "MUS"
+    },
+    {
+      "genreId": "moutya",
+      "countryId": "SYC"
+    },
+    {
+      "genreId": "jit",
+      "countryId": "ZWE"
+    },
+    {
+      "genreId": "sungura",
+      "countryId": "ZWE"
     }
   ],
   "genreHierarchy": [
@@ -3700,6 +4080,18 @@
     {
       "genreId": "cueca",
       "subgenreId": "cueca-chilota"
+    },
+    {
+      "genreId": "kadongo-kamu",
+      "subgenreId": "kidandali"
+    },
+    {
+      "genreId": "sega",
+      "subgenreId": "seggae"
+    },
+    {
+      "genreId": "reggae",
+      "subgenreId": "seggae"
     }
   ],
   "genreSimilarity": [
@@ -4622,6 +5014,82 @@
     {
       "similarId1": "polo-margariteno",
       "similarId2": "joropo"
+    },
+    {
+      "similarId1": "tizita",
+      "similarId2": "azmari"
+    },
+    {
+      "similarId1": "tizita",
+      "similarId2": "ethio-jazz"
+    },
+    {
+      "similarId1": "azmari",
+      "similarId2": "griot-tradition"
+    },
+    {
+      "similarId1": "kidandali",
+      "similarId2": "soukous"
+    },
+    {
+      "similarId1": "burundi-royal-drumming",
+      "similarId2": "intore"
+    },
+    {
+      "similarId1": "dhaanto",
+      "similarId2": "qaraami"
+    },
+    {
+      "similarId1": "qaraami",
+      "similarId2": "taarab"
+    },
+    {
+      "similarId1": "haqiba",
+      "similarId2": "nasheed"
+    },
+    {
+      "similarId1": "famo",
+      "similarId2": "maskandi"
+    },
+    {
+      "similarId1": "socope",
+      "similarId2": "morna"
+    },
+    {
+      "similarId1": "seggae",
+      "similarId2": "moutya"
+    },
+    {
+      "similarId1": "hira-gasy",
+      "similarId2": "salegy"
+    },
+    {
+      "similarId1": "hira-gasy",
+      "similarId2": "kilalaky"
+    },
+    {
+      "similarId1": "kilalaky",
+      "similarId2": "tsapiky"
+    },
+    {
+      "similarId1": "kilalaky",
+      "similarId2": "salegy"
+    },
+    {
+      "similarId1": "kanmtole",
+      "similarId2": "moutya"
+    },
+    {
+      "similarId1": "kanmtole",
+      "similarId2": "sega"
+    },
+    {
+      "similarId1": "oviritje",
+      "similarId2": "isicathamiya"
+    },
+    {
+      "similarId1": "malipenga",
+      "similarId2": "beni-ngoma"
     }
   ],
   "genreInstrument": [
@@ -6608,6 +7076,130 @@
     {
       "genreId": "polo-margariteno",
       "instrumentId": "maracas"
+    },
+    {
+      "genreId": "tizita",
+      "instrumentId": "masinko"
+    },
+    {
+      "genreId": "tizita",
+      "instrumentId": "krar"
+    },
+    {
+      "genreId": "azmari",
+      "instrumentId": "masinko"
+    },
+    {
+      "genreId": "azmari",
+      "instrumentId": "krar"
+    },
+    {
+      "genreId": "kadongo-kamu",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "kidandali",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "kidandali",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "kalindula",
+      "instrumentId": "banjo"
+    },
+    {
+      "genreId": "kalindula",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "kalindula",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "burundi-royal-drumming",
+      "instrumentId": "karyenda"
+    },
+    {
+      "genreId": "dhaanto",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "qaraami",
+      "instrumentId": "oud"
+    },
+    {
+      "genreId": "qaraami",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "haqiba",
+      "instrumentId": "tar"
+    },
+    {
+      "genreId": "agbadza",
+      "instrumentId": "gankogui"
+    },
+    {
+      "genreId": "famo",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "famo",
+      "instrumentId": "concertina"
+    },
+    {
+      "genreId": "socope",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "seggae",
+      "instrumentId": "ravanne"
+    },
+    {
+      "genreId": "seggae",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "seggae",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "hira-gasy",
+      "instrumentId": "valiha"
+    },
+    {
+      "genreId": "kilalaky",
+      "instrumentId": "kabosy"
+    },
+    {
+      "genreId": "kilalaky",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "kilalaky",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "intore",
+      "instrumentId": "karyenda"
+    },
+    {
+      "genreId": "kanmtole",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "kanmtole",
+      "instrumentId": "violin"
+    },
+    {
+      "genreId": "kanmtole",
+      "instrumentId": "banjo"
+    },
+    {
+      "genreId": "oviritje",
+      "instrumentId": "synthesizer"
     }
   ],
   "genreSources": [
@@ -7634,6 +8226,170 @@
     {
       "genreId": "polo-margariteno",
       "sourceLink": "https://www.venezuelatuya.com/musica/polos_jotas_y_galerones.htm"
+    },
+    {
+      "genreId": "tizita",
+      "sourceLink": "https://en.wikipedia.org/wiki/Tizita"
+    },
+    {
+      "genreId": "tizita",
+      "sourceLink": "https://rateyourmusic.com/genre/tizita/"
+    },
+    {
+      "genreId": "tizita",
+      "sourceLink": "https://en.wikipedia.org/wiki/Qenet"
+    },
+    {
+      "genreId": "azmari",
+      "sourceLink": "https://en.wikipedia.org/wiki/Azmari"
+    },
+    {
+      "genreId": "azmari",
+      "sourceLink": "https://www.musicinafrica.net/magazine/traditional-music-ethiopia"
+    },
+    {
+      "genreId": "kadongo-kamu",
+      "sourceLink": "https://en.wikipedia.org/wiki/Kadongo_Kamu"
+    },
+    {
+      "genreId": "kadongo-kamu",
+      "sourceLink": "https://www.theugandaguide.com/ugandan-music/"
+    },
+    {
+      "genreId": "kidandali",
+      "sourceLink": "https://en.wikipedia.org/wiki/Kidandali"
+    },
+    {
+      "genreId": "kidandali",
+      "sourceLink": "http://musicinafrica.net/popular-music-uganda"
+    },
+    {
+      "genreId": "kalindula",
+      "sourceLink": "https://en.wikipedia.org/wiki/Kalindula"
+    },
+    {
+      "genreId": "kalindula",
+      "sourceLink": "https://globalvoices.org/2023/11/29/the-death-and-rebirth-of-the-distinctive-sounds-of-zambia/"
+    },
+    {
+      "genreId": "burundi-royal-drumming",
+      "sourceLink": "https://en.wikipedia.org/wiki/Royal_Drummers_of_Burundi"
+    },
+    {
+      "genreId": "burundi-royal-drumming",
+      "sourceLink": "https://www.musicinafrica.net/directory/royal-drummers-burundi"
+    },
+    {
+      "genreId": "dhaanto",
+      "sourceLink": "https://en.wikipedia.org/wiki/Dhaanto"
+    },
+    {
+      "genreId": "dhaanto",
+      "sourceLink": "https://sahanjournal.com/culture-community/dhaanto-minneapolis-ambassadors-of-culture-music/"
+    },
+    {
+      "genreId": "qaraami",
+      "sourceLink": "https://en.wikipedia.org/wiki/Qaraami"
+    },
+    {
+      "genreId": "qaraami",
+      "sourceLink": "https://en.wikipedia.org/wiki/Abdullahi_Qarshe"
+    },
+    {
+      "genreId": "haqiba",
+      "sourceLink": "https://www.afropop.org/articles/ahmad-sikainga-on-sudan-a-musical-history"
+    },
+    {
+      "genreId": "haqiba",
+      "sourceLink": "https://www.middleeasteye.net/discover/sudan-songs-golden-era-music-heritage"
+    },
+    {
+      "genreId": "agbadza",
+      "sourceLink": "https://en.wikipedia.org/wiki/Agbadza"
+    },
+    {
+      "genreId": "agbadza",
+      "sourceLink": "https://ghanaremembers.com/stories/culture/agbadza-the-evolution-of-an-ewe-war-dance-into-a-celebratory-tradition.html"
+    },
+    {
+      "genreId": "zinli",
+      "sourceLink": "https://en.wikipedia.org/wiki/Zilin_Music"
+    },
+    {
+      "genreId": "zinli",
+      "sourceLink": "https://numeridanse.com/en/publication/traditional-dances-from-benin/"
+    },
+    {
+      "genreId": "famo",
+      "sourceLink": "https://en.wikipedia.org/wiki/Famo"
+    },
+    {
+      "genreId": "famo",
+      "sourceLink": "https://pan-african-music.com/en/introducing-lesothos-accordion-music/"
+    },
+    {
+      "genreId": "socope",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_S%C3%A3o_Tom%C3%A9_and_Pr%C3%ADncipe"
+    },
+    {
+      "genreId": "socope",
+      "sourceLink": "https://eportuguese.blogspot.com/2014/08/dancas-tipicas-ussua.html"
+    },
+    {
+      "genreId": "seggae",
+      "sourceLink": "https://en.wikipedia.org/wiki/Seggae"
+    },
+    {
+      "genreId": "seggae",
+      "sourceLink": "https://www.musicinafrica.net/magazine/mauritian-seggae"
+    },
+    {
+      "genreId": "hira-gasy",
+      "sourceLink": "https://en.wikipedia.org/wiki/Hiragasy"
+    },
+    {
+      "genreId": "hira-gasy",
+      "sourceLink": "https://ich.unesco.org/en/RL/hiragasy-a-performing-art-of-the-central-highlands-of-madagascar-01740"
+    },
+    {
+      "genreId": "kilalaky",
+      "sourceLink": "https://en.wikipedia.org/wiki/Kilalaky_(music_genre)"
+    },
+    {
+      "genreId": "kilalaky",
+      "sourceLink": "https://www.okayafrica.com/kilalaky-the-dance-craze-of-madagascar/212587"
+    },
+    {
+      "genreId": "intore",
+      "sourceLink": "https://en.wikipedia.org/wiki/Intore"
+    },
+    {
+      "genreId": "intore",
+      "sourceLink": "https://ich.unesco.org/en/RL/intore-02129"
+    },
+    {
+      "genreId": "kanmtole",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Seychelles"
+    },
+    {
+      "genreId": "kanmtole",
+      "sourceLink": "https://www.thecreolemeltingpot.com/kanmtole/"
+    },
+    {
+      "genreId": "oviritje",
+      "sourceLink": "https://www.namibian.com.na/introducing-the-captivating-sounds-of-oviritje/"
+    },
+    {
+      "genreId": "oviritje",
+      "sourceLink": "https://link.springer.com/chapter/10.1007/978-3-030-98705-3_25"
+    },
+    {
+      "genreId": "malipenga",
+      "sourceLink": "https://en.wikipedia.org/wiki/Malipenga"
+    },
+    {
+      "genreId": "malipenga",
+      "sourceLink": "https://www.musicinafrica.net/directory/malipenga-dances"
     }
   ],
   "genreAliases": [
@@ -8420,6 +9176,34 @@
     {
       "genreId": "chamarrita",
       "alias": "Chimarrita"
+    },
+    {
+      "genreId": "burundi-royal-drumming",
+      "alias": "Karyenda"
+    },
+    {
+      "genreId": "burundi-royal-drumming",
+      "alias": "Ingoma"
+    },
+    {
+      "genreId": "hira-gasy",
+      "alias": "Hiragasy"
+    },
+    {
+      "genreId": "hira-gasy",
+      "alias": "Vakodrazana"
+    },
+    {
+      "genreId": "qaraami",
+      "alias": "Qaraani"
+    },
+    {
+      "genreId": "kadongo-kamu",
+      "alias": "Kadongo-Kamu"
+    },
+    {
+      "genreId": "socope",
+      "alias": "Socopé"
     }
   ]
 }
