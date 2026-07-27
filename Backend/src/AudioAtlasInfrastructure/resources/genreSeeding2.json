@@ -53,7 +53,19 @@
     "huayno": "Huayno",
     "chamame": "Chamame",
     "pasillo": "Pasillo",
-    "currulao": "Currulao"
+    "currulao": "Currulao",
+    "joropo": "Joropo",
+    "parang": "Parang",
+    "candombe": "Candombe",
+    "zamba": "Zamba",
+    "marinera": "Marinera",
+    "chutney-soca": "Chutney Soca",
+    "graje": "Grajé",
+    "polca-paraguaya": "Polca Paraguaya",
+    "bailecito": "Bailecito",
+    "sanjuanito": "Sanjuanito",
+    "albazo": "Albazo",
+    "tonada-chilena": "Tonada Chilena"
   },
   "existingInstrumentRefs": {
     "guitar": "Guitar",
@@ -83,7 +95,11 @@
     "arpa-paraguaya": "Arpa Paraguaya",
     "charango": "Charango",
     "quena": "Quena",
-    "siku": "Siku / Zampona"
+    "siku": "Siku / Zampona",
+    "cuatro": "Cuatro",
+    "maracas": "Maracas",
+    "steelpan": "Steelpan",
+    "cajon": "Cajon"
   },
   "genres": [
     {
@@ -1493,6 +1509,226 @@
       "playlistLink": null,
       "authorId": "system",
       "summary": "Traditional handkerchief couple-dance of Chile's northern Tarapaca region."
+    },
+    {
+      "id": "calipso-de-el-callao",
+      "name": "Calipso de El Callao",
+      "startDate": "1870-01-01",
+      "description": "Calipso de El Callao is an Afro-Venezuelan carnival music from the gold-mining town of El Callao in Bolívar state, born when Trinidadian and other West Indian migrants brought calypso to the region in the nineteenth century. Sung in Spanish and Antillean English over a driving Caribbean rhythm, it fuses Trinidadian calypso with Venezuelan folk elements and is inseparable from El Callao's masked carnival and its 'madamas' and devil characters. It was inscribed on UNESCO's Intangible Cultural Heritage list in 2016.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Afro-Venezuelan carnival calypso of El Callao, UNESCO-listed in 2016."
+    },
+    {
+      "id": "quitiplas",
+      "name": "Quitiplás",
+      "startDate": null,
+      "description": "Quitiplás is an Afro-Venezuelan music, dance and rhythm from coastal Barlovento, named for the tuned bamboo tubes that produce it. Enslaved communities developed these portable bamboo idiophones after skin-headed drums were banned, striking them on the ground in interlocking polyrhythms beneath call-and-response vocals. It remains a vivid emblem of Afro-Venezuelan cultural memory and resistance.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Afro-Venezuelan bamboo-tube percussion music and dance from Barlovento."
+    },
+    {
+      "id": "golpe-tocuyano",
+      "name": "Golpe Tocuyano",
+      "startDate": null,
+      "description": "Golpe tocuyano, also called golpe larense, is a folk genre from El Tocuyo in Lara state, a distinctive branch of the Venezuelan joropo family. Emerging from the colonial-era blend of Indigenous, African and European traditions, it is voiced by a string battery of cuatro, cinco and medio cinco with maracas and tambora, and sung polyphonically in two or three interweaving voices. It is one of the central musical symbols of Venezuela's centre-west.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Polyphonic string-band joropo genre from El Tocuyo, Lara, Venezuela."
+    },
+    {
+      "id": "merengue-caraqueno",
+      "name": "Merengue Caraqueño",
+      "startDate": "1920-01-01",
+      "description": "Merengue caraqueño, also known as merengue venezolano or merengue rucaneao, is an urban dance music that flourished in Caracas from the 1920s to the 1940s. Set apart by its distinctive 5/8 metre, it drew on polka, danza and tango and was long considered risqué for its sensual hip movements before winning acceptance in the city's ballrooms. It is a genre entirely distinct from the Dominican merengue in rhythm, instrumentation and history.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Urban Caracas dance music in a distinctive 5/8 metre."
+    },
+    {
+      "id": "onda-nueva",
+      "name": "Onda Nueva",
+      "startDate": "1968-01-01",
+      "description": "Onda nueva ('new wave') is a Venezuelan genre invented by pianist and composer Aldemaro Romero in 1968, reworking the traditional joropo through the harmonic language of jazz and bossa nova. Romero swapped the harp, cuatro and maracas for the piano-bass-drums trio of jazz, and the style gained international exposure through the World Festival of Onda Nueva held in Caracas from 1971. It stands as one of Venezuela's most sophisticated art-popular fusions.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Aldemaro Romero's 1968 fusion of Venezuelan joropo with jazz and bossa nova."
+    },
+    {
+      "id": "fulia",
+      "name": "Fulía",
+      "startDate": null,
+      "description": "Fulía is an Afro-Venezuelan devotional song tradition performed chiefly during the Velorio de Cruz de Mayo, the May vigils before an adorned cross in Venezuela's central coastal regions. With roots traced to the Bakongo of Central Africa, it centres on competitive improvised verse, often in strict décima form, carried by tambor criollo, cuatro and maracas. It is at once a religious observance and a display of poetic skill.",
+      "isSensitive": true,
+      "sensitiveDescription": "The fulía is performed chiefly within the Afro-Venezuelan Velorio de Cruz de Mayo, a religious vigil before an adorned cross. Its devotional context is documented here respectfully from public sources; this entry records the tradition rather than reproducing liturgical or restricted material.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Afro-Venezuelan devotional improvised-verse song of the Velorio de Cruz de Mayo."
+    },
+    {
+      "id": "baithak-gana",
+      "name": "Baithak Gana",
+      "startDate": "1890-01-01",
+      "description": "Baithak gana is the Indo-Surinamese folk music brought by indentured labourers from the Bhojpuri-speaking regions of northern India in the late nineteenth century. Rooted in a 'baithak' (sitting) social gathering and sung in the Caribbean Hindustani dialect Sarnami, its ensembles pair the melody-carrying harmonium with the dholak drum and the dhantal, a metal rod adapted from farm tools. It is a foundational strand of Indo-Caribbean music, closely kin to chutney.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Indo-Surinamese Bhojpuri-rooted folk music built on harmonium, dholak and dhantal."
+    },
+    {
+      "id": "queh-queh",
+      "name": "Queh-Queh",
+      "startDate": null,
+      "description": "Queh-queh (also spelled kweh-kweh) is an Afro-Guyanese pre-wedding tradition of call-and-response song, circle dance and proverbial speech held the night before a couple's marriage. Descended from the wedding celebrations of enslaved Africans in Guyana, it uses music to counsel, tease and honour the bride and groom and their families, with a leader intoning solo lines answered by foot-stamping, hand-clapping participants. It survives among Afro-Guyanese communities at home and in the diaspora.",
+      "isSensitive": true,
+      "sensitiveDescription": "Queh-queh (kweh-kweh) is an Afro-Guyanese pre-wedding ritual with ancestral and matrimonial significance rather than a stage performance. It is documented here respectfully from public and academic sources and is not intended to stand in for the ceremony itself or any restricted practice.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Afro-Guyanese call-and-response pre-wedding ritual song and dance tradition."
+    },
+    {
+      "id": "lerol",
+      "name": "Léròl",
+      "startDate": null,
+      "description": "Léròl is a traditional Creole music and couple-dance of French Guiana, a local variant of the quadrille descended from the formal European ballroom dances of the eighteenth and nineteenth centuries. Danced in elegant dress to a string-and-percussion accompaniment, it belongs to the same family of Guianese Creole traditions as grajé and kasékò, blending African, European and Amerindian influences. It endures as part of the territory's coastal Creole heritage.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "French Guianese Creole quadrille music and couple-dance."
+    },
+    {
+      "id": "rasguido-doble",
+      "name": "Rasguido Doble",
+      "startDate": "1940-01-01",
+      "description": "Rasguido doble is a song-and-dance genre of the Litoral region, originating in early-twentieth-century Paraguay and popularised across the Argentine and Uruguayan northeast. Its name refers to a double guitar-strumming pattern reminiscent of tango accompaniment, and though often confused with chamamé it is a distinct Litoral style with a lively, buoyant character and lyrics that are amorous, epic or descriptive. Its popular breakthrough came with Correntine composer Mario Millán Medina in the 1940s.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Lively Litoral song-and-dance genre of Paraguay and the Argentine northeast."
+    },
+    {
+      "id": "plena-uruguaya",
+      "name": "Plena Uruguaya",
+      "startDate": "1940-01-01",
+      "description": "Plena uruguaya is a festive Uruguayan popular music built on the rope-tuned tamboril drums of the Río de la Plata, drawing on the Puerto Rican plena and the wider world of tropical dance music. Bright and percussion-driven, with lyrics about everyday life and social themes, it is bound up with carnival and murga culture and developed alongside Uruguayan cumbia as a pillar of the country's tropical scene. It carries a strong imprint of Afro-Uruguayan rhythm.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Percussion-driven Uruguayan carnival music rooted in Río de la Plata rhythm."
+    },
+    {
+      "id": "cumbia-uruguaya",
+      "name": "Cumbia Uruguaya",
+      "startDate": "1965-01-01",
+      "description": "Cumbia uruguaya is the Uruguayan branch of cumbia that emerged in the late 1960s, fusing the Colombian rhythm with Río de la Plata sensibilities, Afro-Uruguayan candombe accents and touches of salsa and merengue. A staple of dancehalls and neighbourhood fiestas, it later fed into the grittier 'plancha' street styles of the 2000s. It stands with plena uruguaya at the centre of the country's tropical music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Uruguayan branch of cumbia blending candombe accents, born in the late 1960s."
+    },
+    {
+      "id": "pujllay",
+      "name": "Pujllay",
+      "startDate": null,
+      "description": "Pujllay is the ritual music and dance of the Yampara people of Tarabuco in Chuquisaca, Bolivia, performed each March to celebrate the renewal of life and the abundance of the rainy season. Its sound is carried by flutes, panpipes and large drums, honouring the exuberant 'Tata Pujllay' and commemorating a victorious 1816 battle of the independence wars. Together with the dry-season Ayarichi it was inscribed on UNESCO's Intangible Cultural Heritage list in 2014.",
+      "isSensitive": true,
+      "sensitiveDescription": "Pujllay is a sacred ritual of the Yampara people tied to agricultural renewal and the Pachamama, inscribed on UNESCO's Intangible Cultural Heritage list. It is documented here respectfully from public sources and is not intended to reproduce ceremonial or restricted elements of the ritual.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Ritual music and dance of Bolivia's Yampara culture, UNESCO-listed in 2014."
+    },
+    {
+      "id": "tarqueada",
+      "name": "Tarqueada",
+      "startDate": null,
+      "description": "Tarqueada is an Andean genre played by consorts of the tarka, an Aymara wooden duct flute, in ensembles that voice a single melody across three registers over drums such as the wankara. Centred on the Lake Titicaca region of Bolivia, it sounds mainly during the January-to-March Carnival and the Anata festival, marking the flowering of the crops and the coming harvest. Its dense, buzzing timbre is one of the signature sounds of the Aymara altiplano.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Aymara tarka-flute consort music of the Bolivian altiplano Carnival season."
+    },
+    {
+      "id": "danzante",
+      "name": "Danzante",
+      "startDate": null,
+      "description": "The danzante is an Indigenous Andean dance-music of the Ecuadorian highlands, most emblematic of the Corpus Christi festival of Pujilí in Cotopaxi. Its slow, deliberate 6/8 cadence, marked by pingullo flute and bombo drum, matches the measured steps of the masked Danzante, a figure known as the 'Priest of the Rain' who evokes the flight of the Andean condor. It fuses pre-Columbian thanksgiving to the sun with the Catholic Corpus Christi calendar.",
+      "isSensitive": true,
+      "sensitiveDescription": "The danzante is rooted in Indigenous Andean ceremony later interwoven with the Catholic Corpus Christi, and the dancer holds a sacred, ritual role. It is documented here respectfully from public sources and is not intended to reproduce restricted ceremonial material.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Ceremonial Andean dance-music of Ecuador's Corpus Christi in Pujilí."
+    },
+    {
+      "id": "capishca",
+      "name": "Capishca",
+      "startDate": null,
+      "description": "Capishca is a lively mestizo dance-music of the Ecuadorian highlands, especially the provinces of Chimborazo and Azuay, whose name comes from the Kichwa verb capina, 'to squeeze'. Built in a hemiola-rich 6/8 (and sometimes 3/4) closely related to the albazo, it frames a flirtatious courtship dance in which couples test their agility through teasing passes and displays. It carries pre-Columbian roots reworked within highland mestizo culture.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Flirtatious mestizo highland courtship dance-music of Ecuador."
+    },
+    {
+      "id": "amorfino",
+      "name": "Amorfino",
+      "startDate": null,
+      "description": "Amorfino is the signature music of Ecuador's coastal Montubio culture, an improvised sung verse performed as a witty counterpoint duel in which singers trade rhymed coplas to show off their wordcraft. Danced in a loose, cheerful couple form with raised shawls, in duple time, it weaves together orality, music and rural theatre. It remains a defining expression of the farming communities of Ecuador's tropical lowlands.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Improvised sung-verse duel of Ecuador's coastal Montubio culture."
+    },
+    {
+      "id": "cueca-brava",
+      "name": "Cueca Brava",
+      "startDate": "1955-01-01",
+      "description": "Cueca brava, also called cueca chora or urbana, is the urban Chilean cueca that emerged in the working-class bars and fondas of Santiago and Valparaíso in the mid-1950s. It trades the rural, theatrical tone of the traditional cueca for raw lyrics about city and marginal life, a grittier delivery, and instrumentation built on guitar, accordion, piano and tambourine. Roberto Parra and the group Los Chileneros are its defining voices.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Urban working-class Chilean cueca from mid-1950s Santiago and Valparaíso."
+    },
+    {
+      "id": "sau-sau",
+      "name": "Sau-Sau",
+      "startDate": "1940-01-01",
+      "description": "Sau-sau is the most emblematic social dance-song of Rapa Nui (Easter Island), a Polynesian tradition of Samoan origin adapted to Rapanui music and lyrics in the 1940s. Its gentle, undulating hip and hand movements evoke a boat rocking on the waves, framing an amorous story danced in colourful feathered costume. A centrepiece of gatherings and of the Tapati Rapa Nui festival, it reflects the island's living Polynesian culture within Chile.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Emblematic Polynesian social dance-song of Rapa Nui (Easter Island), Chile."
+    },
+    {
+      "id": "zamacueca",
+      "name": "Zamacueca",
+      "startDate": "1820-01-01",
+      "description": "Zamacueca is a nineteenth-century Afro-Peruvian dance-music of the former Viceroyalty of Peru, blending Spanish, Andean and African elements and rising to popularity as a dance of the independence era. As it spread and each republic claimed it, the zamacueca gave rise to national forms across the continent: the cueca in Chile and Bolivia, the zamba in Argentina, and the marinera in Peru. It stands as a shared ancestor of much South American couple-dance music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Nineteenth-century Afro-Peruvian dance-music, ancestor of the cueca, zamba and marinera."
     }
   ],
   "genreCountry": [
@@ -2355,6 +2591,90 @@
     {
       "genreId": "chutney-music",
       "countryId": "GUY"
+    },
+    {
+      "genreId": "calipso-de-el-callao",
+      "countryId": "VEN"
+    },
+    {
+      "genreId": "quitiplas",
+      "countryId": "VEN"
+    },
+    {
+      "genreId": "golpe-tocuyano",
+      "countryId": "VEN"
+    },
+    {
+      "genreId": "merengue-caraqueno",
+      "countryId": "VEN"
+    },
+    {
+      "genreId": "onda-nueva",
+      "countryId": "VEN"
+    },
+    {
+      "genreId": "fulia",
+      "countryId": "VEN"
+    },
+    {
+      "genreId": "baithak-gana",
+      "countryId": "SUR"
+    },
+    {
+      "genreId": "queh-queh",
+      "countryId": "GUY"
+    },
+    {
+      "genreId": "lerol",
+      "countryId": "GUF"
+    },
+    {
+      "genreId": "rasguido-doble",
+      "countryId": "PRY"
+    },
+    {
+      "genreId": "rasguido-doble",
+      "countryId": "ARG"
+    },
+    {
+      "genreId": "plena-uruguaya",
+      "countryId": "URY"
+    },
+    {
+      "genreId": "cumbia-uruguaya",
+      "countryId": "URY"
+    },
+    {
+      "genreId": "pujllay",
+      "countryId": "BOL"
+    },
+    {
+      "genreId": "tarqueada",
+      "countryId": "BOL"
+    },
+    {
+      "genreId": "danzante",
+      "countryId": "ECU"
+    },
+    {
+      "genreId": "capishca",
+      "countryId": "ECU"
+    },
+    {
+      "genreId": "amorfino",
+      "countryId": "ECU"
+    },
+    {
+      "genreId": "cueca-brava",
+      "countryId": "CHL"
+    },
+    {
+      "genreId": "sau-sau",
+      "countryId": "CHL"
+    },
+    {
+      "genreId": "zamacueca",
+      "countryId": "PER"
     }
   ],
   "genreHierarchy": [
@@ -3005,6 +3325,38 @@
     {
       "genreId": "saya",
       "subgenreId": "caporales"
+    },
+    {
+      "genreId": "calypso",
+      "subgenreId": "calipso-de-el-callao"
+    },
+    {
+      "genreId": "joropo",
+      "subgenreId": "golpe-tocuyano"
+    },
+    {
+      "genreId": "joropo",
+      "subgenreId": "onda-nueva"
+    },
+    {
+      "genreId": "cueca",
+      "subgenreId": "cueca-brava"
+    },
+    {
+      "genreId": "zamacueca",
+      "subgenreId": "cueca"
+    },
+    {
+      "genreId": "zamacueca",
+      "subgenreId": "zamba"
+    },
+    {
+      "genreId": "zamacueca",
+      "subgenreId": "marinera"
+    },
+    {
+      "genreId": "zamacueca",
+      "subgenreId": "bailecito"
     }
   ],
   "genreSimilarity": [
@@ -3719,6 +4071,78 @@
     {
       "similarId1": "cachimbo",
       "similarId2": "cueca"
+    },
+    {
+      "similarId1": "calipso-de-el-callao",
+      "similarId2": "parang"
+    },
+    {
+      "similarId1": "quitiplas",
+      "similarId2": "fulia"
+    },
+    {
+      "similarId1": "onda-nueva",
+      "similarId2": "bossa-nova"
+    },
+    {
+      "similarId1": "baithak-gana",
+      "similarId2": "chutney-music"
+    },
+    {
+      "similarId1": "baithak-gana",
+      "similarId2": "chutney-soca"
+    },
+    {
+      "similarId1": "lerol",
+      "similarId2": "graje"
+    },
+    {
+      "similarId1": "lerol",
+      "similarId2": "kaseko"
+    },
+    {
+      "similarId1": "rasguido-doble",
+      "similarId2": "chamame"
+    },
+    {
+      "similarId1": "rasguido-doble",
+      "similarId2": "polca-paraguaya"
+    },
+    {
+      "similarId1": "plena-uruguaya",
+      "similarId2": "candombe"
+    },
+    {
+      "similarId1": "plena-uruguaya",
+      "similarId2": "cumbia-uruguaya"
+    },
+    {
+      "similarId1": "cumbia-uruguaya",
+      "similarId2": "cumbia"
+    },
+    {
+      "similarId1": "pujllay",
+      "similarId2": "tarqueada"
+    },
+    {
+      "similarId1": "danzante",
+      "similarId2": "sanjuanito"
+    },
+    {
+      "similarId1": "capishca",
+      "similarId2": "albazo"
+    },
+    {
+      "similarId1": "capishca",
+      "similarId2": "sanjuanito"
+    },
+    {
+      "similarId1": "cueca-brava",
+      "similarId2": "tonada-chilena"
+    },
+    {
+      "similarId1": "merengue-caraqueno",
+      "similarId2": "golpe-tocuyano"
     }
   ],
   "genreInstrument": [
@@ -5361,6 +5785,186 @@
     {
       "genreId": "cachimbo",
       "instrumentId": "quena"
+    },
+    {
+      "genreId": "calipso-de-el-callao",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "calipso-de-el-callao",
+      "instrumentId": "cuatro"
+    },
+    {
+      "genreId": "calipso-de-el-callao",
+      "instrumentId": "steelpan"
+    },
+    {
+      "genreId": "calipso-de-el-callao",
+      "instrumentId": "maracas"
+    },
+    {
+      "genreId": "quitiplas",
+      "instrumentId": "maracas"
+    },
+    {
+      "genreId": "golpe-tocuyano",
+      "instrumentId": "cuatro"
+    },
+    {
+      "genreId": "golpe-tocuyano",
+      "instrumentId": "maracas"
+    },
+    {
+      "genreId": "golpe-tocuyano",
+      "instrumentId": "tambora"
+    },
+    {
+      "genreId": "merengue-caraqueno",
+      "instrumentId": "cuatro"
+    },
+    {
+      "genreId": "merengue-caraqueno",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "merengue-caraqueno",
+      "instrumentId": "tambora"
+    },
+    {
+      "genreId": "onda-nueva",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "onda-nueva",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "onda-nueva",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "fulia",
+      "instrumentId": "cuatro"
+    },
+    {
+      "genreId": "fulia",
+      "instrumentId": "maracas"
+    },
+    {
+      "genreId": "baithak-gana",
+      "instrumentId": "harmonium"
+    },
+    {
+      "genreId": "baithak-gana",
+      "instrumentId": "dholak"
+    },
+    {
+      "genreId": "baithak-gana",
+      "instrumentId": "dhantal"
+    },
+    {
+      "genreId": "lerol",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "rasguido-doble",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "rasguido-doble",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "plena-uruguaya",
+      "instrumentId": "tamboril"
+    },
+    {
+      "genreId": "plena-uruguaya",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "cumbia-uruguaya",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "cumbia-uruguaya",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "cumbia-uruguaya",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "pujllay",
+      "instrumentId": "siku"
+    },
+    {
+      "genreId": "pujllay",
+      "instrumentId": "quena"
+    },
+    {
+      "genreId": "pujllay",
+      "instrumentId": "bombo"
+    },
+    {
+      "genreId": "tarqueada",
+      "instrumentId": "tarka"
+    },
+    {
+      "genreId": "tarqueada",
+      "instrumentId": "bombo"
+    },
+    {
+      "genreId": "danzante",
+      "instrumentId": "bombo"
+    },
+    {
+      "genreId": "danzante",
+      "instrumentId": "quena"
+    },
+    {
+      "genreId": "capishca",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "capishca",
+      "instrumentId": "requinto"
+    },
+    {
+      "genreId": "amorfino",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "amorfino",
+      "instrumentId": "maracas"
+    },
+    {
+      "genreId": "cueca-brava",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "cueca-brava",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "cueca-brava",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "sau-sau",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "sau-sau",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "zamacueca",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "zamacueca",
+      "instrumentId": "cajon"
     }
   ],
   "genreSources": [
@@ -6043,6 +6647,186 @@
     {
       "genreId": "cachimbo",
       "sourceLink": "https://www.musicadechile.org/articulos/Musica-y-danza-en-el-norte-de-chile"
+    },
+    {
+      "genreId": "calipso-de-el-callao",
+      "sourceLink": "https://en.wikipedia.org/wiki/Calypso_de_El_Callao"
+    },
+    {
+      "genreId": "calipso-de-el-callao",
+      "sourceLink": "https://ich.unesco.org/en/RL/calypso-of-el-callao-a-festive-representation-of-a-memory-01198"
+    },
+    {
+      "genreId": "calipso-de-el-callao",
+      "sourceLink": "https://rateyourmusic.com/genre/calipso-venezolano/"
+    },
+    {
+      "genreId": "quitiplas",
+      "sourceLink": "https://www.everyculture.com/South-America/Afro-Venezuelans-Religion-and-Expressive-Culture.html"
+    },
+    {
+      "genreId": "quitiplas",
+      "sourceLink": "http://pancocojams.blogspot.com/2017/05/five-videos-of-afro-venezuelan.html"
+    },
+    {
+      "genreId": "golpe-tocuyano",
+      "sourceLink": "https://es.wikipedia.org/wiki/Golpe_tocuyano"
+    },
+    {
+      "genreId": "golpe-tocuyano",
+      "sourceLink": "https://radio.otilca.org/ritmos-tradicionales-de-venezuela-joropo-tocuyano/"
+    },
+    {
+      "genreId": "merengue-caraqueno",
+      "sourceLink": "https://es.wikipedia.org/wiki/Merengue_venezolano"
+    },
+    {
+      "genreId": "merengue-caraqueno",
+      "sourceLink": "https://radio.otilca.org/el-merengue-caraqueno-o-merengue-rucaneao/"
+    },
+    {
+      "genreId": "onda-nueva",
+      "sourceLink": "https://es.wikipedia.org/wiki/Onda_nueva"
+    },
+    {
+      "genreId": "onda-nueva",
+      "sourceLink": "https://rateyourmusic.com/genre/onda-nueva/"
+    },
+    {
+      "genreId": "onda-nueva",
+      "sourceLink": "https://en.wikipedia.org/wiki/Aldemaro_Romero"
+    },
+    {
+      "genreId": "fulia",
+      "sourceLink": "https://en.wikipedia.org/wiki/Ful%C3%ADa"
+    },
+    {
+      "genreId": "fulia",
+      "sourceLink": "https://www.encyclopedia.com/humanities/encyclopedias-almanacs-transcripts-and-maps/afro-venezuelans"
+    },
+    {
+      "genreId": "baithak-gana",
+      "sourceLink": "https://en.wikipedia.org/wiki/Baithak_Gana"
+    },
+    {
+      "genreId": "baithak-gana",
+      "sourceLink": "https://rateyourmusic.com/genre/baithak-gana/"
+    },
+    {
+      "genreId": "baithak-gana",
+      "sourceLink": "https://en.wikipedia.org/wiki/Surinamese_Hindustani"
+    },
+    {
+      "genreId": "queh-queh",
+      "sourceLink": "https://nytraditions.org/digital-heritage/guyanese-kweh-kweh-pre-wedding-ritual"
+    },
+    {
+      "genreId": "queh-queh",
+      "sourceLink": "https://guyfolkfest.org/kwe-kwe/"
+    },
+    {
+      "genreId": "lerol",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_French_Guiana"
+    },
+    {
+      "genreId": "lerol",
+      "sourceLink": "https://www.petitfute.co.uk/p6-guyane/decouvrir/d1906-music-and-stage-dance-theatre/"
+    },
+    {
+      "genreId": "rasguido-doble",
+      "sourceLink": "https://es.wikipedia.org/wiki/Rasguido_doble"
+    },
+    {
+      "genreId": "rasguido-doble",
+      "sourceLink": "https://bloomsburymusicandsound.com/encyclopedia-chapter?docid=b-9781501329210&tocid=b-9781501329210-0005714"
+    },
+    {
+      "genreId": "plena-uruguaya",
+      "sourceLink": "https://es.wikipedia.org/wiki/Plena_uruguaya"
+    },
+    {
+      "genreId": "plena-uruguaya",
+      "sourceLink": "https://es.wikipedia.org/wiki/M%C3%BAsica_de_Uruguay"
+    },
+    {
+      "genreId": "cumbia-uruguaya",
+      "sourceLink": "https://www.chosic.com/genre-chart/cumbia-uruguaya/"
+    },
+    {
+      "genreId": "cumbia-uruguaya",
+      "sourceLink": "https://es.wikipedia.org/wiki/M%C3%BAsica_de_Uruguay"
+    },
+    {
+      "genreId": "pujllay",
+      "sourceLink": "https://ich.unesco.org/en/RL/pujllay-and-ayarichi-music-and-dances-of-the-yampara-culture-00630"
+    },
+    {
+      "genreId": "pujllay",
+      "sourceLink": "https://en.wikipedia.org/wiki/Pukllay"
+    },
+    {
+      "genreId": "tarqueada",
+      "sourceLink": "https://en.wikipedia.org/wiki/Tarka_(flute)"
+    },
+    {
+      "genreId": "tarqueada",
+      "sourceLink": "https://organology.net/instrument/tarka/"
+    },
+    {
+      "genreId": "danzante",
+      "sourceLink": "https://www.eluniverso.com/noticias/2014/06/22/nota/3131386/danzante-pujili-simbolo-corpus-christi/"
+    },
+    {
+      "genreId": "danzante",
+      "sourceLink": "https://www.redalyc.org/journal/7778/777882798003/html/"
+    },
+    {
+      "genreId": "capishca",
+      "sourceLink": "https://es.wikipedia.org/wiki/Capishca"
+    },
+    {
+      "genreId": "capishca",
+      "sourceLink": "https://caminosdeinvestigacion.tecnologicopichincha.edu.ec/ojs/index.php/ci/article/view/28"
+    },
+    {
+      "genreId": "amorfino",
+      "sourceLink": "https://www.nanmagazine.com/en/all-roads-lead-to-the-amorfino/"
+    },
+    {
+      "genreId": "amorfino",
+      "sourceLink": "https://www.researchgate.net/publication/379836404_Meaningful_Learning_from_the_Amorfino_as_a_Montubio_Musical_Genre"
+    },
+    {
+      "genreId": "cueca-brava",
+      "sourceLink": "https://es.wikipedia.org/wiki/Cueca_brava"
+    },
+    {
+      "genreId": "cueca-brava",
+      "sourceLink": "https://www.memoriachilena.gob.cl/602/w3-article-93128.html"
+    },
+    {
+      "genreId": "cueca-brava",
+      "sourceLink": "https://rateyourmusic.com/genre/cueca-brava/"
+    },
+    {
+      "genreId": "sau-sau",
+      "sourceLink": "https://imaginarapanui.com/en/sau-sau-typical-rapa-nui-dance/"
+    },
+    {
+      "genreId": "sau-sau",
+      "sourceLink": "https://rapanuitravelguide.com/rapa-nui/rapa-nui-culture/traditional-music-and-dance-of-rapa-nui/"
+    },
+    {
+      "genreId": "zamacueca",
+      "sourceLink": "https://en.wikipedia.org/wiki/Zamacueca"
+    },
+    {
+      "genreId": "zamacueca",
+      "sourceLink": "https://actaonline.org/a-brief-history-of-the-zamacueca-and-description-of-the-marinera/"
+    },
+    {
+      "genreId": "zamacueca",
+      "sourceLink": "https://en.wikipedia.org/wiki/Marinera"
     }
   ],
   "genreAliases": [
@@ -6761,6 +7545,42 @@
     {
       "genreId": "sanjuanito",
       "alias": "San Juanito"
+    },
+    {
+      "genreId": "calipso-de-el-callao",
+      "alias": "Calypso de El Callao"
+    },
+    {
+      "genreId": "merengue-caraqueno",
+      "alias": "Merengue Venezolano"
+    },
+    {
+      "genreId": "merengue-caraqueno",
+      "alias": "Merengue Rucaneao"
+    },
+    {
+      "genreId": "golpe-tocuyano",
+      "alias": "Golpe Larense"
+    },
+    {
+      "genreId": "queh-queh",
+      "alias": "Kweh-Kweh"
+    },
+    {
+      "genreId": "queh-queh",
+      "alias": "Kwe-Kwe"
+    },
+    {
+      "genreId": "cueca-brava",
+      "alias": "Cueca Chora"
+    },
+    {
+      "genreId": "cueca-brava",
+      "alias": "Cueca Urbana"
+    },
+    {
+      "genreId": "baithak-gana",
+      "alias": "Baithak"
     }
   ]
 }

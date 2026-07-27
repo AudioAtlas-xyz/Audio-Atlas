@@ -268,5 +268,29 @@
     "Name": "Saxophone",
     "Type": "Woodwind",
     "Description": "A single-reed woodwind prominent in Afro-Surinamese kaseko and across many Latin American popular and brass-band styles."
+  },
+  {
+    "Id": "dhantal",
+    "Name": "Dhantal",
+    "Type": "Percussion",
+    "Description": "A long metal rod struck with a horseshoe-shaped beater, adapted from agricultural tools by Indo-Caribbean communities; it keeps time in Indo-Surinamese baithak gana and chutney."
+  },
+  {
+    "Id": "tarka",
+    "Name": "Tarka",
+    "Type": "Woodwind",
+    "Description": "An Aymara end-blown wooden duct flute of the Lake Titicaca region, played in large consorts to produce the buzzing, full-bodied sound of the Andean tarqueada."
+  },
+  {
+    "Id": "tamboril",
+    "Name": "Tamboril",
+    "Type": "Percussion",
+    "Description": "The rope-tuned Afro-Uruguayan barrel drum at the heart of candombe and Uruguayan plena, played in a three-drum battery of chico, repique and piano drums."
+  },
+  {
+    "Id": "tambora",
+    "Name": "Tambora",
+    "Type": "Percussion",
+    "Description": "A double-headed drum played with sticks that anchors the rhythm of Venezuelan golpe and merengue and of many Caribbean folk styles."
   }
 ]
