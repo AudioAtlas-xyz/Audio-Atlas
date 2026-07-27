@@ -298,5 +298,35 @@
     "Name": "Caja Coplera",
     "Type": "Percussion",
     "Description": "A small double-headed Andean frame drum played by a singer to accompany coplas, giving the northwest-Argentine vidala and baguala their spare, hypnotic pulse."
+  },
+  {
+    "Id": "krar",
+    "Name": "Krar",
+    "Type": "String",
+    "Description": "A five- or six-stringed bowl lyre of the Ethiopian and Eritrean highlands, tuned to pentatonic qeñet modes and used by azmari minstrels to accompany love and secular songs."
+  },
+  {
+    "Id": "karyenda",
+    "Name": "Karyenda",
+    "Type": "Percussion",
+    "Description": "The sacred hollowed-log royal drum of Burundi, historically an emblem of the mwami (king); played in large ensembles for the country's thunderous ritual drumming."
+  },
+  {
+    "Id": "gankogui",
+    "Name": "Gankogui",
+    "Type": "Percussion",
+    "Description": "A hand-forged double iron bell of the Ewe people of West Africa that carries the timeline pattern anchoring Agbadza and other Ewe drum-dances."
+  },
+  {
+    "Id": "kabosy",
+    "Name": "Kabosy",
+    "Type": "String",
+    "Description": "A small box- or guitar-shaped Malagasy lute with a variable number of strings, central to many regional styles of Madagascar including tsapiky and kilalaky."
+  },
+  {
+    "Id": "violin",
+    "Name": "Violin",
+    "Type": "String",
+    "Description": "The bowed four-stringed European fiddle, adopted across many Creole and folk traditions worldwide, including the contredanse-derived kanmtole of Seychelles."
   }
 ]
