@@ -208,5 +208,65 @@
     "Name": "Synthesiser Lead",
     "Type": "Electronic",
     "Description": "A high-pitched, sustaining melodic synthesiser line typically played over dance music productions. Defining the soaring melodies of trance, progressive house, and Eurodance, often programmed on synthesisers such as the Roland JP-8000 or virtual instruments."
+  },
+  {
+    "Id": "skratji",
+    "Name": "Skratji",
+    "Type": "Percussion",
+    "Description": "A large double-headed bass drum central to Afro-Surinamese kaseko and kawina, laying down the deep, driving pulse of the ensemble."
+  },
+  {
+    "Id": "dholak",
+    "Name": "Dholak",
+    "Type": "Percussion",
+    "Description": "A two-headed South Asian hand drum, the rhythmic backbone of Bhojpuri folk song and of Indo-Caribbean chutney and chutney soca."
+  },
+  {
+    "Id": "matraca",
+    "Name": "Matraca",
+    "Type": "Percussion",
+    "Description": "A wooden ratchet rattle whirled by dancers to mark the heavy, rolling rhythm of the Bolivian morenada."
+  },
+  {
+    "Id": "guiro",
+    "Name": "Guiro",
+    "Type": "Percussion",
+    "Description": "An open-ended gourd scraper played with a stick, adding a crisp, steady ostinato to many Latin American and Afro-Latin genres."
+  },
+  {
+    "Id": "bomba-drum",
+    "Name": "Bomba Drum",
+    "Type": "Percussion",
+    "Description": "A single-headed hand drum, played resting against the body, that anchors the Afro-Ecuadorian bomba del Chota."
+  },
+  {
+    "Id": "bombo",
+    "Name": "Bombo",
+    "Type": "Percussion",
+    "Description": "A large Andean bass drum with a wooden shell and hide heads, giving folk ensembles across Bolivia, Chile and Argentina their deep rhythmic foundation."
+  },
+  {
+    "Id": "requinto",
+    "Name": "Requinto",
+    "Type": "String",
+    "Description": "A small, high-pitched guitar used to play lead melodies and ornamented runs in Ecuadorian and other Latin American folk music."
+  },
+  {
+    "Id": "trumpet",
+    "Name": "Trumpet",
+    "Type": "Brass",
+    "Description": "A valved brass instrument carrying melody and fanfare in the brass bands of Andean fiesta dances such as morenada and caporales."
+  },
+  {
+    "Id": "trombone",
+    "Name": "Trombone",
+    "Type": "Brass",
+    "Description": "A slide brass instrument adding weight and countermelody to Andean and Caribbean brass ensembles."
+  },
+  {
+    "Id": "saxophone",
+    "Name": "Saxophone",
+    "Type": "Woodwind",
+    "Description": "A single-reed woodwind prominent in Afro-Surinamese kaseko and across many Latin American popular and brass-band styles."
   }
 ]

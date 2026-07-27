@@ -43,7 +43,17 @@
     "reggaeton": "Reggaeton",
     "alte": "Alte",
     "kwaito": "Kwaito",
-    "amapiano": "Amapiano"
+    "amapiano": "Amapiano",
+    "saya": "Saya",
+    "kaseko": "Kaseko",
+    "chutney-music": "Chutney Music",
+    "soca": "Soca",
+    "calypso": "Calypso",
+    "cueca": "Cueca",
+    "huayno": "Huayno",
+    "chamame": "Chamame",
+    "pasillo": "Pasillo",
+    "currulao": "Currulao"
   },
   "existingInstrumentRefs": {
     "guitar": "Guitar",
@@ -67,7 +77,13 @@
     "bandoneon": "Bandoneon",
     "conga": "Conga",
     "bongos": "Bongos",
-    "tin-whistle": "Tin Whistle"
+    "tin-whistle": "Tin Whistle",
+    "tabla": "Tabla",
+    "harmonium": "Harmonium",
+    "arpa-paraguaya": "Arpa Paraguaya",
+    "charango": "Charango",
+    "quena": "Quena",
+    "siku": "Siku / Zampona"
   },
   "genres": [
     {
@@ -1257,6 +1273,226 @@
       "playlistLink": null,
       "authorId": "system",
       "summary": "Genre fusing punk rock with Celtic folk instruments and melodies — The Pogues in 1980s London, Flogging Molly and Dropkick Murphys globally…"
+    },
+    {
+      "id": "shanto",
+      "name": "Shanto",
+      "startDate": "1925-01-01",
+      "description": "Shanto is an early form of Guyanese popular song developed in the 1920s by the entertainer Bill Rogers (Augustus Hinds), who set witty, topical commentary to a light guitar accompaniment and an Afro-Caribbean lilt. Its lyrics are steeply local, cataloguing Guyanese places, foods and customs, and his recordings from the 1930s are among the earliest documents of the country's popular music. Shanto sits close to calypso but is distinguished by its storytelling detail and its rootedness in coastal Guyanese life.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Early Guyanese topical song genre pioneered by Bill Rogers in the 1920s."
+    },
+    {
+      "id": "chutney-soca",
+      "name": "Chutney Soca",
+      "startDate": "1987-01-01",
+      "description": "Chutney soca is an Indo-Caribbean dance-music hybrid that fuses the Bhojpuri-derived melodies and hand-percussion of chutney with the driving rhythm and brass of soca. It crystallised in the late 1980s across Trinidad and Guyana, where descendants of nineteenth-century Indian indentured labourers blended dholak, harmonium and tabla with Caribbean party music. Sung in a mix of English, Hindi and Bhojpuri, it became a carnival and fete staple celebrated through competitions such as the Chutney Soca Monarch.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Indo-Caribbean fusion of chutney and soca, popular in Guyana and Trinidad."
+    },
+    {
+      "id": "kawina",
+      "name": "Kawina",
+      "startDate": "1890-01-01",
+      "description": "Kawina is an Afro-Surinamese Creole music and dance that took shape in the decades after the 1863 abolition of slavery, drawing on the older banya, laku and tuka traditions. Built on interlocking percussion, including the large skratji drum, and call-and-response singing, its songs treat everyday life, romance and social scandal over long, improvised percussion breaks. Kawina is closely tied to the Afro-Surinamese Winti religion, from which much of its rhythmic vocabulary descends.",
+      "isSensitive": true,
+      "sensitiveDescription": "Kawina is historically intertwined with Winti, the Afro-Surinamese ancestral religion, and some of its rhythms and songs carry spiritual and ceremonial significance beyond their recreational use. This entry documents the genre respectfully from public scholarly and journalistic sources and is not intended to reproduce sacred or restricted ritual material.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Afro-Surinamese Creole percussion-and-song tradition tied to the Winti religion."
+    },
+    {
+      "id": "aleke",
+      "name": "Aleke",
+      "startDate": "1960-01-01",
+      "description": "Aleke is a secular Maroon dance-music genre from the Maroni River region straddling Suriname and French Guiana, performed by Aluku (Boni), Ndyuka and Paramaka communities. It grew out of the social ferment of the gold-rush era, when Creole labourers and Maroon musicians exchanged rhythms, and it is driven by interlocking hand-drums, shakers and handclaps supporting energetic call-and-response vocals. Fast, improvisatory and constantly renewed, aleke serves as both communal celebration and a vehicle for storytelling and news.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Secular Maroon dance-music of the Suriname-French Guiana border region."
+    },
+    {
+      "id": "kaskawi",
+      "name": "Kaskawi",
+      "startDate": "1990-01-01",
+      "description": "Kaskawi is a modern Surinamese studio genre that fuses the roots percussion and vocals of kawina with the horn-driven, urban sound of kaseko, adding touches of pop and R&B. Emerging in the late twentieth century, it keeps traditional kawina drumming at its core while layering electric instrumentation and contemporary production. The result is a dancefloor-oriented style that bridges Suriname's folk heritage and its popular music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Modern Surinamese fusion of kawina and kaseko with pop and R&B."
+    },
+    {
+      "id": "graje",
+      "name": "Grajé",
+      "startDate": null,
+      "description": "Grajé is a traditional Creole rhythm and couple-dance of French Guiana, one of the core styles of the territory's coastal Creole culture. It is comparatively slow and graceful, highly codified in its danced form, and its songs often carry a nostalgic, reflective tone. Grajé belongs to the same family of drum-led Guianese Creole traditions as kaseko and kanmougwé.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Slow, graceful traditional Creole couple-dance rhythm of French Guiana."
+    },
+    {
+      "id": "kanmougwe",
+      "name": "Kanmougwé",
+      "startDate": null,
+      "description": "Kanmougwé is one of the most energetic traditional Creole rhythms of French Guiana, played on the yongwé drum and historically tied to collective labour, its movements evoking physical work. It is a drum-and-dance form central to Guianese Creole heritage, performed at gatherings and folkloric celebrations. Kanmougwé stands alongside grajé and kaseko among the principal rhythms of the region.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Energetic labour-rooted Creole drum-and-dance rhythm of French Guiana."
+    },
+    {
+      "id": "guarania",
+      "name": "Guarania",
+      "startDate": "1925-01-01",
+      "description": "Guarania is a slow, melancholic Paraguayan song genre created in 1925 by the composer Jose Asuncion Flores, who sought a musical form expressing the introspective character of the Paraguayan people. Set in a lilting 6/8 and typically carried by harp, guitar and voice, often in the Guarani language, it contrasts with the brisker polca paraguaya. Recognised in 2024 on UNESCO's list of Intangible Cultural Heritage, guarania remains a cornerstone of national identity.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Slow, melancholic Paraguayan song genre created by Jose Asuncion Flores in 1925."
+    },
+    {
+      "id": "polca-paraguaya",
+      "name": "Polca Paraguaya",
+      "startDate": "1850-01-01",
+      "description": "The polca paraguaya is a lively Paraguayan song-and-dance form that emerged in the nineteenth century as the European polka was reshaped by local rhythmic sensibilities. Felt in 6/8, its signature is the sesquialtera, a hemiola interplay between 6/8 and 3/4 that gives it a buoyant, forward-driving swing, typically voiced by Paraguayan harp, guitar and accordion. Together with guarania it forms the core of Paraguay's folkloric repertoire.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Lively nineteenth-century Paraguayan song-and-dance in hemiola-rich 6/8."
+    },
+    {
+      "id": "galopa",
+      "name": "Galopa",
+      "startDate": null,
+      "description": "The galopa is a fast, dance-oriented variant of the polca paraguaya, usually instrumental and often performed by the banda tipica ensembles that animate Paraguayan festivals and patron-saint celebrations. It heightens the polca's syncopated drive for communal open-air dancing. Galopa is closely bound to the harp-and-brass traditions of rural Paraguay.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Fast, festival-oriented instrumental variant of the polca paraguaya."
+    },
+    {
+      "id": "caporales",
+      "name": "Caporales",
+      "startDate": "1969-01-01",
+      "description": "Caporales is a Bolivian dance-music style created in 1969 by the Estrada Pacheco brothers, who drew on the figure of the caporal, the mixed-race overseer of enslaved workers found within the Afro-Bolivian saya of the Yungas. Its music is powered by brass bands and a strident, martial rhythm, with dancers' boot-bells accenting the beat. Now a highlight of festivals such as the Oruro Carnival, caporales spread rapidly across the Andes and its diaspora.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Bolivian brass-band fiesta dance created in 1969, derived from Afro-Bolivian saya."
+    },
+    {
+      "id": "morenada",
+      "name": "Morenada",
+      "startDate": null,
+      "description": "Morenada is one of Bolivia's most emblematic Andean dance-music traditions and a centrepiece of the Oruro Carnival, blending African, Indigenous Aymara and European elements. Its heavy, rolling rhythm is marked by the rattling matraca and a powerful brass band, accompanying masked dancers who evoke the morenos of the colonial era. Its precise origins are debated among scholars and have been the subject of cultural rivalry between Bolivia and Peru.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Emblematic Bolivian Andean brass-band carnival dance with disputed colonial origins."
+    },
+    {
+      "id": "taquirari",
+      "name": "Taquirari",
+      "startDate": null,
+      "description": "Taquirari is a bright, duple-meter mestizo genre from Bolivia's eastern lowlands, especially Santa Cruz and the Beni, with roots traced to Moxo mission and ritual music. After colonisation it moved beyond its ceremonial setting to become popular creole dance music, its syncopated swing shaped by European social dances. Typically carried by guitar, charango and lowland percussion, it is a signature sound of the Bolivian oriente.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Bright duple-meter mestizo dance genre of Bolivia's eastern lowlands."
+    },
+    {
+      "id": "bailecito",
+      "name": "Bailecito",
+      "startDate": "1820-01-01",
+      "description": "Bailecito is a graceful Andean couple-dance genre of western and central Bolivia that took shape around the independence era, descended from the zamacueca alongside the cueca. It plays on the Andean sesquialtera, the interplay of 3/4 and 6/8, and is typically performed with charango, quena or panpipes, guitar and bombo. Counted among Bolivia's core national genres by the late nineteenth century, it also spread south into north-western Argentina.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Graceful Andean Bolivian couple-dance descended from the zamacueca."
+    },
+    {
+      "id": "sanjuanito",
+      "name": "Sanjuanito",
+      "startDate": null,
+      "description": "Sanjuanito is a festive Andean genre of Ecuador, rooted in the Kichwa communities of the northern highlands around Otavalo and Imbabura, where it accompanied the June-solstice celebrations of Inti Raymi and the feast of San Juan. Recognisable by its pentatonic melodies, shifts between minor and major, and lively 2/4 pulse, it became one of Ecuador's most iconic national styles, played on panpipes, quena, charango and guitar. It endures today across both Indigenous and mestizo festivities.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Iconic festive Andean genre of Ecuador with Kichwa Inti Raymi roots."
+    },
+    {
+      "id": "bomba-del-chota",
+      "name": "Bomba del Chota",
+      "startDate": null,
+      "description": "Bomba del Chota is an Afro-Ecuadorian music and dance from the Chota Valley in the highland provinces of Imbabura and Carchi, carried by descendants of enslaved Africans brought to the region during the colonial period. Centred on the hand-played bomba drum alongside guitar and guiro, it fuses African rhythmic sensibilities with Andean and Spanish melodic influence. More than entertainment, it remains a living emblem of Afro-Ecuadorian identity, memory and resilience.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Afro-Ecuadorian drum-driven music and dance of the highland Chota Valley."
+    },
+    {
+      "id": "albazo",
+      "name": "Albazo",
+      "startDate": null,
+      "description": "Albazo is a traditional Ecuadorian mestizo genre in a hemiola-rich 6/8, its name derived from the dawn (alba) serenades that once opened days of religious festival. Despite a prevailing minor key it carries a spirited, danceable lilt, usually played on guitar and requinto by village bands. Rooted in both Indigenous and Spanish traditions, it remains associated with highland patron-saint celebrations.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Traditional Ecuadorian mestizo 6/8 genre born from dawn festival serenades."
+    },
+    {
+      "id": "tonada-chilena",
+      "name": "Tonada Chilena",
+      "startDate": null,
+      "description": "The tonada chilena is a lyrical, strophic song form from central Chile, descended from Spanish song and shaped by the Latin American troubadour tradition. Unlike the danced cueca it is meant for listening, typically slow and reflective, sung to guitar or harp and historically performed by women singers known as cantoras. Its many guises, from serenades and wedding songs to romances and Christmas villancicos, make it a mainstay of rural Chilean folk life.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Lyrical, listening-oriented central Chilean folk song form."
+    },
+    {
+      "id": "trote",
+      "name": "Trote",
+      "startDate": null,
+      "description": "Trote, sometimes called the Chilean huayno, is an Andean dance-music genre of northern Chile rooted in Aymara and Quechua tradition. Built on panpipes, quena and bombo over a steady, trotting pulse, it belongs to the highland repertoire of the Norte Grande alongside the cachimbo and cueca nortina. It anchors carnival and community festivities across the Andean altiplano.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Andean dance-music of northern Chile, akin to the huayno."
+    },
+    {
+      "id": "cachimbo",
+      "name": "Cachimbo",
+      "startDate": null,
+      "description": "Cachimbo is a traditional couple-dance and music of the Tarapaca region in northern Chile, part of the Andean-influenced folklore of the Norte Grande. Handkerchief-waving dancers move to a flowing rhythm related to the cueca family, and from the mid-twentieth century a sung version was popularised by ensembles further south. It remains emblematic of the desert-highland communities where it developed.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Traditional handkerchief couple-dance of Chile's northern Tarapaca region."
     }
   ],
   "genreCountry": [
@@ -2015,6 +2251,106 @@
     {
       "genreId": "celtic-punk",
       "countryId": "USA"
+    },
+    {
+      "genreId": "shanto",
+      "countryId": "GUY"
+    },
+    {
+      "genreId": "chutney-soca",
+      "countryId": "GUY"
+    },
+    {
+      "genreId": "chutney-soca",
+      "countryId": "TTO"
+    },
+    {
+      "genreId": "kawina",
+      "countryId": "SUR"
+    },
+    {
+      "genreId": "aleke",
+      "countryId": "SUR"
+    },
+    {
+      "genreId": "aleke",
+      "countryId": "GUF"
+    },
+    {
+      "genreId": "kaskawi",
+      "countryId": "SUR"
+    },
+    {
+      "genreId": "graje",
+      "countryId": "GUF"
+    },
+    {
+      "genreId": "kanmougwe",
+      "countryId": "GUF"
+    },
+    {
+      "genreId": "guarania",
+      "countryId": "PRY"
+    },
+    {
+      "genreId": "polca-paraguaya",
+      "countryId": "PRY"
+    },
+    {
+      "genreId": "galopa",
+      "countryId": "PRY"
+    },
+    {
+      "genreId": "caporales",
+      "countryId": "BOL"
+    },
+    {
+      "genreId": "morenada",
+      "countryId": "BOL"
+    },
+    {
+      "genreId": "taquirari",
+      "countryId": "BOL"
+    },
+    {
+      "genreId": "bailecito",
+      "countryId": "BOL"
+    },
+    {
+      "genreId": "sanjuanito",
+      "countryId": "ECU"
+    },
+    {
+      "genreId": "bomba-del-chota",
+      "countryId": "ECU"
+    },
+    {
+      "genreId": "albazo",
+      "countryId": "ECU"
+    },
+    {
+      "genreId": "tonada-chilena",
+      "countryId": "CHL"
+    },
+    {
+      "genreId": "trote",
+      "countryId": "CHL"
+    },
+    {
+      "genreId": "cachimbo",
+      "countryId": "CHL"
+    },
+    {
+      "genreId": "kaseko",
+      "countryId": "SUR"
+    },
+    {
+      "genreId": "kaseko",
+      "countryId": "GUF"
+    },
+    {
+      "genreId": "chutney-music",
+      "countryId": "GUY"
     }
   ],
   "genreHierarchy": [
@@ -2637,6 +2973,34 @@
     {
       "genreId": "folk",
       "subgenreId": "celtic-punk"
+    },
+    {
+      "genreId": "chutney-music",
+      "subgenreId": "chutney-soca"
+    },
+    {
+      "genreId": "soca",
+      "subgenreId": "chutney-soca"
+    },
+    {
+      "genreId": "kaseko",
+      "subgenreId": "kaskawi"
+    },
+    {
+      "genreId": "kawina",
+      "subgenreId": "kaskawi"
+    },
+    {
+      "genreId": "kawina",
+      "subgenreId": "kaseko"
+    },
+    {
+      "genreId": "polca-paraguaya",
+      "subgenreId": "galopa"
+    },
+    {
+      "genreId": "saya",
+      "subgenreId": "caporales"
     }
   ],
   "genreSimilarity": [
@@ -3267,6 +3631,90 @@
     {
       "similarId1": "celtic-punk",
       "similarId2": "folk-rock"
+    },
+    {
+      "similarId1": "shanto",
+      "similarId2": "calypso"
+    },
+    {
+      "similarId1": "kawina",
+      "similarId2": "aleke"
+    },
+    {
+      "similarId1": "aleke",
+      "similarId2": "kaseko"
+    },
+    {
+      "similarId1": "graje",
+      "similarId2": "kaseko"
+    },
+    {
+      "similarId1": "graje",
+      "similarId2": "kanmougwe"
+    },
+    {
+      "similarId1": "kanmougwe",
+      "similarId2": "aleke"
+    },
+    {
+      "similarId1": "guarania",
+      "similarId2": "polca-paraguaya"
+    },
+    {
+      "similarId1": "guarania",
+      "similarId2": "chamame"
+    },
+    {
+      "similarId1": "polca-paraguaya",
+      "similarId2": "chamame"
+    },
+    {
+      "similarId1": "caporales",
+      "similarId2": "morenada"
+    },
+    {
+      "similarId1": "taquirari",
+      "similarId2": "bailecito"
+    },
+    {
+      "similarId1": "bailecito",
+      "similarId2": "cueca"
+    },
+    {
+      "similarId1": "bailecito",
+      "similarId2": "huayno"
+    },
+    {
+      "similarId1": "sanjuanito",
+      "similarId2": "albazo"
+    },
+    {
+      "similarId1": "sanjuanito",
+      "similarId2": "huayno"
+    },
+    {
+      "similarId1": "albazo",
+      "similarId2": "pasillo"
+    },
+    {
+      "similarId1": "bomba-del-chota",
+      "similarId2": "currulao"
+    },
+    {
+      "similarId1": "tonada-chilena",
+      "similarId2": "cueca"
+    },
+    {
+      "similarId1": "trote",
+      "similarId2": "huayno"
+    },
+    {
+      "similarId1": "trote",
+      "similarId2": "cachimbo"
+    },
+    {
+      "similarId1": "cachimbo",
+      "similarId2": "cueca"
     }
   ],
   "genreInstrument": [
@@ -4729,6 +5177,186 @@
     {
       "genreId": "celtic-punk",
       "instrumentId": "accordion"
+    },
+    {
+      "genreId": "shanto",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "shanto",
+      "instrumentId": "banjo"
+    },
+    {
+      "genreId": "chutney-soca",
+      "instrumentId": "dholak"
+    },
+    {
+      "genreId": "chutney-soca",
+      "instrumentId": "tabla"
+    },
+    {
+      "genreId": "chutney-soca",
+      "instrumentId": "harmonium"
+    },
+    {
+      "genreId": "kawina",
+      "instrumentId": "skratji"
+    },
+    {
+      "genreId": "kawina",
+      "instrumentId": "conga"
+    },
+    {
+      "genreId": "kaskawi",
+      "instrumentId": "skratji"
+    },
+    {
+      "genreId": "kaskawi",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "kaskawi",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "guarania",
+      "instrumentId": "arpa-paraguaya"
+    },
+    {
+      "genreId": "guarania",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "polca-paraguaya",
+      "instrumentId": "arpa-paraguaya"
+    },
+    {
+      "genreId": "polca-paraguaya",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "polca-paraguaya",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "galopa",
+      "instrumentId": "arpa-paraguaya"
+    },
+    {
+      "genreId": "galopa",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "caporales",
+      "instrumentId": "trumpet"
+    },
+    {
+      "genreId": "caporales",
+      "instrumentId": "trombone"
+    },
+    {
+      "genreId": "caporales",
+      "instrumentId": "saxophone"
+    },
+    {
+      "genreId": "morenada",
+      "instrumentId": "matraca"
+    },
+    {
+      "genreId": "morenada",
+      "instrumentId": "trumpet"
+    },
+    {
+      "genreId": "morenada",
+      "instrumentId": "trombone"
+    },
+    {
+      "genreId": "taquirari",
+      "instrumentId": "charango"
+    },
+    {
+      "genreId": "taquirari",
+      "instrumentId": "quena"
+    },
+    {
+      "genreId": "taquirari",
+      "instrumentId": "bombo"
+    },
+    {
+      "genreId": "bailecito",
+      "instrumentId": "charango"
+    },
+    {
+      "genreId": "bailecito",
+      "instrumentId": "quena"
+    },
+    {
+      "genreId": "bailecito",
+      "instrumentId": "siku"
+    },
+    {
+      "genreId": "bailecito",
+      "instrumentId": "bombo"
+    },
+    {
+      "genreId": "sanjuanito",
+      "instrumentId": "siku"
+    },
+    {
+      "genreId": "sanjuanito",
+      "instrumentId": "quena"
+    },
+    {
+      "genreId": "sanjuanito",
+      "instrumentId": "charango"
+    },
+    {
+      "genreId": "sanjuanito",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "bomba-del-chota",
+      "instrumentId": "bomba-drum"
+    },
+    {
+      "genreId": "bomba-del-chota",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "bomba-del-chota",
+      "instrumentId": "guiro"
+    },
+    {
+      "genreId": "albazo",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "albazo",
+      "instrumentId": "requinto"
+    },
+    {
+      "genreId": "tonada-chilena",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "trote",
+      "instrumentId": "siku"
+    },
+    {
+      "genreId": "trote",
+      "instrumentId": "quena"
+    },
+    {
+      "genreId": "trote",
+      "instrumentId": "bombo"
+    },
+    {
+      "genreId": "cachimbo",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "cachimbo",
+      "instrumentId": "quena"
     }
   ],
   "genreSources": [
@@ -5207,6 +5835,210 @@
     {
       "genreId": "celtic-punk",
       "sourceLink": "https://en.wikipedia.org/wiki/Celtic_punk"
+    },
+    {
+      "genreId": "shanto",
+      "sourceLink": "https://en.wikipedia.org/wiki/Bill_Rogers_(musician)"
+    },
+    {
+      "genreId": "shanto",
+      "sourceLink": "https://www.caribbean-beat.com/issue-94/ride-young-bill-rogers"
+    },
+    {
+      "genreId": "shanto",
+      "sourceLink": "https://592hub.com/blog/guyanese-music-history.html"
+    },
+    {
+      "genreId": "chutney-soca",
+      "sourceLink": "https://en.wikipedia.org/wiki/Chutney_soca"
+    },
+    {
+      "genreId": "chutney-soca",
+      "sourceLink": "https://en.wikipedia.org/wiki/Sundar_Popo"
+    },
+    {
+      "genreId": "chutney-soca",
+      "sourceLink": "https://chutneymusic.com/the-history-of-chutney-music-in-trinidad-and-tobago/"
+    },
+    {
+      "genreId": "kawina",
+      "sourceLink": "https://en.wikipedia.org/wiki/Kawina_(music)"
+    },
+    {
+      "genreId": "kawina",
+      "sourceLink": "https://pan-african-music.com/en/kawina-coups-and-sranan-soul-a-brief-history-of-surinamese-music/"
+    },
+    {
+      "genreId": "kawina",
+      "sourceLink": "https://en.wikipedia.org/wiki/Winti"
+    },
+    {
+      "genreId": "aleke",
+      "sourceLink": "https://muse.jhu.edu/article/19450"
+    },
+    {
+      "genreId": "aleke",
+      "sourceLink": "https://en.wikipedia.org/wiki/Kas%C3%A9k%C3%B2"
+    },
+    {
+      "genreId": "aleke",
+      "sourceLink": "https://surinameafricanheritage.wordpress.com/2015/01/13/various-popular-surinamese-music-styles/"
+    },
+    {
+      "genreId": "kaskawi",
+      "sourceLink": "https://id.loc.gov/authorities/genreForms/gf2014026893.html"
+    },
+    {
+      "genreId": "kaskawi",
+      "sourceLink": "https://en.wikipedia.org/wiki/Kaseko"
+    },
+    {
+      "genreId": "kaskawi",
+      "sourceLink": "https://en.wikipedia.org/wiki/Kawina_(music)"
+    },
+    {
+      "genreId": "graje",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_French_Guiana"
+    },
+    {
+      "genreId": "graje",
+      "sourceLink": "https://fr.wikipedia.org/wiki/Musique_guyanaise"
+    },
+    {
+      "genreId": "graje",
+      "sourceLink": "https://richeskarayib.com/graje-tradition-tells-the-story-of-french-guiana/"
+    },
+    {
+      "genreId": "kanmougwe",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_French_Guiana"
+    },
+    {
+      "genreId": "kanmougwe",
+      "sourceLink": "https://fr.wikipedia.org/wiki/Musique_guyanaise"
+    },
+    {
+      "genreId": "guarania",
+      "sourceLink": "https://en.wikipedia.org/wiki/Guarania_(music)"
+    },
+    {
+      "genreId": "guarania",
+      "sourceLink": "https://en.wikipedia.org/wiki/Jos%C3%A9_Asunci%C3%B3n_Flores"
+    },
+    {
+      "genreId": "guarania",
+      "sourceLink": "https://soundsandcolours.com/articles/paraguay/the-rise-of-the-guarania-a-musical-style-that-is-paraguays-own-4321/"
+    },
+    {
+      "genreId": "polca-paraguaya",
+      "sourceLink": "https://en.wikipedia.org/wiki/Paraguayan_polka"
+    },
+    {
+      "genreId": "polca-paraguaya",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Paraguay"
+    },
+    {
+      "genreId": "polca-paraguaya",
+      "sourceLink": "https://rateyourmusic.com/genre/polka-paraguaya/"
+    },
+    {
+      "genreId": "galopa",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Paraguay"
+    },
+    {
+      "genreId": "galopa",
+      "sourceLink": "https://sk.sagepub.com/ency/edvol/the-sage-international-encyclopedia-of-music-and-culture/chpt/paraguay-modern-contemporary-performance-practice"
+    },
+    {
+      "genreId": "caporales",
+      "sourceLink": "https://en.wikipedia.org/wiki/Caporales"
+    },
+    {
+      "genreId": "caporales",
+      "sourceLink": "https://en.wikipedia.org/wiki/Saya_(art_form)"
+    },
+    {
+      "genreId": "caporales",
+      "sourceLink": "https://bolivianthoughts.com/2013/02/08/bolivian-folklore-101-caporales-dance-how-it-was-created/"
+    },
+    {
+      "genreId": "morenada",
+      "sourceLink": "https://en.wikipedia.org/wiki/Morenada"
+    },
+    {
+      "genreId": "morenada",
+      "sourceLink": "https://rateyourmusic.com/genre/morenada/"
+    },
+    {
+      "genreId": "morenada",
+      "sourceLink": "https://www.africanews.com/2021/05/19/morenada-bolivia-peru-row-over-andean-folk-dance/"
+    },
+    {
+      "genreId": "taquirari",
+      "sourceLink": "https://rateyourmusic.com/genre/taquirari/"
+    },
+    {
+      "genreId": "taquirari",
+      "sourceLink": "https://bloomsburymusicandsound.com/encyclopedia-chapter?docid=b-9780313087943&tocid=b-9780313087943-0004608"
+    },
+    {
+      "genreId": "taquirari",
+      "sourceLink": "https://bolivianway.com/traditional-bolivian-music/"
+    },
+    {
+      "genreId": "bailecito",
+      "sourceLink": "https://rateyourmusic.com/genre/bailecito/"
+    },
+    {
+      "genreId": "bailecito",
+      "sourceLink": "https://en.wikipedia.org/wiki/Andean_music"
+    },
+    {
+      "genreId": "sanjuanito",
+      "sourceLink": "https://en.wikipedia.org/wiki/Sanjuanito"
+    },
+    {
+      "genreId": "sanjuanito",
+      "sourceLink": "https://ethnomusicologyreview.ucla.edu/journal/volume/12/piece/502"
+    },
+    {
+      "genreId": "bomba-del-chota",
+      "sourceLink": "https://en.wikipedia.org/wiki/Bomba_(Ecuador)"
+    },
+    {
+      "genreId": "bomba-del-chota",
+      "sourceLink": "https://www.allaroundthisworld.com/learn/latin-america/kinds-of-latin-music/bomba-del-chota/"
+    },
+    {
+      "genreId": "albazo",
+      "sourceLink": "https://es.wikipedia.org/wiki/Albazo"
+    },
+    {
+      "genreId": "albazo",
+      "sourceLink": "https://go.gale.com/ps/i.do?id=GALE%7CA265977674"
+    },
+    {
+      "genreId": "tonada-chilena",
+      "sourceLink": "https://en.wikipedia.org/wiki/Tonada"
+    },
+    {
+      "genreId": "tonada-chilena",
+      "sourceLink": "https://rateyourmusic.com/genre/tonada-chilena/"
+    },
+    {
+      "genreId": "trote",
+      "sourceLink": "http://www.musicapopular.cl/generos/musica-andina/"
+    },
+    {
+      "genreId": "trote",
+      "sourceLink": "https://www.nuestro.cl/chile-traditional-dances/"
+    },
+    {
+      "genreId": "cachimbo",
+      "sourceLink": "https://en.wikipedia.org/wiki/Calatambo_Albarrac%C3%ADn"
+    },
+    {
+      "genreId": "cachimbo",
+      "sourceLink": "https://www.musicadechile.org/articulos/Musica-y-danza-en-el-norte-de-chile"
     }
   ],
   "genreAliases": [
@@ -5885,6 +6717,46 @@
     {
       "genreId": "celtic-punk",
       "alias": "Irish Punk"
+    },
+    {
+      "genreId": "kawina",
+      "alias": "Kawna"
+    },
+    {
+      "genreId": "kawina",
+      "alias": "Kauna"
+    },
+    {
+      "genreId": "chutney-soca",
+      "alias": "Chutney-Soca"
+    },
+    {
+      "genreId": "polca-paraguaya",
+      "alias": "Paraguayan Polka"
+    },
+    {
+      "genreId": "polca-paraguaya",
+      "alias": "Danza Paraguaya"
+    },
+    {
+      "genreId": "bomba-del-chota",
+      "alias": "Bomba del Valle del Chota"
+    },
+    {
+      "genreId": "tonada-chilena",
+      "alias": "Tonada"
+    },
+    {
+      "genreId": "trote",
+      "alias": "Trote Andino"
+    },
+    {
+      "genreId": "trote",
+      "alias": "Chilean Huayno"
+    },
+    {
+      "genreId": "sanjuanito",
+      "alias": "San Juanito"
     }
   ]
 }
