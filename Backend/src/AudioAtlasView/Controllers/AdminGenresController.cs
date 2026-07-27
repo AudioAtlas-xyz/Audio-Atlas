@@ -47,9 +47,16 @@ public class AdminGenresController : ControllerBase
         {
             "active"     => query.Where(g => !g.IsArchived),
             "archived"   => query.Where(g => g.IsArchived),
-            "below-gate" => query.Where(g => !g.IsArchived && string.IsNullOrEmpty(g.Description)),
-            "missing-note" => query.Where(g => !g.IsArchived && string.IsNullOrEmpty(g.Description)),
+            // "missing-note" is a legacy alias for "below-gate" — both mean "no
+            // description". Kept so existing dashboard links and bookmarks work.
+            "below-gate" or "missing-note"
+                         => query.Where(g => !g.IsArchived && string.IsNullOrEmpty(g.Description)),
             "orphans"    => query.Where(g => !g.IsArchived && !g.Countries.Any()),
+            "missing-sources"
+                         => query.Where(g => !g.IsArchived && !g.Sources.Any()),
+            "sensitive-incomplete"
+                         => query.Where(g => !g.IsArchived && g.IsSensitive
+                                             && string.IsNullOrEmpty(g.SensitiveDescription)),
             _            => query
         };
 

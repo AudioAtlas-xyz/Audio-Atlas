@@ -58,8 +58,15 @@ public class CatalogueQueryService : ICatalogueQueryService
             .Take(50)
             .ToListAsync(ct);
 
-        var orphanGenres = await filtered.CountAsync(g => !g.Countries.Any(), ct);
-        var missingDesc = await filtered.CountAsync(g => string.IsNullOrEmpty(g.Description), ct);
+        // Orphans are deliberately counted across the whole catalogue rather than
+        // through `filtered`: a genre with no countries can never satisfy a
+        // continent/region/country predicate, so scoping it would silently report
+        // zero exactly when an admin is filtering to hunt for gaps.
+        var orphanGenres = await _db.Genres.CountAsync(g => !g.Countries.Any(), ct);
+
+        var missingSources = await filtered.CountAsync(g => !g.Sources.Any(), ct);
+        var sensitiveMissingDescription = await filtered.CountAsync(
+            g => g.IsSensitive && string.IsNullOrEmpty(g.SensitiveDescription), ct);
         var missingMedia = await filtered.CountAsync(g => g.PlaylistLink == null, ct);
 
         var linkCount = await filtered.SelectMany(g => g.Countries).CountAsync(ct);
@@ -80,7 +87,8 @@ public class CatalogueQueryService : ICatalogueQueryService
             DataCompleteness = new DataCompletenessDto
             {
                 OrphanGenres = orphanGenres,
-                MissingOriginsNote = missingDesc,
+                MissingSources = missingSources,
+                SensitiveMissingDescription = sensitiveMissingDescription,
                 MissingMedia = missingMedia
             },
             GenreCountryLinkCount = linkCount

@@ -71,11 +71,18 @@ public class CountryCoverageDto
 
 public class DataCompletenessDto
 {
-    /// <summary>Genres with no linked countries.</summary>
+    /// <summary>
+    /// Genres with no linked countries. Always catalogue-wide: a genre with no
+    /// countries can never satisfy a continent/region/country filter, so scoping
+    /// this to the geography filter would report zero whenever one is applied.
+    /// </summary>
     public int OrphanGenres { get; set; }
 
-    /// <summary>Genres with null or empty Description (originsNote proxy).</summary>
-    public int MissingOriginsNote { get; set; }
+    /// <summary>Genres with no source links.</summary>
+    public int MissingSources { get; set; }
+
+    /// <summary>Genres flagged sensitive but with no sensitive description.</summary>
+    public int SensitiveMissingDescription { get; set; }
 
     /// <summary>Genres with null PlaylistLink.</summary>
     public int MissingMedia { get; set; }

@@ -22,8 +22,13 @@ const isAdmin = computed(() => user.value?.roles?.includes('Admin') ?? false)
 
 // ── URL-synced filter state ──────────────────────────────────────────────────
 
-const search = ref((route.query.search as string) ?? '')
-const filter = ref((route.query.filter as string) ?? 'all')
+// Query values are `string | null | (string | null)[]` — a repeated param such
+// as ?filter=a&filter=b yields an array — so narrow rather than cast.
+const search = ref(typeof route.query.search === 'string' ? route.query.search : '')
+// 'missing-note' is a legacy alias for 'below-gate'; normalise it so older
+// dashboard links and bookmarks still highlight the right option.
+const rawFilter = typeof route.query.filter === 'string' ? route.query.filter : 'all'
+const filter = ref(rawFilter === 'missing-note' ? 'below-gate' : rawFilter)
 const page = ref(Number(route.query.page) || 1)
 
 const filterOptions = [
@@ -31,8 +36,9 @@ const filterOptions = [
   { label: 'Active only',      value: 'active' },
   { label: 'Archived',         value: 'archived' },
   { label: 'No description',   value: 'below-gate' },
-  { label: 'No description',   value: 'missing-note' },
-  { label: 'No countries',     value: 'orphans' }
+  { label: 'No countries',     value: 'orphans' },
+  { label: 'No sources',       value: 'missing-sources' },
+  { label: 'Sensitive, no note', value: 'sensitive-incomplete' }
 ]
 
 let searchDebounce: ReturnType<typeof setTimeout> | null = null
