@@ -118,7 +118,14 @@
     "tahitian-himene": "Tahitian Himene",
     "kiribati-maneaba-songs": "Kiribati Maneaba Songs",
     "country": "Country",
-    "folk-rock": "Folk Rock"
+    "folk-rock": "Folk Rock",
+    "kulning": "Kulning",
+    "mbira-music": "Mbira Music",
+    "pungwe": "Pungwe",
+    "mbira-pop": "Mbira-Pop",
+    "punta": "Punta",
+    "punta-rock": "Punta Rock",
+    "kwa-kwa": "Kwa-Kwa"
   },
   "existingInstrumentRefs": {
     "guitar": "Guitar",
@@ -4051,6 +4058,50 @@
     {
       "genreId": "reigen-nauru",
       "countryId": "NRU"
+    },
+    {
+      "genreId": "kulning",
+      "countryId": "SWE"
+    },
+    {
+      "genreId": "kulning",
+      "countryId": "NOR"
+    },
+    {
+      "genreId": "mbira-music",
+      "countryId": "ZWE"
+    },
+    {
+      "genreId": "pungwe",
+      "countryId": "ZWE"
+    },
+    {
+      "genreId": "mbira-pop",
+      "countryId": "ZWE"
+    },
+    {
+      "genreId": "punta",
+      "countryId": "BLZ"
+    },
+    {
+      "genreId": "punta",
+      "countryId": "HND"
+    },
+    {
+      "genreId": "punta",
+      "countryId": "GTM"
+    },
+    {
+      "genreId": "punta",
+      "countryId": "NIC"
+    },
+    {
+      "genreId": "punta-rock",
+      "countryId": "BLZ"
+    },
+    {
+      "genreId": "kwa-kwa",
+      "countryId": "SUR"
     }
   ],
   "genreHierarchy": [

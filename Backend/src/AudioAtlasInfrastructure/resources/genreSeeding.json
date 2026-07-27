@@ -6551,10 +6551,6 @@
                              "countryId":  "ZAF"
                          },
                          {
-                             "genreId":  "chimurenga-music",
-                             "countryId":  "ZAF"
-                         },
-                         {
                              "genreId":  "marrabenta",
                              "countryId":  "MOZ"
                          },
@@ -6661,14 +6657,6 @@
                          {
                              "genreId":  "ndombolo",
                              "countryId":  "COD"
-                         },
-                         {
-                             "genreId":  "zamrock",
-                             "countryId":  "ZAF"
-                         },
-                         {
-                             "genreId":  "ethio-jazz",
-                             "countryId":  "KEN"
                          },
                          {
                              "genreId":  "shangaan-electro",
@@ -7001,22 +6989,6 @@
                          {
                              "genreId":  "chakacha",
                              "countryId":  "TZA"
-                         },
-                         {
-                             "genreId":  "sega",
-                             "countryId":  "FRA"
-                         },
-                         {
-                             "genreId":  "maloya",
-                             "countryId":  "FRA"
-                         },
-                         {
-                             "genreId":  "tsapiky",
-                             "countryId":  "FRA"
-                         },
-                         {
-                             "genreId":  "salegy",
-                             "countryId":  "FRA"
                          },
                          {
                              "genreId":  "bongo-fleva-singeli-fusion",
@@ -7796,10 +7768,6 @@
                          },
                          {
                              "genreId":  "sega-tambour",
-                             "countryId":  "MOZ"
-                         },
-                         {
-                             "genreId":  "moutya",
                              "countryId":  "MOZ"
                          },
                          {
