@@ -98,7 +98,19 @@
     "zamrock": "Zamrock",
     "jit": "Jit",
     "sungura": "Sungura",
-    "maloya": "Maloya"
+    "maloya": "Maloya",
+    "zinli": "Zinli",
+    "mbaqanga": "Mbaqanga",
+    "gumbe": "Gumbe",
+    "tuareg-desert-blues": "Tuareg Desert Blues",
+    "hassani-music": "Hassani Music",
+    "kwela": "Kwela",
+    "agbadza": "Agbadza",
+    "socope": "Socopé",
+    "oviritje": "Oviritje",
+    "haqiba": "Haqiba",
+    "maluf-tunisia": "Ma'luf (Tunisia)",
+    "tizita": "Tizita"
   },
   "existingInstrumentRefs": {
     "guitar": "Guitar",
@@ -2208,6 +2220,226 @@
       "playlistLink": null,
       "authorId": "system",
       "summary": "Competitive military-style gourd-kazoo ngoma dance of northern Malawi."
+    },
+    {
+      "id": "warba",
+      "name": "Warba",
+      "startDate": null,
+      "description": "Warba is the great celebration dance-music of the Mossi people of Burkina Faso, centred on Ouagadougou and the Mogho plateau. Once reserved for the ritual enthronement and funerals of Mossi chiefs and led by the bendré calabash drum, it has become a joyous popular dance marked by vigorous hip-shaking and leg-lifting, today often driven by the djembe. It is among the most emblematic traditions of the Mossi court.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Emblematic Mossi celebration dance-music of Burkina Faso."
+    },
+    {
+      "id": "tende",
+      "name": "Tende",
+      "startDate": null,
+      "description": "Tende is a Tuareg music built around the drum of the same name, made from a wooden mortar stretched with goatskin and played with pestles. Traditionally a women's domain across Niger and the wider Sahara, it pairs a female chorus with a soloist singing of village life, love and ancestors at camel festivals and evening gatherings. Its rolling rhythm is a foundation of Saharan musical life.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Tuareg mortar-drum music of Niger, traditionally led by women."
+    },
+    {
+      "id": "mgodro",
+      "name": "Mgodro",
+      "startDate": null,
+      "description": "Mgodro is the signature traditional dance-rhythm of the Comoros, driven by drums, rattles and the gabusi lute over hypnotic, cyclical patterns. Performed at weddings, celebrations and religious gatherings, it blends Swahili-coast aesthetics, Malagasy timbres and Arab-Islamic modal colour, and it fused over time with the imported taarab of Zanzibar. It is one of the most recognisable island markers of Comorian music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Signature traditional dance-rhythm of the Comoros islands."
+    },
+    {
+      "id": "sibhaca",
+      "name": "Sibhaca",
+      "startDate": null,
+      "description": "Sibhaca is a vigorous men's team dance of Eswatini in which barefoot dancers stamp and high-kick in unison while companions drum, chant and sing. Performed competitively for two or three hours at celebrations, teams are judged on precision and style, the dancers wearing colourful quilts and mohair leg-rattles. It is one of the most spectacular expressions of Swazi communal culture.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Vigorous competitive men's stamping team-dance of Eswatini."
+    },
+    {
+      "id": "zokela",
+      "name": "Zokela",
+      "startDate": "1980-01-01",
+      "description": "Zokela is a Central African 'modern traditional' genre that emerged in the early 1980s from the Lobaye region, named after its pioneering band and sung in Sango. It set electric guitars and drums to the ceremonial and funeral rhythms of the Lobaye, drawing on BaAka yodelling, the n'gombi harp and the montengene dance, with lyrics of social and political commentary. It turned a regional sound into a nationally beloved style.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Sango-language 'modern traditional' guitar-band genre of the Central African Republic."
+    },
+    {
+      "id": "tina",
+      "name": "Tina",
+      "startDate": null,
+      "description": "Tina is a folk dance-music of Guinea-Bissau built around the tina, a gourd or water drum that gives the genre both its name and its distinctive beat. One of the country's core traditional rhythms alongside gumbe, it anchors village celebration with its binary pulse. It embodies the layered folk heritage from which modern Bissau-Guinean popular music grew.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Water-drum folk dance-music of Guinea-Bissau."
+    },
+    {
+      "id": "setapa",
+      "name": "Setapa",
+      "startDate": null,
+      "description": "Setapa is a traditional dance-music of the Bangwaketse of Kanye and surrounding villages in Botswana, its name derived from the Tswana for continuous stamping into the ground. Mixed troupes of men and women, dressed in animal skins and shell leg-rattles, stamp to the songs of a chorus, the men adding whistles and blasts on cattle horns. It is a defining Tswana communal tradition.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Tswana stamping dance-music of the Bangwaketse of Botswana."
+    },
+    {
+      "id": "bwiti",
+      "name": "Bwiti",
+      "startDate": null,
+      "description": "Bwiti is the sacred initiatory music of Gabon, integral to the spiritual tradition of the same name that centres on the psychoactive iboga plant. Its polyrhythmic drumming, the mouth-bow and above all the sacred ngombi harp accompany night-long ceremonies of healing, initiation and communion with ancestors and spirits. Deeply woven into Fang and Mitsogo religious life, it is among the most profound musical traditions of Central Africa.",
+      "isSensitive": true,
+      "sensitiveDescription": "Bwiti is a living initiatory religion of Gabon centred on the sacred iboga plant; its polyrhythms and the ngombi harp are integral to ceremonies of healing, initiation and communion with ancestors. It is documented here respectfully from public sources and is not intended to reproduce its sacred, restricted or ritual dimensions.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Sacred initiatory ceremonial music of Gabon's iboga-centred Bwiti religion."
+    },
+    {
+      "id": "haul",
+      "name": "Haul",
+      "startDate": null,
+      "description": "Haul (el-hawl) is the traditional art-music of the Sahrawi people of Western Sahara, sung in Hassaniya Arabic and organised around a system of modes. Its long poems narrate the land, epic and war, love, religion and daily life in call-and-response, and it was among the first Saharan musics to take up the electric guitar, influencing the later Tuareg desert-blues. In exile it became a powerful vehicle of Sahrawi national identity and resistance.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Modal Hassaniya art-music of the Sahrawi people of Western Sahara."
+    },
+    {
+      "id": "hipco",
+      "name": "Hipco",
+      "startDate": "1985-01-01",
+      "description": "Hipco is Liberia's homegrown hip-hop, rapped in Liberian English and the Kolokwa vernacular from which its name derives. Emerging in the 1980s and hardened through the country's civil wars, it carries an unflinching social and political charge, speaking against injustice and corruption in the everyday speech of Monrovia's streets. By the 2000s it had become the defining popular music of post-war Liberia.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Liberian vernacular hip-hop with a social and political charge."
+    },
+    {
+      "id": "tchinkoume",
+      "name": "Tchinkoumé",
+      "startDate": "1978-01-01",
+      "description": "Tchinkoumé is a Fon popular genre of Benin whose rhythms descend from the funeral music zinli of the Abomey plateau. In the late 1970s Stan Tohon electrified it into the 'Tchink System', layering the traditional water-drum patterns with electric guitar, bass, synthesizers and a brass section drawn from soul, pop and rock. It became one of Benin's best-loved modern styles.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Fon popular genre of Benin, electrified by Stan Tohon from zinli rhythms."
+    },
+    {
+      "id": "akpese",
+      "name": "Akpese",
+      "startDate": null,
+      "description": "Akpese, widely known as Borborbor, is a social dance-music of the Ewe of southern Togo and Ghana's Volta region, created around Ghanaian independence in the 1940s and 1950s. Built on drums, the gankogui bell and brass-tinged highlife melodies, it is festive, participatory and closely tied to church and community gatherings. It is today one of the most popular social dances of the central and northern Ewe.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Festive Ewe social dance-music of Togo and Ghana, also called Borborbor."
+    },
+    {
+      "id": "marabi",
+      "name": "Marabi",
+      "startDate": "1920-01-01",
+      "description": "Marabi is the foundational township music of South Africa, born in the shebeens of Johannesburg's slumyards between the 1900s and 1920s. Played on pianos, pedal organs and later small bands, it fused American jazz, blues and ragtime with African melody into keyboard cycles that fuelled long, dancing parties run by 'shebeen queens'. It became the seedbed of South African jazz and of later styles such as mbaqanga.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Foundational South African township jazz of the 1920s shebeens."
+    },
+    {
+      "id": "ussua",
+      "name": "Ússua",
+      "startDate": null,
+      "description": "Ússua is a traditional couple-dance music of São Tomé and Príncipe, a stately Creole ballroom form shaped by the meeting of African tradition with Portuguese salon dance during the plantation era. Measured and elegant, it is led by a wind instrument such as a cornet and stands beside socopé and dêxa among the archipelago's cherished rhythms. It reflects the islands' distinctive Luso-African culture.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Stately Creole ballroom couple-dance of São Tomé and Príncipe."
+    },
+    {
+      "id": "damara-punch",
+      "name": "Damara Punch",
+      "startDate": null,
+      "description": "Damara Punch, also called ma/gaisa, is a popular Namibian dance genre grown from the traditional music of the Damara people and sung largely in Khoekhoegowab. Upbeat and guitar-and-keyboard driven, it turns Damara song and rhythm into a modern dancefloor style embraced across Namibia. It is one of the country's most distinctive contemporary sounds.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Damara-rooted Namibian popular dance genre, also known as ma/gaisa."
+    },
+    {
+      "id": "aghani-al-banat",
+      "name": "Aghani al-Banat",
+      "startDate": null,
+      "description": "Aghani al-banat, 'girls' music', is a Sudanese women's folk genre performed at weddings and social celebrations, especially the bridal dance. Sung by professional women singers over the goblet-shaped daloka drum, handclaps and call-and-response, with playful lyrics of love and flirtation, it was pioneered by working-class and formerly enslaved women in Kosti and Khartoum. Its syncopated pulse became a foundation of modern Sudanese popular song.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Sudanese women's celebratory folk song genre built on the daloka drum."
+    },
+    {
+      "id": "mirskaawi",
+      "name": "Mirskaawi",
+      "startDate": null,
+      "description": "Mirskaawi is a popular song style of eastern Libya, especially Benghazi, Al-Bayda and Derna, built on a well-known maqam. Traditions trace it either to the southern oasis of Murzuk, from which its name may derive, or to the Andalusian music carried by Moriscos who fled to North Africa after the fall of al-Andalus. It is a mainstay of Libyan festive and popular music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Maqam-based popular song style of eastern Libya."
+    },
+    {
+      "id": "afar-music",
+      "name": "Afar Music",
+      "startDate": null,
+      "description": "Afar music is the tradition of the Afar people of the Horn of Africa, whose homeland spans Djibouti, Ethiopia and Eritrea. Rooted in nomadic life and shaped by Ethiopic melody and Arabic modes, it ranges across marriage, war, praise and boasting songs, vocal games such as saxxaq, and prophetic adal songs, often carried by the flute. It is a cornerstone of the cultural life of Djibouti.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Nomadic Cushitic song tradition of the Afar of Djibouti and the Horn."
+    },
+    {
+      "id": "larakaraka",
+      "name": "Larakaraka",
+      "startDate": null,
+      "description": "Larakaraka is a courtship dance-music of the Acholi people of South Sudan and northern Uganda, performed at weddings and communal festivities. Accompanied by drums, harps, flutes and calabashes, young men display strength, agility and acrobatic leaps to win a partner, making the dance a celebrated rite of passage. It is one of the signature traditions of the Acholi.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Acholi courtship dance-music of South Sudan and northern Uganda."
+    },
+    {
+      "id": "sai",
+      "name": "Sai",
+      "startDate": null,
+      "description": "Sai is a Chadian popular music that draws on the folkloric rhythms of southern Chad, brought to national prominence by the band Tibesti. Blending those southern traditions with the guitar-band influence of Congolese rumba and soukous, it became one of the country's defining modern styles. It carries Chadian song into a contemporary dance-band idiom.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Chadian popular guitar-band music rooted in southern folkloric rhythms."
     }
   ],
   "genreCountry": [
@@ -3386,6 +3618,102 @@
     {
       "genreId": "sungura",
       "countryId": "ZWE"
+    },
+    {
+      "genreId": "warba",
+      "countryId": "BFA"
+    },
+    {
+      "genreId": "tende",
+      "countryId": "NER"
+    },
+    {
+      "genreId": "mgodro",
+      "countryId": "COM"
+    },
+    {
+      "genreId": "sibhaca",
+      "countryId": "SWZ"
+    },
+    {
+      "genreId": "zokela",
+      "countryId": "CAF"
+    },
+    {
+      "genreId": "tina",
+      "countryId": "GNB"
+    },
+    {
+      "genreId": "setapa",
+      "countryId": "BWA"
+    },
+    {
+      "genreId": "bwiti",
+      "countryId": "GAB"
+    },
+    {
+      "genreId": "haul",
+      "countryId": "ESH"
+    },
+    {
+      "genreId": "hipco",
+      "countryId": "LBR"
+    },
+    {
+      "genreId": "tchinkoume",
+      "countryId": "BEN"
+    },
+    {
+      "genreId": "akpese",
+      "countryId": "TGO"
+    },
+    {
+      "genreId": "marabi",
+      "countryId": "ZAF"
+    },
+    {
+      "genreId": "ussua",
+      "countryId": "STP"
+    },
+    {
+      "genreId": "damara-punch",
+      "countryId": "NAM"
+    },
+    {
+      "genreId": "aghani-al-banat",
+      "countryId": "SDN"
+    },
+    {
+      "genreId": "mirskaawi",
+      "countryId": "LBY"
+    },
+    {
+      "genreId": "afar-music",
+      "countryId": "DJI"
+    },
+    {
+      "genreId": "larakaraka",
+      "countryId": "SSD"
+    },
+    {
+      "genreId": "sai",
+      "countryId": "TCD"
+    },
+    {
+      "genreId": "gumbe",
+      "countryId": "GNB"
+    },
+    {
+      "genreId": "hassani-music",
+      "countryId": "MRT"
+    },
+    {
+      "genreId": "hassani-music",
+      "countryId": "ESH"
+    },
+    {
+      "genreId": "griot-tradition",
+      "countryId": "GMB"
     }
   ],
   "genreHierarchy": [
@@ -4092,6 +4420,18 @@
     {
       "genreId": "reggae",
       "subgenreId": "seggae"
+    },
+    {
+      "genreId": "hip-hop",
+      "subgenreId": "hipco"
+    },
+    {
+      "genreId": "zinli",
+      "subgenreId": "tchinkoume"
+    },
+    {
+      "genreId": "marabi",
+      "subgenreId": "mbaqanga"
     }
   ],
   "genreSimilarity": [
@@ -5090,6 +5430,70 @@
     {
       "similarId1": "malipenga",
       "similarId2": "beni-ngoma"
+    },
+    {
+      "similarId1": "tende",
+      "similarId2": "tuareg-desert-blues"
+    },
+    {
+      "similarId1": "mgodro",
+      "similarId2": "taarab"
+    },
+    {
+      "similarId1": "sibhaca",
+      "similarId2": "isicathamiya"
+    },
+    {
+      "similarId1": "zokela",
+      "similarId2": "soukous"
+    },
+    {
+      "similarId1": "tina",
+      "similarId2": "gumbe"
+    },
+    {
+      "similarId1": "haul",
+      "similarId2": "hassani-music"
+    },
+    {
+      "similarId1": "haul",
+      "similarId2": "tuareg-desert-blues"
+    },
+    {
+      "similarId1": "tchinkoume",
+      "similarId2": "zinli"
+    },
+    {
+      "similarId1": "akpese",
+      "similarId2": "agbadza"
+    },
+    {
+      "similarId1": "marabi",
+      "similarId2": "kwela"
+    },
+    {
+      "similarId1": "ussua",
+      "similarId2": "socope"
+    },
+    {
+      "similarId1": "damara-punch",
+      "similarId2": "oviritje"
+    },
+    {
+      "similarId1": "aghani-al-banat",
+      "similarId2": "haqiba"
+    },
+    {
+      "similarId1": "mirskaawi",
+      "similarId2": "maluf-tunisia"
+    },
+    {
+      "similarId1": "afar-music",
+      "similarId2": "tizita"
+    },
+    {
+      "similarId1": "sai",
+      "similarId2": "soukous"
     }
   ],
   "genreInstrument": [
@@ -7200,6 +7604,102 @@
     {
       "genreId": "oviritje",
       "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "warba",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "zokela",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "zokela",
+      "instrumentId": "ngombi"
+    },
+    {
+      "genreId": "tina",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "bwiti",
+      "instrumentId": "ngombi"
+    },
+    {
+      "genreId": "haul",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "hipco",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "hipco",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "tchinkoume",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "tchinkoume",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "tchinkoume",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "tchinkoume",
+      "instrumentId": "trumpet"
+    },
+    {
+      "genreId": "tchinkoume",
+      "instrumentId": "saxophone"
+    },
+    {
+      "genreId": "akpese",
+      "instrumentId": "gankogui"
+    },
+    {
+      "genreId": "akpese",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "marabi",
+      "instrumentId": "piano"
+    },
+    {
+      "genreId": "marabi",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "ussua",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "damara-punch",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "damara-punch",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "aghani-al-banat",
+      "instrumentId": "tar"
+    },
+    {
+      "genreId": "mirskaawi",
+      "instrumentId": "oud"
+    },
+    {
+      "genreId": "sai",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "mgodro",
+      "instrumentId": "oud"
     }
   ],
   "genreSources": [
@@ -8390,6 +8890,166 @@
     {
       "genreId": "malipenga",
       "sourceLink": "https://www.musicinafrica.net/directory/malipenga-dances"
+    },
+    {
+      "genreId": "warba",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Burkina_Faso"
+    },
+    {
+      "genreId": "warba",
+      "sourceLink": "https://www.musicinafrica.net/node/21494"
+    },
+    {
+      "genreId": "tende",
+      "sourceLink": "https://feeds.bbci.co.uk/news/world-africa-63684118"
+    },
+    {
+      "genreId": "tende",
+      "sourceLink": "https://en.wikipedia.org/wiki/Les_Filles_de_Illighadad"
+    },
+    {
+      "genreId": "mgodro",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Comoros"
+    },
+    {
+      "genreId": "mgodro",
+      "sourceLink": "https://worldmusiccentral.org/world-music-resources/musician-biographies/comorian-music/"
+    },
+    {
+      "genreId": "sibhaca",
+      "sourceLink": "https://www.swazilandkualalumpur.org/discover/traditional_dance.php"
+    },
+    {
+      "genreId": "sibhaca",
+      "sourceLink": "https://en.wikipedia.org/wiki/Culture_of_Eswatini"
+    },
+    {
+      "genreId": "zokela",
+      "sourceLink": "https://en.wikipedia.org/wiki/Zokela"
+    },
+    {
+      "genreId": "zokela",
+      "sourceLink": "https://pan-african-music.com/en/central-african-music/"
+    },
+    {
+      "genreId": "tina",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Guinea-Bissau"
+    },
+    {
+      "genreId": "tina",
+      "sourceLink": "https://en.wikipedia.org/wiki/Gumbe"
+    },
+    {
+      "genreId": "setapa",
+      "sourceLink": "https://en.wikipedia.org/wiki/Setapa"
+    },
+    {
+      "genreId": "setapa",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Botswana"
+    },
+    {
+      "genreId": "bwiti",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Gabon"
+    },
+    {
+      "genreId": "bwiti",
+      "sourceLink": "https://www.bwitiinitiations.com/resources/bwiti-music-sacred-harp-ngombi"
+    },
+    {
+      "genreId": "haul",
+      "sourceLink": "https://en.wikipedia.org/wiki/Sahrawi_music"
+    },
+    {
+      "genreId": "haul",
+      "sourceLink": "https://ethnomusicologyreview.ucla.edu/content/shaheed-el-uali-band-and-beyond-40-years-resistance-music-western-sahara"
+    },
+    {
+      "genreId": "hipco",
+      "sourceLink": "https://en.wikipedia.org/wiki/Hipco"
+    },
+    {
+      "genreId": "hipco",
+      "sourceLink": "https://www.vice.com/en/article/hipco-liberia/"
+    },
+    {
+      "genreId": "tchinkoume",
+      "sourceLink": "https://rateyourmusic.com/genre/tchinkoume/"
+    },
+    {
+      "genreId": "tchinkoume",
+      "sourceLink": "https://rateyourmusic.com/genre/tchink-system/"
+    },
+    {
+      "genreId": "akpese",
+      "sourceLink": "https://en.wikipedia.org/wiki/Borborbor"
+    },
+    {
+      "genreId": "akpese",
+      "sourceLink": "https://en.wikipedia.org/wiki/Togolese_music"
+    },
+    {
+      "genreId": "marabi",
+      "sourceLink": "https://en.wikipedia.org/wiki/Marabi"
+    },
+    {
+      "genreId": "marabi",
+      "sourceLink": "https://rateyourmusic.com/genre/marabi/"
+    },
+    {
+      "genreId": "ussua",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_S%C3%A3o_Tom%C3%A9_and_Pr%C3%ADncipe"
+    },
+    {
+      "genreId": "ussua",
+      "sourceLink": "https://eportuguese.blogspot.com/2014/08/dancas-tipicas-ussua.html"
+    },
+    {
+      "genreId": "damara-punch",
+      "sourceLink": "https://www.musicinafrica.net/magazine/popular-music-namibia?language=en"
+    },
+    {
+      "genreId": "damara-punch",
+      "sourceLink": "https://www.namibian.com.na/the-best-of-damara-punch/"
+    },
+    {
+      "genreId": "aghani-al-banat",
+      "sourceLink": "https://www.okayafrica.com/aghani-el-banat-the-soundtrack-to-an-ancient-nubian-rite-of-passage/1423668"
+    },
+    {
+      "genreId": "aghani-al-banat",
+      "sourceLink": "https://www.musicinafrica.net/magazine/women-sudanese-music"
+    },
+    {
+      "genreId": "mirskaawi",
+      "sourceLink": "https://en.wikipedia.org/wiki/Mirskaawi"
+    },
+    {
+      "genreId": "mirskaawi",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Libya"
+    },
+    {
+      "genreId": "afar-music",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Djibouti"
+    },
+    {
+      "genreId": "afar-music",
+      "sourceLink": "https://rateyourmusic.com/genre/afar-music/"
+    },
+    {
+      "genreId": "larakaraka",
+      "sourceLink": "https://en.wikipedia.org/wiki/Larakaraka"
+    },
+    {
+      "genreId": "larakaraka",
+      "sourceLink": "https://www.monitor.co.ug/uganda/news/national/larakaraka-where-music-meets-romance-in-acholi-culture-5479064"
+    },
+    {
+      "genreId": "sai",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Chad"
+    },
+    {
+      "genreId": "sai",
+      "sourceLink": "http://worldlyrise.blogspot.com/2013/05/chad-music-and-dance.html"
     }
   ],
   "genreAliases": [
@@ -9204,6 +9864,30 @@
     {
       "genreId": "socope",
       "alias": "Socopé"
+    },
+    {
+      "genreId": "akpese",
+      "alias": "Borborbor"
+    },
+    {
+      "genreId": "damara-punch",
+      "alias": "Ma/gaisa"
+    },
+    {
+      "genreId": "tende",
+      "alias": "Tendé"
+    },
+    {
+      "genreId": "mgodro",
+      "alias": "M'godro"
+    },
+    {
+      "genreId": "haul",
+      "alias": "El Hawl"
+    },
+    {
+      "genreId": "tchinkoume",
+      "alias": "Tchink System"
     }
   ]
 }
