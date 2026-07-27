@@ -328,5 +328,11 @@
     "Name": "Violin",
     "Type": "String",
     "Description": "The bowed four-stringed European fiddle, adopted across many Creole and folk traditions worldwide, including the contredanse-derived kanmtole of Seychelles."
+  },
+  {
+    "Id": "ngombi",
+    "Name": "Ngombi",
+    "Type": "String",
+    "Description": "A sacred harp of Gabon carved in the form of a woman, central to Bwiti ceremonies and to Central African 'modern traditional' bands; also called ngombi or mvet-harp."
   }
 ]
