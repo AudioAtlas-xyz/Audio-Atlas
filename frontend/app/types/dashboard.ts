@@ -39,7 +39,8 @@ export interface CountryCoverage {
 
 export interface DataCompleteness {
   orphanGenres: number
-  missingOriginsNote: number
+  missingSources: number
+  sensitiveMissingDescription: number
   missingMedia: number
 }
 

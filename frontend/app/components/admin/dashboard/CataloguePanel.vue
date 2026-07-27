@@ -133,15 +133,27 @@ const geographicItems = computed(() =>
           </li>
           <li class="flex items-center justify-between gap-2">
             <NuxtLink
-              to="/admin/genres?filter=missing-note"
+              to="/admin/genres?filter=missing-sources"
               class="text-xs text-space-300 underline decoration-dotted hover:text-aurora transition-colors"
-            >Missing description</NuxtLink>
+            >Missing sources</NuxtLink>
             <NuxtLink
-              to="/admin/genres?filter=missing-note"
+              to="/admin/genres?filter=missing-sources"
               class="font-mono text-xs transition-colors hover:underline"
-              :class="data.dataCompleteness.missingOriginsNote > 0 ? 'text-[#e05570]' : 'text-aurora'"
-              :aria-label="`${data.dataCompleteness.missingOriginsNote} missing descriptions`"
-            >{{ data.dataCompleteness.missingOriginsNote.toLocaleString() }}</NuxtLink>
+              :class="data.dataCompleteness.missingSources > 0 ? 'text-[#e05570]' : 'text-aurora'"
+              :aria-label="`${data.dataCompleteness.missingSources} genres missing sources`"
+            >{{ data.dataCompleteness.missingSources.toLocaleString() }}</NuxtLink>
+          </li>
+          <li class="flex items-center justify-between gap-2">
+            <NuxtLink
+              to="/admin/genres?filter=sensitive-incomplete"
+              class="text-xs text-space-300 underline decoration-dotted hover:text-aurora transition-colors"
+            >Sensitive, no sensitive note</NuxtLink>
+            <NuxtLink
+              to="/admin/genres?filter=sensitive-incomplete"
+              class="font-mono text-xs transition-colors hover:underline"
+              :class="data.dataCompleteness.sensitiveMissingDescription > 0 ? 'text-[#e05570]' : 'text-aurora'"
+              :aria-label="`${data.dataCompleteness.sensitiveMissingDescription} sensitive genres with no sensitive description`"
+            >{{ data.dataCompleteness.sensitiveMissingDescription.toLocaleString() }}</NuxtLink>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="text-xs text-space-300">Missing media link</span>

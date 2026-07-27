@@ -81,7 +81,8 @@ public class DashboardQueryServiceTests
             Name = "Afrobeats",
             Description = "A genre",
             PlaylistLink = "https://example.com/playlist",
-            Countries = new List<Country> { country }
+            Countries = new List<Country> { country },
+            Sources = new List<GenreSource> { new() { SourceLink = "https://example.com/source" } }
         };
         var orphanMissingAll = new Genre { Name = "Unknown" };
 
@@ -92,8 +93,46 @@ public class DashboardQueryServiceTests
         var result = await svc.GetAsync(new DashboardFilter());
 
         Assert.Equal(1, result.DataCompleteness.OrphanGenres);
-        Assert.Equal(1, result.DataCompleteness.MissingOriginsNote);
+        Assert.Equal(1, result.DataCompleteness.MissingSources);
         Assert.Equal(1, result.DataCompleteness.MissingMedia);
+    }
+
+    [Fact]
+    public async Task Catalogue_OrphanGenres_StillCountedWhenGeographyFilterApplied()
+    {
+        // Regression: orphans were counted through the geography-filtered query.
+        // A genre with no countries can never satisfy a continent predicate, so
+        // the metric silently reported zero whenever a filter was applied.
+        var db = BuildInMemory();
+        var country = new Country { Name = "Nigeria", Continent = "Africa", Region = "West Africa", isoCode = "NG" };
+
+        db.Genres.AddRange(
+            new Genre { Name = "Afrobeats", Description = "A genre", Countries = new List<Country> { country } },
+            new Genre { Name = "Unknown" });
+        await db.SaveChangesAsync();
+
+        var svc = new CatalogueQueryService(db);
+        var result = await svc.GetAsync(new DashboardFilter { Continent = "Africa" });
+
+        Assert.Equal(1, result.TotalGenres);              // filter still scopes the panel
+        Assert.Equal(1, result.DataCompleteness.OrphanGenres); // orphans stay visible
+    }
+
+    [Fact]
+    public async Task Catalogue_SensitiveMissingDescription_CountsFlaggedGenresWithNoNote()
+    {
+        var db = BuildInMemory();
+
+        db.Genres.AddRange(
+            new Genre { Name = "Documented", IsSensitive = true, SensitiveDescription = "Handled respectfully." },
+            new Genre { Name = "Undocumented", IsSensitive = true },
+            new Genre { Name = "Not sensitive", IsSensitive = false });
+        await db.SaveChangesAsync();
+
+        var svc = new CatalogueQueryService(db);
+        var result = await svc.GetAsync(new DashboardFilter());
+
+        Assert.Equal(1, result.DataCompleteness.SensitiveMissingDescription);
     }
 
     [Fact]
