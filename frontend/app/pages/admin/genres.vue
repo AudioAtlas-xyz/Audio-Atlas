@@ -22,10 +22,15 @@ const isAdmin = computed(() => user.value?.roles?.includes('Admin') ?? false)
 
 // ── URL-synced filter state ──────────────────────────────────────────────────
 
-const search = ref((route.query.search as string) ?? '')
+// Query values are `string | null | (string | null)[]` — a repeated param such
+// as ?filter=a&filter=b yields an array — so narrow rather than cast.
+const queryString = (value: unknown, fallback: string) =>
+  typeof value === 'string' ? value : fallback
+
+const search = ref(queryString(route.query.search, ''))
 // 'missing-note' is a legacy alias for 'below-gate'; normalise it so older
 // dashboard links and bookmarks still highlight the right option.
-const rawFilter = (route.query.filter as string) ?? 'all'
+const rawFilter = queryString(route.query.filter, 'all')
 const filter = ref(rawFilter === 'missing-note' ? 'below-gate' : rawFilter)
 const page = ref(Number(route.query.page) || 1)
 
