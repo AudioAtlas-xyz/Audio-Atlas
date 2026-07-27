@@ -65,7 +65,22 @@
     "bailecito": "Bailecito",
     "sanjuanito": "Sanjuanito",
     "albazo": "Albazo",
-    "tonada-chilena": "Tonada Chilena"
+    "tonada-chilena": "Tonada Chilena",
+    "musica-criolla": "Musica Criolla",
+    "festejo": "Festejo",
+    "nueva-trova": "Nueva Trova",
+    "murga-uruguaya": "Murga Uruguaya",
+    "milonga": "Milonga",
+    "chacarera": "Chacarera",
+    "amorfino": "Amorfino",
+    "rasguido-doble": "Rasguido Doble",
+    "lerol": "Léròl",
+    "kawina": "Kawina",
+    "queh-queh": "Queh-Queh",
+    "baithak-gana": "Baithak Gana",
+    "cueca-brava": "Cueca Brava",
+    "zamacueca": "Zamacueca",
+    "guarania": "Guarania"
   },
   "existingInstrumentRefs": {
     "guitar": "Guitar",
@@ -1729,6 +1744,226 @@
       "playlistLink": null,
       "authorId": "system",
       "summary": "Nineteenth-century Afro-Peruvian dance-music, ancestor of the cueca, zamba and marinera."
+    },
+    {
+      "id": "pop-jawa",
+      "name": "Pop Jawa",
+      "startDate": "1960-01-01",
+      "description": "Pop jawa is the popular music of Suriname's Javanese community, descended from the kroncong song tradition that indentured migrants from Java brought to the country. From the 1960s its string-based kroncong ensembles electrified into pop groups with guitars, synthesizers and drum kit, absorbing influences from both North American pop and contemporary Indonesian styles, and its first annual festival was held in 1972. It remains a distinctive Javanese-Surinamese branch of the country's plural music culture.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Electrified Javanese-Surinamese pop descended from kroncong, from the 1960s."
+    },
+    {
+      "id": "bigi-poku",
+      "name": "Bigi Poku",
+      "startDate": "1930-01-01",
+      "description": "Bigi poku ('big drum music') is an Afro-Surinamese brass-band style that emerged in 1930s Paramaribo, when large ensembles married Surinamese folk melodies to New Orleans-influenced horn improvisation. Built on the booming skratji bass drum, snares and brass, it was a key forerunner of kaseko and a staple of street celebrations. It captures the moment Afro-Surinamese folk rhythm met imported jazz and dance-band music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Afro-Surinamese brass-band style of 1930s Paramaribo, a forerunner of kaseko."
+    },
+    {
+      "id": "comfa",
+      "name": "Comfa",
+      "startDate": null,
+      "description": "Comfa (also cumfa or komfa) is the drumming, song and dance of an Afro-Guyanese spirit-possession religion, in which insistent rhythms call forth a pantheon of ancestral and ethnic spirits and induce trance in participants. Descended from West African sacred practice reinterpreted under slavery, it centres on figures such as the Water Mother and is bound to ceremonies of healing and communion. It is one of the deepest African-rooted expressive traditions of Guyana.",
+      "isSensitive": true,
+      "sensitiveDescription": "Comfa is a living Afro-Guyanese spirit-possession religion in which drumming induces trance, not a stage genre. It is documented here respectfully from public and academic sources; this entry records the tradition rather than reproducing its sacred, ceremonial or restricted elements.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Drumming and dance of an Afro-Guyanese spirit-possession religion."
+    },
+    {
+      "id": "taan",
+      "name": "Taan",
+      "startDate": "1850-01-01",
+      "description": "Taan, or taan-singing, is the Indo-Caribbean 'local classical' vocal art brought to Guyana and Trinidad by indentured labourers from the Bhojpuri-speaking regions of northern India between 1838 and 1917. A solo male vocalist ornaments long melodic lines over his own harmonium, supported by dholak and dhantal, in a semi-classical style sung at Phagwah, weddings and Hindu rites of passage. It sits at the root of Indo-Caribbean musical identity and is the wellspring from which chutney later grew.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Indo-Caribbean semi-classical vocal art of Guyana and Trinidad, root of chutney."
+    },
+    {
+      "id": "purahei",
+      "name": "Purahéi",
+      "startDate": "1850-01-01",
+      "description": "Purahéi, Guaraní for 'song', is the vocal, non-danced form of the Paraguayan polca, a slower 'polca canción' carried by voice with harp and guitar. Its bilingual lyrics in Spanish and Guaraní dwell on romance, nature, nostalgia and national memory, giving the buoyant polca a lyrical, song-centred face. It is a core strand of Paraguay's Guaraní-language song tradition.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Vocal 'polca canción' form of Paraguayan music, sung in Spanish and Guaraní."
+    },
+    {
+      "id": "compuesto",
+      "name": "Compuesto",
+      "startDate": null,
+      "description": "The compuesto is a Paraguayan narrative-ballad tradition in which two singers, backed by guitar, harp, accordion and the rabel fiddle, recount a real dramatic, epic or tragic event set to the polca paraguaya or the rasguido doble. Structured in four-line coplas or ten-line décimas and sung in Guaraní or the mixed Jopará, it can memorialise a tragedy, satirise authority or praise a leader. It is Paraguay's storytelling counterpart to its dance and song genres.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Paraguayan narrative-ballad tradition recounting real events in copla and décima."
+    },
+    {
+      "id": "kaladja",
+      "name": "Kaladja",
+      "startDate": null,
+      "description": "Kaladja is a traditional Creole couple-dance of French Guiana that weaves together the rhythms of grajé and kasékò, danced in single file with a gliding step known as grajé roumen. Once fallen out of use, it was revived by folk groups such as Wapa and is now performed across the territory's Creole dance repertoire. It is one of the secondary but cherished rhythms of Guianese Creole tradition.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Revived French Guianese Creole couple-dance blending grajé and kasékò rhythms."
+    },
+    {
+      "id": "chamarrita",
+      "name": "Chamarrita",
+      "startDate": null,
+      "description": "Chamarrita is a Río de la Plata littoral song-and-dance of Azorean-Portuguese origin, carried by immigrants to southern Brazil and settling through Uruguay into the Argentine province of Entre Ríos. Lively and swung, played on guitar, accordion and harmonica, it shows a clear rhythmic kinship with the milonga and gained its regional character with the accordion of later European settlers. It is a shared emblem of the trinational littoral.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Azorean-rooted littoral song-and-dance of Uruguay, Argentina and southern Brazil."
+    },
+    {
+      "id": "canto-popular-uruguayo",
+      "name": "Canto Popular Uruguayo",
+      "startDate": "1973-01-01",
+      "description": "Canto popular uruguayo is the socially engaged song movement that flourished in Uruguay from the mid-1970s, weaving native rhythms such as candombe, milonga and murga into acoustic, guitar-led song. Under the military dictatorship of 1973–1984 its concerts became rare spaces of gathering and quiet resistance, voiced by artists like Daniel Viglietti and José Carbajal. It stands as Uruguay's distinctive branch of the wider Latin American nueva canción.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Socially engaged Uruguayan song movement rooted in candombe, milonga and murga."
+    },
+    {
+      "id": "vals-criollo",
+      "name": "Vals Criollo",
+      "startDate": "1900-01-01",
+      "description": "Vals criollo, the Peruvian waltz, is a coastal creole reworking of the European waltz that took shape in early-twentieth-century Lima, its lilting triple metre slowed and syncopated to fit criollo guitar and cajón. Felipe Pinglo Alva is regarded as its father, and Chabuca Granda later infused it with Afro-Peruvian rhythm and poetic imagery in songs such as 'La flor de la canela'. It is a pillar of Peruvian música criolla and one of the country's most beloved song forms.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Peruvian creole waltz, a pillar of música criolla shaped by Pinglo and Chabuca Granda."
+    },
+    {
+      "id": "lando",
+      "name": "Landó",
+      "startDate": null,
+      "description": "Landó is a slow, sensual Afro-Peruvian genre in a rolling 12/8, built on the cajón and criolla guitar and prizing vocal expression and emotional depth over dance energy. Traced by ethnomusicologist Nicomedes Santa Cruz to African antecedents and kin to the Brazilian lundu, it is often seen within the genealogy that also produced the zamacueca and marinera. Revived through the twentieth-century Afro-Peruvian resurgence, it is central to artists such as Susana Baca.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Slow, sensual Afro-Peruvian genre in 12/8 built on cajón and criolla guitar."
+    },
+    {
+      "id": "yaravi",
+      "name": "Yaraví",
+      "startDate": null,
+      "description": "Yaraví is a deeply melancholic mestizo song of the Andes, most associated with Arequipa in southern Peru, that fused the pre-Columbian harawi with Spanish troubadour song in the late colonial era. Usually in a slow 6/8, it dwells on sorrow, loss and unrequited love, and took shape in the picanterías and popular plazas of the highlands. It is shared across the highlands of Peru, Bolivia and Ecuador.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Melancholic mestizo Andean song fusing pre-Columbian harawi with Spanish song."
+    },
+    {
+      "id": "pasacalle",
+      "name": "Pasacalle",
+      "startDate": null,
+      "description": "The Ecuadorian pasacalle is a spirited urban genre adapted from the Spanish pasodoble, built on an insistent ostinato bass and a marked, striding movement suited to street processions. Played by bands, it became the musical banner of Ecuador's cities and their foundation festivals, with pieces such as 'Chulla Quiteño' celebrating local identity. It blends Spanish popular form with Andean rhythmic and melodic character.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Striding Ecuadorian urban genre adapted from the Spanish pasodoble."
+    },
+    {
+      "id": "chigualo",
+      "name": "Chigualo",
+      "startDate": null,
+      "description": "The chigualo is a montubio Christmas tradition of coastal Manabí in Ecuador, whose verses, close kin to the amorfino, are dedicated to the infant Jesus and sung in communal gatherings. In some coastal communities the term also names the wake held for a deceased child, blending devotion, coplas and unity. It is an intangible heritage of Ecuador's coastal peoples.",
+      "isSensitive": true,
+      "sensitiveDescription": "The Manabí chigualo is a montubio Christmas devotion to the infant Jesus and, in some coastal communities, a wake tradition for deceased children (velorio del angelito). Its religious and funerary dimensions are documented here respectfully from public sources and are not intended to reproduce restricted ceremonial material.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Montubio Christmas devotional song of coastal Manabí, Ecuador."
+    },
+    {
+      "id": "cueca-chilota",
+      "name": "Cueca Chilota",
+      "startDate": null,
+      "description": "Cueca chilota is the version of Chile's national dance native to the Chiloé archipelago, sung as a duet and played on guitar, harp, accordion and the tormento, a percussion box. Bound to community events such as mingas and boat launchings, it carries a rawer, more rhythmically driving feel than the central-Chilean cueca, coloured by the accordion brought by German settlers. It is one of Chiloé's most characteristic folk expressions.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Chiloé archipelago version of the Chilean cueca, sung as a duet."
+    },
+    {
+      "id": "vals-chilote",
+      "name": "Vals Chilote",
+      "startDate": "1850-01-01",
+      "description": "Vals chilote is the waltz of the Chiloé archipelago, adapted from the European waltz that reached Chilean society in the mid-nineteenth century and reshaped by island custom. Danced with pronounced jumps and a tighter embrace over a strongly marked rhythm, it is more earthy and informal than its ballroom ancestor. Alongside the cueca chilota it is among the best-known dances of Chiloé.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Strongly-marked island waltz of Chile's Chiloé archipelago."
+    },
+    {
+      "id": "malambo",
+      "name": "Malambo",
+      "startDate": null,
+      "description": "Malambo is an Argentine gaucho dance-music of the pampas, dating to the seventeenth century, in which men duel through dazzling zapateo footwork over drumming and guitar. Purely rhythmic and competitive, it tests agility, strength and stamina, its rapid heel-and-toe patterns evoking the gallop of horses. It endures as one of the most virtuosic expressions of Argentine folk tradition.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Competitive Argentine gaucho footwork dance-music of the pampas."
+    },
+    {
+      "id": "vidala",
+      "name": "Vidala",
+      "startDate": null,
+      "description": "Vidala is a haunting folk song of northwestern Argentina, sung by a duet over the pulse of the caja coplera in characteristic 6/8-against-3/4 cross-rhythm. Undanced and meditative, it is built on the copla and on long silences, carrying an intimate connection to the earth and the Andean cosmos. It is among the most ancient-feeling strands of Argentine highland music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Meditative caja-driven folk song of northwestern Argentina."
+    },
+    {
+      "id": "galeron",
+      "name": "Galerón",
+      "startDate": null,
+      "description": "The galerón is an improvised sung-verse tradition of eastern Venezuela, rooted in the Spanish décima espinela of ten octosyllabic lines and carried by bandolín, cuatro and guitar. Singers spin free-tempo counterpoint on themes from the sea and daily life to history, politics and religion, and it is the characteristic song of the region's Cruz de Mayo vigils. It is a cornerstone of the folk music of Nueva Esparta, Sucre, Monagas and Anzoátegui.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Improvised décima sung-verse tradition of eastern Venezuela."
+    },
+    {
+      "id": "polo-margariteno",
+      "name": "Polo Margariteño",
+      "startDate": null,
+      "description": "The polo margariteño is a folk song of eastern Venezuela, most emblematic of Margarita Island, sung in a moderate 3/4 or 6/8 over cuatro, bandola, guitar and maracas. Brighter than the galerón, it is often traded between two singers as improvised debate, telling of local customs, love and history. Together with the galerón it is among the most autochthonous musical expressions of Nueva Esparta.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Bright improvised folk song of Margarita Island, eastern Venezuela."
     }
   ],
   "genreCountry": [
@@ -2675,6 +2910,102 @@
     {
       "genreId": "zamacueca",
       "countryId": "PER"
+    },
+    {
+      "genreId": "pop-jawa",
+      "countryId": "SUR"
+    },
+    {
+      "genreId": "bigi-poku",
+      "countryId": "SUR"
+    },
+    {
+      "genreId": "comfa",
+      "countryId": "GUY"
+    },
+    {
+      "genreId": "taan",
+      "countryId": "GUY"
+    },
+    {
+      "genreId": "taan",
+      "countryId": "TTO"
+    },
+    {
+      "genreId": "purahei",
+      "countryId": "PRY"
+    },
+    {
+      "genreId": "compuesto",
+      "countryId": "PRY"
+    },
+    {
+      "genreId": "kaladja",
+      "countryId": "GUF"
+    },
+    {
+      "genreId": "chamarrita",
+      "countryId": "URY"
+    },
+    {
+      "genreId": "chamarrita",
+      "countryId": "ARG"
+    },
+    {
+      "genreId": "canto-popular-uruguayo",
+      "countryId": "URY"
+    },
+    {
+      "genreId": "vals-criollo",
+      "countryId": "PER"
+    },
+    {
+      "genreId": "lando",
+      "countryId": "PER"
+    },
+    {
+      "genreId": "yaravi",
+      "countryId": "PER"
+    },
+    {
+      "genreId": "yaravi",
+      "countryId": "ECU"
+    },
+    {
+      "genreId": "yaravi",
+      "countryId": "BOL"
+    },
+    {
+      "genreId": "pasacalle",
+      "countryId": "ECU"
+    },
+    {
+      "genreId": "chigualo",
+      "countryId": "ECU"
+    },
+    {
+      "genreId": "cueca-chilota",
+      "countryId": "CHL"
+    },
+    {
+      "genreId": "vals-chilote",
+      "countryId": "CHL"
+    },
+    {
+      "genreId": "malambo",
+      "countryId": "ARG"
+    },
+    {
+      "genreId": "vidala",
+      "countryId": "ARG"
+    },
+    {
+      "genreId": "galeron",
+      "countryId": "VEN"
+    },
+    {
+      "genreId": "polo-margariteno",
+      "countryId": "VEN"
     }
   ],
   "genreHierarchy": [
@@ -3357,6 +3688,18 @@
     {
       "genreId": "zamacueca",
       "subgenreId": "bailecito"
+    },
+    {
+      "genreId": "polca-paraguaya",
+      "subgenreId": "purahei"
+    },
+    {
+      "genreId": "musica-criolla",
+      "subgenreId": "vals-criollo"
+    },
+    {
+      "genreId": "cueca",
+      "subgenreId": "cueca-chilota"
     }
   ],
   "genreSimilarity": [
@@ -4143,6 +4486,142 @@
     {
       "similarId1": "merengue-caraqueno",
       "similarId2": "golpe-tocuyano"
+    },
+    {
+      "similarId1": "pop-jawa",
+      "similarId2": "bigi-poku"
+    },
+    {
+      "similarId1": "bigi-poku",
+      "similarId2": "kaseko"
+    },
+    {
+      "similarId1": "bigi-poku",
+      "similarId2": "kawina"
+    },
+    {
+      "similarId1": "comfa",
+      "similarId2": "queh-queh"
+    },
+    {
+      "similarId1": "taan",
+      "similarId2": "baithak-gana"
+    },
+    {
+      "similarId1": "taan",
+      "similarId2": "chutney-music"
+    },
+    {
+      "similarId1": "purahei",
+      "similarId2": "guarania"
+    },
+    {
+      "similarId1": "purahei",
+      "similarId2": "compuesto"
+    },
+    {
+      "similarId1": "compuesto",
+      "similarId2": "rasguido-doble"
+    },
+    {
+      "similarId1": "compuesto",
+      "similarId2": "polca-paraguaya"
+    },
+    {
+      "similarId1": "kaladja",
+      "similarId2": "graje"
+    },
+    {
+      "similarId1": "kaladja",
+      "similarId2": "lerol"
+    },
+    {
+      "similarId1": "kaladja",
+      "similarId2": "kaseko"
+    },
+    {
+      "similarId1": "chamarrita",
+      "similarId2": "milonga"
+    },
+    {
+      "similarId1": "chamarrita",
+      "similarId2": "chamame"
+    },
+    {
+      "similarId1": "canto-popular-uruguayo",
+      "similarId2": "nueva-trova"
+    },
+    {
+      "similarId1": "canto-popular-uruguayo",
+      "similarId2": "candombe"
+    },
+    {
+      "similarId1": "canto-popular-uruguayo",
+      "similarId2": "murga-uruguaya"
+    },
+    {
+      "similarId1": "vals-criollo",
+      "similarId2": "marinera"
+    },
+    {
+      "similarId1": "vals-criollo",
+      "similarId2": "lando"
+    },
+    {
+      "similarId1": "lando",
+      "similarId2": "festejo"
+    },
+    {
+      "similarId1": "lando",
+      "similarId2": "zamacueca"
+    },
+    {
+      "similarId1": "yaravi",
+      "similarId2": "huayno"
+    },
+    {
+      "similarId1": "pasacalle",
+      "similarId2": "sanjuanito"
+    },
+    {
+      "similarId1": "chigualo",
+      "similarId2": "amorfino"
+    },
+    {
+      "similarId1": "cueca-chilota",
+      "similarId2": "cueca-brava"
+    },
+    {
+      "similarId1": "cueca-chilota",
+      "similarId2": "vals-chilote"
+    },
+    {
+      "similarId1": "malambo",
+      "similarId2": "zamba"
+    },
+    {
+      "similarId1": "malambo",
+      "similarId2": "chacarera"
+    },
+    {
+      "similarId1": "vidala",
+      "similarId2": "zamba"
+    },
+    {
+      "similarId1": "vidala",
+      "similarId2": "chacarera"
+    },
+    {
+      "similarId1": "galeron",
+      "similarId2": "joropo"
+    },
+    {
+      "similarId1": "galeron",
+      "similarId2": "polo-margariteno"
+    },
+    {
+      "similarId1": "polo-margariteno",
+      "similarId2": "joropo"
     }
   ],
   "genreInstrument": [
@@ -5965,6 +6444,170 @@
     {
       "genreId": "zamacueca",
       "instrumentId": "cajon"
+    },
+    {
+      "genreId": "pop-jawa",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "pop-jawa",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "bigi-poku",
+      "instrumentId": "skratji"
+    },
+    {
+      "genreId": "bigi-poku",
+      "instrumentId": "trumpet"
+    },
+    {
+      "genreId": "bigi-poku",
+      "instrumentId": "trombone"
+    },
+    {
+      "genreId": "taan",
+      "instrumentId": "harmonium"
+    },
+    {
+      "genreId": "taan",
+      "instrumentId": "dholak"
+    },
+    {
+      "genreId": "taan",
+      "instrumentId": "dhantal"
+    },
+    {
+      "genreId": "purahei",
+      "instrumentId": "arpa-paraguaya"
+    },
+    {
+      "genreId": "purahei",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "compuesto",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "compuesto",
+      "instrumentId": "arpa-paraguaya"
+    },
+    {
+      "genreId": "compuesto",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "chamarrita",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "chamarrita",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "canto-popular-uruguayo",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "canto-popular-uruguayo",
+      "instrumentId": "tamboril"
+    },
+    {
+      "genreId": "vals-criollo",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "vals-criollo",
+      "instrumentId": "cajon"
+    },
+    {
+      "genreId": "lando",
+      "instrumentId": "cajon"
+    },
+    {
+      "genreId": "lando",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "yaravi",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "yaravi",
+      "instrumentId": "quena"
+    },
+    {
+      "genreId": "pasacalle",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "pasacalle",
+      "instrumentId": "trumpet"
+    },
+    {
+      "genreId": "chigualo",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "chigualo",
+      "instrumentId": "maracas"
+    },
+    {
+      "genreId": "cueca-chilota",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "cueca-chilota",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "vals-chilote",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "vals-chilote",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "malambo",
+      "instrumentId": "bombo"
+    },
+    {
+      "genreId": "malambo",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "vidala",
+      "instrumentId": "caja-coplera"
+    },
+    {
+      "genreId": "vidala",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "galeron",
+      "instrumentId": "cuatro"
+    },
+    {
+      "genreId": "galeron",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "galeron",
+      "instrumentId": "maracas"
+    },
+    {
+      "genreId": "polo-margariteno",
+      "instrumentId": "cuatro"
+    },
+    {
+      "genreId": "polo-margariteno",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "polo-margariteno",
+      "instrumentId": "maracas"
     }
   ],
   "genreSources": [
@@ -6827,6 +7470,170 @@
     {
       "genreId": "zamacueca",
       "sourceLink": "https://en.wikipedia.org/wiki/Marinera"
+    },
+    {
+      "genreId": "pop-jawa",
+      "sourceLink": "https://en.wikipedia.org/wiki/Kroncong"
+    },
+    {
+      "genreId": "pop-jawa",
+      "sourceLink": "https://muse.jhu.edu/pub/201/edited_volume/chapter/3020461"
+    },
+    {
+      "genreId": "bigi-poku",
+      "sourceLink": "https://en.wikipedia.org/wiki/Kaseko"
+    },
+    {
+      "genreId": "bigi-poku",
+      "sourceLink": "https://worldmusiccentral.org/kaseko/"
+    },
+    {
+      "genreId": "comfa",
+      "sourceLink": "https://repository.londonmet.ac.uk/7616/"
+    },
+    {
+      "genreId": "comfa",
+      "sourceLink": "https://escholarship.org/uc/item/6qv9s45r"
+    },
+    {
+      "genreId": "taan",
+      "sourceLink": "https://en.wikipedia.org/wiki/Indo-Guyanese_music"
+    },
+    {
+      "genreId": "taan",
+      "sourceLink": "https://www.afropop.org/articles/peter-manuel-on-indo-caribbean-music"
+    },
+    {
+      "genreId": "purahei",
+      "sourceLink": "https://en.wikipedia.org/wiki/Paraguayan_polka"
+    },
+    {
+      "genreId": "purahei",
+      "sourceLink": "https://sk.sagepub.com/ency/edvol/the-sage-international-encyclopedia-of-music-and-culture/chpt/paraguay-history-culture-geography-music"
+    },
+    {
+      "genreId": "compuesto",
+      "sourceLink": "https://www.cambridge.org/core/journals/journal-of-the-royal-musical-association/article/music-and-identity-in-paraguay-expressing-national-racial-and-class-identity-in-guitar-music-culture/BEFDC24D1E9E006DA2518B4ADAD1AB5A"
+    },
+    {
+      "genreId": "compuesto",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Paraguay"
+    },
+    {
+      "genreId": "kaladja",
+      "sourceLink": "http://www.kaseko.fr/Rythmes/RytmesSecondaires/Kaladja/Kaladja.html"
+    },
+    {
+      "genreId": "kaladja",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_French_Guiana"
+    },
+    {
+      "genreId": "chamarrita",
+      "sourceLink": "https://en.wikipedia.org/wiki/Chamarrita"
+    },
+    {
+      "genreId": "chamarrita",
+      "sourceLink": "https://en.wikipedia.org/wiki/Milonga_(music)"
+    },
+    {
+      "genreId": "canto-popular-uruguayo",
+      "sourceLink": "https://www.historiadelamusicapopularuruguaya.com/movimiento/el-canto-popular-en-dictadura-1973-1984/"
+    },
+    {
+      "genreId": "canto-popular-uruguayo",
+      "sourceLink": "https://revistas.unam.mx/index.php/pim/article/download/23820/22412/41268"
+    },
+    {
+      "genreId": "vals-criollo",
+      "sourceLink": "https://en.wikipedia.org/wiki/Peruvian_waltz"
+    },
+    {
+      "genreId": "vals-criollo",
+      "sourceLink": "https://en.wikipedia.org/wiki/Felipe_Pinglo_Alva"
+    },
+    {
+      "genreId": "vals-criollo",
+      "sourceLink": "https://rateyourmusic.com/genre/vals-criollo/"
+    },
+    {
+      "genreId": "lando",
+      "sourceLink": "https://en.wikipedia.org/wiki/Land%C3%B3_(music)"
+    },
+    {
+      "genreId": "lando",
+      "sourceLink": "https://en.wikipedia.org/wiki/Afro-Peruvian_music"
+    },
+    {
+      "genreId": "yaravi",
+      "sourceLink": "https://en.wikipedia.org/wiki/Harawi_(genre)"
+    },
+    {
+      "genreId": "yaravi",
+      "sourceLink": "https://www.machupicchuterra.com/guide/yaravi-arequipa/"
+    },
+    {
+      "genreId": "pasacalle",
+      "sourceLink": "https://es.wikipedia.org/wiki/Pasacalle_ecuatoriano"
+    },
+    {
+      "genreId": "pasacalle",
+      "sourceLink": "https://www.numberanalytics.com/blog/ultimate-guide-ecuadorian-pasacalle"
+    },
+    {
+      "genreId": "chigualo",
+      "sourceLink": "https://es.wikipedia.org/wiki/Chigualo"
+    },
+    {
+      "genreId": "chigualo",
+      "sourceLink": "https://www.primicias.ec/entretenimiento/cultura/chigualo-ritual-costa-ecuador-muerte-manabi-navidad-87432/"
+    },
+    {
+      "genreId": "cueca-chilota",
+      "sourceLink": "https://www.marcachile.cl/en/la-cueca-espejo-de-nuestra-gran-diversidad-cultural/"
+    },
+    {
+      "genreId": "cueca-chilota",
+      "sourceLink": "https://es.wikipedia.org/wiki/Vals_chilote"
+    },
+    {
+      "genreId": "vals-chilote",
+      "sourceLink": "https://es.wikipedia.org/wiki/Vals_chilote"
+    },
+    {
+      "genreId": "vals-chilote",
+      "sourceLink": "https://www.costumbres.org/danza-vals-chilote"
+    },
+    {
+      "genreId": "malambo",
+      "sourceLink": "https://en.wikipedia.org/wiki/Malambo_(dance)"
+    },
+    {
+      "genreId": "malambo",
+      "sourceLink": "https://en.wikipedia.org/wiki/Zapateo"
+    },
+    {
+      "genreId": "vidala",
+      "sourceLink": "https://www.researchgate.net/publication/379807656_La_vidala_del_noroeste_argentino"
+    },
+    {
+      "genreId": "vidala",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Argentina"
+    },
+    {
+      "genreId": "galeron",
+      "sourceLink": "https://en.wikipedia.org/wiki/Galer%C3%B3n"
+    },
+    {
+      "genreId": "galeron",
+      "sourceLink": "https://radio.otilca.org/el-galeron-musica-oriente-venezolano/"
+    },
+    {
+      "genreId": "polo-margariteno",
+      "sourceLink": "https://es.wikipedia.org/wiki/Polo_(m%C3%BAsica)"
+    },
+    {
+      "genreId": "polo-margariteno",
+      "sourceLink": "https://www.venezuelatuya.com/musica/polos_jotas_y_galerones.htm"
     }
   ],
   "genreAliases": [
@@ -7581,6 +8388,38 @@
     {
       "genreId": "baithak-gana",
       "alias": "Baithak"
+    },
+    {
+      "genreId": "purahei",
+      "alias": "Polca Canción"
+    },
+    {
+      "genreId": "taan",
+      "alias": "Tan Singing"
+    },
+    {
+      "genreId": "taan",
+      "alias": "Taan Singing"
+    },
+    {
+      "genreId": "comfa",
+      "alias": "Cumfa"
+    },
+    {
+      "genreId": "comfa",
+      "alias": "Komfa"
+    },
+    {
+      "genreId": "vals-criollo",
+      "alias": "Vals Peruano"
+    },
+    {
+      "genreId": "vals-criollo",
+      "alias": "Peruvian Waltz"
+    },
+    {
+      "genreId": "chamarrita",
+      "alias": "Chimarrita"
     }
   ]
 }
