@@ -110,7 +110,15 @@
     "oviritje": "Oviritje",
     "haqiba": "Haqiba",
     "maluf-tunisia": "Ma'luf (Tunisia)",
-    "tizita": "Tizita"
+    "tizita": "Tizita",
+    "siva-samoa": "Siva Samoa",
+    "tauolunga": "Tau'olunga (Tonga)",
+    "meke-fiji": "Meke (Fiji)",
+    "haka": "Haka",
+    "tahitian-himene": "Tahitian Himene",
+    "kiribati-maneaba-songs": "Kiribati Maneaba Songs",
+    "country": "Country",
+    "folk-rock": "Folk Rock"
   },
   "existingInstrumentRefs": {
     "guitar": "Guitar",
@@ -150,7 +158,13 @@
     "ravanne": "Ravanne",
     "valiha": "Valiha",
     "tar": "Tar",
-    "concertina": "Concertina"
+    "concertina": "Concertina",
+    "ukulele": "Ukulele",
+    "kundu": "Kundu",
+    "garamut": "Slit Drum (Garamut)",
+    "pate": "Pate",
+    "log-drum": "Log Drum",
+    "didgeridoo": "Didgeridoo (Yidaki)"
   },
   "genres": [
     {
@@ -2440,6 +2454,237 @@
       "playlistLink": null,
       "authorId": "system",
       "summary": "Chadian popular guitar-band music rooted in southern folkloric rhythms."
+    },
+    {
+      "id": "png-string-band",
+      "name": "PNG String Band",
+      "startDate": "1960-01-01",
+      "description": "String band is the everyday popular music of Papua New Guinea, played on acoustic guitars and ukuleles by ensembles that often centre on a husband-and-wife singing duo backed by a dense wall of strummed guitars. It grew out of mission hymnody and the Hawaiian and Pacific guitar styles carried through the islands by traders, sailors and plantation workers, absorbing everything from blues phrasing to Southeast Asian pop along the way. The Paramana Strangers, formed in the 1960s, remain its most enduring name, and the spread of cheap acoustic guitars has carried the style deep into rural areas where it is sung in Tok Pisin and in local languages.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Acoustic guitar-and-ukulele popular music of Papua New Guinea."
+    },
+    {
+      "id": "singsing",
+      "name": "Singsing",
+      "startDate": null,
+      "description": "A singsing is a mass ceremonial gathering at which the clans and villages of Papua New Guinea each perform their own songs, dances and elaborate body adornment side by side. Hourglass kundu drums held by the dancers and great garamut slit gongs drive the massed movement, joined by flutes and the rattle of shell ornaments. Held largely between July and November, and staged on a huge scale at the Goroka and Mount Hagen shows, a singsing is at once celebration, competition and a public assertion of who each group is.",
+      "isSensitive": true,
+      "sensitiveDescription": "Singsing repertoire includes clan-owned songs, dances and adornments, and in some regions draws on initiation material and sacred instruments whose performance is governed by customary authority. This entry documents the tradition respectfully from public sources and does not attempt to represent its restricted or ritual dimensions.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Mass ceremonial gathering of song, dance and adornment in Papua New Guinea."
+    },
+    {
+      "id": "kaneka",
+      "name": "Kaneka",
+      "startDate": "1985-01-01",
+      "description": "Kaneka is the Kanak popular music of New Caledonia, formed in the 1980s in step with the independence movement. It sets the tchap rhythm and percussion of bark, bamboo and leaves against the pulse and political stance of Jamaican reggae, adding rock and pop instrumentation and lyrics sung in Kanak languages and French. For a generation of young Kanak it became the means of declaring that they existed as a people after more than a century of colonial segregation, and it remains the territory's defining modern sound.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Kanak popular music of New Caledonia, fusing customary rhythms with reggae."
+    },
+    {
+      "id": "areare-panpipes",
+      "name": "'Are'are Panpipes",
+      "startDate": null,
+      "description": "The 'Are'are people of Malaita in the Solomon Islands hold panpipe ensemble music in the highest prestige of all their arts. Players blow bundled bamboo pipes, called 'au after the bamboo itself, in sets tuned so that no one musician carries the tune: the melody appears only where the parts interlock, producing a dense, shimmering polyphony. The 'Are'are distinguish four kinds of ensemble and more than twenty named musical types, a body of theory documented in depth by the ethnomusicologist Hugo Zemp.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Interlocking bamboo panpipe ensemble music of Malaita, Solomon Islands."
+    },
+    {
+      "id": "vanuatu-water-music",
+      "name": "Vanuatu Water Music",
+      "startDate": null,
+      "description": "Known in the Mwerlap language as etëtung, water music is made by women of Gaua and Merelava standing waist-deep in a river or the sea and striking the surface with cupped and flattened hands. Arranged in a circle or half-moon and wearing flowers and woven armbands, they draw a surprising range of pitches and rhythms from the water itself, the beat travelling through the swirl each passing wave makes. It is now performed largely by the resettled Mwerlap community at Leweton on Espiritu Santo, which has carried it to international audiences since 2008.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Women's percussion tradition of Vanuatu, played on the surface of the water."
+    },
+    {
+      "id": "fatele",
+      "name": "Fatele",
+      "startDate": null,
+      "description": "The fatele is Tuvalu's principal dance-song, performed in the maneapa meeting house by anything from a dozen to a hundred people. Older men begin a song seated at the back; it is then repeated over and over, each time louder and faster, until the dancers in front are moving at full pitch and the whole house is carried along. The rhythm is beaten on a wooden box or an empty biscuit tin, and the melody and harmony bear the mark of the mission hymnody brought by Samoan teachers from the 1860s. It has remained exactly what it always was: a participatory act tied to real communal occasions.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Tuvalu's communal dance-song, accelerating verse by verse in the maneapa."
+    },
+    {
+      "id": "ura",
+      "name": "Ura",
+      "startDate": null,
+      "description": "Ura is the drum dance of the Cook Islands, in which dancers tell stories through the hips and hands while a battery of wooden drums drives them on. The ensemble can run to ten players across pate slit drums, the smaller tokere, the double-headed pa'u and the large ceremonial ka'ara, hollowed from miro or tamanu wood. The dances speak of the ocean, birds and flowers as readily as of love and grief, and at full tempo the drummers lock together so tightly that a dozen players sound like a single enormous instrument.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Fast drum dance of the Cook Islands, driven by layered wooden drums."
+    },
+    {
+      "id": "kantan-chamorrita",
+      "name": "Kantan Chamorrita",
+      "startDate": null,
+      "description": "Kantan Chamorrita is the improvised call-and-response verse contest of the CHamoru people of the Mariana Islands, known to its practitioners as ayotte', to throw back and forth. Verses run to four lines, the second and fourth rhyming, and the closing line is hurled at an opponent who must build their answer around it. Sung unaccompanied at roof-thatching parties, feasts and by tuba-tappers working up in the coconut palms, it turned long labour into sport, and its whole art lies in teasing an opponent sharply without ever shaming them. Missionaries recorded clans competing this way as early as the seventeenth century.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Improvised CHamoru call-and-response verse duelling from Guam and the Marianas."
+    },
+    {
+      "id": "faataupati",
+      "name": "Fa'ataupati",
+      "startDate": null,
+      "description": "The fa'ataupati is the Samoan slap dance, performed by rows of men who strike their own chests, arms and thighs, clap, and stamp in tight unison. It is the only Samoan dance that requires no instrument at all, because the bodies of the dancers are the instrument, and it demands both strength and exact timing to hold the pattern together. It is generally traced to the nineteenth century and to men beating mosquitoes from their skin, an ordinary irritation reshaped into a display of power and precision.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Samoan men's body-percussion slap dance, performed without instruments."
+    },
+    {
+      "id": "otea",
+      "name": "'Ōte'a",
+      "startDate": null,
+      "description": "The 'ōte'a is the fast drum dance of Tahiti, danced to percussion alone with no singing at all. Batteries of to'ere slit drums, cut from hollowed logs and struck with sticks, lay down a hard cracking pulse over the deeper pahu skin drum, and the dancers answer with a rapid shaking of the hips. Originally a men's dance paired with the slower women's 'aparima, it is now performed by both and forms the spectacular centrepiece of the Heiva competitions.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Fast Tahitian hip-shaking dance driven by to'ere slit drums, sung by no one."
+    },
+    {
+      "id": "lakalaka",
+      "name": "Lakalaka",
+      "startDate": null,
+      "description": "The lakalaka is Tonga's national dance and is best described as a sung speech: poetry, oratory, choral polyphony and choreography delivered as one thing. Men and women stand in long separate lines, sometimes several hundred strong, stepping briskly while their hands illustrate a text that recounts genealogy, history and the honour of a place. It developed in the nineteenth century out of the older me'elaufola and was sustained by royal patronage, and in 2003 UNESCO proclaimed it a Masterpiece of the Oral and Intangible Heritage of Humanity.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Tonga's national dance of sung speeches, recognised by UNESCO in 2003."
+    },
+    {
+      "id": "sasa",
+      "name": "Sāsā",
+      "startDate": null,
+      "description": "The sāsā is a Samoan group dance performed seated, by all ages and both sexes together, in long rows moving as a single body. The name means to strike, and the dance is built from crisp claps and sharp hand gestures that mime the work of everyday life: paddling a canoe, cooking, weaving, cleaning. A leader sets the beat on a rolled mat, a wooden drum or the side of a large tin, and the whole force of the dance comes from an entire village executing it in perfect unison.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Seated Samoan group dance of synchronised claps and mimed everyday gestures."
+    },
+    {
+      "id": "vude",
+      "name": "Vude",
+      "startDate": "1980-01-01",
+      "description": "Vude is Fiji's signature popular music, assembled in the early 1980s from the rhythms and chant of traditional meke set against disco, country and rock and roll. The name carries the sense of floating on water, and the style is generally credited to Seru Serevi's 1980 album of that title, with Laisa Vulakoro so central to its rise that she is known as the Queen of Vude. It gave Fijian-language song a modern dancefloor idiom without letting go of its indigenous rhythmic base.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Fijian popular music built from meke rhythms, disco, country and rock."
+    },
+    {
+      "id": "aboriginal-contemporary-music",
+      "name": "Aboriginal Contemporary Music",
+      "startDate": "1980-01-01",
+      "description": "Aboriginal contemporary music is the body of modern popular music made by Aboriginal and Torres Strait Islander Australians, in which rock, country and reggae carry Indigenous languages, connection to Country and an unmistakable political charge. The Warumpi Band and Yothu Yindi brought it to national and then international attention, the latter setting bilma clapsticks and the yidaki against electric guitars and singing in Yolŋu Matha as readily as in English. Land rights, dispossession and reconciliation run through the songs, and the style remains the most widely heard Indigenous Australian music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Modern Indigenous Australian rock, country and reggae in language and English."
+    },
+    {
+      "id": "waiata",
+      "name": "Waiata",
+      "startDate": null,
+      "description": "Waiata is the sung poetry of the Māori of Aotearoa, spanning waiata aroha of love, waiata tangi of mourning, oriori that carry genealogy to a child, and waiata poi. It is a vehicle for whakapapa, memory and proverbial wisdom as much as for melody. In the early twentieth century Apirana Ngata and Te Puea Hērangi shaped the waiata-ā-ringa or action song, which set Māori words to European tunes and added hand movements, among them the wiri, a rapid quiver of the hands evoking shimmering water or heat haze. Usually accompanied on acoustic guitar, it is now a pillar of kapa haka.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Māori sung poetry, including the twentieth-century waiata-ā-ringa action song."
+    },
+    {
+      "id": "jebwa",
+      "name": "Jebwa",
+      "startDate": null,
+      "description": "The jebwa is the stick dance of the Marshall Islands, performed by men in coconut-leaf skirts and flower garlands who carry staffs and strike them together at set points in the choreography. A typical performance sets sixteen dancers against a handful of chanters and drummers, the hourglass aje drum played by women to support them. Once far more common, it is now reserved for occasions of particular importance.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Marshallese men's stick dance, accompanied by chanters and the aje drum."
+    },
+    {
+      "id": "ruk",
+      "name": "Ruk",
+      "startDate": null,
+      "description": "Ruk is the men's ceremonial dance of Palau, the counterpart to the women's ngloik. Chanting is the heart of Palauan music, and the texts sung in ruk carry history, place and clan knowledge passed down over many generations; body percussion and shouted group calls punctuate the movement and bind the dancers together. It belongs to feasts, village gatherings and the formal invitations extended from one village to another.",
+      "isSensitive": true,
+      "sensitiveDescription": "Palauan chant texts are frequently clan-owned knowledge, and the occasions on which particular repertoire may be performed are governed by customary authority. This entry is written respectfully from published scholarship and public sources and does not reproduce restricted repertoire.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Men's ceremonial chant-dance of Palau, counterpart to the women's ngloik."
+    },
+    {
+      "id": "micronesian-stick-dance",
+      "name": "Micronesian Stick Dance",
+      "startDate": null,
+      "description": "The stick dance is performed across the Federated States of Micronesia, on Pohnpei, Yap and above all Chuuk, which is best known for it. Ranks of dancers sing while striking paired sticks against their own and their neighbours' in interlocking patterns, the clatter of wood serving as the percussion. Chuukese practice distinguishes the men's kepir from the women's tokia and sets both beside the marching lehp, within a wider musical culture that is overwhelmingly vocal and uses few instruments beyond sticks, conch shells and the body.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Stick-striking dance of Chuuk, Pohnpei and Yap in the Federated States of Micronesia."
+    },
+    {
+      "id": "aparima",
+      "name": "'Aparima",
+      "startDate": null,
+      "description": "The 'aparima is the hand dance of Tahiti, its name built from apa, to mime, and rima, the hands. Gentle and lyrical where the 'ōte'a is fast and hard, it turns the arms and hands into a language in which each gesture is a word and each phrase a line of the story, supported by soft movement of the hips. The tales are drawn from fishing, weaving and daily life or from older myth, and the dance comes in two forms: the sung 'aparima hīmene and the wordless 'aparima vāvā, danced to instruments alone. Guitar and Tahitian ukulele usually carry the music.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Lyrical Tahitian hand dance that tells stories through gesture."
+    },
+    {
+      "id": "kailao",
+      "name": "Kailao",
+      "startDate": null,
+      "description": "The kailao is a war dance brought to Tonga from 'Uvea, or Wallis Island, in the nineteenth century. Men wield carved clubs known as pate kailao, whirling and clashing them in mock combat to the beat of a slit drum or a struck tin box. Alone among Tongan dances it is performed without any singing: instead the lead dancer calls out the name of each sequence and signals when to execute it, so that the dance becomes a demonstration of discipline, obedience and weapon skill.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Tongan war dance with clubs, danced without singing to a slit drum."
+    },
+    {
+      "id": "reigen-nauru",
+      "name": "Reigen (Nauru)",
+      "startDate": null,
+      "description": "Reigen is the term, borrowed from German, under which Nauru's traditional chant and circling dance repertoire is generally known. It rests on iruwo chants and iriang hymn-like songs sung in Nauruan, often in multipart choral harmony that blends indigenous practice with later mission influence, and on dances such as the slow frigate bird dance performed to a log drum. Much of the repertoire was suppressed after the German annexation of 1888 and further lost through the displacement of Nauruans during the Japanese occupation, but what survives is still performed at celebrations.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Nauru's surviving traditional chant and circling-dance repertoire."
     }
   ],
   "genreCountry": [
@@ -3714,6 +3959,98 @@
     {
       "genreId": "griot-tradition",
       "countryId": "GMB"
+    },
+    {
+      "genreId": "png-string-band",
+      "countryId": "PNG"
+    },
+    {
+      "genreId": "singsing",
+      "countryId": "PNG"
+    },
+    {
+      "genreId": "kaneka",
+      "countryId": "NCL"
+    },
+    {
+      "genreId": "areare-panpipes",
+      "countryId": "SLB"
+    },
+    {
+      "genreId": "vanuatu-water-music",
+      "countryId": "VUT"
+    },
+    {
+      "genreId": "fatele",
+      "countryId": "TUV"
+    },
+    {
+      "genreId": "ura",
+      "countryId": "COK"
+    },
+    {
+      "genreId": "kantan-chamorrita",
+      "countryId": "GUM"
+    },
+    {
+      "genreId": "faataupati",
+      "countryId": "WSM"
+    },
+    {
+      "genreId": "faataupati",
+      "countryId": "ASM"
+    },
+    {
+      "genreId": "otea",
+      "countryId": "PYF"
+    },
+    {
+      "genreId": "lakalaka",
+      "countryId": "TON"
+    },
+    {
+      "genreId": "sasa",
+      "countryId": "WSM"
+    },
+    {
+      "genreId": "sasa",
+      "countryId": "ASM"
+    },
+    {
+      "genreId": "vude",
+      "countryId": "FJI"
+    },
+    {
+      "genreId": "aboriginal-contemporary-music",
+      "countryId": "AUS"
+    },
+    {
+      "genreId": "waiata",
+      "countryId": "NZL"
+    },
+    {
+      "genreId": "jebwa",
+      "countryId": "MHL"
+    },
+    {
+      "genreId": "ruk",
+      "countryId": "PLW"
+    },
+    {
+      "genreId": "micronesian-stick-dance",
+      "countryId": "FSM"
+    },
+    {
+      "genreId": "aparima",
+      "countryId": "PYF"
+    },
+    {
+      "genreId": "kailao",
+      "countryId": "TON"
+    },
+    {
+      "genreId": "reigen-nauru",
+      "countryId": "NRU"
     }
   ],
   "genreHierarchy": [
@@ -4432,6 +4769,14 @@
     {
       "genreId": "marabi",
       "subgenreId": "mbaqanga"
+    },
+    {
+      "genreId": "siva-samoa",
+      "subgenreId": "faataupati"
+    },
+    {
+      "genreId": "siva-samoa",
+      "subgenreId": "sasa"
     }
   ],
   "genreSimilarity": [
@@ -5494,6 +5839,106 @@
     {
       "similarId1": "sai",
       "similarId2": "soukous"
+    },
+    {
+      "similarId1": "png-string-band",
+      "similarId2": "vude"
+    },
+    {
+      "similarId1": "singsing",
+      "similarId2": "areare-panpipes"
+    },
+    {
+      "similarId1": "kaneka",
+      "similarId2": "reggae"
+    },
+    {
+      "similarId1": "kaneka",
+      "similarId2": "vude"
+    },
+    {
+      "similarId1": "vanuatu-water-music",
+      "similarId2": "areare-panpipes"
+    },
+    {
+      "similarId1": "fatele",
+      "similarId2": "kiribati-maneaba-songs"
+    },
+    {
+      "similarId1": "fatele",
+      "similarId2": "sasa"
+    },
+    {
+      "similarId1": "ura",
+      "similarId2": "otea"
+    },
+    {
+      "similarId1": "otea",
+      "similarId2": "aparima"
+    },
+    {
+      "similarId1": "otea",
+      "similarId2": "tahitian-himene"
+    },
+    {
+      "similarId1": "aparima",
+      "similarId2": "tahitian-himene"
+    },
+    {
+      "similarId1": "aparima",
+      "similarId2": "waiata"
+    },
+    {
+      "similarId1": "lakalaka",
+      "similarId2": "tauolunga"
+    },
+    {
+      "similarId1": "kailao",
+      "similarId2": "lakalaka"
+    },
+    {
+      "similarId1": "kailao",
+      "similarId2": "tauolunga"
+    },
+    {
+      "similarId1": "faataupati",
+      "similarId2": "sasa"
+    },
+    {
+      "similarId1": "vude",
+      "similarId2": "meke-fiji"
+    },
+    {
+      "similarId1": "vude",
+      "similarId2": "disco"
+    },
+    {
+      "similarId1": "waiata",
+      "similarId2": "haka"
+    },
+    {
+      "similarId1": "aboriginal-contemporary-music",
+      "similarId2": "country"
+    },
+    {
+      "similarId1": "aboriginal-contemporary-music",
+      "similarId2": "folk-rock"
+    },
+    {
+      "similarId1": "jebwa",
+      "similarId2": "micronesian-stick-dance"
+    },
+    {
+      "similarId1": "jebwa",
+      "similarId2": "ruk"
+    },
+    {
+      "similarId1": "ruk",
+      "similarId2": "micronesian-stick-dance"
+    },
+    {
+      "similarId1": "reigen-nauru",
+      "similarId2": "kiribati-maneaba-songs"
     }
   ],
   "genreInstrument": [
@@ -7700,6 +8145,126 @@
     {
       "genreId": "mgodro",
       "instrumentId": "oud"
+    },
+    {
+      "genreId": "png-string-band",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "png-string-band",
+      "instrumentId": "ukulele"
+    },
+    {
+      "genreId": "png-string-band",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "singsing",
+      "instrumentId": "kundu"
+    },
+    {
+      "genreId": "singsing",
+      "instrumentId": "garamut"
+    },
+    {
+      "genreId": "kaneka",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "kaneka",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "kaneka",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "areare-panpipes",
+      "instrumentId": "au-panpipes"
+    },
+    {
+      "genreId": "fatele",
+      "instrumentId": "log-drum"
+    },
+    {
+      "genreId": "ura",
+      "instrumentId": "pate"
+    },
+    {
+      "genreId": "ura",
+      "instrumentId": "log-drum"
+    },
+    {
+      "genreId": "otea",
+      "instrumentId": "toere"
+    },
+    {
+      "genreId": "otea",
+      "instrumentId": "pahu"
+    },
+    {
+      "genreId": "sasa",
+      "instrumentId": "log-drum"
+    },
+    {
+      "genreId": "vude",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "vude",
+      "instrumentId": "bass"
+    },
+    {
+      "genreId": "vude",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "vude",
+      "instrumentId": "synthesizer"
+    },
+    {
+      "genreId": "aboriginal-contemporary-music",
+      "instrumentId": "didgeridoo"
+    },
+    {
+      "genreId": "aboriginal-contemporary-music",
+      "instrumentId": "bilma"
+    },
+    {
+      "genreId": "aboriginal-contemporary-music",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "aboriginal-contemporary-music",
+      "instrumentId": "drum-kit"
+    },
+    {
+      "genreId": "waiata",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "jebwa",
+      "instrumentId": "aje"
+    },
+    {
+      "genreId": "micronesian-stick-dance",
+      "instrumentId": "conch-shell-trumpet"
+    },
+    {
+      "genreId": "aparima",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "aparima",
+      "instrumentId": "ukulele"
+    },
+    {
+      "genreId": "kailao",
+      "instrumentId": "pate"
+    },
+    {
+      "genreId": "reigen-nauru",
+      "instrumentId": "log-drum"
     }
   ],
   "genreSources": [
@@ -9050,6 +9615,174 @@
     {
       "genreId": "sai",
       "sourceLink": "http://worldlyrise.blogspot.com/2013/05/chad-music-and-dance.html"
+    },
+    {
+      "genreId": "png-string-band",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Papua_New_Guinea"
+    },
+    {
+      "genreId": "png-string-band",
+      "sourceLink": "https://www.researchgate.net/publication/247827977_Guitar_Style_Open_Tunings_and_Stringband_Music_in_Papua_New_Guinea_review"
+    },
+    {
+      "genreId": "singsing",
+      "sourceLink": "https://en.wikipedia.org/wiki/Sing-sing_(New_Guinea)"
+    },
+    {
+      "genreId": "singsing",
+      "sourceLink": "https://en.wikipedia.org/wiki/Kundu_(drum)"
+    },
+    {
+      "genreId": "kaneka",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_New_Caledonia"
+    },
+    {
+      "genreId": "kaneka",
+      "sourceLink": "https://theconversation.com/rebel-music-the-protest-songs-of-new-caledonias-independence-referendum-105580"
+    },
+    {
+      "genreId": "areare-panpipes",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_the_Solomon_Islands"
+    },
+    {
+      "genreId": "areare-panpipes",
+      "sourceLink": "https://www.der.org/resources/guides/are-are-music-study-guide.pdf"
+    },
+    {
+      "genreId": "vanuatu-water-music",
+      "sourceLink": "https://www.academia.edu/16144111/Vanuatu_water_music_and_the_Mwerlap_diaspora_music_migration_tradition_and_tourism"
+    },
+    {
+      "genreId": "vanuatu-water-music",
+      "sourceLink": "https://www.smallislandbigsong.com/leweton-village-cultural-group"
+    },
+    {
+      "genreId": "fatele",
+      "sourceLink": "https://en.wikipedia.org/wiki/Fatele"
+    },
+    {
+      "genreId": "fatele",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Tuvalu"
+    },
+    {
+      "genreId": "ura",
+      "sourceLink": "https://en.wikipedia.org/wiki/Ura_(dance)"
+    },
+    {
+      "genreId": "ura",
+      "sourceLink": "https://enjoycookislands.com/stories/ori-koni-ura-kapa-cook-islands-dance-what-is-it"
+    },
+    {
+      "genreId": "kantan-chamorrita",
+      "sourceLink": "https://www.guampedia.com/kantan-chamorita-2/"
+    },
+    {
+      "genreId": "kantan-chamorrita",
+      "sourceLink": "https://en.wikipedia.org/wiki/Kantan_Chamorrita"
+    },
+    {
+      "genreId": "faataupati",
+      "sourceLink": "https://en.wikipedia.org/wiki/Fa%27ataupati"
+    },
+    {
+      "genreId": "faataupati",
+      "sourceLink": "https://nationalparksdata.com/the-traditional-dances-of-the-samoan-people-in-national-park-of-american-samoa/"
+    },
+    {
+      "genreId": "otea",
+      "sourceLink": "https://en.wikipedia.org/wiki/%27ote%27a"
+    },
+    {
+      "genreId": "otea",
+      "sourceLink": "https://www.airtahitinui.com/en/tahitian-dance-cultural-treasure-french-polynesia"
+    },
+    {
+      "genreId": "lakalaka",
+      "sourceLink": "https://en.wikipedia.org/wiki/Lakalaka"
+    },
+    {
+      "genreId": "lakalaka",
+      "sourceLink": "https://www.unesco.org/archives/multimedia/document-3747"
+    },
+    {
+      "genreId": "sasa",
+      "sourceLink": "https://en.wikipedia.org/wiki/Sasa_(dance)"
+    },
+    {
+      "genreId": "sasa",
+      "sourceLink": "https://us.humankinetics.com/blogs/excerpt/samoan-sasa"
+    },
+    {
+      "genreId": "vude",
+      "sourceLink": "https://rateyourmusic.com/genre/vude/"
+    },
+    {
+      "genreId": "vude",
+      "sourceLink": "https://en.wikipedia.org/wiki/Laisa_Vulakoro"
+    },
+    {
+      "genreId": "aboriginal-contemporary-music",
+      "sourceLink": "https://en.wikipedia.org/wiki/Indigenous_music_of_Australia"
+    },
+    {
+      "genreId": "aboriginal-contemporary-music",
+      "sourceLink": "https://en.wikipedia.org/wiki/Yothu_Yindi"
+    },
+    {
+      "genreId": "waiata",
+      "sourceLink": "https://teara.govt.nz/en/waiata-hou-contemporary-maori-songs/page-3"
+    },
+    {
+      "genreId": "waiata",
+      "sourceLink": "https://www.britannica.com/art/waiata-a-ringa"
+    },
+    {
+      "genreId": "jebwa",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_the_Marshall_Islands"
+    },
+    {
+      "genreId": "jebwa",
+      "sourceLink": "https://digital.library.manoa.hawaii.edu/items/show/13408"
+    },
+    {
+      "genreId": "ruk",
+      "sourceLink": "https://www.academia.edu/41722096/Bodies_in_motion_Music_dance_and_atmospheres_in_Palauan_ruk"
+    },
+    {
+      "genreId": "ruk",
+      "sourceLink": "https://palau.co/discover-palau/culture/traditional-palauan-dance/"
+    },
+    {
+      "genreId": "micronesian-stick-dance",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_and_dances_of_the_Federated_States_of_Micronesia"
+    },
+    {
+      "genreId": "micronesian-stick-dance",
+      "sourceLink": "https://visitchuuk.com/things-do/experience-chuukese-culture"
+    },
+    {
+      "genreId": "aparima",
+      "sourceLink": "https://en.wikipedia.org/wiki/'Aparima"
+    },
+    {
+      "genreId": "aparima",
+      "sourceLink": "https://www.airtahitinui.com/en/tahitian-dance-cultural-treasure-french-polynesia"
+    },
+    {
+      "genreId": "kailao",
+      "sourceLink": "https://en.wikipedia.org/wiki/Kailao"
+    },
+    {
+      "genreId": "kailao",
+      "sourceLink": "https://www.tongatourism.travel/discover/people-and-culture/tongan-dance"
+    },
+    {
+      "genreId": "reigen-nauru",
+      "sourceLink": "https://en.wikipedia.org/wiki/Culture_of_Nauru"
+    },
+    {
+      "genreId": "reigen-nauru",
+      "sourceLink": "http://worldlyrise.blogspot.com/2016/12/nauru-music-and-dance.html"
     }
   ],
   "genreAliases": [
@@ -9888,6 +10621,62 @@
     {
       "genreId": "tchinkoume",
       "alias": "Tchink System"
+    },
+    {
+      "genreId": "png-string-band",
+      "alias": "Stringband"
+    },
+    {
+      "genreId": "singsing",
+      "alias": "Sing-sing"
+    },
+    {
+      "genreId": "fatele",
+      "alias": "Faatele"
+    },
+    {
+      "genreId": "ura",
+      "alias": "Ura Pa'u"
+    },
+    {
+      "genreId": "kantan-chamorrita",
+      "alias": "Kantan Chamorita"
+    },
+    {
+      "genreId": "kantan-chamorrita",
+      "alias": "Ayotte'"
+    },
+    {
+      "genreId": "otea",
+      "alias": "Ote'a"
+    },
+    {
+      "genreId": "sasa",
+      "alias": "Sasa"
+    },
+    {
+      "genreId": "vanuatu-water-music",
+      "alias": "Etëtung"
+    },
+    {
+      "genreId": "waiata",
+      "alias": "Waiata-ā-ringa"
+    },
+    {
+      "genreId": "jebwa",
+      "alias": "Jobwa"
+    },
+    {
+      "genreId": "aparima",
+      "alias": "Aparima"
+    },
+    {
+      "genreId": "micronesian-stick-dance",
+      "alias": "Kepir"
+    },
+    {
+      "genreId": "aboriginal-contemporary-music",
+      "alias": "Indigenous Australian Rock"
     }
   ]
 }

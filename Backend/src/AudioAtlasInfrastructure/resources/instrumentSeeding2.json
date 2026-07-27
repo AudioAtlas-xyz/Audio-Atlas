@@ -334,5 +334,41 @@
     "Name": "Ngombi",
     "Type": "String",
     "Description": "A sacred harp of Gabon carved in the form of a woman, central to Bwiti ceremonies and to Central African 'modern traditional' bands; also called ngombi or mvet-harp."
+  },
+  {
+    "Id": "toere",
+    "Name": "To'ere",
+    "Type": "Percussion",
+    "Description": "A Tahitian slit drum carved from a hollowed log with a long lengthwise slit, struck with one or two sticks. Its sharp cracking pulse drives the fast 'ōte'a and is the signature sound of French Polynesian dance ensembles."
+  },
+  {
+    "Id": "pahu",
+    "Name": "Pahu",
+    "Type": "Percussion",
+    "Description": "A Polynesian skin-headed drum built from a hollowed log with a sharkskin or goatskin head, struck with the hands. It supplies the deep underlying beat beneath the brighter slit drums in Tahitian and wider Polynesian dance music."
+  },
+  {
+    "Id": "au-panpipes",
+    "Name": "'Au (Bamboo Panpipes)",
+    "Type": "Wind",
+    "Description": "Bundled bamboo pipes of the 'Are'are people of Malaita in the Solomon Islands. The word 'au means both bamboo and panpipe, and sets of carefully tuned pipes are combined so that a melody emerges only from the interlocking of several players."
+  },
+  {
+    "Id": "aje",
+    "Name": "Aje",
+    "Type": "Percussion",
+    "Description": "A Marshallese hourglass drum made of wood, cord and animal skin. It is played almost exclusively by women, most characteristically to accompany the men's jebwa stick dance."
+  },
+  {
+    "Id": "bilma",
+    "Name": "Bilma (Clapsticks)",
+    "Type": "Percussion",
+    "Description": "Paired hardwood sticks struck together to carry the rhythm of Aboriginal Australian song. Known as bilma in Yolŋu Matha, they set the pulse for song cycles and, in recent decades, for Aboriginal rock and country bands."
+  },
+  {
+    "Id": "conch-shell-trumpet",
+    "Name": "Conch Shell Trumpet",
+    "Type": "Wind",
+    "Description": "A large sea shell with the tip removed so it can be blown as a trumpet. Used across Oceania to summon gatherings, mark arrivals and signal within ceremony and dance."
   }
 ]
