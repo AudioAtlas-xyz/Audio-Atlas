@@ -292,5 +292,11 @@
     "Name": "Tambora",
     "Type": "Percussion",
     "Description": "A double-headed drum played with sticks that anchors the rhythm of Venezuelan golpe and merengue and of many Caribbean folk styles."
+  },
+  {
+    "Id": "caja-coplera",
+    "Name": "Caja Coplera",
+    "Type": "Percussion",
+    "Description": "A small double-headed Andean frame drum played by a singer to accompany coplas, giving the northwest-Argentine vidala and baguala their spare, hypnotic pulse."
   }
 ]
