@@ -125,7 +125,16 @@
     "mbira-pop": "Mbira-Pop",
     "punta": "Punta",
     "punta-rock": "Punta Rock",
-    "kwa-kwa": "Kwa-Kwa"
+    "kwa-kwa": "Kwa-Kwa",
+    "merengue": "Merengue",
+    "junkanoo": "Junkanoo",
+    "polka": "Polka",
+    "kompa": "Kompa",
+    "bouyon": "Bouyon",
+    "klapa": "Klapa",
+    "pinpeat": "Pinpeat",
+    "urtiin-duu": "Urtiin Duu",
+    "kantan-chamorrita": "Kantan Chamorrita"
   },
   "existingInstrumentRefs": {
     "guitar": "Guitar",
@@ -171,7 +180,14 @@
     "garamut": "Slit Drum (Garamut)",
     "pate": "Pate",
     "log-drum": "Log Drum",
-    "didgeridoo": "Didgeridoo (Yidaki)"
+    "didgeridoo": "Didgeridoo (Yidaki)",
+    "violin": "Violin",
+    "marimba": "Marimba",
+    "rubab": "Rubab",
+    "setar": "Setar",
+    "santur": "Santur",
+    "kamancheh": "Kamancheh",
+    "conch-shell-trumpet": "Conch Shell Trumpet"
   },
   "genres": [
     {
@@ -2692,6 +2708,226 @@
       "playlistLink": null,
       "authorId": "system",
       "summary": "Nauru's surviving traditional chant and circling-dance repertoire."
+    },
+    {
+      "id": "sutartines",
+      "name": "Sutartinės",
+      "startDate": null,
+      "description": "Sutartinės are the archaic multipart songs of north-eastern Lithuania, their name from sutarti, to be in concord. Sung mainly by women over melodies of only two to five pitches, they set a meaningful text against a refrain of nonce syllables, and are performed in close parallel seconds, in strict canon, or by paired groups trading phrases — producing a deliberate, ringing dissonance unlike anything else in European folk song. Nearly forty performance styles are documented, the tradition predates the Christianisation of Lithuania, and UNESCO inscribed it in 2010.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Archaic dissonant multipart women's songs of Lithuania's Aukštaitija region."
+    },
+    {
+      "id": "regilaul",
+      "name": "Regilaul",
+      "startDate": null,
+      "description": "Regilaul, literally 'verse-song', is the old alliterative song tradition of Estonia, shared with the Finns, Livonians, Votes, Izhorians and Karelians around the Baltic. Built on a short repeating melodic line and a strict alliterative verse, it carried work, wedding, calendar and epic repertoire, and predates the Christianisation of Estonia in the thirteenth century. Widespread until the eighteenth century, it was gradually displaced by newer rhymed folk song and survived most strongly in Setumaa and on the island of Kihnu.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Estonia's pre-Christian alliterative runic song tradition."
+    },
+    {
+      "id": "rimur",
+      "name": "Rímur",
+      "startDate": null,
+      "description": "Rímur are the chanted epic poems of Iceland, performed in a practice called kvæðaskapur to fixed diatonic melodies. The verse form marries the end-rhyme of Latin hymnody to the syllable counting, alliteration and internal rhyme of the older skalds, and the narratives retell sagas, native legend and foreign romance, often at enormous length. They were the mainstay of Icelandic poetry for five centuries — hundreds survive from the eighteenth and nineteenth alone — sustained in farmhouses through the long winters.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Iceland's chanted epic poetry, sung to fixed melodies in the kvæðaskapur style."
+    },
+    {
+      "id": "faroese-chain-dance",
+      "name": "Faroese Chain Dance",
+      "startDate": null,
+      "description": "The Faroese chain dance is the national circle dance of the Faroe Islands and uses no instruments at all: dancers link hands in a ring and drive the rhythm with their own voices, chanting kvæði, ballads that can run to hundreds of stanzas with a refrain between each. The steps are simple, two to the left and one back, while a lead singer carries the narrative of kings, heroes and outlaws. Descended from the medieval European ring dance and banned elsewhere by the church, it survived in the islands' isolation as the only living European form.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Unaccompanied national ring dance of the Faroe Islands, sung to kvæði ballads."
+    },
+    {
+      "id": "spillemandsmusik",
+      "name": "Spillemandsmusik",
+      "startDate": null,
+      "description": "Spillemandsmusik is the fiddle-led dance music of the Danish countryside, named for the spillemand, the town or village musician who played at dances, weddings and processions. The fiddle displaced older instruments in the seventeenth and eighteenth centuries as chain dances gave way to couple dances, and the repertoire absorbed the polkas, reels and waltzes passing through Denmark's crossroads position in northern Europe. Distinctively, Danish fiddlers almost always play together rather than as soloists, giving the music its characteristic massed sound.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Fiddle-led village dance music of Denmark, played in groups rather than solo."
+    },
+    {
+      "id": "ghana-malta",
+      "name": "Għana",
+      "startDate": null,
+      "description": "Għana is the folk song of Malta, often described as a meeting of North African and southern European sensibilities. It runs to three main forms: għana fil-għoli, sung by men in an extraordinarily high register without breaking into falsetto; għana tal-fatt, a narrative ballad recounting real local events; and spirtu pront, 'quick wit', the improvised rhyming duel that dominates today. Four or six singers trade extemporised verses over guitars, a prim guitar answering the voice between rounds, with invention prized above all.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Maltese folk song, best known for the improvised spirtu pront verse duels."
+    },
+    {
+      "id": "persian-classical-music",
+      "name": "Persian Classical Music",
+      "startDate": null,
+      "description": "The classical music of Iran rests on the radif, a repertoire of more than two hundred and fifty melodic units called gusheh, grouped into twelve modal systems — seven principal dastgah and five secondary avaz. Musicians spend years absorbing the radif from a master by ear, not as pieces to reproduce but as the vocabulary from which each performance is improvised anew according to mood and audience. It is carried on the tar and setar lutes, the santur, the kamancheh spike fiddle and the ney, and UNESCO inscribed the radif in 2009.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Iran's classical tradition, improvised from the radif across the dastgah modes."
+    },
+    {
+      "id": "bodu-beru",
+      "name": "Bodu Beru",
+      "startDate": null,
+      "description": "Bodu beru, 'big drum', is the best-known traditional music of the Maldives, performed by fifteen to twenty people with a lead singer and several drummers. The drums are built from coconut-palm wood and headed with goat or stingray skin, struck with bare hands in a slow pulse that accelerates to a driving crescendo as dancers respond. Its roots are generally traced to East African communities who reached the islands as settlers and captives, their drumming blending with South Asian and Arab influences.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Maldivian hand-drum music that builds from a slow pulse to a crescendo."
+    },
+    {
+      "id": "baila",
+      "name": "Baila",
+      "startDate": null,
+      "description": "Baila, from the Portuguese bailar, to dance, grew up among the Burgher and Kaffir communities of coastal Sri Lanka, descendants of the Portuguese colonial period and of Africans brought to the island. It is not an import but a Sri Lankan invention, fusing Iberian song forms with African rhythmic feel and local melody, given its lyrical modern shape by Wally Bastiansz in the twentieth century. It crossed every ethnic and class line to become the island's universal celebration music, heard at Sinhalese, Tamil, Muslim and Burgher gatherings alike.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Sri Lanka's Afro-Portuguese party music, universal across the island's communities."
+    },
+    {
+      "id": "attan",
+      "name": "Attan",
+      "startDate": null,
+      "description": "The attan is the national dance of Afghanistan, Pashtun in origin and traced back through pre-Islamic and Zoroastrian ceremony. Thirty to fifty dancers circle to the beat of the double-headed dhol, spinning faster and faster with scarves, handkerchiefs and sometimes swords, joined by rubab, surnai and flute. Once performed before battle to steel the warriors, it now marks weddings, births and national holidays, and is danced well beyond the Pashtun community across Afghanistan and into Pakistan.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Afghanistan's national circle dance, driven by the dhol."
+    },
+    {
+      "id": "zhungdra",
+      "name": "Zhungdra",
+      "startDate": null,
+      "description": "Zhungdra, the 'melody of the centre', is one of the two dominant forms of Bhutanese song, developed in the seventeenth century in the dzongs of the Paro, Thimphu and Punakha valleys before spreading village to village. It is marked by long sustained vocal lines that ornament a comparatively simple instrumental melody, giving it a slow, meditative weight, and much of the repertoire is attributed to saintly figures including Zhabdrung Ngawang Namgyal, the founder of Bhutan. It is carried by the dranyen lute, the chiwang fiddle and the lingm flute.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Bhutan's ornate, slow-moving classical song form from the central valleys."
+    },
+    {
+      "id": "hsaing-waing",
+      "name": "Hsaing Waing",
+      "startDate": null,
+      "description": "The hsaing waing is the traditional orchestra of Myanmar, built around a circle of some twenty-one tuned drums with the player seated inside, answered by a matching circle of tuned gongs and led by the piercing hne oboe. It accompanies ritual, theatre, puppetry and festival, and its repertoire reaches back through the Burmese court — the earliest record places it in royal service in 1544 — drawing on Pyu and Mon antecedents. It shares much of its instrumentarium with the Mon piphat and the wider mainland Southeast Asian gong-chime family.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Myanmar's tuned drum-and-gong-circle orchestra, led by the hne oboe."
+    },
+    {
+      "id": "rara",
+      "name": "Rara",
+      "startDate": null,
+      "description": "Rara is the street procession music of Haiti, taking over the roads each year from Ash Wednesday through to Easter. Bands walk for hours behind ranks of vaksin, single-note bamboo trumpets cut to different lengths so that players interlock one note each into a moving melody, joined by drums, scrapers and metal bells. Descended from the drumming traditions of the enslaved and shaped as much by protest as by celebration, it carries commentary on power and hardship into public space.",
+      "isSensitive": true,
+      "sensitiveDescription": "Rara is inseparable from Haitian Vodou: bands salute the lwa, and the season is understood by practitioners as ritual work carried into the street rather than as entertainment. It is documented here respectfully from public scholarship and is not intended to represent its sacred or initiatory dimensions.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Haitian Lenten street procession music built on interlocking bamboo vaksin trumpets."
+    },
+    {
+      "id": "gombey",
+      "name": "Gombey",
+      "startDate": null,
+      "description": "Gombey is the masked dance tradition of Bermuda, drawing together West African, British and Caribbean threads, its name from an African word for drum or rhythm. Troupes move to a mother drum carrying the main beat, side drums for the rhythm and snares trading call-and-response figures struck on both rim and skin, the dancers costumed in towering peacock-feather headdresses. It began among enslaved Bermudians granted a few days at Christmas, whose masks let them mock their enslavers unrecognised, and it was recognised as a distinct Bermudian form in 1970.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Bermuda's masked drum-and-dance tradition, born of Christmas festivities under slavery."
+    },
+    {
+      "id": "tumba",
+      "name": "Tumba",
+      "startDate": null,
+      "description": "Tumba is the carnival music of Curaçao, Aruba and Bonaire, its name from the Bantu languages of the Congo and its roots in the music Afro-Caribbean islanders made during and after slavery. Sung in Papiamento and first carried by enslaved women as an outlet for grief — it is still called the Curaçao blues — it later took on merengue and Latin-jazz colouring and, in 1971, displaced calypso as the island's carnival anthem. The annual Festival di Tumba now chooses the official carnival song.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Papiamento-language carnival music of Curaçao, Aruba and Bonaire."
+    },
+    {
+      "id": "jing-ping",
+      "name": "Jing Ping",
+      "startDate": null,
+      "description": "Jing ping is the traditional accordion-band music of Dominica, born on the island's plantations and named in imitation of its own finely textured sound. A band pairs the accordion with the boumboum, a bamboo boom pipe supplying the bass, the syak or gwaj scraper-rattle and a tambourine. It accompanies the quadrille and the circle dance known as the flirtation, and remains the music of rural festivals and community gatherings.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Dominica's traditional accordion band music, with bamboo boom-pipe bass."
+    },
+    {
+      "id": "big-drum",
+      "name": "Big Drum",
+      "startDate": null,
+      "description": "The Big Drum, or Nation Dance, of Carriacou in Grenada is among the most direct survivals of African ancestral practice in the eastern Caribbean. Two boula drums and a cutter — Mama, Papa and Baby — underpin responsorial song and codified dance, and the repertoire names the African nations of origin outright: Temne, Igbo, Manding, Kongo and others. It is performed for tombstone raisings, marriages, boat launchings and in times of sickness or misfortune, calling on the ancestors to be fed and entertained.",
+      "isSensitive": true,
+      "sensitiveDescription": "The Big Drum is a living ancestral rite in which specific African nations are invoked and the ancestors are fed with song, dance and libation. It is documented here respectfully from public scholarship and is not intended to represent its ritual or restricted dimensions.",
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Ancestral Nation Dance of Carriacou, Grenada, naming the African nations of origin."
+    },
+    {
+      "id": "xuc",
+      "name": "Xuc",
+      "startDate": "1942-01-01",
+      "description": "Xuc is a Salvadoran genre and dance created by the composer Francisco 'Paquito' Palaviccini in Cojutepeque in 1942, drawing together indigenous Salvadoran music with Spanish, African and Cuban elements. It takes its name from the juco, a friction drum whose scraping call sounds like 'xuc, xuc'. Written deliberately as a national music for El Salvador, it spread through Palaviccini's own orchestra and his songs about the country's towns.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "El Salvador's national dance genre, composed by Paquito Palaviccini in 1942."
+    },
+    {
+      "id": "punto-guanacasteco",
+      "name": "Punto Guanacasteco",
+      "startDate": null,
+      "description": "Punto guanacasteco is the declared national dance of Costa Rica, from the north-western province of Guanacaste. Couples circle in a flirtatious courtship dance, the women turning wide skirts while the men wave hats and shout bombas — short rhymed verses, often teasing — into breaks in the music. It is always carried by the marimba, usually joined by guitar, violin and singers, and blends Spanish, indigenous and African inheritance. Though treated as ancestral, its familiar form was composed by Leandro Cabalceta Brau.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Costa Rica's national courtship dance from Guanacaste, led by marimba."
+    },
+    {
+      "id": "benna",
+      "name": "Benna",
+      "startDate": null,
+      "description": "Benna emerged among the newly freed people of Antigua and Barbuda in the 1830s, its name from a West African word for song-dance. Built on simple rhythms and call-and-response, its verses traded in scandal, gossip and sexual innuendo, and by the early twentieth century it had become a way of carrying news around an island where little else did. It gave the poor a public voice, and was eventually displaced by calypso, whose similar function made it easy to adopt as tourism grew from the 1950s.",
+      "isSensitive": false,
+      "sensitiveDescription": null,
+      "playlistLink": null,
+      "authorId": "system",
+      "summary": "Antiguan call-and-response song that spread news and gossip after emancipation."
     }
   ],
   "genreCountry": [
@@ -4102,6 +4338,110 @@
     {
       "genreId": "kwa-kwa",
       "countryId": "SUR"
+    },
+    {
+      "genreId": "sutartines",
+      "countryId": "LTU"
+    },
+    {
+      "genreId": "regilaul",
+      "countryId": "EST"
+    },
+    {
+      "genreId": "rimur",
+      "countryId": "ISL"
+    },
+    {
+      "genreId": "faroese-chain-dance",
+      "countryId": "FRO"
+    },
+    {
+      "genreId": "spillemandsmusik",
+      "countryId": "DNK"
+    },
+    {
+      "genreId": "ghana-malta",
+      "countryId": "MLT"
+    },
+    {
+      "genreId": "persian-classical-music",
+      "countryId": "IRN"
+    },
+    {
+      "genreId": "bodu-beru",
+      "countryId": "MDV"
+    },
+    {
+      "genreId": "baila",
+      "countryId": "LKA"
+    },
+    {
+      "genreId": "attan",
+      "countryId": "AFG"
+    },
+    {
+      "genreId": "zhungdra",
+      "countryId": "BTN"
+    },
+    {
+      "genreId": "hsaing-waing",
+      "countryId": "MMR"
+    },
+    {
+      "genreId": "rara",
+      "countryId": "HTI"
+    },
+    {
+      "genreId": "gombey",
+      "countryId": "BMU"
+    },
+    {
+      "genreId": "tumba",
+      "countryId": "CUW"
+    },
+    {
+      "genreId": "tumba",
+      "countryId": "ABW"
+    },
+    {
+      "genreId": "jing-ping",
+      "countryId": "DMA"
+    },
+    {
+      "genreId": "big-drum",
+      "countryId": "GRD"
+    },
+    {
+      "genreId": "xuc",
+      "countryId": "SLV"
+    },
+    {
+      "genreId": "punto-guanacasteco",
+      "countryId": "CRI"
+    },
+    {
+      "genreId": "benna",
+      "countryId": "ATG"
+    },
+    {
+      "genreId": "klapa",
+      "countryId": "HRV"
+    },
+    {
+      "genreId": "urtiin-duu",
+      "countryId": "MNG"
+    },
+    {
+      "genreId": "pinpeat",
+      "countryId": "KHM"
+    },
+    {
+      "genreId": "kompa",
+      "countryId": "HTI"
+    },
+    {
+      "genreId": "bouyon",
+      "countryId": "DMA"
     }
   ],
   "genreHierarchy": [
@@ -4828,6 +5168,10 @@
     {
       "genreId": "siva-samoa",
       "subgenreId": "sasa"
+    },
+    {
+      "genreId": "jing-ping",
+      "subgenreId": "bouyon"
     }
   ],
   "genreSimilarity": [
@@ -5990,6 +6334,54 @@
     {
       "similarId1": "reigen-nauru",
       "similarId2": "kiribati-maneaba-songs"
+    },
+    {
+      "similarId1": "sutartines",
+      "similarId2": "regilaul"
+    },
+    {
+      "similarId1": "rimur",
+      "similarId2": "faroese-chain-dance"
+    },
+    {
+      "similarId1": "spillemandsmusik",
+      "similarId2": "polka"
+    },
+    {
+      "similarId1": "ghana-malta",
+      "similarId2": "kantan-chamorrita"
+    },
+    {
+      "similarId1": "benna",
+      "similarId2": "calypso"
+    },
+    {
+      "similarId1": "rara",
+      "similarId2": "kompa"
+    },
+    {
+      "similarId1": "gombey",
+      "similarId2": "junkanoo"
+    },
+    {
+      "similarId1": "tumba",
+      "similarId2": "merengue"
+    },
+    {
+      "similarId1": "tumba",
+      "similarId2": "calypso"
+    },
+    {
+      "similarId1": "xuc",
+      "similarId2": "cumbia"
+    },
+    {
+      "similarId1": "hsaing-waing",
+      "similarId2": "pinpeat"
+    },
+    {
+      "similarId1": "punto-guanacasteco",
+      "similarId2": "xuc"
     }
   ],
   "genreInstrument": [
@@ -8316,6 +8708,102 @@
     {
       "genreId": "reigen-nauru",
       "instrumentId": "log-drum"
+    },
+    {
+      "genreId": "spillemandsmusik",
+      "instrumentId": "violin"
+    },
+    {
+      "genreId": "spillemandsmusik",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "ghana-malta",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "persian-classical-music",
+      "instrumentId": "tar"
+    },
+    {
+      "genreId": "persian-classical-music",
+      "instrumentId": "setar"
+    },
+    {
+      "genreId": "persian-classical-music",
+      "instrumentId": "santur"
+    },
+    {
+      "genreId": "persian-classical-music",
+      "instrumentId": "kamancheh"
+    },
+    {
+      "genreId": "persian-classical-music",
+      "instrumentId": "ney"
+    },
+    {
+      "genreId": "bodu-beru",
+      "instrumentId": "bodu-beru-drum"
+    },
+    {
+      "genreId": "baila",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "attan",
+      "instrumentId": "dhol"
+    },
+    {
+      "genreId": "attan",
+      "instrumentId": "rubab"
+    },
+    {
+      "genreId": "zhungdra",
+      "instrumentId": "dranyen"
+    },
+    {
+      "genreId": "hsaing-waing",
+      "instrumentId": "pat-waing"
+    },
+    {
+      "genreId": "hsaing-waing",
+      "instrumentId": "hne"
+    },
+    {
+      "genreId": "rara",
+      "instrumentId": "vaksin"
+    },
+    {
+      "genreId": "jing-ping",
+      "instrumentId": "accordion"
+    },
+    {
+      "genreId": "jing-ping",
+      "instrumentId": "boumboum"
+    },
+    {
+      "genreId": "big-drum",
+      "instrumentId": "maracas"
+    },
+    {
+      "genreId": "xuc",
+      "instrumentId": "marimba"
+    },
+    {
+      "genreId": "punto-guanacasteco",
+      "instrumentId": "marimba"
+    },
+    {
+      "genreId": "punto-guanacasteco",
+      "instrumentId": "guitar"
+    },
+    {
+      "genreId": "punto-guanacasteco",
+      "instrumentId": "violin"
+    },
+    {
+      "genreId": "benna",
+      "instrumentId": "guitar"
     }
   ],
   "genreSources": [
@@ -9834,6 +10322,166 @@
     {
       "genreId": "reigen-nauru",
       "sourceLink": "http://worldlyrise.blogspot.com/2016/12/nauru-music-and-dance.html"
+    },
+    {
+      "genreId": "sutartines",
+      "sourceLink": "https://ich.unesco.org/en/RL/sutartins-lithuanian-multipart-songs-00433"
+    },
+    {
+      "genreId": "sutartines",
+      "sourceLink": "https://en.wikipedia.org/wiki/Sutartines"
+    },
+    {
+      "genreId": "regilaul",
+      "sourceLink": "https://www.folklore.ee/regilaul/introduction"
+    },
+    {
+      "genreId": "regilaul",
+      "sourceLink": "https://en.wikipedia.org/wiki/Runic_song"
+    },
+    {
+      "genreId": "rimur",
+      "sourceLink": "https://en.wikipedia.org/wiki/R%C3%ADmur"
+    },
+    {
+      "genreId": "rimur",
+      "sourceLink": "https://www.britannica.com/art/rima"
+    },
+    {
+      "genreId": "faroese-chain-dance",
+      "sourceLink": "https://en.wikipedia.org/wiki/Faroese_chain_dance"
+    },
+    {
+      "genreId": "faroese-chain-dance",
+      "sourceLink": "https://www.faroeislands.fo/arts-culture/the-faroese-chain-dance/"
+    },
+    {
+      "genreId": "spillemandsmusik",
+      "sourceLink": "https://en.wikipedia.org/wiki/Danish_traditional_music"
+    },
+    {
+      "genreId": "spillemandsmusik",
+      "sourceLink": "https://thefolkmusicacademy.com/courses/8"
+    },
+    {
+      "genreId": "ghana-malta",
+      "sourceLink": "https://en.wikipedia.org/wiki/G%C4%A7ana_(folk_music)"
+    },
+    {
+      "genreId": "ghana-malta",
+      "sourceLink": "https://www.guidememalta.com/en/singing-our-hearts-out-traditional-maltese-folk-singing"
+    },
+    {
+      "genreId": "persian-classical-music",
+      "sourceLink": "https://ich.unesco.org/en/RL/radif-of-iranian-music-00279"
+    },
+    {
+      "genreId": "persian-classical-music",
+      "sourceLink": "https://grokipedia.com/page/Persian_traditional_music"
+    },
+    {
+      "genreId": "bodu-beru",
+      "sourceLink": "https://en.wikipedia.org/wiki/Boduberu"
+    },
+    {
+      "genreId": "bodu-beru",
+      "sourceLink": "https://visitmaldives.com/en/experience/the-hypnotizing-rhythms-of-boduberu"
+    },
+    {
+      "genreId": "baila",
+      "sourceLink": "https://en.wikipedia.org/wiki/Baila_music"
+    },
+    {
+      "genreId": "baila",
+      "sourceLink": "https://www.afropop.org/articles/baila-for-dummies-a-quick-guide-to-sri-lankas-afro-portuguese-pop-music"
+    },
+    {
+      "genreId": "attan",
+      "sourceLink": "https://en.wikipedia.org/wiki/Attan"
+    },
+    {
+      "genreId": "attan",
+      "sourceLink": "https://www.britannica.com/art/attan"
+    },
+    {
+      "genreId": "zhungdra",
+      "sourceLink": "https://en.wikipedia.org/wiki/Zhungdra"
+    },
+    {
+      "genreId": "zhungdra",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Bhutan"
+    },
+    {
+      "genreId": "hsaing-waing",
+      "sourceLink": "https://en.wikipedia.org/wiki/Hsaing_waing"
+    },
+    {
+      "genreId": "hsaing-waing",
+      "sourceLink": "https://www.britannica.com/art/hsaing-waing"
+    },
+    {
+      "genreId": "rara",
+      "sourceLink": "https://music.si.edu/story/rara-vodou-power-and-performance"
+    },
+    {
+      "genreId": "rara",
+      "sourceLink": "https://en.wikipedia.org/wiki/Rara"
+    },
+    {
+      "genreId": "gombey",
+      "sourceLink": "https://en.wikipedia.org/wiki/Gombey"
+    },
+    {
+      "genreId": "gombey",
+      "sourceLink": "https://www.gotobermuda.com/plan/inspiration/article/an-introduction-to-gombeys-of-bermuda"
+    },
+    {
+      "genreId": "tumba",
+      "sourceLink": "https://en.wikipedia.org/wiki/Tumba_(music)"
+    },
+    {
+      "genreId": "tumba",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Cura%C3%A7ao"
+    },
+    {
+      "genreId": "jing-ping",
+      "sourceLink": "https://en.wikipedia.org/wiki/Jing_ping"
+    },
+    {
+      "genreId": "jing-ping",
+      "sourceLink": "https://www.dom767.com/dompedia/jing-ping-music-dominica/"
+    },
+    {
+      "genreId": "big-drum",
+      "sourceLink": "https://folkways.si.edu/the-big-drum-dance-of-carriacou/caribbean-world/music/album/smithsonian"
+    },
+    {
+      "genreId": "big-drum",
+      "sourceLink": "https://en.wikipedia.org/wiki/Big_Drum"
+    },
+    {
+      "genreId": "xuc",
+      "sourceLink": "https://en.wikipedia.org/wiki/Xuc"
+    },
+    {
+      "genreId": "xuc",
+      "sourceLink": "https://en.wikipedia.org/wiki/Francisco_Palaviccini"
+    },
+    {
+      "genreId": "punto-guanacasteco",
+      "sourceLink": "https://ticotravel.com/costa-rica-traditional-dances-and-folklore/"
+    },
+    {
+      "genreId": "punto-guanacasteco",
+      "sourceLink": "https://www.footprinttravelguides.com/music-and-dance-in-costa-rica/"
+    },
+    {
+      "genreId": "benna",
+      "sourceLink": "https://en.wikipedia.org/wiki/Benna_(genre)"
+    },
+    {
+      "genreId": "benna",
+      "sourceLink": "https://en.wikipedia.org/wiki/Music_of_Antigua_and_Barbuda"
     }
   ],
   "genreAliases": [
@@ -10728,6 +11376,42 @@
     {
       "genreId": "aboriginal-contemporary-music",
       "alias": "Indigenous Australian Rock"
+    },
+    {
+      "genreId": "sutartines",
+      "alias": "Sutartines"
+    },
+    {
+      "genreId": "rimur",
+      "alias": "Rimur"
+    },
+    {
+      "genreId": "ghana-malta",
+      "alias": "Ghana (Malta)"
+    },
+    {
+      "genreId": "ghana-malta",
+      "alias": "Spirtu Pront"
+    },
+    {
+      "genreId": "persian-classical-music",
+      "alias": "Radif"
+    },
+    {
+      "genreId": "bodu-beru",
+      "alias": "Boduberu"
+    },
+    {
+      "genreId": "faroese-chain-dance",
+      "alias": "Kvæði"
+    },
+    {
+      "genreId": "hsaing-waing",
+      "alias": "Saing Waing"
+    },
+    {
+      "genreId": "big-drum",
+      "alias": "Nation Dance"
     }
   ]
 }
