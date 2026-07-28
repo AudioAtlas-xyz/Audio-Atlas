@@ -148,6 +148,26 @@ public class SubmissionServiceTests
     }
 
     [Fact]
+    public async Task CreateSubmissionAsync_WhenNoCountryGiven_ThrowsInvalidOperationException()
+    {
+        // An approved submission becomes a genre. Without a country that genre is
+        // invisible on the globe and in every geography-scoped query, so the
+        // submission must not be accepted in the first place.
+        var (_, service) = BuildInMemory();
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.createSubmissionAsync(Guid.NewGuid(), new CreateSubmissionRequest
+            {
+                NewGenreName = "Nordic Wave",
+                Description = "A proposal for a contemporary Nordic crossover genre.",
+                SourceLinks = ["https://example.com/source-1"],
+                CountryIds = []
+            }));
+
+        Assert.Contains("countryIds", exception.Message);
+    }
+
+    [Fact]
     public async Task CreateSubmissionAsync_WhenReferencedIdsDoNotExist_ThrowsInvalidOperationException()
     {
         var (_, service) = BuildInMemory();

@@ -147,6 +147,13 @@ public class AdminGenresController : ControllerBase
         if (string.IsNullOrWhiteSpace(request.Name))
             return BadRequest(new { message = "Name is required." });
 
+        // CountryIds is a full replacement list, so an empty one strips every
+        // country from the genre. A genre with no country cannot be placed on the
+        // globe and disappears from every geography-scoped query, so reject it
+        // rather than let an omitted field silently orphan the record.
+        if (request.CountryIds.Count == 0)
+            return BadRequest(new { message = "At least one country is required." });
+
         if (string.IsNullOrWhiteSpace(ifMatch))
             return BadRequest(new { message = "If-Match header with RowVersion is required." });
 

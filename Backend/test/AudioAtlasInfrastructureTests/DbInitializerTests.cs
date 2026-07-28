@@ -177,6 +177,60 @@ public class DbInitializerTests
     }
 
     [Fact]
+    public async Task LogDataQuality_warns_when_a_genre_has_no_country()
+    {
+        // The seeder failing part-way through left genres with no country and went
+        // unnoticed for days. This summary is the signal an alert rule hangs off,
+        // so it needs to actually fire.
+        using var harness = new DbInitializerTestHarness();
+        var logger = new CapturingLogger();
+
+        harness.Context.Genres.Add(new AudioAtlasDomain.Genres.Genre { Name = "Orphan" });
+        await harness.Context.SaveChangesAsync();
+
+        await DbInitializer.LogDataQualityAsync(harness.Context, logger);
+
+        Assert.Contains(logger.Entries, e =>
+            e.Level == LogLevel.Warning && e.Message.Contains("DataQuality") && e.Message.Contains("no country link"));
+    }
+
+    [Fact]
+    public async Task LogDataQuality_reports_clean_when_every_genre_has_a_country()
+    {
+        using var harness = new DbInitializerTestHarness();
+        var logger = new CapturingLogger();
+
+        var country = new AudioAtlasDomain.Geography.Country
+        {
+            Name = "Norway", Region = "Northern Europe", Continent = "Europe", isoCode = "NOR"
+        };
+        harness.Context.Genres.Add(new AudioAtlasDomain.Genres.Genre
+        {
+            Name = "Linked",
+            Countries = [country]
+        });
+        await harness.Context.SaveChangesAsync();
+
+        await DbInitializer.LogDataQualityAsync(harness.Context, logger);
+
+        Assert.DoesNotContain(logger.Entries, e => e.Level == LogLevel.Warning);
+        Assert.Contains(logger.Entries, e => e.Message.Contains("all 1 genres have at least one country link"));
+    }
+
+    private sealed class CapturingLogger : ILogger<DbInitializer>
+    {
+        public List<(LogLevel Level, string Message)> Entries { get; } = [];
+
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
+            Func<TState, Exception?, string> formatter)
+            => Entries.Add((logLevel, formatter(state, exception)));
+    }
+
+    [Fact]
     public async Task SeedAdditionalData_links_relations_for_supplemental_genres()
     {
         // The relation sections sit after the country lookup in the seeder, so this

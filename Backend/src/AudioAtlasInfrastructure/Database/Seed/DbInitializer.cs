@@ -355,7 +355,37 @@ public class DbInitializer
             logger.LogInformation("Supplemental genreSources: {Count} added", n);
         }
 
+        await LogDataQualityAsync(dbContext, logger);
+
         logger.LogInformation("Supplemental seeding complete.");
+    }
+
+    /// <summary>
+    /// Post-seed data-quality summary.
+    ///
+    /// The supplemental seeder once aborted part-way through for days without
+    /// anyone noticing: the API stayed healthy, deploys stayed green, and the only
+    /// symptom was a single error line in the container log. Genres were left with
+    /// no country, which made them invisible on the globe.
+    ///
+    /// Emitting the counts on every startup gives that failure mode a stable,
+    /// greppable signal to alert on, rather than relying on someone reading logs.
+    /// </summary>
+    internal static async Task LogDataQualityAsync(AppDbContext dbContext, ILogger<DbInitializer> logger)
+    {
+        int orphanGenres = await dbContext.Genres.CountAsync(g => !g.Countries.Any());
+        int genreTotal = await dbContext.Genres.CountAsync();
+
+        if (orphanGenres > 0)
+        {
+            logger.LogWarning(
+                "DataQuality: {OrphanCount} of {GenreTotal} genres have no country link and will not appear on the globe.",
+                orphanGenres, genreTotal);
+        }
+        else
+        {
+            logger.LogInformation("DataQuality: all {GenreTotal} genres have at least one country link.", genreTotal);
+        }
     }
 
     private static string? TryGetStringPropertyStatic(JsonElement element, string propertyName)

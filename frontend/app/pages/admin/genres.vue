@@ -212,6 +212,16 @@ function populateForm(d: AdminGenreDetail) {
 
 async function save() {
   if (!detail.value || !expandedId.value) return
+
+  // Mirrors the server rule: countryIds is a full replacement list, so saving an
+  // empty one would strip every country and orphan the genre. Checked here too
+  // to give immediate feedback rather than a round-trip 400.
+  if (editForm.countryIds.length === 0) {
+    saveError.value = 'At least one country is required.'
+    saveSuccess.value = false
+    return
+  }
+
   saving.value = true
   saveError.value = null
   saveSuccess.value = false
