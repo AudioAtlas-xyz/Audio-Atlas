@@ -68,6 +68,11 @@ public class SubmissionService : ISubmissionService
         if (normalizedSourceLinks.Any(link => link.Length > MaxUrlLength))
             errors["sourceLinks"] = [$"Source links must be at most {MaxUrlLength} characters."];
 
+        // A genre with no country cannot be placed on the globe and is invisible
+        // to every geography-scoped query, so it must be pinned to at least one.
+        if (countryIds.Count == 0)
+            errors["countryIds"] = ["At least one country is required."];
+
         var normalizedAliases = aliasValues
             .Where(alias => alias.Length <= MaxAliasLength)
             .ToList();
@@ -424,6 +429,11 @@ public class SubmissionService : ISubmissionService
 
         if (request.StartDate.HasValue && request.EndDate.HasValue && request.StartDate.Value > request.EndDate.Value)
             errors["dateRange"] = ["Start date must be earlier than or equal to end date."];
+
+        // Mirrors createSubmissionAsync: an approved submission becomes a genre,
+        // so a submission with no country would produce an orphaned genre.
+        if (countryIds.Count == 0)
+            errors["countryIds"] = ["At least one country is required."];
 
         if (errors.Count > 0)
             throw new InvalidOperationException(buildErrorMessage(errors));

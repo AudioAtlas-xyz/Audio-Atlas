@@ -31,7 +31,12 @@ public sealed class SupplementalSeedBackgroundService : BackgroundService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Supplemental seeder encountered an unhandled error.");
+            // Deliberately swallowed so a seeding fault cannot take the API down —
+            // but that means this log line is the ONLY signal. "SeederFailed" is a
+            // stable marker to build an alert rule on; this failure previously went
+            // unnoticed for days while every genre batch silently lost its
+            // relations. See LogDataQualityAsync for the companion signal.
+            _logger.LogError(ex, "SeederFailed: supplemental seeder encountered an unhandled error. Genre relations may be missing.");
         }
     }
 }
