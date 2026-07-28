@@ -149,6 +149,44 @@ public class DbInitializerTests
         Assert.NotNull(await harness.UserManager.FindByNameAsync("System"));
     }
 
+    [Fact]
+    public async Task SeedAdditionalData_completes_when_a_duplicate_country_isoCode_exists()
+    {
+        // Regression: production had two Countries rows with isoCode "XKX".
+        // The supplemental seeder built its country lookup with ToDictionaryAsync,
+        // which threw on the duplicate key. Because that lookup sits after genres
+        // are saved but before any relations are linked, every batch's countries,
+        // instruments, hierarchy, similarity, aliases and sources were silently
+        // dropped, leaving the catalogue full of orphaned genres.
+        using var harness = new DbInitializerTestHarness();
+
+        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Configuration, harness.Logger);
+
+        AudioAtlasDomain.Geography.Country existing =
+            await harness.Context.Countries.FirstAsync(c => c.isoCode == "NRU");
+
+        harness.Context.Countries.Add(new AudioAtlasDomain.Geography.Country
+        {
+            Name = existing.Name,
+            Region = existing.Region,
+            Continent = existing.Continent,
+            Description = existing.Description,
+            isoCode = existing.isoCode
+        });
+        await harness.Context.SaveChangesAsync();
+
+        // Must not throw.
+        await DbInitializer.SeedAdditionalDataAsync(harness.Context, harness.Logger);
+
+        // And must still get past the lookup to link relations.
+        AudioAtlasDomain.Genres.Genre? seeded = await harness.Context.Genres
+            .Include(g => g.Countries)
+            .FirstOrDefaultAsync(g => g.Name == "Reigen (Nauru)");
+
+        Assert.NotNull(seeded);
+        Assert.Contains(seeded!.Countries, c => c.isoCode == "NRU");
+    }
+
     private static SeedCounts ReadSeedCounts()
     {
         string countryPath = Path.Combine(AppContext.BaseDirectory, "countrySeeding.json");
