@@ -73,6 +73,12 @@ jobs:
       - name: Prepare Nuxt
         run: npx nuxt prepare
 
+      # Fails if any text colour drops below WCAG AA (4.5:1). Six hardcoded
+      # hexes had drifted below it across 21 files before anyone noticed, one
+      # at 1.55:1 on 11px text. Static check, no browser needed.
+      - name: Check text contrast
+        run: npm run check:contrast
+
       - name: Run frontend tests
         run: npm run test
 
