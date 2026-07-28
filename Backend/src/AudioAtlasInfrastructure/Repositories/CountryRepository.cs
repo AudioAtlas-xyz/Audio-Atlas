@@ -77,6 +77,51 @@ public class CountryRepository : ICountryRepository
     }
 
     /// <summary>
+    /// Builds the continent/region taxonomy with distinct genre counts.
+    /// </summary>
+    /// <remarks>
+    /// Counts are distinct genres, matching how the browse listing counts: a
+    /// genre linked to several countries in the same grouping counts once, so
+    /// summing per-country totals would over-count. Regions with no countries
+    /// are naturally absent; regions with countries but no genres are kept and
+    /// report zero, so the navigation can show them as empty rather than hide
+    /// them.
+    /// </remarks>
+    public ICollection<GroupingDTO> getGroupings()
+    {
+        var rows = _dbcontext.Countries
+            .Where(c => c.Continent != "" && c.Region != "")
+            .Select(c => new
+            {
+                c.Continent,
+                c.Region,
+                GenreIds = c.Genres.Select(g => g.Id)
+            })
+            .AsEnumerable()
+            .Select(c => new { c.Continent, c.Region, GenreIds = c.GenreIds.ToList() })
+            .ToList();
+
+        return rows
+            .GroupBy(c => c.Continent)
+            .Select(continent => new GroupingDTO
+            {
+                Continent = continent.Key,
+                GenreCount = continent.SelectMany(c => c.GenreIds).Distinct().Count(),
+                Regions = continent
+                    .GroupBy(c => c.Region)
+                    .Select(region => new RegionGroupingDTO
+                    {
+                        Region = region.Key,
+                        GenreCount = region.SelectMany(c => c.GenreIds).Distinct().Count()
+                    })
+                    .OrderBy(r => r.Region)
+                    .ToList()
+            })
+            .OrderBy(g => g.Continent)
+            .ToList();
+    }
+
+    /// <summary>
     /// Retrieves a list of genres from a given country from the database
     /// </summary>
     /// <param name="country"> A specific country </param>

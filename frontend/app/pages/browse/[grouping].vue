@@ -36,6 +36,9 @@ useHead(() => ({
       </div>
     </section>
 
+    <!-- CONTINENT / REGION NAVIGATION -->
+    <GroupingNav :grouping="grouping" />
+
     <!-- GENRE GRID -->
     <section class="mx-auto max-w-[1200px] px-6 py-8 sm:px-10 lg:py-10">
 

@@ -42,6 +42,16 @@ namespace AudioAtlasView.Controllers
             return _countryRepository.getAllCountries();
         }
         
+        // GET: api/countries/groupings
+        // Continent/region taxonomy with genre counts, used by the browse pages
+        // to offer navigation between sibling regions and up to the continent.
+        // Declared before {key} so "groupings" is not captured as a country key.
+        [HttpGet("groupings")]
+        public ICollection<GroupingDTO> GetGroupings()
+        {
+            return _countryRepository.getGroupings();
+        }
+
         // GET: api/countries/{id}/genres
         [HttpGet("{id}/genres")]
         public ICollection<Genre> Get(Guid id)
