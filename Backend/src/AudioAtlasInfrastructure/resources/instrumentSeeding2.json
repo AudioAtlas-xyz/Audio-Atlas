@@ -370,5 +370,53 @@
     "Name": "Conch Shell Trumpet",
     "Type": "Wind",
     "Description": "A large sea shell with the tip removed so it can be blown as a trumpet. Used across Oceania to summon gatherings, mark arrivals and signal within ceremony and dance."
+  },
+  {
+    "Id": "dhol",
+    "Name": "Dhol",
+    "Type": "Percussion",
+    "Description": "A large double-headed barrel drum played with sticks across Afghanistan, Pakistan and northern India. Its driving beat is the engine of the Attan and of celebration music generally."
+  },
+  {
+    "Id": "ney",
+    "Name": "Ney",
+    "Type": "Wind",
+    "Description": "An end-blown reed flute central to Persian, Turkish and Arab art music, prized for a breathy tone close to the human voice."
+  },
+  {
+    "Id": "dranyen",
+    "Name": "Dranyen",
+    "Type": "String",
+    "Description": "A six-stringed long-necked lute of Bhutan and the Himalaya, its body traditionally carved from a single block and often crowned with a carved sea-monster head. It is the principal accompaniment to Bhutanese song."
+  },
+  {
+    "Id": "bodu-beru-drum",
+    "Name": "Bodu Beru Drum",
+    "Type": "Percussion",
+    "Description": "The 'big drum' of the Maldives, a barrel of coconut-palm wood headed with goat or stingray skin and struck with the bare hands. Played by several drummers at once, it drives the genre that takes its name."
+  },
+  {
+    "Id": "vaksin",
+    "Name": "Vaksin",
+    "Type": "Wind",
+    "Description": "A single-note bamboo trumpet of Haiti, cut to different lengths so that a group of players interlocks each note into a melody. It is the defining sound of Rara processions."
+  },
+  {
+    "Id": "boumboum",
+    "Name": "Boumboum",
+    "Type": "Wind",
+    "Description": "A hollow bamboo boom pipe of Dominica, blown to supply the bass line in a jing ping band."
+  },
+  {
+    "Id": "pat-waing",
+    "Name": "Pat Waing",
+    "Type": "Percussion",
+    "Description": "A circle of around twenty-one tuned drums, the player seated inside, at the centre of the Burmese hsaing waing ensemble."
+  },
+  {
+    "Id": "hne",
+    "Name": "Hne",
+    "Type": "Wind",
+    "Description": "A double-reed oboe of Myanmar with a piercing, carrying tone, leading the melody in the hsaing waing ensemble."
   }
 ]

@@ -6779,16 +6779,8 @@
                              "countryId":  "MTQ"
                          },
                          {
-                             "genreId":  "kompa",
-                             "countryId":  "DOM"
-                         },
-                         {
                              "genreId":  "gwo-ka",
                              "countryId":  "GLP"
-                         },
-                         {
-                             "genreId":  "bouyon",
-                             "countryId":  "DOM"
                          },
                          {
                              "genreId":  "bel-air",
@@ -7120,10 +7112,6 @@
                          },
                          {
                              "genreId":  "kantrum",
-                             "countryId":  "THA"
-                         },
-                         {
-                             "genreId":  "pinpeat",
                              "countryId":  "THA"
                          },
                          {
