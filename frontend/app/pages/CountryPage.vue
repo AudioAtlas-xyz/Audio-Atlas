@@ -139,7 +139,7 @@ useHead(() => ({
           <p class="font-display text-xl text-aurora">
             {{ genreCount }}
           </p>
-          <p class="text-[11px] text-[#373d5a]">
+          <p class="text-[11px] text-meta">
             Genres documented
           </p>
         </div>
@@ -152,7 +152,7 @@ useHead(() => ({
           <h2 class="font-display text-[28px] tracking-[-0.02em] text-space-50">
             Genres
           </h2>
-          <p class="mt-2 text-xs text-[#373d5a]">
+          <p class="mt-2 text-xs text-meta">
             {{ genreCount }} {{ genreCount === 1 ? 'genre' : 'genres' }} from
             {{ country?.name || 'this country' }} documented in Audio Atlas
           </p>

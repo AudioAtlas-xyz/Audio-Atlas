@@ -44,7 +44,7 @@ const sourceRows = computed(() =>
         <p class="text-sm text-space-50">
           Sources
         </p>
-        <p class="font-mono text-[11px] text-[#373d5a]">
+        <p class="font-mono text-[11px] text-meta">
           {{ props.sources.length }}
         </p>
       </div>
@@ -73,7 +73,7 @@ const sourceRows = computed(() =>
     </div>
 
     <!-- Empty state -->
-    <div v-else class="px-4 py-5 text-sm text-[#6f789b]">
+    <div v-else class="px-4 py-5 text-sm text-label">
       Sources will appear here if available.
     </div>
   </UCard>

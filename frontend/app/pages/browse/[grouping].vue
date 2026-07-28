@@ -73,7 +73,7 @@ useHead(() => ({
           <p class="font-display text-base text-space-50 transition-colors group-hover:text-aurora">
             {{ genre.name }}
           </p>
-          <p v-if="genre.countries?.length" class="mt-1 text-[11px] text-[#4f587a]">
+          <p v-if="genre.countries?.length" class="mt-1 text-[11px] text-meta">
             {{ genre.countries.map(c => c.name).join(' · ') }}
           </p>
         </NuxtLink>

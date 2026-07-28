@@ -193,7 +193,7 @@ function roleBadgeClass(role: AdminUserRole): string {
     case 'Admin':   return 'border-[#3DE8C8] text-[#3DE8C8]'
     case 'Curator': return 'border-[#8ddbe6] text-[#8ddbe6]'
     case 'Banned':  return 'border-[#ff6b6b] text-[#ff6b6b]'
-    default:        return 'border-[#7a84a8] text-[#7a84a8]'
+    default:        return 'border-[#7a84a8] text-meta'
   }
 }
 
@@ -235,13 +235,13 @@ const breadcrumbItems = [
                 Registered users
               </h1>
 
-              <p class="max-w-[40rem] text-sm text-[#7a84a8]">
+              <p class="max-w-[40rem] text-sm text-meta">
                 Browse every account on Audio Atlas. Filter by role to spot
                 active contributors, recent signups, or moderation cases.
               </p>
             </div>
 
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-[#373d5a]">
+            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-meta">
               {{ visibleUsers.length }} of {{ users.length }} users shown
               · {{ signupsLast30Days }} new in last 30 days
             </p>
@@ -308,20 +308,20 @@ const breadcrumbItems = [
           <table class="w-full border-collapse">
             <thead class="bg-surface-2">
               <tr class="text-left">
-                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">
+                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-meta">
                   Username
                 </th>
-                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">
+                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-meta">
                   Email
                 </th>
                 <th
-                  class="cursor-pointer select-none px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8] hover:text-aurora"
+                  class="cursor-pointer select-none px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-meta hover:text-aurora"
                   @click="toggleSort('role')"
                 >
                   Role {{ sortIndicator('role') }}
                 </th>
                 <th
-                  class="cursor-pointer select-none px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8] hover:text-aurora"
+                  class="cursor-pointer select-none px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-meta hover:text-aurora"
                   @click="toggleSort('memberSince')"
                 >
                   Member since {{ sortIndicator('memberSince') }}
@@ -375,13 +375,13 @@ const breadcrumbItems = [
                     </p>
                   </div>
                 </td>
-                <td class="px-4 py-3 text-[13px] text-[#7a84a8]">
+                <td class="px-4 py-3 text-[13px] text-meta">
                   {{ formatDate(row.memberSince) }}
                 </td>
               </tr>
 
               <tr v-if="!pagedUsers.length">
-                <td colspan="4" class="px-4 py-10 text-center text-sm text-[#6f789b]">
+                <td colspan="4" class="px-4 py-10 text-center text-sm text-label">
                   <template v-if="pending">
                     Loading users…
                   </template>
@@ -400,7 +400,7 @@ const breadcrumbItems = [
         <!-- pagination -->
         <div
           v-if="totalPages > 1"
-          class="flex items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-[#7a84a8]"
+          class="flex items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-meta"
         >
           <span>
             Page {{ currentPage }} of {{ totalPages }}

@@ -31,13 +31,13 @@ defineProps<{
           class="block px-4 py-2.5 text-sm text-space-50 transition-colors hover:bg-[#111420] hover:text-aurora"
         >
           {{ genre.name }}
-          <p v-if="genre.countries?.length" class="mt-0.5 text-[10px] text-[#4f587a]">
+          <p v-if="genre.countries?.length" class="mt-0.5 text-[10px] text-meta">
             {{ genre.countries.map(c => c.name).join(', ') }}
           </p>
         </NuxtLink>
       </div>
 
-      <p v-else class="px-4 py-4 text-xs text-[#4f587a]">
+      <p v-else class="px-4 py-4 text-xs text-meta">
         None
       </p>
     </div>

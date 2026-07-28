@@ -27,8 +27,8 @@ function delta(current: number, previous: number): string {
 
 function deltaColor(current: number, previous: number): string {
   if (current > previous) return 'text-aurora'
-  if (current < previous) return 'text-[#e05570]'
-  return 'text-[#7a84a8]'
+  if (current < previous) return 'text-rust'
+  return 'text-meta'
 }
 
 const collectingSince = computed(() =>
@@ -58,15 +58,15 @@ const oldestAgeFormatted = computed(() => {
   <div class="space-y-6">
     <div class="border-b border-border pb-4">
       <h2 class="font-display text-[22px] tracking-[-0.02em] text-space-50">Pipeline</h2>
-      <p v-if="collectingSince" class="mt-1 text-xs text-[#7a84a8]">{{ collectingSince }}</p>
-      <p v-else class="mt-1 text-xs text-[#373d5a]">No reviewed submissions yet</p>
+      <p v-if="collectingSince" class="mt-1 text-xs text-meta">{{ collectingSince }}</p>
+      <p v-else class="mt-1 text-xs text-meta">No reviewed submissions yet</p>
     </div>
 
     <!-- This month vs last month -->
     <div class="grid gap-4 sm:grid-cols-2">
       <!-- Approvals -->
       <div class="rounded-md border border-border bg-surface p-5">
-        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Approved</p>
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Approved</p>
         <div class="mt-2 flex items-end gap-3">
           <p
             class="font-display text-3xl tracking-[-0.02em] text-space-50"
@@ -82,14 +82,14 @@ const oldestAgeFormatted = computed(() => {
             {{ delta(data.approvedThisMonth, data.approvedLastMonth) }}
           </span>
         </div>
-        <p class="mt-1 text-xs text-[#7a84a8]">
+        <p class="mt-1 text-xs text-meta">
           {{ data.approvedLastMonth.toLocaleString() }} last month
         </p>
       </div>
 
       <!-- Rejections -->
       <div class="rounded-md border border-border bg-surface p-5">
-        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Rejected</p>
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Rejected</p>
         <div class="mt-2 flex items-end gap-3">
           <p
             class="font-display text-3xl tracking-[-0.02em] text-space-50"
@@ -105,7 +105,7 @@ const oldestAgeFormatted = computed(() => {
             {{ delta(data.rejectedThisMonth, data.rejectedLastMonth) }}
           </span>
         </div>
-        <p class="mt-1 text-xs text-[#7a84a8]">
+        <p class="mt-1 text-xs text-meta">
           {{ data.rejectedLastMonth.toLocaleString() }} last month
         </p>
       </div>
@@ -115,40 +115,40 @@ const oldestAgeFormatted = computed(() => {
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <!-- Approval rate -->
       <div class="rounded-md border border-border bg-surface p-5">
-        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Approval rate</p>
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Approval rate</p>
         <p
           class="mt-2 font-display text-3xl tracking-[-0.02em] text-space-50"
           :aria-label="data.approvalRate != null ? `${data.approvalRate}% approval rate` : 'Approval rate not yet available'"
         >
           {{ data.approvalRate != null ? `${data.approvalRate}%` : '—' }}
         </p>
-        <p v-if="collectingSince" class="mt-1 text-[11px] text-[#373d5a]">{{ collectingSince }}</p>
-        <p v-else class="mt-1 text-[11px] text-[#373d5a]">No reviewed submissions yet</p>
+        <p v-if="collectingSince" class="mt-1 text-[11px] text-meta">{{ collectingSince }}</p>
+        <p v-else class="mt-1 text-[11px] text-meta">No reviewed submissions yet</p>
       </div>
 
       <!-- Median review time -->
       <div class="rounded-md border border-border bg-surface p-5">
-        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Median review time</p>
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Median review time</p>
         <p
           class="mt-2 font-display text-3xl tracking-[-0.02em] text-space-50"
           :aria-label="data.medianTimeToReviewHours != null ? `${data.medianTimeToReviewHours} hours median review time` : 'Median review time not yet available'"
         >
           {{ data.medianTimeToReviewHours != null ? `${data.medianTimeToReviewHours}h` : '—' }}
         </p>
-        <p v-if="collectingSince" class="mt-1 text-[11px] text-[#373d5a]">{{ collectingSince }}</p>
-        <p v-else class="mt-1 text-[11px] text-[#373d5a]">No reviewed submissions yet</p>
+        <p v-if="collectingSince" class="mt-1 text-[11px] text-meta">{{ collectingSince }}</p>
+        <p v-else class="mt-1 text-[11px] text-meta">No reviewed submissions yet</p>
       </div>
 
       <!-- Oldest pending -->
       <div class="rounded-md border border-border bg-surface p-5">
-        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Oldest pending</p>
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Oldest pending</p>
         <p
           class="mt-2 font-display text-3xl tracking-[-0.02em] text-space-50"
           :aria-label="oldestAgeFormatted ? `Oldest pending submission: ${oldestAgeFormatted}` : 'No pending submissions'"
         >
           {{ oldestAgeFormatted ?? '—' }}
         </p>
-        <p class="mt-1 text-[11px] text-[#7a84a8]">
+        <p class="mt-1 text-[11px] text-meta">
           {{ data.queueDepth.toLocaleString() }} pending total
         </p>
       </div>
@@ -165,7 +165,7 @@ const oldestAgeFormatted = computed(() => {
         <p class="text-sm font-medium text-[#e060d8]">
           {{ data.sensitivityHolds }} sensitivity {{ data.sensitivityHolds === 1 ? 'hold' : 'holds' }}
         </p>
-        <p class="mt-0.5 text-xs text-[#7a84a8]">
+        <p class="mt-0.5 text-xs text-meta">
           Submissions flagged for sensitivity review — requires manual assessment.
         </p>
       </div>
@@ -174,26 +174,26 @@ const oldestAgeFormatted = computed(() => {
     <!-- Curator workload + rejection breakdown -->
     <div class="grid gap-5 lg:grid-cols-2">
       <div class="rounded-md border border-border bg-surface p-5">
-        <p class="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Curator workload</p>
+        <p class="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Curator workload</p>
         <AdminBarChart
           v-if="workloadItems.length"
           :items="workloadItems"
           aria-label="Decisions per curator"
         />
-        <p v-else class="text-xs text-[#6f789b]">
+        <p v-else class="text-xs text-label">
           {{ collectingSince ? 'No decisions in the selected window' : 'No reviews recorded yet' }}
         </p>
       </div>
 
       <div class="rounded-md border border-border bg-surface p-5">
-        <p class="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Rejection reasons</p>
+        <p class="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Rejection reasons</p>
         <AdminBarChart
           v-if="rejectionItems.length"
           :items="rejectionItems"
           color="var(--color-rust)"
           aria-label="Rejections by reason"
         />
-        <p v-else class="text-xs text-[#6f789b]">No rejections in the selected window</p>
+        <p v-else class="text-xs text-label">No rejections in the selected window</p>
       </div>
     </div>
   </div>

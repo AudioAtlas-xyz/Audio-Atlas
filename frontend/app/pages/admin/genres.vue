@@ -363,12 +363,12 @@ const breadcrumbItems = [
               <h1 class="font-display text-5xl tracking-[-0.04em] text-space-50 sm:text-[52px]">
                 Genre catalogue
               </h1>
-              <p class="max-w-[40rem] text-sm text-[#7a84a8]">
+              <p class="max-w-[40rem] text-sm text-meta">
                 Edit genre data, fix quality gaps, manage relations, and archive or permanently remove entries.
               </p>
             </div>
 
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-[#373d5a]">
+            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-meta">
               {{ totalCount }} {{ filter === 'all' ? 'genres total' : 'genres match filter' }}
             </p>
           </div>
@@ -425,18 +425,18 @@ const breadcrumbItems = [
           <table class="w-full border-collapse">
             <thead class="bg-surface-2">
               <tr class="text-left">
-                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Name</th>
-                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Countries</th>
-                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Desc</th>
-                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Status</th>
-                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Last edited</th>
+                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Name</th>
+                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Countries</th>
+                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Desc</th>
+                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Status</th>
+                <th class="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Last edited</th>
               </tr>
             </thead>
 
             <tbody>
               <!-- Empty state -->
               <tr v-if="!listLoading && genres.length === 0">
-                <td colspan="6" class="px-4 py-10 text-center text-sm text-[#6f789b]">
+                <td colspan="6" class="px-4 py-10 text-center text-sm text-label">
                   No genres match the current filters.
                 </td>
               </tr>
@@ -451,7 +451,7 @@ const breadcrumbItems = [
                   <td class="px-4 py-3 font-mono text-[12px] tracking-[0.04em] text-aurora">
                     {{ row.name }}
                   </td>
-                  <td class="px-4 py-3 text-[12px] text-[#7a84a8]">
+                  <td class="px-4 py-3 text-[12px] text-meta">
                     {{ row.countryNames.slice(0, 3).join(', ') }}{{ row.countryNames.length > 3 ? ` +${row.countryNames.length - 3}` : '' }}
                     <span v-if="row.countryNames.length === 0" class="text-[#ff6b6b]">none</span>
                   </td>
@@ -464,13 +464,13 @@ const breadcrumbItems = [
                     <span
                       class="rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em]"
                       :class="row.isArchived
-                        ? 'border-[#7a84a8] text-[#7a84a8]'
+                        ? 'border-[#7a84a8] text-meta'
                         : 'border-[#3de8c8] text-[#3de8c8]'"
                     >
                       {{ row.isArchived ? 'archived' : 'active' }}
                     </span>
                   </td>
-                  <td class="px-4 py-3 text-[12px] text-[#7a84a8]">
+                  <td class="px-4 py-3 text-[12px] text-meta">
                     {{ fmtDate(row.lastEditedAt) }}
                   </td>
                 </tr>
@@ -480,7 +480,7 @@ const breadcrumbItems = [
                   <td colspan="5" class="border-t border-border bg-[#0a0c18] p-0">
 
                     <!-- Loading -->
-                    <div v-if="detailLoading" class="flex items-center gap-3 px-6 py-6 text-sm text-[#7a84a8]">
+                    <div v-if="detailLoading" class="flex items-center gap-3 px-6 py-6 text-sm text-meta">
                       <UIcon name="i-lucide-loader" class="animate-spin" />
                       Loading…
                     </div>
@@ -499,24 +499,24 @@ const breadcrumbItems = [
 
                           <!-- Name -->
                           <div>
-                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Name</label>
+                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Name</label>
                             <UInput v-model="editForm.name" class="w-full" />
                           </div>
 
                           <!-- Description -->
                           <div>
-                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Description</label>
+                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Description</label>
                             <UTextarea v-model="editForm.description" :rows="4" class="w-full" />
                           </div>
 
                           <!-- Start year + playlist -->
                           <div class="grid grid-cols-2 gap-3">
                             <div>
-                              <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Start year</label>
+                              <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Start year</label>
                               <UInput v-model="editForm.startYear" type="number" class="w-full" />
                             </div>
                             <div>
-                              <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Playlist link</label>
+                              <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Playlist link</label>
                               <UInput v-model="editForm.playlistLink" class="w-full" />
                             </div>
                           </div>
@@ -524,16 +524,16 @@ const breadcrumbItems = [
                           <!-- Sensitive -->
                           <div class="flex items-center gap-3">
                             <UToggle v-model="editForm.isSensitive" />
-                            <span class="text-sm text-[#7a84a8]">Sensitive content</span>
+                            <span class="text-sm text-meta">Sensitive content</span>
                           </div>
                           <div v-if="editForm.isSensitive">
-                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Sensitive description</label>
+                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Sensitive description</label>
                             <UTextarea v-model="editForm.sensitiveDescription" :rows="2" class="w-full" />
                           </div>
 
                           <!-- Aliases -->
                           <div>
-                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Aliases</label>
+                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Aliases</label>
                             <div class="flex flex-col gap-1.5">
                               <div
                                 v-for="(alias, i) in editForm.aliases"
@@ -568,7 +568,7 @@ const breadcrumbItems = [
 
                           <!-- Sources -->
                           <div>
-                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Sources</label>
+                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Sources</label>
                             <div class="flex flex-col gap-1.5">
                               <div
                                 v-for="(src, i) in editForm.sources"
@@ -608,7 +608,7 @@ const breadcrumbItems = [
 
                           <!-- Countries -->
                           <div>
-                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Countries</label>
+                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Countries</label>
                             <USelectMenu
                               :model-value="countryOptions.filter(o => editForm.countryIds.includes(o.value))"
                               :items="countryOptions"
@@ -621,7 +621,7 @@ const breadcrumbItems = [
 
                           <!-- Instruments -->
                           <div>
-                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Instruments</label>
+                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Instruments</label>
                             <USelectMenu
                               :model-value="instrumentOptions.filter(o => editForm.instrumentIds.includes(o.value))"
                               :items="instrumentOptions"
@@ -634,7 +634,7 @@ const breadcrumbItems = [
 
                           <!-- Similar genres -->
                           <div>
-                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Similar genres</label>
+                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Similar genres</label>
                             <USelectMenu
                               :model-value="genreOptions.filter(o => editForm.similarGenreIds.includes(o.value))"
                               :items="genreOptions"
@@ -647,7 +647,7 @@ const breadcrumbItems = [
 
                           <!-- Sub-genres -->
                           <div>
-                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Sub-genres</label>
+                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Sub-genres</label>
                             <USelectMenu
                               :model-value="genreOptions.filter(o => editForm.subGenreIds.includes(o.value))"
                               :items="genreOptions"
@@ -660,7 +660,7 @@ const breadcrumbItems = [
 
                           <!-- Parent genres -->
                           <div>
-                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-[#7a84a8]">Parent genres</label>
+                            <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Parent genres</label>
                             <USelectMenu
                               :model-value="genreOptions.filter(o => editForm.parentGenreIds.includes(o.value))"
                               :items="genreOptions"
@@ -672,7 +672,7 @@ const breadcrumbItems = [
                           </div>
 
                           <!-- Audit info -->
-                          <div class="mt-2 rounded-md border border-border bg-surface p-3 text-[11px] text-[#373d5a]">
+                          <div class="mt-2 rounded-md border border-border bg-surface p-3 text-[11px] text-meta">
                             <p v-if="detail.lastEditedAt">
                               Last edited {{ fmtDate(detail.lastEditedAt) }}
                               <template v-if="detail.lastEditedByUsername"> by {{ detail.lastEditedByUsername }}</template>
@@ -681,7 +681,7 @@ const breadcrumbItems = [
                               Archived {{ fmtDate(detail.archivedAt) }}
                               <template v-if="detail.archivedByUsername"> by {{ detail.archivedByUsername }}</template>
                             </p>
-                            <p v-if="!detail.lastEditedAt && !detail.isArchived" class="text-[#252c48]">
+                            <p v-if="!detail.lastEditedAt && !detail.isArchived" class="text-meta">
                               No edits recorded.
                             </p>
                           </div>
@@ -792,7 +792,7 @@ const breadcrumbItems = [
         <!-- Pagination -->
         <div
           v-if="totalPages > 1"
-          class="flex items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-[#7a84a8]"
+          class="flex items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-meta"
         >
           <span>Page {{ page }} of {{ totalPages }}</span>
           <div class="flex items-center gap-2">

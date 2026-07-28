@@ -17,7 +17,7 @@
   --color-nebula: #c855f0;
   --color-nebula-dim: #5c2070;
   --color-starlight: #8899ff;
-  --color-rust: #e05570;
+  --color-rust: #e05872;
 
   --color-border: #1c2038;
   --color-border-light: #252c48;
@@ -43,6 +43,17 @@
   --color-space-800: #262f73;
   --color-space-900: #1a214a;
   --color-space-950: #10152b;
+
+  /* Secondary text. Both tiers clear WCAG AA (4.5:1) against every surface in
+     this theme, including the lightest (--color-surface-3 #1a1e30). They exist
+     because six different hardcoded hexes had drifted into this role across the
+     app, four of them failing AA badly — #373d5a was 1.55:1 at 11px. Hues are
+     preserved from what they replace, so the look is unchanged apart from
+     legibility. Use these rather than inventing another muted grey.
+       --color-label  7.0:1  headers, field labels, empty states
+       --color-meta   4.6:1  card meta, timestamps, counts */
+  --color-label: #a2a9c2;
+  --color-meta: #7d86ab;
 
   --radius-sm: 3px;
   --radius-md: 6px;

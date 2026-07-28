@@ -29,20 +29,20 @@ const repeatPct = computed(() => {
     <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       <!-- Users by role -->
       <div class="rounded-md border border-border bg-surface p-5">
-        <p class="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Users by role</p>
+        <p class="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Users by role</p>
         <AdminBarChart
           v-if="roleItems.length"
           :items="roleItems"
           color="var(--color-starlight)"
           aria-label="Users per role"
         />
-        <p v-else class="text-xs text-[#6f789b]">No users yet</p>
+        <p v-else class="text-xs text-label">No users yet</p>
       </div>
 
       <!-- Signups + active contributors -->
       <div class="rounded-md border border-border bg-surface p-5 space-y-4">
         <div>
-          <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">New signups this month</p>
+          <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">New signups this month</p>
           <p
             class="mt-2 font-display text-3xl tracking-[-0.02em] text-space-50"
             :aria-label="`${data.newSignupsThisMonth} new signups this month`"
@@ -51,20 +51,20 @@ const repeatPct = computed(() => {
           </p>
         </div>
         <div class="border-t border-border pt-4">
-          <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Active contributors</p>
+          <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Active contributors</p>
           <p
             class="mt-2 font-display text-3xl tracking-[-0.02em] text-space-50"
             :aria-label="`${data.activeContributors} active contributors in the last 30 days`"
           >
             {{ data.activeContributors.toLocaleString() }}
           </p>
-          <p class="mt-0.5 text-[11px] text-[#7a84a8]">submitted in last 30 days</p>
+          <p class="mt-0.5 text-[11px] text-meta">submitted in last 30 days</p>
         </div>
       </div>
 
       <!-- Retention -->
       <div class="rounded-md border border-border bg-surface p-5 space-y-3">
-        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Contributor retention</p>
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Contributor retention</p>
 
         <template v-if="retentionTotal > 0">
           <div>
@@ -94,17 +94,17 @@ const repeatPct = computed(() => {
             </li>
             <li class="flex justify-between">
               <span class="text-space-300">One-time</span>
-              <span class="font-mono text-[#7a84a8]">{{ data.contributorRetention.oneTime.toLocaleString() }}</span>
+              <span class="font-mono text-meta">{{ data.contributorRetention.oneTime.toLocaleString() }}</span>
             </li>
           </ul>
         </template>
-        <p v-else class="text-xs text-[#6f789b]">No submission data yet</p>
+        <p v-else class="text-xs text-label">No submission data yet</p>
       </div>
     </div>
 
     <!-- Top contributors -->
     <div v-if="data.topContributors.length" class="rounded-md border border-border bg-surface overflow-hidden">
-      <p class="border-b border-border px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">
+      <p class="border-b border-border px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-meta">
         Top contributors
       </p>
       <ul aria-label="Top contributors by submission count">
@@ -114,7 +114,7 @@ const repeatPct = computed(() => {
           class="flex items-center justify-between border-b border-border px-5 py-3 last:border-b-0"
         >
           <div class="flex items-center gap-3">
-            <span class="w-5 shrink-0 font-mono text-[11px] text-[#373d5a]">{{ i + 1 }}</span>
+            <span class="w-5 shrink-0 font-mono text-[11px] text-meta">{{ i + 1 }}</span>
             <span class="text-sm text-space-50">{{ c.username ?? c.accountId }}</span>
           </div>
           <span

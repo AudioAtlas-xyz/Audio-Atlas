@@ -13,7 +13,7 @@ defineProps<{
     </div>
 
     <div class="max-w-xs rounded-md border border-border bg-surface p-5">
-      <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Azure monthly spend</p>
+      <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Azure monthly spend</p>
       <p
         class="mt-2 font-display text-3xl tracking-[-0.02em] text-space-50"
         :aria-label="data.azureMonthlySpend != null
@@ -22,7 +22,7 @@ defineProps<{
       >
         {{ data.azureMonthlySpend != null ? `$${data.azureMonthlySpend.toLocaleString()}` : '—' }}
       </p>
-      <p class="mt-1 text-[11px] text-[#373d5a]">
+      <p class="mt-1 text-[11px] text-meta">
         Source: {{ data.source }} · update via <code class="text-aurora">Admin:AzureMonthlySpend</code> in config
       </p>
     </div>

@@ -184,12 +184,12 @@ const breadcrumbItems = [
               <h1 class="font-display text-5xl tracking-[-0.04em] text-space-50 sm:text-[52px]">
                 Metrics dashboard
               </h1>
-              <p class="max-w-[40rem] text-sm text-[#7a84a8]">
+              <p class="max-w-[40rem] text-sm text-meta">
                 Monitor catalogue coverage, the submission pipeline, community growth, and search demand.
               </p>
             </div>
 
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-[#373d5a]">
+            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-meta">
               {{ greeting }}
               <template v-if="collectingSince"> · {{ collectingSince }}</template>
             </p>
@@ -205,7 +205,7 @@ const breadcrumbItems = [
           <div class="flex flex-wrap items-end gap-3">
             <!-- Geography cascade -->
             <div class="flex flex-col gap-1">
-              <label class="font-mono text-[10px] uppercase tracking-[0.1em] text-[#373d5a]">Continent</label>
+              <label class="font-mono text-[10px] uppercase tracking-[0.1em] text-meta">Continent</label>
               <USelectMenu
                 v-model="filters.continent"
                 :items="continentOptions"
@@ -216,7 +216,7 @@ const breadcrumbItems = [
             </div>
 
             <div class="flex flex-col gap-1">
-              <label class="font-mono text-[10px] uppercase tracking-[0.1em] text-[#373d5a]">Region</label>
+              <label class="font-mono text-[10px] uppercase tracking-[0.1em] text-meta">Region</label>
               <USelectMenu
                 v-model="filters.region"
                 :items="regionOptions"
@@ -228,7 +228,7 @@ const breadcrumbItems = [
             </div>
 
             <div class="flex flex-col gap-1">
-              <label class="font-mono text-[10px] uppercase tracking-[0.1em] text-[#373d5a]">Country</label>
+              <label class="font-mono text-[10px] uppercase tracking-[0.1em] text-meta">Country</label>
               <USelectMenu
                 v-model="filters.country"
                 :items="countryOptions"
@@ -241,7 +241,7 @@ const breadcrumbItems = [
 
             <!-- Role -->
             <div class="flex flex-col gap-1">
-              <label class="font-mono text-[10px] uppercase tracking-[0.1em] text-[#373d5a]">Role</label>
+              <label class="font-mono text-[10px] uppercase tracking-[0.1em] text-meta">Role</label>
               <USelectMenu
                 v-model="filters.role"
                 :items="roleFilterOptions"
@@ -253,7 +253,7 @@ const breadcrumbItems = [
 
             <!-- Date range -->
             <div class="flex flex-col gap-1">
-              <label class="font-mono text-[10px] uppercase tracking-[0.1em] text-[#373d5a]">From</label>
+              <label class="font-mono text-[10px] uppercase tracking-[0.1em] text-meta">From</label>
               <UInput
                 v-model="filters.from"
                 type="date"
@@ -263,7 +263,7 @@ const breadcrumbItems = [
             </div>
 
             <div class="flex flex-col gap-1">
-              <label class="font-mono text-[10px] uppercase tracking-[0.1em] text-[#373d5a]">To</label>
+              <label class="font-mono text-[10px] uppercase tracking-[0.1em] text-meta">To</label>
               <UInput
                 v-model="filters.to"
                 type="date"
@@ -297,13 +297,13 @@ const breadcrumbItems = [
             </div>
           </div>
 
-          <p v-if="hasActiveFilters" class="font-mono text-[11px] text-[#373d5a]">
+          <p v-if="hasActiveFilters" class="font-mono text-[11px] text-meta">
             Filters active — some panels are scoped to this selection
           </p>
         </div>
 
         <!-- LOADING ─────────────────────────────────────────────────────────────── -->
-        <div v-if="pending && !data" class="flex items-center gap-3 py-16 text-[#7a84a8]">
+        <div v-if="pending && !data" class="flex items-center gap-3 py-16 text-meta">
           <UIcon name="i-lucide-loader-circle" class="h-5 w-5 animate-spin" aria-hidden="true" />
           <span class="text-sm">Loading dashboard data…</span>
         </div>
@@ -342,7 +342,7 @@ const breadcrumbItems = [
               role="region"
               aria-label="Total genres in scope"
             >
-              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Total genres</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Total genres</p>
               <p class="mt-2 font-display text-3xl tracking-[-0.02em] text-space-50">
                 {{ data.catalogue.totalGenres.toLocaleString() }}
               </p>
@@ -354,7 +354,7 @@ const breadcrumbItems = [
               role="region"
               aria-label="Pending submission queue depth"
             >
-              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Queue depth</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Queue depth</p>
               <div class="mt-2 flex items-end gap-3">
                 <p class="font-display text-3xl tracking-[-0.02em] text-space-50">
                   {{ data.pipeline.queueDepth.toLocaleString() }}
@@ -367,7 +367,7 @@ const breadcrumbItems = [
                   +{{ data.pipeline.sensitivityHolds }} holds
                 </span>
               </div>
-              <p class="mt-1 text-[11px] text-[#7a84a8]">pending submissions</p>
+              <p class="mt-1 text-[11px] text-meta">pending submissions</p>
             </div>
 
             <!-- Approval rate -->
@@ -376,11 +376,11 @@ const breadcrumbItems = [
               role="region"
               :aria-label="data.pipeline.approvalRate != null ? `Approval rate: ${data.pipeline.approvalRate}%` : 'Approval rate not yet available'"
             >
-              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Approval rate</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Approval rate</p>
               <p class="mt-2 font-display text-3xl tracking-[-0.02em] text-space-50">
                 {{ data.pipeline.approvalRate != null ? `${data.pipeline.approvalRate}%` : '—' }}
               </p>
-              <p class="mt-1 text-[11px] text-[#7a84a8]">approved vs reviewed</p>
+              <p class="mt-1 text-[11px] text-meta">approved vs reviewed</p>
             </div>
 
             <!-- Active contributors -->
@@ -389,11 +389,11 @@ const breadcrumbItems = [
               role="region"
               aria-label="Active contributors in the last 30 days"
             >
-              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Active contributors</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Active contributors</p>
               <p class="mt-2 font-display text-3xl tracking-[-0.02em] text-space-50">
                 {{ data.community.activeContributors.toLocaleString() }}
               </p>
-              <p class="mt-1 text-[11px] text-[#7a84a8]">submitted in last 30 days</p>
+              <p class="mt-1 text-[11px] text-meta">submitted in last 30 days</p>
             </div>
 
             <!-- New signups this month -->
@@ -402,11 +402,11 @@ const breadcrumbItems = [
               role="region"
               aria-label="New signups this month"
             >
-              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">New signups</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">New signups</p>
               <p class="mt-2 font-display text-3xl tracking-[-0.02em] text-space-50">
                 {{ data.community.newSignupsThisMonth.toLocaleString() }}
               </p>
-              <p class="mt-1 text-[11px] text-[#7a84a8]">this calendar month</p>
+              <p class="mt-1 text-[11px] text-meta">this calendar month</p>
             </div>
 
             <!-- Country coverage -->
@@ -415,7 +415,7 @@ const breadcrumbItems = [
               role="region"
               aria-label="Country coverage percentage"
             >
-              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Country coverage</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Country coverage</p>
               <p class="mt-2 font-display text-3xl tracking-[-0.02em] text-space-50">
                 {{
                   data.catalogue.countryCoverage.total
@@ -423,7 +423,7 @@ const breadcrumbItems = [
                     : '—'
                 }}
               </p>
-              <p class="mt-1 text-[11px] text-[#7a84a8]">
+              <p class="mt-1 text-[11px] text-meta">
                 {{ data.catalogue.countryCoverage.withGenres }} / {{ data.catalogue.countryCoverage.total }} countries
               </p>
             </div>
