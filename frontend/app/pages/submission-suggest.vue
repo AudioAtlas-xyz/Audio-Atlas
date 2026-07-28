@@ -179,7 +179,7 @@ const breadcrumbItems = computed(() => [
             <h1 class="font-display text-4xl tracking-[-0.03em] text-space-50">
               Suggest an edit
             </h1>
-            <p class="mt-2 text-sm text-[#7a84a8]">
+            <p class="mt-2 text-sm text-meta">
               Proposing changes to
               <NuxtLink :to="genreHref" class="text-aurora hover:opacity-70 underline decoration-dotted">
                 {{ genre.name }}
@@ -230,7 +230,7 @@ const breadcrumbItems = computed(() => [
         <!-- Success -->
         <div v-else-if="submitted" class="rounded-md border border-border bg-surface p-8 text-center space-y-4">
           <p class="font-display text-2xl text-aurora">Suggestion submitted!</p>
-          <p class="text-sm text-[#7a84a8]">
+          <p class="text-sm text-meta">
             A curator will review your suggestion. Thank you for contributing to Audio Atlas.
           </p>
           <NuxtLink :to="genreHref">
@@ -251,14 +251,14 @@ const breadcrumbItems = computed(() => [
             :description="submitError"
           />
 
-          <p class="text-xs text-[#7a84a8]">
+          <p class="text-xs text-meta">
             Only fill in the fields you want to change. Empty fields will be ignored during approval.
             Relation fields (countries, instruments, etc.) will replace existing ones if you include any entries.
           </p>
 
           <!-- Description -->
           <div>
-            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
               Description
             </label>
             <UTextarea v-model="description" :rows="6" class="w-full" />
@@ -266,7 +266,7 @@ const breadcrumbItems = computed(() => [
 
           <!-- Playlist link -->
           <div>
-            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
               Playlist link
             </label>
             <UInput v-model="playlistLink" placeholder="https://…" class="w-full" />
@@ -274,7 +274,7 @@ const breadcrumbItems = computed(() => [
 
           <!-- Start date -->
           <div class="max-w-[200px]">
-            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
               Start date
             </label>
             <UInput v-model="startDate" placeholder="YYYY-MM-DD" class="w-full" />
@@ -282,7 +282,7 @@ const breadcrumbItems = computed(() => [
 
           <!-- Countries -->
           <div>
-            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
               Countries
             </label>
             <USelectMenu
@@ -296,7 +296,7 @@ const breadcrumbItems = computed(() => [
 
           <!-- Instruments -->
           <div>
-            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
               Instruments
             </label>
             <USelectMenu
@@ -310,7 +310,7 @@ const breadcrumbItems = computed(() => [
 
           <!-- Similar genres -->
           <div>
-            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
               Similar genres
             </label>
             <USelectMenu
@@ -325,7 +325,7 @@ const breadcrumbItems = computed(() => [
 
           <!-- Subgenres -->
           <div>
-            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
               Subgenres
             </label>
             <USelectMenu
@@ -340,7 +340,7 @@ const breadcrumbItems = computed(() => [
 
           <!-- Predecessor genres -->
           <div>
-            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
               Predecessor genres
             </label>
             <USelectMenu
@@ -355,16 +355,16 @@ const breadcrumbItems = computed(() => [
 
           <!-- Aliases -->
           <div>
-            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
-              Aliases <span class="normal-case tracking-normal text-[#4a6070]">(one per line)</span>
+            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
+              Aliases <span class="normal-case tracking-normal text-label">(one per line)</span>
             </label>
             <UTextarea v-model="aliasText" :rows="3" class="w-full" />
           </div>
 
           <!-- Source links -->
           <div>
-            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
-              Source links <span class="normal-case tracking-normal text-[#4a6070]">(one per line)</span>
+            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
+              Source links <span class="normal-case tracking-normal text-label">(one per line)</span>
             </label>
             <UTextarea v-model="sourceText" :rows="3" class="w-full" />
           </div>
@@ -373,13 +373,13 @@ const breadcrumbItems = computed(() => [
           <div class="flex items-center justify-between rounded-md border border-border bg-surface-2 px-4 py-3">
             <div>
               <p class="text-sm font-medium text-space-50">Sensitive content</p>
-              <p class="text-xs text-[#7a84a8]">Flag this genre as culturally sensitive</p>
+              <p class="text-xs text-meta">Flag this genre as culturally sensitive</p>
             </div>
             <UToggle v-model="isSensitive" />
           </div>
 
           <div v-if="isSensitive">
-            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+            <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
               Sensitivity description
             </label>
             <UTextarea v-model="sensitiveDescription" :rows="3" class="w-full" />

@@ -28,7 +28,7 @@ const geographicItems = computed(() =>
   <div class="space-y-6">
     <div class="border-b border-border pb-4">
       <h2 class="font-display text-[22px] tracking-[-0.02em] text-space-50">Catalogue</h2>
-      <p class="mt-1 text-xs text-[#7a84a8]">
+      <p class="mt-1 text-xs text-meta">
         {{ data.genreCountryLinkCount.toLocaleString() }} genre–country links ·
         <NuxtLink to="/admin/genres" class="underline decoration-dotted hover:text-aurora transition-colors">
           {{ data.totalGenres.toLocaleString() }} genres in scope
@@ -39,7 +39,7 @@ const geographicItems = computed(() =>
     <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       <!-- Geographic balance -->
       <div class="rounded-md border border-border bg-surface p-5">
-        <p class="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Geographic balance</p>
+        <p class="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Geographic balance</p>
         <AdminBarChart
           :items="geographicItems"
           aria-label="Genres per continent"
@@ -48,7 +48,7 @@ const geographicItems = computed(() =>
 
       <!-- Country coverage -->
       <div class="rounded-md border border-border bg-surface p-5 space-y-3">
-        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Country coverage</p>
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Country coverage</p>
 
         <div>
           <p
@@ -57,14 +57,14 @@ const geographicItems = computed(() =>
           >
             {{ coveragePct }}%
           </p>
-          <p class="mt-0.5 text-xs text-[#7a84a8]">
+          <p class="mt-0.5 text-xs text-meta">
             {{ data.countryCoverage.withGenres }} of {{ data.countryCoverage.total }} countries have at least one genre
           </p>
         </div>
 
         <template v-if="data.countryCoverage.gapList.length">
           <div>
-            <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#e05570]">
+            <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-rust">
               Gap worklist · {{ data.countryCoverage.gapList.length }} countries
             </p>
             <ul
@@ -74,7 +74,7 @@ const geographicItems = computed(() =>
               <li
                 v-for="country in data.countryCoverage.gapList"
                 :key="country"
-                class="flex items-center gap-1.5 text-xs text-[#7a84a8]"
+                class="flex items-center gap-1.5 text-xs text-meta"
               >
                 <span class="h-1 w-1 shrink-0 rounded-full bg-[#e05570]" aria-hidden="true" />
                 {{ country }}
@@ -87,7 +87,7 @@ const geographicItems = computed(() =>
 
       <!-- Data completeness -->
       <div class="rounded-md border border-border bg-surface p-5 space-y-4">
-        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">Data completeness</p>
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Data completeness</p>
 
         <!-- Content gate progress -->
         <div>
@@ -108,7 +108,7 @@ const geographicItems = computed(() =>
               :aria-label="`${contentReadyPct}% review-ready`"
             />
           </div>
-          <p class="mt-1 text-[11px] text-[#7a84a8]">
+          <p class="mt-1 text-[11px] text-meta">
             {{ data.contentGate.ready.toLocaleString() }} ready ·
             <NuxtLink
               to="/admin/genres?filter=below-gate"
@@ -127,7 +127,7 @@ const geographicItems = computed(() =>
             <NuxtLink
               to="/admin/genres?filter=orphans"
               class="font-mono text-xs transition-colors hover:underline"
-              :class="data.dataCompleteness.orphanGenres > 0 ? 'text-[#e05570]' : 'text-aurora'"
+              :class="data.dataCompleteness.orphanGenres > 0 ? 'text-rust' : 'text-aurora'"
               :aria-label="`${data.dataCompleteness.orphanGenres} orphan genres`"
             >{{ data.dataCompleteness.orphanGenres.toLocaleString() }}</NuxtLink>
           </li>
@@ -139,7 +139,7 @@ const geographicItems = computed(() =>
             <NuxtLink
               to="/admin/genres?filter=missing-sources"
               class="font-mono text-xs transition-colors hover:underline"
-              :class="data.dataCompleteness.missingSources > 0 ? 'text-[#e05570]' : 'text-aurora'"
+              :class="data.dataCompleteness.missingSources > 0 ? 'text-rust' : 'text-aurora'"
               :aria-label="`${data.dataCompleteness.missingSources} genres missing sources`"
             >{{ data.dataCompleteness.missingSources.toLocaleString() }}</NuxtLink>
           </li>
@@ -151,7 +151,7 @@ const geographicItems = computed(() =>
             <NuxtLink
               to="/admin/genres?filter=sensitive-incomplete"
               class="font-mono text-xs transition-colors hover:underline"
-              :class="data.dataCompleteness.sensitiveMissingDescription > 0 ? 'text-[#e05570]' : 'text-aurora'"
+              :class="data.dataCompleteness.sensitiveMissingDescription > 0 ? 'text-rust' : 'text-aurora'"
               :aria-label="`${data.dataCompleteness.sensitiveMissingDescription} sensitive genres with no sensitive description`"
             >{{ data.dataCompleteness.sensitiveMissingDescription.toLocaleString() }}</NuxtLink>
           </li>
@@ -159,7 +159,7 @@ const geographicItems = computed(() =>
             <span class="text-xs text-space-300">Missing media link</span>
             <span
               class="font-mono text-xs"
-              :class="data.dataCompleteness.missingMedia > 0 ? 'text-[#e05570]' : 'text-aurora'"
+              :class="data.dataCompleteness.missingMedia > 0 ? 'text-rust' : 'text-aurora'"
               :aria-label="`${data.dataCompleteness.missingMedia} missing media links`"
             >{{ data.dataCompleteness.missingMedia.toLocaleString() }}</span>
           </li>
@@ -169,7 +169,7 @@ const geographicItems = computed(() =>
 
     <!-- Regions breakdown (collapsible) -->
     <details class="group">
-      <summary class="cursor-pointer select-none list-none font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a] hover:text-[#7a84a8]">
+      <summary class="cursor-pointer select-none list-none font-mono text-[10px] uppercase tracking-[0.18em] text-meta hover:text-meta">
         <span class="group-open:hidden">▶ Genres by region</span>
         <span class="hidden group-open:inline">▼ Genres by region</span>
       </summary>

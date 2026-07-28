@@ -59,7 +59,7 @@ const closeModal = () => {
       >
         + Add a genre from {{ countryName }}
       </UButton>
-      <p class="text-[11px] text-[#373d5a]">
+      <p class="text-[11px] text-meta">
         Know a {{ countryName }} genre we&apos;ve missed?
       </p>
 

@@ -318,12 +318,12 @@ const breadcrumbItems = [
               <h1 class="font-display text-5xl tracking-[-0.04em] text-space-50 sm:text-[52px]">
                 Submission queue
               </h1>
-              <p class="max-w-[40rem] text-sm text-[#7a84a8]">
+              <p class="max-w-[40rem] text-sm text-meta">
                 Review, edit, approve, or reject genre submissions from contributors.
               </p>
             </div>
 
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-[#373d5a]">
+            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-meta">
               {{ visibleSubmissions.length }} of {{ pendingSubmissions?.length ?? 0 }} pending shown
             </p>
           </div>
@@ -372,7 +372,7 @@ const breadcrumbItems = [
           v-else-if="!queueLoading && visibleSubmissions.length === 0"
           class="rounded-md border border-border bg-surface px-6 py-12 text-center"
         >
-          <p class="text-sm text-[#6f789b]">
+          <p class="text-sm text-label">
             {{ search ? 'No submissions match your search.' : 'No pending submissions.' }}
           </p>
         </div>
@@ -405,7 +405,7 @@ const breadcrumbItems = [
                       {{ item.isEditSuggestion ? 'Suggestion' : 'New genre' }}
                     </UBadge>
                   </div>
-                  <p class="mt-0.5 font-mono text-[11px] text-[#7a84a8]">
+                  <p class="mt-0.5 font-mono text-[11px] text-meta">
                     @{{ item.accountUsername }} · {{ formatDate(item.submittedAt) }}
                   </p>
                 </div>
@@ -427,12 +427,12 @@ const breadcrumbItems = [
                       variant="subtle"
                       color="neutral"
                       size="xs"
-                      class="border border-border text-[#7a84a8]"
+                      class="border border-border text-meta"
                     >
                       +{{ getCountryNames(item.countryIds).length - 3 }}
                     </UBadge>
                   </div>
-                  <UIcon name="i-lucide-chevron-down" class="h-4 w-4 text-[#7a84a8] transition-transform group-data-[state=open]:rotate-180" />
+                  <UIcon name="i-lucide-chevron-down" class="h-4 w-4 text-meta transition-transform group-data-[state=open]:rotate-180" />
                 </div>
               </div>
             </UButton>
@@ -459,17 +459,17 @@ const breadcrumbItems = [
 
                     <div class="grid gap-3 sm:grid-cols-2">
                       <div>
-                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Description</p>
+                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-label">Description</p>
                         <p class="text-sm leading-relaxed text-[#b9c6df]">{{ item.description || '—' }}</p>
                       </div>
 
                       <div class="space-y-3">
                         <div>
-                          <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Countries</p>
+                          <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-label">Countries</p>
                           <p class="text-sm text-space-50">{{ getCountryNames(item.countryIds).join(', ') || '—' }}</p>
                         </div>
                         <div>
-                          <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Instruments</p>
+                          <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-label">Instruments</p>
                           <p class="text-sm text-space-50">{{ getInstrumentNames(item.instrumentIds).join(', ') || '—' }}</p>
                         </div>
                       </div>
@@ -477,26 +477,26 @@ const breadcrumbItems = [
 
                     <div class="grid gap-3 sm:grid-cols-3">
                       <div>
-                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Similar genres</p>
+                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-label">Similar genres</p>
                         <p class="text-sm text-space-50">{{ getGenreNames(item.similarGenreIds).join(', ') || '—' }}</p>
                       </div>
                       <div>
-                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Subgenres</p>
+                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-label">Subgenres</p>
                         <p class="text-sm text-space-50">{{ getGenreNames(item.subGenreIds).join(', ') || '—' }}</p>
                       </div>
                       <div>
-                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Predecessors</p>
+                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-label">Predecessors</p>
                         <p class="text-sm text-space-50">{{ getGenreNames(item.predecessorGenreIds).join(', ') || '—' }}</p>
                       </div>
                     </div>
 
                     <div class="grid gap-3 sm:grid-cols-2">
                       <div v-if="item.aliases.length">
-                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Aliases</p>
+                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-label">Aliases</p>
                         <p class="text-sm text-space-50">{{ item.aliases.join(', ') }}</p>
                       </div>
                       <div v-if="item.playlistLink">
-                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Playlist</p>
+                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-label">Playlist</p>
                         <a
                           :href="item.playlistLink"
                           target="_blank"
@@ -509,7 +509,7 @@ const breadcrumbItems = [
                     </div>
 
                     <div v-if="item.sourceLinks.length">
-                      <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Sources</p>
+                      <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-label">Sources</p>
                       <ul class="space-y-0.5">
                         <li v-for="link in item.sourceLinks" :key="link">
                           <a
@@ -532,7 +532,7 @@ const breadcrumbItems = [
 
                   <!-- Right: actions -->
                   <div class="flex flex-col gap-3 lg:border-l lg:border-border lg:pl-6">
-                    <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Actions</p>
+                    <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-label">Actions</p>
 
                     <UButton
                       color="primary"
@@ -554,7 +554,7 @@ const breadcrumbItems = [
                     </UButton>
 
                     <div class="space-y-2 rounded-md border border-border bg-surface-2 p-3">
-                      <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">Reject</p>
+                      <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-label">Reject</p>
                       <USelectMenu
                         :model-value="rejectReasonMap.get(item.id)"
                         :items="rejectionReasonOptions"
@@ -575,7 +575,7 @@ const breadcrumbItems = [
                       </UButton>
                     </div>
 
-                    <p class="font-mono text-[10px] text-[#373d5a]">
+                    <p class="font-mono text-[10px] text-meta">
                       ID: {{ item.id }}
                     </p>
                   </div>
@@ -604,7 +604,7 @@ const breadcrumbItems = [
           <!-- Slideover header -->
           <div class="flex items-center justify-between border-b border-border px-6 py-4">
             <div>
-              <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#4a6070]">
+              <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-label">
                 {{ editTarget?.isEditSuggestion ? 'Edit suggestion' : 'Edit submission' }}
               </p>
               <p class="mt-0.5 font-semibold text-space-50">
@@ -627,7 +627,7 @@ const breadcrumbItems = [
 
               <!-- Genre name (new submissions only) -->
               <div v-if="!editTarget?.isEditSuggestion">
-                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
                   Genre name
                 </label>
                 <UInput v-model="editForm.newGenreName" class="w-full" />
@@ -635,7 +635,7 @@ const breadcrumbItems = [
 
               <!-- Description -->
               <div>
-                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
                   Description
                 </label>
                 <UTextarea v-model="editForm.description" :rows="5" class="w-full" />
@@ -644,13 +644,13 @@ const breadcrumbItems = [
               <!-- Dates -->
               <div class="grid grid-cols-2 gap-3">
                 <div>
-                  <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+                  <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
                     Start date
                   </label>
                   <UInput v-model="editForm.startDate" placeholder="YYYY-MM-DD" class="w-full" />
                 </div>
                 <div>
-                  <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+                  <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
                     End date
                   </label>
                   <UInput v-model="editForm.endDate" placeholder="YYYY-MM-DD" class="w-full" />
@@ -659,7 +659,7 @@ const breadcrumbItems = [
 
               <!-- Countries -->
               <div>
-                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
                   Countries
                 </label>
                 <USelectMenu
@@ -673,7 +673,7 @@ const breadcrumbItems = [
 
               <!-- Instruments -->
               <div>
-                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
                   Instruments
                 </label>
                 <USelectMenu
@@ -687,7 +687,7 @@ const breadcrumbItems = [
 
               <!-- Similar genres -->
               <div>
-                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
                   Similar genres
                 </label>
                 <USelectMenu
@@ -702,7 +702,7 @@ const breadcrumbItems = [
 
               <!-- Subgenres -->
               <div>
-                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
                   Subgenres
                 </label>
                 <USelectMenu
@@ -717,7 +717,7 @@ const breadcrumbItems = [
 
               <!-- Predecessor genres -->
               <div>
-                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
                   Predecessor genres
                 </label>
                 <USelectMenu
@@ -732,7 +732,7 @@ const breadcrumbItems = [
 
               <!-- Playlist link -->
               <div>
-                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
                   Playlist link
                 </label>
                 <UInput v-model="editForm.playlistLink" placeholder="https://…" class="w-full" />
@@ -740,16 +740,16 @@ const breadcrumbItems = [
 
               <!-- Aliases -->
               <div>
-                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
-                  Aliases <span class="normal-case tracking-normal text-[#4a6070]">(one per line)</span>
+                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
+                  Aliases <span class="normal-case tracking-normal text-label">(one per line)</span>
                 </label>
                 <UTextarea v-model="editForm.aliases" :rows="3" class="w-full" />
               </div>
 
               <!-- Source links -->
               <div>
-                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
-                  Source links <span class="normal-case tracking-normal text-[#4a6070]">(one per line)</span>
+                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
+                  Source links <span class="normal-case tracking-normal text-label">(one per line)</span>
                 </label>
                 <UTextarea v-model="editForm.sourceLinks" :rows="3" class="w-full" />
               </div>
@@ -758,13 +758,13 @@ const breadcrumbItems = [
               <div class="flex items-center justify-between rounded-md border border-border bg-surface-2 px-4 py-3">
                 <div>
                   <p class="text-sm font-medium text-space-50">Sensitive content</p>
-                  <p class="text-xs text-[#7a84a8]">Flag this submission as culturally sensitive</p>
+                  <p class="text-xs text-meta">Flag this submission as culturally sensitive</p>
                 </div>
                 <UToggle v-model="editForm.isSensitive" />
               </div>
 
               <div v-if="editForm.isSensitive">
-                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-[#7a84a8]">
+                <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
                   Sensitivity description
                 </label>
                 <UTextarea v-model="editForm.sensitiveDescription" :rows="3" class="w-full" />

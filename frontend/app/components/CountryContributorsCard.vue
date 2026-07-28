@@ -44,7 +44,7 @@ function formatGenreCount(count: number) {
         <p class="text-sm text-space-50">
           Contributors
         </p>
-        <p class="font-mono text-[11px] text-[#373d5a]">
+        <p class="font-mono text-[11px] text-meta">
           {{ contributors.length }}
         </p>
       </div>
@@ -75,7 +75,7 @@ function formatGenreCount(count: number) {
           </div>
         </div>
 
-        <p class="shrink-0 text-[11px] text-[#373d5a]">
+        <p class="shrink-0 text-[11px] text-meta">
           {{ contributor.genresLabel }}
         </p>
       </div>

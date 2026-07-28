@@ -98,14 +98,14 @@ const greeting = computed(() =>
                 Audio Atlas Admin
               </h1>
 
-              <p class="max-w-[40rem] text-sm text-[#7a84a8]">
+              <p class="max-w-[40rem] text-sm text-meta">
                 Tools for monitoring community growth, identifying active
                 contributors, and moderating content across the atlas.
               </p>
             </div>
 
             <!-- META ROW -->
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-[#373d5a]">
+            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-meta">
               {{ greeting }}
             </p>
           </div>
@@ -119,7 +119,7 @@ const greeting = computed(() =>
           <h2 class="font-display text-[28px] tracking-[-0.02em] text-space-50">
             Tools
           </h2>
-          <p class="mt-2 text-xs text-[#373d5a]">
+          <p class="mt-2 text-xs text-meta">
             {{ visibleTools.length }} admin {{ visibleTools.length === 1 ? 'tool' : 'tools' }} available
           </p>
         </div>
@@ -138,7 +138,7 @@ const greeting = computed(() =>
                 :name="tool.icon"
                 class="h-5 w-5 text-aurora"
               />
-              <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-[#373d5a]">
+              <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-meta">
                 {{ tool.label }}
               </span>
             </div>
@@ -148,7 +148,7 @@ const greeting = computed(() =>
               <p class="font-display text-lg tracking-[-0.01em] text-space-50">
                 {{ tool.title }}
               </p>
-              <p class="text-xs leading-relaxed text-[#7a84a8]">
+              <p class="text-xs leading-relaxed text-meta">
                 {{ tool.description }}
               </p>
             </div>

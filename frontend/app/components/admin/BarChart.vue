@@ -61,7 +61,7 @@ const barColor = computed(() => props.color ?? 'var(--color-aurora)')
       </div>
     </div>
 
-    <p v-if="!displayItems.length" class="text-xs text-[#6f789b]">
+    <p v-if="!displayItems.length" class="text-xs text-label">
       No data yet
     </p>
   </div>

@@ -21,7 +21,7 @@ const props = defineProps<{
         <p class="text-sm text-space-50">
           Instruments
         </p>
-        <p class="font-mono text-[11px] text-[#373d5a]">
+        <p class="font-mono text-[11px] text-meta">
           {{ props.instruments.length }}
         </p>
       </div>

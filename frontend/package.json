@@ -8,6 +8,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
+    "check:contrast": "node scripts/check-contrast.mjs",
     "typecheck": "nuxt typecheck",
     "test": "vitest run"
   },
