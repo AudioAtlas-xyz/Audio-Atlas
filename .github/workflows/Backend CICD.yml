@@ -38,9 +38,13 @@ jobs:
         working-directory: ./Backend
         run: dotnet build --configuration Release --no-restore
 
+      # Publish the API project explicitly. Without a project argument this
+      # resolves AudioAtlasBackend.slnx and publishes every project in the
+      # solution -- including the test project -- into one output directory,
+      # shipping xunit, Moq, testhost and coverlet to the web server.
       - name: Publish backend
         working-directory: ./Backend
-        run: dotnet publish -c Release -o publish --no-build
+        run: dotnet publish src/AudioAtlasView/AudioAtlas.API.csproj -c Release -o publish --no-build
 
       - name: Upload backend artifact
         uses: actions/upload-artifact@v4
@@ -115,9 +119,15 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_0B65326FD3F94047AF49E32DB65CCC9A }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A2D4CD78EF294700891063B3F237FB7C }}
 
+      # clean removes files already in wwwroot that are not in this package.
+      # Without it the target directory only ever accumulates: assemblies from
+      # renamed projects (AudioAtlasView.dll, AudioAtlasInfrastructure.dll) and
+      # an orphaned seeding.json survived there for months, making it ambiguous
+      # which files the running app was actually loading.
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: api-audioatlas
           slot-name: Production
           package: backend-artifact
+          clean: true
