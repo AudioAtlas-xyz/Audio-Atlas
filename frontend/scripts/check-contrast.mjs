@@ -33,7 +33,7 @@ const SURFACE_TOKENS = ['bg', 'surface', 'surface-2', 'surface-3']
  *  the goal. Shape: { value: '#rrggbb', reason: '...' } */
 const ALLOWLIST = []
 
-const parseTokens = (css) => {
+function parseTokens(css) {
   const tokens = new Map()
   for (const m of css.matchAll(/--color-([\w-]+):\s*(#[0-9a-fA-F]{3,8})/g)) {
     tokens.set(m[1], m[2].toLowerCase())
@@ -41,12 +41,12 @@ const parseTokens = (css) => {
   return tokens
 }
 
-const expand = (hex) => {
+function expand(hex) {
   const h = hex.replace('#', '')
   return h.length === 3 ? h.split('').map(c => c + c).join('') : h.slice(0, 6)
 }
 
-const luminance = (hex) => {
+function luminance(hex) {
   const h = expand(hex)
   const channels = [0, 2, 4].map((i) => {
     const c = parseInt(h.slice(i, i + 2), 16) / 255
@@ -55,12 +55,12 @@ const luminance = (hex) => {
   return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2]
 }
 
-const contrast = (a, b) => {
+function contrast(a, b) {
   const [la, lb] = [luminance(a), luminance(b)]
   return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05)
 }
 
-const walk = (dir, out = []) => {
+function walk(dir, out = []) {
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry)
     if (statSync(full).isDirectory()) walk(full, out)
@@ -81,13 +81,15 @@ if (!surfaces.length) {
   process.exit(1)
 }
 
-// Token names that could appear as text-<name>. Sorted longest-first so
-// "space-300" wins over a hypothetical "space".
-const tokenNames = [...tokens.keys()].sort((a, b) => b.length - a.length)
-const tokenPattern = new RegExp(`\\btext-(${tokenNames.join('|')})\\b`, 'g')
+// Utility patterns are static and the captured name is then looked up in the
+// token map. Building a RegExp from the token names would work — they are
+// parsed as [\w-]+ from our own stylesheet, so no metacharacters can appear —
+// but a literal pattern plus a membership check is simpler and removes the
+// dynamic construction entirely.
+const tokenPattern = /\btext-([\w-]+)\b/g
 const arbitraryPattern = /\btext-\[(#[0-9a-fA-F]{3,8})\]/g
 
-const bgTokenPattern = new RegExp(`\\bbg-(${tokenNames.join('|')})\\b`)
+const bgTokenPattern = /\bbg-([\w-]+)\b/g
 const bgArbitraryPattern = /\bbg-\[(#[0-9a-fA-F]{3,8})\]/
 
 /**
@@ -98,16 +100,18 @@ const bgArbitraryPattern = /\bbg-\[(#[0-9a-fA-F]{3,8})\]/
  * text on an accent background reads as a failure when it is in fact the
  * highest-contrast text on the page.
  */
-const backgroundsFor = (classString) => {
+function backgroundsFor(classString) {
   const arb = classString.match(bgArbitraryPattern)
   if (arb) return [{ name: `[${arb[1]}]`, value: arb[1].toLowerCase() }]
-  const tok = classString.match(bgTokenPattern)
-  if (tok && tokens.get(tok[1])) return [{ name: tok[1], value: tokens.get(tok[1]) }]
+  for (const tok of classString.matchAll(bgTokenPattern)) {
+    const value = tokens.get(tok[1])
+    if (value) return [{ name: tok[1], value }]
+  }
   return surfaces
 }
 
 const usage = new Map() // hex -> { count, files:Set, label, pairedOnly }
-const record = (hex, file, label, bgs) => {
+function record(hex, file, label, bgs) {
   const key = expand(hex).toLowerCase()
   if (key.length !== 6) return // skip alpha/oddities we cannot reason about
   const full = `#${key}`
@@ -136,7 +140,7 @@ const record = (hex, file, label, bgs) => {
  */
 const classAttrPattern = /(?::|v-bind:)?class\s*=\s*(?:"([^"]*)"|'([^']*)')/gs
 
-const spansFor = (src) => {
+function spansFor(src) {
   const spans = []
   for (const m of src.matchAll(classAttrPattern)) {
     const body = m[1] ?? m[2] ?? ''
@@ -146,7 +150,9 @@ const spansFor = (src) => {
   return spans
 }
 
-const bgsAt = (spans, index) => spans.find(s => index >= s.start && index < s.end)?.bgs ?? surfaces
+function bgsAt(spans, index) {
+  return spans.find(s => index >= s.start && index < s.end)?.bgs ?? surfaces
+}
 
 for (const file of walk(SCAN_DIR)) {
   const src = readFileSync(file, 'utf8')
@@ -169,7 +175,9 @@ for (const [hex, info] of [...usage.entries()].sort((a, b) => b[1].count - a[1].
   if (!ok) failures.push({ hex, info, worst })
 }
 
-const pad = (s, n) => String(s).padEnd(n)
+function pad(s, n) {
+  return String(s).padEnd(n)
+}
 console.log(`Text contrast — WCAG AA ${MIN_RATIO}:1, worst case across ${surfaces.length} surfaces\n`)
 console.log(`${pad('colour', 10)} ${pad('token', 12)} ${pad('uses', 6)} ${pad('worst', 8)} status`)
 console.log('-'.repeat(52))
