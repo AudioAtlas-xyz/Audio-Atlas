@@ -12,5 +12,6 @@ public interface ICountryRepository
     public Dictionary<string, int> getGenreCounts();
     public ICollection<Genre> getGenres(Guid id);
     public ICollection<Country> getAllCountries();
+    public ICollection<GroupingDTO> getGroupings();
 
 }
