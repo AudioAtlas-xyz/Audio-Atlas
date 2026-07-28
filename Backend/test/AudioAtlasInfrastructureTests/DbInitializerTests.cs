@@ -150,14 +150,13 @@ public class DbInitializerTests
     }
 
     [Fact]
-    public async Task SeedAdditionalData_completes_when_a_duplicate_country_isoCode_exists()
+    public async Task Countries_reject_a_duplicate_isoCode()
     {
-        // Regression: production had two Countries rows with isoCode "XKX".
-        // The supplemental seeder built its country lookup with ToDictionaryAsync,
-        // which threw on the duplicate key. Because that lookup sits after genres
-        // are saved but before any relations are linked, every batch's countries,
-        // instruments, hierarchy, similarity, aliases and sources were silently
-        // dropped, leaving the catalogue full of orphaned genres.
+        // Production had two Countries rows with isoCode "XKX". The supplemental
+        // seeder looks countries up by isoCode, and the duplicate made it throw
+        // part-way through — after genres were saved but before any relations were
+        // linked — leaving the catalogue full of orphaned genres. The unique index
+        // makes that state unreachable.
         using var harness = new DbInitializerTestHarness();
 
         await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Configuration, harness.Logger);
@@ -173,12 +172,20 @@ public class DbInitializerTests
             Description = existing.Description,
             isoCode = existing.isoCode
         });
-        await harness.Context.SaveChangesAsync();
 
-        // Must not throw.
+        await Assert.ThrowsAnyAsync<DbUpdateException>(() => harness.Context.SaveChangesAsync());
+    }
+
+    [Fact]
+    public async Task SeedAdditionalData_links_relations_for_supplemental_genres()
+    {
+        // The relation sections sit after the country lookup in the seeder, so this
+        // asserts the seeder gets all the way through rather than stopping early.
+        using var harness = new DbInitializerTestHarness();
+
+        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Configuration, harness.Logger);
         await DbInitializer.SeedAdditionalDataAsync(harness.Context, harness.Logger);
 
-        // And must still get past the lookup to link relations.
         AudioAtlasDomain.Genres.Genre? seeded = await harness.Context.Genres
             .Include(g => g.Countries)
             .FirstOrDefaultAsync(g => g.Name == "Reigen (Nauru)");
