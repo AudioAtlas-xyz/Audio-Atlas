@@ -191,7 +191,22 @@ public class DbInitializer
         }
 
         // ── Countries lookup ────────────────────────────────────────────────────
-        var countryLookup = await dbContext.Countries.ToDictionaryAsync(c => c.isoCode);
+        // Built defensively rather than with ToDictionaryAsync. isoCode has no
+        // uniqueness constraint, and a single duplicated row used to throw here —
+        // which aborted the whole supplemental seed *after* genres had been saved
+        // but *before* any countries, instruments or relations were linked,
+        // leaving the catalogue full of orphaned genres. A duplicate should
+        // degrade to a warning, not silently destroy every relation.
+        var countryLookup = new Dictionary<string, Country>();
+        foreach (Country country in await dbContext.Countries.ToListAsync())
+        {
+            if (!countryLookup.TryAdd(country.isoCode, country))
+            {
+                logger.LogWarning(
+                    "Duplicate country isoCode '{IsoCode}' in the Countries table; keeping the first row and ignoring the duplicate. Clean this up in the database.",
+                    country.isoCode);
+            }
+        }
 
         // ── Helper: get Guid set of genres involved in a section ────────────────
         static HashSet<Guid> CollectGenreIds(JsonElement arr, string key, Dictionary<string, Genre> map)
