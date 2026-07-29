@@ -12,7 +12,7 @@ public class PendingSubmissionResponse
     public string? Description { get; set; }
     public bool IsSensitive { get; set; }
     public string? SensitiveDescription { get; set; }
-    public string? PlaylistLink { get; set; }
+    public string? ExampleSongYoutubeId { get; set; }
     public ICollection<string> Aliases { get; set; } = new List<string>();
     public ICollection<string> SourceLinks { get; set; } = new List<string>();
     public ICollection<Guid> CountryIds { get; set; } = new List<Guid>();

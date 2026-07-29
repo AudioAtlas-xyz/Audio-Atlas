@@ -38,7 +38,8 @@ const filterOptions = [
   { label: 'No description',   value: 'below-gate' },
   { label: 'No countries',     value: 'orphans' },
   { label: 'No sources',       value: 'missing-sources' },
-  { label: 'Sensitive, no note', value: 'sensitive-incomplete' }
+  { label: 'Sensitive, no note', value: 'sensitive-incomplete' },
+  { label: 'No example song', value: 'missing-song' }
 ]
 
 let searchDebounce: ReturnType<typeof setTimeout> | null = null
@@ -140,7 +141,7 @@ interface EditForm {
   startYear: string
   isSensitive: boolean
   sensitiveDescription: string
-  playlistLink: string
+  exampleSongYoutubeId: string
   countryIds: string[]
   instrumentIds: string[]
   similarGenreIds: string[]
@@ -152,7 +153,7 @@ interface EditForm {
 
 const editForm = reactive<EditForm>({
   name: '', description: '', startYear: '',
-  isSensitive: false, sensitiveDescription: '', playlistLink: '',
+  isSensitive: false, sensitiveDescription: '', exampleSongYoutubeId: '',
   countryIds: [], instrumentIds: [],
   similarGenreIds: [], subGenreIds: [], parentGenreIds: [],
   aliases: [], sources: []
@@ -200,7 +201,7 @@ function populateForm(d: AdminGenreDetail) {
   editForm.startYear = d.startYear != null ? String(d.startYear) : ''
   editForm.isSensitive = d.isSensitive
   editForm.sensitiveDescription = d.sensitiveDescription ?? ''
-  editForm.playlistLink = d.playlistLink ?? ''
+  editForm.exampleSongYoutubeId = d.exampleSongYoutubeId ?? ''
   editForm.countryIds = d.countries.map(c => c.id)
   editForm.instrumentIds = d.instruments.map(i => i.id)
   editForm.similarGenreIds = d.similarGenres.map(g => g.id)
@@ -236,7 +237,7 @@ async function save() {
     startYear: startYearNum,
     isSensitive: editForm.isSensitive,
     sensitiveDescription: editForm.sensitiveDescription.trim() || null,
-    playlistLink: editForm.playlistLink.trim() || null,
+    exampleSongYoutubeId: editForm.exampleSongYoutubeId.trim() || null,
     countryIds: editForm.countryIds,
     instrumentIds: editForm.instrumentIds,
     similarGenreIds: editForm.similarGenreIds,
@@ -517,7 +518,7 @@ const breadcrumbItems = [
                             </div>
                             <div>
                               <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-meta">Playlist link</label>
-                              <UInput v-model="editForm.playlistLink" class="w-full" />
+                              <UInput v-model="editForm.exampleSongYoutubeId" class="w-full" />
                             </div>
                           </div>
 

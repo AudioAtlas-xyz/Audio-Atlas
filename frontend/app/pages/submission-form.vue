@@ -20,6 +20,27 @@ const state = reactive({
   countries: []
 })
 
+/**
+ * Client-side sanity check only — the server parser is authoritative and does
+ * the real extraction.
+ *
+ * Deliberately three simple patterns rather than one combined regex. Matching
+ * the query string with `(.*&)?v=` backtracks quadratically on a long input,
+ * and there is no need to parse the query with a regex at all: scanning for the
+ * v parameter separately is linear and easier to read.
+ */
+const YOUTUBE_HOST = /^(https?:\/\/)?((www|m|music)\.)?youtube\.com\//i
+const YOUTUBE_SHORT = /^(https?:\/\/)?(www\.)?youtu\.be\/[A-Za-z0-9_-]{11}/i
+const YOUTUBE_PATH_ID = /^(https?:\/\/)?((www|m|music)\.)?youtube\.com\/(shorts|embed|live)\/[A-Za-z0-9_-]{11}/i
+const YOUTUBE_WATCH_ID = /[?&]v=[A-Za-z0-9_-]{11}(&|$)/
+
+function looksLikeYouTubeVideo(value: string): boolean {
+  const v = value.trim()
+  if (!v) return true // optional field
+  if (YOUTUBE_SHORT.test(v) || YOUTUBE_PATH_ID.test(v)) return true
+  return YOUTUBE_HOST.test(v) && /\/watch\?/i.test(v) && YOUTUBE_WATCH_ID.test(v)
+}
+
 const step1Schema = z.object({
   NewGenreName: z.string().min(1,'Genre name is required'),
   Aliases: z.array(z.string()).optional(),
@@ -29,9 +50,9 @@ const step1Schema = z.object({
 const step2Schema = z.object({
   Description: z.string().min(100,'Description is required (min. 100 characters)'),
   InstrumentIds: z.array(z.string()).optional(),
-  PlaylistLink: z.string().optional().refine(
-    val => !val || val.trim() === '' || /^https?:\/\//i.test(val.trim()),
-    { message: 'Playlist link must be a valid http or https URL (e.g. https://...)' }
+  ExampleSongYoutubeId: z.string().optional().refine(
+    val => looksLikeYouTubeVideo(val ?? ''),
+    { message: 'Must be a link to a single YouTube video (e.g. https://www.youtube.com/watch?v=...)' }
   ),
   IsSensitive: z.boolean(),
   SensitiveDescription: z.string().optional(),
@@ -79,7 +100,7 @@ async function submitForm() {
     Aliases: submissionData.Aliases,
     CountryIds: submissionData.CountryIds,
     Description: submissionData.Description,
-    PlaylistLink: submissionData.PlaylistLink,
+    ExampleSongYoutubeId: submissionData.ExampleSongYoutubeId,
     IsSensitive: submissionData.IsSensitive,
     SensitiveDescription: submissionData.SensitiveDescription,
     PredecessorGenreIds: submissionData.PredecessorGenreIds,
@@ -164,7 +185,7 @@ const submissionData = reactive ({
   //Step 2 fields:
   Description: '',
   InstrumentIds: [] as string[], //doesnt exist in backend DTO
-  PlaylistLink: '',
+  ExampleSongYoutubeId: '',
   IsSensitive: false,
   SensitiveDescription: '', //doesnt exist in backend DTO
   //step 3 fields:
@@ -253,8 +274,8 @@ const submissionData = reactive ({
               <h1>Traditional and modern instruments associated with this genre</h1>
             </UFormField>
 
-            <UFormField label="EXAMPLE PLAYLIST" name="PlaylistLink" hint="(Optional)">
-              <UInput v-model="submissionData.PlaylistLink" placeholder="e.g., https://open.spotify.com/playlist/..." class="w-full"></UInput>
+            <UFormField label="EXAMPLE SONG" name="ExampleSongYoutubeId" hint="(Optional)">
+              <UInput v-model="submissionData.ExampleSongYoutubeId" placeholder="e.g., https://www.youtube.com/watch?v=..." class="w-full" />
               <h1>Link to a representative link.</h1>
             </UFormField>
 
@@ -422,13 +443,13 @@ const submissionData = reactive ({
             <div :class="$style.subjectName">Playlist</div>
             <div :class="$style.textfield">
               <a
-                v-if="submissionData.PlaylistLink"
-                :href="submissionData.PlaylistLink"
+                v-if="submissionData.ExampleSongYoutubeId"
+                :href="submissionData.ExampleSongYoutubeId"
                 target="_blank"
                 rel="noopener"
                 style="color: #7a84a8; text-decoration: underline; text-underline-offset: 2px; word-break: break-all"
-              >{{ submissionData.PlaylistLink }}</a>
-              <span v-else style="font-size: 11px; color: #4a6070; font-style: italic">No playlist link provided</span>
+              >{{ submissionData.ExampleSongYoutubeId }}</a>
+              <span v-else style="font-size: 11px; color: #4a6070; font-style: italic">No example song provided</span>
             </div>
           </div>
 

@@ -1,3 +1,4 @@
+using AudioAtlasApplication.Media;
 using System.Security.Claims;
 using AudioAtlasApplication.DTOs.AdminGenres;
 using AudioAtlasDomain.Enums;
@@ -57,6 +58,8 @@ public class AdminGenresController : ControllerBase
             "sensitive-incomplete"
                          => query.Where(g => !g.IsArchived && g.IsSensitive
                                              && string.IsNullOrEmpty(g.SensitiveDescription)),
+            "missing-song"
+                         => query.Where(g => !g.IsArchived && g.ExampleSongYoutubeId == null),
             _            => query
         };
 
@@ -183,7 +186,20 @@ public class AdminGenresController : ControllerBase
         genre.StartYear = request.StartYear;
         genre.IsSensitive = request.IsSensitive;
         genre.SensitiveDescription = string.IsNullOrWhiteSpace(request.SensitiveDescription) ? null : request.SensitiveDescription.Trim();
-        genre.PlaylistLink = string.IsNullOrWhiteSpace(request.PlaylistLink) ? null : request.PlaylistLink.Trim();
+        // Validated through the same parser as the contributor path: an admin
+        // pasting a non-YouTube URL would otherwise reach the iframe src.
+        if (string.IsNullOrWhiteSpace(request.ExampleSongYoutubeId))
+        {
+            genre.ExampleSongYoutubeId = null;
+        }
+        else if (YouTubeVideo.TryParseId(request.ExampleSongYoutubeId, out var exampleSongId))
+        {
+            genre.ExampleSongYoutubeId = exampleSongId;
+        }
+        else
+        {
+            return BadRequest(new { message = "Example song must be a link to a single YouTube video." });
+        }
 
         // Audit stamp.
         genre.LastEditedAt = DateTime.UtcNow;
@@ -346,7 +362,7 @@ public class AdminGenresController : ControllerBase
         StartYear = g.StartYear,
         IsSensitive = g.IsSensitive,
         SensitiveDescription = g.SensitiveDescription,
-        PlaylistLink = g.PlaylistLink,
+        ExampleSongYoutubeId = g.ExampleSongYoutubeId,
         Countries = g.Countries.Select(c => new LookupItem { Id = c.Id, Name = c.Name }).ToList(),
         Instruments = g.Instruments.Select(i => new LookupItem { Id = i.Id, Name = i.Type }).ToList(),
         SimilarGenres = g.SimilarGenres.Select(s => new LookupItem { Id = s.Id, Name = s.Name }).ToList(),

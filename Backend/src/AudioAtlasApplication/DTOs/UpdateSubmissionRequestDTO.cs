@@ -6,7 +6,7 @@ public class UpdateSubmissionRequest
     public string Description { get; set; } = string.Empty;
     public bool IsSensitive { get; set; }
     public string? SensitiveDescription { get; set; }
-    public string? PlaylistLink { get; set; }
+    public string? ExampleSongYoutubeId { get; set; }
     public DateOnly? StartDate { get; set; }
     public DateOnly? EndDate { get; set; }
     public List<string> Aliases { get; set; } = [];

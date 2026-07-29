@@ -1,3 +1,4 @@
+using AudioAtlasApplication.Media;
 using AudioAtlasApplication.DTOs;
 using AudioAtlasApplication.Repositories;
 using AudioAtlasApplication.Services;
@@ -37,7 +38,7 @@ public class SubmissionService : ISubmissionService
 
         var normalizedGenreName = normalizeText(request.NewGenreName);
         var normalizedDescription = normalizeText(request.Description);
-        var normalizedPlaylistLink = normalizeOptionalUrl(request.PlaylistLink, "playlistLink", errors);
+        var exampleSongId = normalizeExampleSong(request.ExampleSongYoutubeId, errors);
         var aliasValues = normalizeDistinctTexts(request.Aliases ?? []);
         var normalizedSourceLinks = normalizeDistinctUrls(request.SourceLinks ?? [], "sourceLinks", errors);
         var countryIds = distinctIds(request.CountryIds ?? []);
@@ -62,8 +63,6 @@ public class SubmissionService : ISubmissionService
         if (aliasValues.Any(alias => alias.Length > MaxAliasLength))
             errors["aliases"] = [$"Aliases must be at most {MaxAliasLength} characters."];
 
-        if (normalizedPlaylistLink is { Length: > MaxUrlLength })
-            errors["playlistLink"] = [$"Playlist link must be at most {MaxUrlLength} characters."];
 
         if (normalizedSourceLinks.Any(link => link.Length > MaxUrlLength))
             errors["sourceLinks"] = [$"Source links must be at most {MaxUrlLength} characters."];
@@ -104,7 +103,7 @@ public class SubmissionService : ISubmissionService
             Description = normalizedDescription,
             IsSensitive = request.IsSensitive,
             SensitiveDescription = request.IsSensitive ? normalizeText(request.SensitiveDescription) : null,
-            PlaylistLink = normalizedPlaylistLink,
+            ExampleSongYoutubeId = exampleSongId,
             Status = SubmissionStatus.Pending,
             Aliases = normalizedAliases.Select(alias => new SubmissionAlias
             {
@@ -143,7 +142,7 @@ public class SubmissionService : ISubmissionService
                 Description = submission.Description,
                 IsSensitive = submission.IsSensitive,
                 SensitiveDescription = submission.SensitiveDescription,
-                PlaylistLink = submission.PlaylistLink,
+                ExampleSongYoutubeId = submission.ExampleSongYoutubeId,
                 Aliases = submission.Aliases.Select(alias => alias.Alias).ToList(),
                 SourceLinks = submission.Sources.Select(source => source.SourceLink).ToList(),
                 CountryIds = submission.Countries.Select(country => country.Id).ToList(),
@@ -184,7 +183,7 @@ public class SubmissionService : ISubmissionService
             StartYear = submission.StartDate?.Year,
             IsSensitive = submission.IsSensitive,
             SensitiveDescription = submission.SensitiveDescription,
-            PlaylistLink = submission.PlaylistLink,
+            ExampleSongYoutubeId = submission.ExampleSongYoutubeId,
             Aliases = submission.Aliases
                 .Select(a => new AudioAtlasDomain.Genres.GenreAlias { Alias = a.Alias })
                 .ToList(),
@@ -209,8 +208,8 @@ public class SubmissionService : ISubmissionService
         if (submission.Description is not null)
             genre.Description = submission.Description;
 
-        if (submission.PlaylistLink is not null)
-            genre.PlaylistLink = submission.PlaylistLink;
+        if (submission.ExampleSongYoutubeId is not null)
+            genre.ExampleSongYoutubeId = submission.ExampleSongYoutubeId;
 
         if (submission.StartDate.HasValue)
             genre.StartYear = submission.StartDate.Value.Year;
@@ -265,7 +264,7 @@ public class SubmissionService : ISubmissionService
         var errors = new Dictionary<string, string[]>();
 
         var normalizedDescription = normalizeText(request.Description);
-        var normalizedPlaylistLink = normalizeOptionalUrl(request.PlaylistLink, "playlistLink", errors);
+        var exampleSongId = normalizeExampleSong(request.ExampleSongYoutubeId, errors);
         var aliasValues = normalizeDistinctTexts(request.Aliases ?? []);
         var normalizedSourceLinks = normalizeDistinctUrls(request.SourceLinks ?? [], "sourceLinks", errors);
         var countryIds = distinctIds(request.CountryIds ?? []);
@@ -277,8 +276,6 @@ public class SubmissionService : ISubmissionService
         if (normalizedDescription is { Length: > MaxDescriptionLength })
             errors["description"] = [$"Description must be at most {MaxDescriptionLength} characters."];
 
-        if (normalizedPlaylistLink is { Length: > MaxUrlLength })
-            errors["playlistLink"] = [$"Playlist link must be at most {MaxUrlLength} characters."];
 
         if (aliasValues.Any(a => a.Length > MaxAliasLength))
             errors["aliases"] = [$"Aliases must be at most {MaxAliasLength} characters."];
@@ -312,7 +309,7 @@ public class SubmissionService : ISubmissionService
             Description = normalizedDescription,
             IsSensitive = request.IsSensitive,
             SensitiveDescription = request.IsSensitive ? normalizeText(request.SensitiveDescription) : null,
-            PlaylistLink = normalizedPlaylistLink,
+            ExampleSongYoutubeId = exampleSongId,
             StartDate = request.StartDate,
             EndDate = request.EndDate,
             Status = SubmissionStatus.Pending,
@@ -408,7 +405,7 @@ public class SubmissionService : ISubmissionService
 
         var normalizedGenreName = normalizeText(request.NewGenreName);
         var normalizedDescription = normalizeText(request.Description);
-        var normalizedPlaylistLink = normalizeOptionalUrl(request.PlaylistLink, "playlistLink", errors);
+        var exampleSongId = normalizeExampleSong(request.ExampleSongYoutubeId, errors);
         var aliasValues = normalizeDistinctTexts(request.Aliases ?? []);
         var normalizedSourceLinks = normalizeDistinctUrls(request.SourceLinks ?? [], "sourceLinks", errors);
         var countryIds = distinctIds(request.CountryIds ?? []);
@@ -457,7 +454,7 @@ public class SubmissionService : ISubmissionService
         submission.Description = normalizedDescription;
         submission.IsSensitive = request.IsSensitive;
         submission.SensitiveDescription = request.IsSensitive ? normalizeText(request.SensitiveDescription) : null;
-        submission.PlaylistLink = normalizedPlaylistLink;
+        submission.ExampleSongYoutubeId = exampleSongId;
         submission.StartDate = request.StartDate;
         submission.EndDate = request.EndDate;
 
@@ -516,6 +513,29 @@ public class SubmissionService : ISubmissionService
             errors[fieldName] = ["Value must be an absolute http or https URL."];
 
         return normalized;
+    }
+
+    /// <summary>
+    /// Accepts any YouTube video link a contributor might paste and stores only
+    /// the extracted video ID. Anything else — a playlist, another host, a
+    /// javascript: scheme — is rejected rather than normalised, because the
+    /// stored value is later used to build an iframe URL.
+    /// </summary>
+    private static string? normalizeExampleSong(string? value, Dictionary<string, string[]> errors)
+    {
+        var normalized = normalizeText(value);
+
+        if (normalized is null)
+            return null;
+
+        if (!YouTubeVideo.TryParseId(normalized, out var videoId))
+        {
+            errors["exampleSongYoutubeId"] =
+                ["Value must be a link to a single YouTube video, for example https://www.youtube.com/watch?v=xxxxxxxxxxx"];
+            return null;
+        }
+
+        return videoId;
     }
 
     private static List<string> normalizeDistinctTexts(IEnumerable<string> values)

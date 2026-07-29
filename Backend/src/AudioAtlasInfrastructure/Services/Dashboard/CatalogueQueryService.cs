@@ -67,7 +67,7 @@ public class CatalogueQueryService : ICatalogueQueryService
         var missingSources = await filtered.CountAsync(g => !g.Sources.Any(), ct);
         var sensitiveMissingDescription = await filtered.CountAsync(
             g => g.IsSensitive && string.IsNullOrEmpty(g.SensitiveDescription), ct);
-        var missingMedia = await filtered.CountAsync(g => g.PlaylistLink == null, ct);
+        var missingExampleSong = await filtered.CountAsync(g => g.ExampleSongYoutubeId == null, ct);
 
         var linkCount = await filtered.SelectMany(g => g.Countries).CountAsync(ct);
 
@@ -89,7 +89,7 @@ public class CatalogueQueryService : ICatalogueQueryService
                 OrphanGenres = orphanGenres,
                 MissingSources = missingSources,
                 SensitiveMissingDescription = sensitiveMissingDescription,
-                MissingMedia = missingMedia
+                MissingExampleSong = missingExampleSong
             },
             GenreCountryLinkCount = linkCount
         };

@@ -42,8 +42,12 @@ public class GenreConfiguration : IEntityTypeConfiguration<AudioAtlasDomain.Genr
         builder.Property(x => x.Description)
             .HasMaxLength(4000);
 
-        builder.Property(x => x.PlaylistLink)
-            .HasMaxLength(1000);
+        // A YouTube ID is eleven characters from a fixed alphabet; the column is
+        // sized to the data rather than to a URL. The field this replaces was
+        // nvarchar(1000) while its validator allowed 2048 characters, so an
+        // over-long value passed validation and then threw on save.
+        builder.Property(x => x.ExampleSongYoutubeId)
+            .HasMaxLength(20);
 
         builder.Property(x => x.SensitiveDescription)
             .HasMaxLength(4000);

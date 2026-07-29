@@ -3,7 +3,7 @@
   Aliases: string[];
   CountryIds: string[];
   Description: string;
-  PlaylistLink: string;
+  ExampleSongYoutubeId: string;
   IsSensitive: boolean;
   SensitiveDescription: string;
   PredecessorGenreIds: string[];

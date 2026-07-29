@@ -8,7 +8,7 @@ public sealed class AdminGenreDetail
     public int? StartYear { get; set; }
     public bool IsSensitive { get; set; }
     public string? SensitiveDescription { get; set; }
-    public string? PlaylistLink { get; set; }
+    public string? ExampleSongYoutubeId { get; set; }
     public IReadOnlyList<LookupItem> Countries { get; set; } = [];
     public IReadOnlyList<LookupItem> Instruments { get; set; } = [];
     public IReadOnlyList<LookupItem> SimilarGenres { get; set; } = [];

@@ -99,7 +99,7 @@ public class SubmissionServiceTests
             NewGenreName = "Nordic Wave",
             Description = "A proposal for a contemporary Nordic crossover genre.",
             IsSensitive = false,
-            PlaylistLink = "https://example.com/playlist",
+            ExampleSongYoutubeId = "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
             Aliases = ["North Wave", "Nordic Wave"],
             SourceLinks = ["https://example.com/source-1", "https://example.com/source-1"],
             CountryIds = [country.Id],
@@ -122,7 +122,8 @@ public class SubmissionServiceTests
         Assert.Equal(account.Id, submission.AccountId);
         Assert.Equal("Nordic Wave", submission.NewGenreName);
         Assert.Equal("A proposal for a contemporary Nordic crossover genre.", submission.Description);
-        Assert.Equal("https://example.com/playlist", submission.PlaylistLink);
+        // Stored as the bare video id, not the URL that was submitted.
+        Assert.Equal("dQw4w9WgXcQ", submission.ExampleSongYoutubeId);
         Assert.Equal(2, submission.Aliases.Count);
         Assert.Single(submission.Sources);
         Assert.Single(submission.Countries);
@@ -165,6 +166,34 @@ public class SubmissionServiceTests
             }));
 
         Assert.Contains("countryIds", exception.Message);
+    }
+
+    [Fact]
+    public async Task CreateSubmissionAsync_WhenExampleSongIsNotYouTube_ThrowsInvalidOperationException()
+    {
+        // The stored value is used to build an iframe URL, so the submission path
+        // has to reject anything that is not a YouTube video outright.
+        var (db, service) = BuildInMemory();
+
+        var country = new Country
+        {
+            Id = Guid.NewGuid(), Name = "Denmark", Region = "Northern Europe",
+            Continent = "Europe", isoCode = "DNK"
+        };
+        db.Countries.Add(country);
+        await db.SaveChangesAsync();
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.createSubmissionAsync(Guid.NewGuid(), new CreateSubmissionRequest
+            {
+                NewGenreName = "Nordic Wave",
+                Description = "A proposal for a contemporary Nordic crossover genre.",
+                SourceLinks = ["https://example.com/source-1"],
+                CountryIds = [country.Id],
+                ExampleSongYoutubeId = "https://open.spotify.com/playlist/37i9dQZF1DX"
+            }));
+
+        Assert.Contains("exampleSongYoutubeId", exception.Message);
     }
 
     [Fact]

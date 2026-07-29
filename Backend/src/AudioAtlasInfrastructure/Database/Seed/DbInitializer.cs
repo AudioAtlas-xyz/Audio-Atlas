@@ -167,7 +167,7 @@ public class DbInitializer
                     StartYear = ParseStartYear(obj),
                     IsSensitive = TryGetBoolProperty(obj, "isSensitive"),
                     SensitiveDescription = TryGetStringProperty(obj, "sensitiveDescription"),
-                    PlaylistLink = TryGetStringProperty(obj, "playlistLink"),
+                    ExampleSongYoutubeId = TryGetStringProperty(obj, "exampleSongYoutubeId"),
                     AuthorId = systemUser.Id
                 };
                 dbContext.Genres.Add(genre);
@@ -667,7 +667,7 @@ public class DbInitializer
                 StartYear = ParseStartYear(obj),
                 IsSensitive = TryGetBoolProperty(obj, "isSensitive"),
                 SensitiveDescription = TryGetStringProperty(obj, "sensitiveDescription"),
-                PlaylistLink = TryGetStringProperty(obj, "playlistLink"),
+                ExampleSongYoutubeId = TryGetStringProperty(obj, "exampleSongYoutubeId"),
                 AuthorId = systemUser.Id
             };
 

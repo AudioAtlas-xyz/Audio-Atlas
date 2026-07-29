@@ -13,7 +13,7 @@ public class GenreDTO : IComparable<GenreDTO>
     public int? StartYear { get; set; }
     public bool IsSensitive { get; set; }
     public string? SensitiveDescription { get; set; }
-    public string? PlaylistLink { get; set; }
+    public string? ExampleSongYoutubeId { get; set; }
     public ICollection<CountryDTO> Countries { get; set; } = new List<CountryDTO>();
     public ICollection<InstrumentDTO> Instruments { get; set; } = new List<InstrumentDTO>();
     public ICollection<GenreAliasDTO> Aliases { get; set; } = new List<GenreAliasDTO>();
