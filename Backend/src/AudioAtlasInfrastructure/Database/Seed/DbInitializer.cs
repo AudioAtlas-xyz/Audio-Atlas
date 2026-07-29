@@ -1,3 +1,4 @@
+using AudioAtlasApplication.Media;
 using AudioAtlasDomain.Genres;
 using AudioAtlasDomain.Geography;
 using AudioAtlasDomain.MusicMetadata;
@@ -167,7 +168,7 @@ public class DbInitializer
                     StartYear = ParseStartYear(obj),
                     IsSensitive = TryGetBoolProperty(obj, "isSensitive"),
                     SensitiveDescription = TryGetStringProperty(obj, "sensitiveDescription"),
-                    ExampleSongYoutubeId = TryGetStringProperty(obj, "exampleSongYoutubeId"),
+                    ExampleSongYoutubeId = ParseExampleSongId(obj),
                     AuthorId = systemUser.Id
                 };
                 dbContext.Genres.Add(genre);
@@ -176,6 +177,9 @@ public class DbInitializer
         }
         await dbContext.SaveChangesAsync();
         logger.LogInformation("Supplemental genres: {Count} mapped", genreMapping.Count);
+
+        await BackfillExampleSongsAsync(dbContext, root, logger);
+
 
         // Resolve existingGenreRefs into genreMapping
         if (root.TryGetProperty("existingGenreRefs", out JsonElement existingGenreRefs))
@@ -386,6 +390,78 @@ public class DbInitializer
         {
             logger.LogInformation("DataQuality: all {GenreTotal} genres have at least one country link.", genreTotal);
         }
+    }
+
+    /// <summary>
+    /// Applies the "exampleSongs" section: a list of { genre, youtubeId } pairs.
+    /// </summary>
+    /// <remarks>
+    /// Keyed by genre *name* rather than by seed id so it can reach every genre
+    /// in the catalogue. Only a minority live in genreSeeding2.json — most come
+    /// from the main seed, and some were created by contributors and appear in
+    /// no seed file at all. A mechanism tied to supplemental genre entries would
+    /// have been unable to give those a song.
+    ///
+    /// Backfill only: a genre that already has a song is left alone, so a
+    /// curator's or contributor's choice survives later batches.
+    /// </remarks>
+    private static async Task BackfillExampleSongsAsync(AppDbContext dbContext, JsonElement root, ILogger<DbInitializer> logger)
+    {
+        if (!root.TryGetProperty("exampleSongs", out JsonElement songs) || songs.ValueKind != JsonValueKind.Array)
+        {
+            return;
+        }
+
+        int applied = 0;
+        int skipped = 0;
+
+        foreach (JsonElement entry in songs.EnumerateArray())
+        {
+            string? name = TryGetStringProperty(entry, "genre");
+            string? raw = TryGetStringProperty(entry, "youtubeId");
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(raw)) continue;
+
+            if (!YouTubeVideo.TryParseId(raw, out string videoId))
+            {
+                logger.LogWarning("Example song for '{Genre}' is not a valid YouTube video reference; skipping.", name);
+                continue;
+            }
+
+            Genre? genre = dbContext.Genres.Local.FirstOrDefault(g => g.Name == name)
+                ?? await dbContext.Genres.FirstOrDefaultAsync(g => g.Name == name);
+
+            if (genre == null)
+            {
+                logger.LogWarning("Example song references unknown genre '{Genre}'; skipping.", name);
+                continue;
+            }
+
+            if (genre.ExampleSongYoutubeId is not null)
+            {
+                skipped++;
+                continue;
+            }
+
+            genre.ExampleSongYoutubeId = videoId;
+            applied++;
+        }
+
+        if (applied > 0 || skipped > 0)
+        {
+            await dbContext.SaveChangesAsync();
+            logger.LogInformation("Supplemental example songs: {Applied} applied, {Skipped} already set", applied, skipped);
+        }
+    }
+
+    /// <summary>
+    /// Seed files may carry either a bare video id or a full YouTube URL; both
+    /// are reduced to the id here, and anything invalid is skipped rather than
+    /// stored, since the value ends up in an iframe URL.
+    /// </summary>
+    private static string? ParseExampleSongId(JsonElement obj)
+    {
+        string? raw = TryGetStringProperty(obj, "exampleSongYoutubeId");
+        return YouTubeVideo.TryParseId(raw, out string id) ? id : null;
     }
 
     private static string? TryGetStringPropertyStatic(JsonElement element, string propertyName)

@@ -231,6 +231,85 @@ public class DbInitializerTests
     }
 
     [Fact]
+    public async Task SeedAdditionalData_backfills_an_example_song_but_never_overwrites_one()
+    {
+        // Every genre already exists by the time a song batch ships, and the
+        // seeder only populates fields when it *creates* a genre — so the
+        // exampleSongs section exists to fill gaps on genres that are already
+        // there. It is keyed by name so it reaches main-seed and
+        // contributor-created genres too, not just supplemental ones.
+        //
+        // Runs against the real seed file, so it also fails if a batch ships an
+        // id the parser rejects or a genre name that does not exist.
+        using var harness = new DbInitializerTestHarness();
+
+        await DbInitializer.SeedDatabase(harness.Context, harness.UserManager, harness.RoleManager, harness.Configuration, harness.Logger);
+        await DbInitializer.SeedAdditionalDataAsync(harness.Context, harness.Logger);
+
+        (string name, string expectedId) = FirstSeedableExampleSong(harness.Context);
+
+        AudioAtlasDomain.Genres.Genre genre = await harness.Context.Genres.FirstAsync(g => g.Name == name);
+        Assert.Equal(expectedId, genre.ExampleSongYoutubeId);
+
+        // A gap is filled, and the id is stored rather than the URL.
+        genre.ExampleSongYoutubeId = null;
+        await harness.Context.SaveChangesAsync();
+        await DbInitializer.SeedAdditionalDataAsync(harness.Context, harness.Logger);
+        await harness.Context.Entry(genre).ReloadAsync();
+        Assert.Equal(expectedId, genre.ExampleSongYoutubeId);
+
+        // An existing choice survives a later batch.
+        genre.ExampleSongYoutubeId = "zzzzzzzzzzz";
+        await harness.Context.SaveChangesAsync();
+        await DbInitializer.SeedAdditionalDataAsync(harness.Context, harness.Logger);
+        await harness.Context.Entry(genre).ReloadAsync();
+        Assert.Equal("zzzzzzzzzzz", genre.ExampleSongYoutubeId);
+    }
+
+    [Fact]
+    public void Every_seeded_example_song_parses_to_a_video_id()
+    {
+        // Guards future batches: an id the parser rejects would be silently
+        // skipped at seed time and the genre would quietly never get a song.
+        using JsonDocument doc = JsonDocument.Parse(File.ReadAllText(SeedFilePath()));
+
+        if (!doc.RootElement.TryGetProperty("exampleSongs", out JsonElement songs)) return;
+
+        foreach (JsonElement entry in songs.EnumerateArray())
+        {
+            string? genre = entry.GetProperty("genre").GetString();
+            string? raw = entry.GetProperty("youtubeId").GetString();
+
+            Assert.True(AudioAtlasApplication.Media.YouTubeVideo.TryParseId(raw, out _),
+                $"Example song for '{genre}' is not a valid YouTube video reference: {raw}");
+        }
+    }
+
+    private static string SeedFilePath() => Path.Combine(AppContext.BaseDirectory, "genreSeeding2.json");
+
+    /// <summary>
+    /// First exampleSongs entry whose genre exists in the seed files. Entries for
+    /// contributor-created genres are skipped here because they have no seed
+    /// definition to create them in a fresh test database.
+    /// </summary>
+    private static (string Name, string ExpectedId) FirstSeedableExampleSong(AppDbContext context)
+    {
+        using JsonDocument doc = JsonDocument.Parse(File.ReadAllText(SeedFilePath()));
+
+        foreach (JsonElement entry in doc.RootElement.GetProperty("exampleSongs").EnumerateArray())
+        {
+            string name = entry.GetProperty("genre").GetString()!;
+            if (!context.Genres.Any(g => g.Name == name)) continue;
+
+            Assert.True(AudioAtlasApplication.Media.YouTubeVideo.TryParseId(
+                entry.GetProperty("youtubeId").GetString(), out string id));
+            return (name, id);
+        }
+
+        throw new InvalidOperationException("No exampleSongs entry matches a genre present in the seed files.");
+    }
+
+    [Fact]
     public async Task SeedAdditionalData_links_relations_for_supplemental_genres()
     {
         // The relation sections sit after the country lookup in the seeder, so this
