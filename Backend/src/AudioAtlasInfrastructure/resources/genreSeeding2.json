@@ -11413,5 +11413,35 @@
       "genreId": "big-drum",
       "alias": "Nation Dance"
     }
+  ],
+  "exampleSongs": [
+    {
+      "genre": "Electro Sha'abi",
+      "youtubeId": "3Q80eCFqg1c"
+    },
+    {
+      "genre": "Luxembourgish Rap",
+      "youtubeId": "y7vaW-0m5BE"
+    },
+    {
+      "genre": "Sutartinės",
+      "youtubeId": "X8m9oVhECLo"
+    },
+    {
+      "genre": "Rímur",
+      "youtubeId": "bXSqCWJZgtQ"
+    },
+    {
+      "genre": "Bodu Beru",
+      "youtubeId": "a00Ac2iFPsU"
+    },
+    {
+      "genre": "Guarania",
+      "youtubeId": "pdO3fihxpoA"
+    },
+    {
+      "genre": "Gombey",
+      "youtubeId": "3WiM04Q_IlI"
+    }
   ]
 }
