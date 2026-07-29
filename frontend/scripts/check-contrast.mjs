@@ -89,7 +89,6 @@ if (!surfaces.length) {
 const tokenPattern = /\btext-([\w-]+)\b/g
 const arbitraryPattern = /\btext-\[(#[0-9a-fA-F]{3,8})\]/g
 
-const bgTokenPattern = /\bbg-([\w-]+)\b/g
 const bgArbitraryPattern = /\bbg-\[(#[0-9a-fA-F]{3,8})\]/
 
 /**
@@ -99,15 +98,36 @@ const bgArbitraryPattern = /\bbg-\[(#[0-9a-fA-F]{3,8})\]/
  * is known, so check against it instead. Without this, deliberately inverted
  * text on an accent background reads as a failure when it is in fact the
  * highest-contrast text on the page.
+ *
+ * Pairing is per *variant*. `text-aurora group-hover:bg-aurora group-hover:text-bg`
+ * describes two separate states: teal text on a surface, and dark text on teal
+ * once hovered. Matching a bare `text-` against a `group-hover:bg-` would compare
+ * two colours that are never on screen together and report 1:1 — so a background
+ * only applies to text carrying the same prefix, falling back to an unprefixed
+ * background and then to the surfaces.
  */
-function backgroundsFor(classString) {
-  const arb = classString.match(bgArbitraryPattern)
-  if (arb) return [{ name: `[${arb[1]}]`, value: arb[1].toLowerCase() }]
-  for (const tok of classString.matchAll(bgTokenPattern)) {
-    const value = tokens.get(tok[1])
-    if (value) return [{ name: tok[1], value }]
+function backgroundsForVariant(classString, prefix) {
+  let unprefixed = null
+
+  for (const token of classString.split(/\s+/)) {
+    const marker = token.indexOf('bg-')
+    if (marker === -1) continue
+
+    // Everything before "bg-" is the variant chain, e.g. "group-hover:".
+    const tokenPrefix = token.slice(0, marker)
+    const utility = token.slice(marker)
+
+    const arb = utility.match(bgArbitraryPattern)
+    const value = arb ? arb[1].toLowerCase() : tokens.get(utility.slice(3))
+    if (!value) continue
+
+    const entry = [{ name: arb ? `[${arb[1]}]` : utility.slice(3), value }]
+
+    if (tokenPrefix === prefix) return entry
+    if (tokenPrefix === '' && unprefixed === null) unprefixed = entry
   }
-  return surfaces
+
+  return unprefixed ?? surfaces
 }
 
 const usage = new Map() // hex -> { count, files:Set, label, pairedOnly }
@@ -144,23 +164,32 @@ function spansFor(src) {
   const spans = []
   for (const m of src.matchAll(classAttrPattern)) {
     const body = m[1] ?? m[2] ?? ''
-    const bgs = backgroundsFor(body)
-    if (bgs !== surfaces) spans.push({ start: m.index, end: m.index + m[0].length, bgs })
+    if (!body.includes('bg-')) continue
+    spans.push({ start: m.index, end: m.index + m[0].length, body })
   }
   return spans
 }
 
-function bgsAt(spans, index) {
-  return spans.find(s => index >= s.start && index < s.end)?.bgs ?? surfaces
+/** Variant chain immediately preceding a utility, e.g. "group-hover:" or "". */
+function variantPrefixAt(src, index) {
+  let start = index
+  while (start > 0 && !/[\s"'`]/.test(src[start - 1])) start--
+  return src.slice(start, index)
+}
+
+function bgsAt(spans, src, index) {
+  const span = spans.find(s => index >= s.start && index < s.end)
+  if (!span) return surfaces
+  return backgroundsForVariant(span.body, variantPrefixAt(src, index))
 }
 
 for (const file of walk(SCAN_DIR)) {
   const src = readFileSync(file, 'utf8')
   const spans = spansFor(src)
-  for (const m of src.matchAll(arbitraryPattern)) record(m[1], file, null, bgsAt(spans, m.index))
+  for (const m of src.matchAll(arbitraryPattern)) record(m[1], file, null, bgsAt(spans, src, m.index))
   for (const m of src.matchAll(tokenPattern)) {
     const value = tokens.get(m[1])
-    if (value) record(value, file, m[1], bgsAt(spans, m.index))
+    if (value) record(value, file, m[1], bgsAt(spans, src, m.index))
   }
 }
 

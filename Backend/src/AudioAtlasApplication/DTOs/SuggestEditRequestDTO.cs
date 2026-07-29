@@ -5,7 +5,7 @@ public class SuggestEditRequest
     public string? Description { get; set; }
     public bool IsSensitive { get; set; }
     public string? SensitiveDescription { get; set; }
-    public string? PlaylistLink { get; set; }
+    public string? ExampleSongYoutubeId { get; set; }
     public DateOnly? StartDate { get; set; }
     public DateOnly? EndDate { get; set; }
     public ICollection<string> Aliases { get; set; } = new List<string>();

@@ -156,12 +156,16 @@ const geographicItems = computed(() =>
             >{{ data.dataCompleteness.sensitiveMissingDescription.toLocaleString() }}</NuxtLink>
           </li>
           <li class="flex items-center justify-between gap-2">
-            <span class="text-xs text-space-300">Missing media link</span>
-            <span
-              class="font-mono text-xs"
-              :class="data.dataCompleteness.missingMedia > 0 ? 'text-rust' : 'text-aurora'"
-              :aria-label="`${data.dataCompleteness.missingMedia} missing media links`"
-            >{{ data.dataCompleteness.missingMedia.toLocaleString() }}</span>
+            <NuxtLink
+              to="/admin/genres?filter=missing-song"
+              class="text-xs text-space-300 underline decoration-dotted hover:text-aurora transition-colors"
+            >Missing example song</NuxtLink>
+            <NuxtLink
+              to="/admin/genres?filter=missing-song"
+              class="font-mono text-xs transition-colors hover:underline"
+              :class="data.dataCompleteness.missingExampleSong > 0 ? 'text-rust' : 'text-aurora'"
+              :aria-label="`${data.dataCompleteness.missingExampleSong} genres missing an example song`"
+            >{{ data.dataCompleteness.missingExampleSong.toLocaleString() }}</NuxtLink>
           </li>
         </ul>
       </div>

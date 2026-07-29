@@ -11,7 +11,7 @@ export interface Genre {
   description?: string
   startYear?: number
   isSensitive:boolean
-  playlistLink?: string
+  exampleSongYoutubeId?: string | null
   sensitiveDescription?: string
   countries: Country[]
   aliases?: GenreAlias[]

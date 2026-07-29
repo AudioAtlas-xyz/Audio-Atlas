@@ -65,7 +65,7 @@ const instrumentOptions = computed(() =>
 // ── Form state (pre-populated from current genre) ────────────────────────────
 
 const description = ref('')
-const playlistLink = ref('')
+const exampleSongYoutubeId = ref('')
 const startDate = ref('')
 const isSensitive = ref(false)
 const sensitiveDescription = ref('')
@@ -81,7 +81,7 @@ const predecessorGenreIds = ref<string[]>([])
 watch(genre, (g) => {
   if (!g) return
   description.value = g.description ?? ''
-  playlistLink.value = g.playlistLink ?? ''
+  exampleSongYoutubeId.value = g.exampleSongYoutubeId ?? ''
   startDate.value = g.startYear ? `${g.startYear}-01-01` : ''
   isSensitive.value = g.isSensitive ?? false
   sensitiveDescription.value = g.sensitiveDescription ?? ''
@@ -114,7 +114,7 @@ async function submit() {
       method: 'POST',
       body: {
         description: description.value.trim() || null,
-        playlistLink: playlistLink.value.trim() || null,
+        exampleSongYoutubeId: exampleSongYoutubeId.value.trim() || null,
         startDate: startDate.value || null,
         isSensitive: isSensitive.value,
         sensitiveDescription: isSensitive.value ? sensitiveDescription.value.trim() || null : null,
@@ -269,7 +269,7 @@ const breadcrumbItems = computed(() => [
             <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
               Playlist link
             </label>
-            <UInput v-model="playlistLink" placeholder="https://…" class="w-full" />
+            <UInput v-model="exampleSongYoutubeId" placeholder="https://www.youtube.com/watch?v=…" class="w-full" />
           </div>
 
           <!-- Start date -->

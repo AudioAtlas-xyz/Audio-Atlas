@@ -54,12 +54,18 @@ public class Genre
     public bool IsSensitive { get; set; } = false;
 
     /// <summary>
-    /// External reference representing the genre (e.g., a curated playlist).
-    /// 
-    /// Intended to give a direct experiential example of the genre's sound.
-    /// Not guaranteed to be permanent or authoritative.
+    /// YouTube video ID of one representative song, giving a direct
+    /// experiential example of the genre's sound.
+    ///
+    /// Stores the bare eleven-character ID, never the submitted URL: the genre
+    /// page builds the embed URL from this value, so it must not be able to
+    /// carry a host or a scheme. Parsed and validated by
+    /// AudioAtlasApplication.Media.YouTubeVideo.
+    ///
+    /// Not guaranteed to remain available — videos can be deleted, made private
+    /// or region-locked after the fact.
     /// </summary>
-    public string? PlaylistLink { get; set; }
+    public string? ExampleSongYoutubeId { get; set; }
 
     /// <summary>
     /// Additional explanation of why the genre is marked as sensitive.

@@ -35,6 +35,10 @@ public class SubmissionConfiguration : IEntityTypeConfiguration<AudioAtlasDomain
         /// </summary>
         builder.HasKey(x => x.Id);
 
+        // Same fixed-width id as Genre.ExampleSongYoutubeId.
+        builder.Property(x => x.ExampleSongYoutubeId)
+            .HasMaxLength(20);
+
         builder.Property(x => x.Status)
             .HasConversion<int>()
             .IsRequired()

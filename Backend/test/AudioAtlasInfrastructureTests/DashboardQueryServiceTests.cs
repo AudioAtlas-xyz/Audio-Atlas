@@ -80,7 +80,7 @@ public class DashboardQueryServiceTests
         {
             Name = "Afrobeats",
             Description = "A genre",
-            PlaylistLink = "https://example.com/playlist",
+            ExampleSongYoutubeId = "dQw4w9WgXcQ",
             Countries = new List<Country> { country },
             Sources = new List<GenreSource> { new() { SourceLink = "https://example.com/source" } }
         };
@@ -94,7 +94,7 @@ public class DashboardQueryServiceTests
 
         Assert.Equal(1, result.DataCompleteness.OrphanGenres);
         Assert.Equal(1, result.DataCompleteness.MissingSources);
-        Assert.Equal(1, result.DataCompleteness.MissingMedia);
+        Assert.Equal(1, result.DataCompleteness.MissingExampleSong);
     }
 
     [Fact]

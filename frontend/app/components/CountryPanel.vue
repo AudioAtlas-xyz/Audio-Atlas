@@ -149,7 +149,9 @@ const errorMessage = computed(() => {
                 >
                 <!--class="border border-border bg-surface shadow-none"-->
 
-                <UCard class="border border-border bg-surface shadow-none transition-all duration-200 hover:border-aurora hover:text-aurora hover:bg-aurora-dim"
+                <!-- Hover keeps light text: teal on the dim-teal hover background
+                     is 3.95:1, below AA. space-50 on the same background is 5.71:1. -->
+                <UCard class="border border-border bg-surface shadow-none transition-all duration-200 hover:border-aurora hover:text-space-50 hover:bg-aurora-dim"
 
                 >
                   <div class="space-y-2">

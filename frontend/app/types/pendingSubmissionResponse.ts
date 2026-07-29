@@ -9,7 +9,7 @@ export interface PendingSubmissionResponse {
   description: string | null;
   isSensitive: boolean;
   sensitiveDescription: string | null;
-  playlistLink: string | null;
+  exampleSongYoutubeId: string | null;
   aliases: string[];
   sourceLinks: string[];
   countryIds: string[];

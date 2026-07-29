@@ -69,11 +69,12 @@ public class Submission
     public string? SensitiveDescription { get; set; }
 
     /// <summary>
-    /// External reference (e.g., playlist) illustrating the submission.
-    /// 
-    /// Provides an experiential example of the proposed genre or changes.
+    /// YouTube video ID of the proposed example song for this submission.
+    ///
+    /// Stores the bare eleven-character ID rather than the URL the contributor
+    /// pasted; see Genre.ExampleSongYoutubeId.
     /// </summary>
-    public string? PlaylistLink { get; set; }
+    public string? ExampleSongYoutubeId { get; set; }
 
     /// <summary>
     /// UTC timestamp of when the submission was created.

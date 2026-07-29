@@ -69,7 +69,7 @@ public class GenreService : IGenreService
             Name = genre.Name,
             Description = genre.Description,
             StartYear = genre.StartYear,
-            PlaylistLink = genre.PlaylistLink,
+            ExampleSongYoutubeId = genre.ExampleSongYoutubeId,
             SensitiveDescription = genre.SensitiveDescription,
             IsSensitive = genre.IsSensitive,
             Aliases = genre.Aliases.Select(alias => new GenreAliasDTO

@@ -13,7 +13,7 @@ public class CreateSubmissionRequest
 
     public string? SensitiveDescription { get; set; }
 
-    public string? PlaylistLink { get; set; }
+    public string? ExampleSongYoutubeId { get; set; }
     
     public ICollection<string> Aliases { get; set; } = new List<string>();
     public ICollection<string> SourceLinks { get; set; } = new List<string>();

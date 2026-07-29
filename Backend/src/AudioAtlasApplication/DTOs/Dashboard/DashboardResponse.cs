@@ -84,8 +84,8 @@ public class DataCompletenessDto
     /// <summary>Genres flagged sensitive but with no sensitive description.</summary>
     public int SensitiveMissingDescription { get; set; }
 
-    /// <summary>Genres with null PlaylistLink.</summary>
-    public int MissingMedia { get; set; }
+    /// <summary>Genres with no example song.</summary>
+    public int MissingExampleSong { get; set; }
 }
 
 // ── Pipeline ──────────────────────────────────────────────────────────────

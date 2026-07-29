@@ -48,6 +48,7 @@ const sensitivityDescription = computed(() => genre.value?.sensitiveDescription)
 const countries = computed(() => genre.value?.countries ?? [])
 const contributors = computed(() => genre.value?.contributors ?? [])
 const sources = computed(() => genre.value?.sources ?? [])
+const exampleSongYoutubeId = computed(() => genre.value?.exampleSongYoutubeId ?? null)
 const instruments = computed(() => genre.value?.instruments ?? [])
 
 const parentGenres = computed(() => genre.value?.parentGenres ?? [])
@@ -162,6 +163,11 @@ const suggestHref = computed(() =>
 
           <div class="flex flex-col gap-8">
             <CountryContributorsCard v-if="contributors.length" :contributors="contributors" />
+            <ExampleSong
+              :video-id="exampleSongYoutubeId"
+              :genre-name="name"
+              :suggest-href="canSuggest ? suggestHref : null"
+            />
             <SourceList :sources="sources" />
             <InstrumentList v-if="instruments.length" :instruments="instruments" />
 

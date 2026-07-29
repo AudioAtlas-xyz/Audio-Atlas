@@ -41,7 +41,7 @@ export interface DataCompleteness {
   orphanGenres: number
   missingSources: number
   sensitiveMissingDescription: number
-  missingMedia: number
+  missingExampleSong: number
 }
 
 export interface ContributorRetention {

@@ -28,7 +28,7 @@ export interface AdminGenreDetail {
   startYear: number | null
   isSensitive: boolean
   sensitiveDescription: string | null
-  playlistLink: string | null
+  exampleSongYoutubeId: string | null
   countries: AdminGenreLookup[]
   instruments: AdminGenreLookup[]
   similarGenres: AdminGenreLookup[]

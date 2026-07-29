@@ -29,9 +29,11 @@ const step1Schema = z.object({
 const step2Schema = z.object({
   Description: z.string().min(100,'Description is required (min. 100 characters)'),
   InstrumentIds: z.array(z.string()).optional(),
-  PlaylistLink: z.string().optional().refine(
-    val => !val || val.trim() === '' || /^https?:\/\//i.test(val.trim()),
-    { message: 'Playlist link must be a valid http or https URL (e.g. https://...)' }
+  // Mirrors the server-side parser: one YouTube video, not a playlist. The
+  // server is authoritative; this is only for immediate feedback.
+  ExampleSongYoutubeId: z.string().optional().refine(
+    val => !val || val.trim() === '' || /^(https?:\/\/)?((www|m|music)\.)?(youtube\.com\/(watch\?(.*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)[A-Za-z0-9_-]{11}/i.test(val.trim()),
+    { message: 'Must be a link to a single YouTube video (e.g. https://www.youtube.com/watch?v=...)' }
   ),
   IsSensitive: z.boolean(),
   SensitiveDescription: z.string().optional(),
@@ -79,7 +81,7 @@ async function submitForm() {
     Aliases: submissionData.Aliases,
     CountryIds: submissionData.CountryIds,
     Description: submissionData.Description,
-    PlaylistLink: submissionData.PlaylistLink,
+    ExampleSongYoutubeId: submissionData.ExampleSongYoutubeId,
     IsSensitive: submissionData.IsSensitive,
     SensitiveDescription: submissionData.SensitiveDescription,
     PredecessorGenreIds: submissionData.PredecessorGenreIds,
@@ -164,7 +166,7 @@ const submissionData = reactive ({
   //Step 2 fields:
   Description: '',
   InstrumentIds: [] as string[], //doesnt exist in backend DTO
-  PlaylistLink: '',
+  ExampleSongYoutubeId: '',
   IsSensitive: false,
   SensitiveDescription: '', //doesnt exist in backend DTO
   //step 3 fields:
@@ -253,8 +255,8 @@ const submissionData = reactive ({
               <h1>Traditional and modern instruments associated with this genre</h1>
             </UFormField>
 
-            <UFormField label="EXAMPLE PLAYLIST" name="PlaylistLink" hint="(Optional)">
-              <UInput v-model="submissionData.PlaylistLink" placeholder="e.g., https://open.spotify.com/playlist/..." class="w-full"></UInput>
+            <UFormField label="EXAMPLE SONG" name="ExampleSongYoutubeId" hint="(Optional)">
+              <UInput v-model="submissionData.ExampleSongYoutubeId" placeholder="e.g., https://www.youtube.com/watch?v=..." class="w-full" />
               <h1>Link to a representative link.</h1>
             </UFormField>
 
@@ -422,13 +424,13 @@ const submissionData = reactive ({
             <div :class="$style.subjectName">Playlist</div>
             <div :class="$style.textfield">
               <a
-                v-if="submissionData.PlaylistLink"
-                :href="submissionData.PlaylistLink"
+                v-if="submissionData.ExampleSongYoutubeId"
+                :href="submissionData.ExampleSongYoutubeId"
                 target="_blank"
                 rel="noopener"
                 style="color: #7a84a8; text-decoration: underline; text-underline-offset: 2px; word-break: break-all"
-              >{{ submissionData.PlaylistLink }}</a>
-              <span v-else style="font-size: 11px; color: #4a6070; font-style: italic">No playlist link provided</span>
+              >{{ submissionData.ExampleSongYoutubeId }}</a>
+              <span v-else style="font-size: 11px; color: #4a6070; font-style: italic">No example song provided</span>
             </div>
           </div>
 

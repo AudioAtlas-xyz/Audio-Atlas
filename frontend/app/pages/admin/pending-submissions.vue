@@ -162,7 +162,7 @@ interface EditForm {
   description: string
   isSensitive: boolean
   sensitiveDescription: string
-  playlistLink: string
+  exampleSongYoutubeId: string
   startDate: string
   endDate: string
   aliases: string
@@ -179,7 +179,7 @@ const editForm = ref<EditForm>({
   description: '',
   isSensitive: false,
   sensitiveDescription: '',
-  playlistLink: '',
+  exampleSongYoutubeId: '',
   startDate: '',
   endDate: '',
   aliases: '',
@@ -198,7 +198,7 @@ function openEdit(submission: PendingSubmissionResponse) {
     description: submission.description ?? '',
     isSensitive: submission.isSensitive,
     sensitiveDescription: submission.sensitiveDescription ?? '',
-    playlistLink: submission.playlistLink ?? '',
+    exampleSongYoutubeId: submission.exampleSongYoutubeId ?? '',
     startDate: submission.startDate ?? '',
     endDate: submission.endDate ?? '',
     aliases: submission.aliases.join('\n'),
@@ -229,7 +229,7 @@ async function saveEdit() {
         description: editForm.value.description,
         isSensitive: editForm.value.isSensitive,
         sensitiveDescription: editForm.value.isSensitive ? editForm.value.sensitiveDescription : '',
-        playlistLink: editForm.value.playlistLink || null,
+        exampleSongYoutubeId: editForm.value.exampleSongYoutubeId || null,
         startDate: editForm.value.startDate || null,
         endDate: editForm.value.endDate || null,
         aliases: aliasLines,
@@ -248,7 +248,7 @@ async function saveEdit() {
       description: editForm.value.description,
       isSensitive: editForm.value.isSensitive,
       sensitiveDescription: editForm.value.sensitiveDescription,
-      playlistLink: editForm.value.playlistLink,
+      exampleSongYoutubeId: editForm.value.exampleSongYoutubeId,
       startDate: editForm.value.startDate || null,
       endDate: editForm.value.endDate || null,
       aliases: aliasLines,
@@ -495,15 +495,17 @@ const breadcrumbItems = [
                         <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-label">Aliases</p>
                         <p class="text-sm text-space-50">{{ item.aliases.join(', ') }}</p>
                       </div>
-                      <div v-if="item.playlistLink">
-                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-label">Playlist</p>
+                      <div v-if="item.exampleSongYoutubeId">
+                        <p class="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-label">Example song</p>
+                        <!-- Stored as a bare id; curators need something clickable
+                             so they can actually watch the track before approving. -->
                         <a
-                          :href="item.playlistLink"
+                          :href="`https://www.youtube.com/watch?v=${item.exampleSongYoutubeId}`"
                           target="_blank"
                           rel="noopener"
                           class="truncate text-sm text-aurora hover:opacity-70"
                         >
-                          {{ item.playlistLink }}
+                          Watch on YouTube ({{ item.exampleSongYoutubeId }})
                         </a>
                       </div>
                     </div>
@@ -735,7 +737,7 @@ const breadcrumbItems = [
                 <label class="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.15em] text-meta">
                   Playlist link
                 </label>
-                <UInput v-model="editForm.playlistLink" placeholder="https://…" class="w-full" />
+                <UInput v-model="editForm.exampleSongYoutubeId" placeholder="https://www.youtube.com/watch?v=…" class="w-full" />
               </div>
 
               <!-- Aliases -->
