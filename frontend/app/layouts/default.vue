@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import AppHeader from '@/components/AppHeader.vue'
 import LoginModal from '~/components/UserFlow/LoginModal.vue'
 import UsernameModal from '~/components/UserFlow/UsernameModal.vue'
@@ -18,6 +18,26 @@ useSchemaOrg([
     description: 'A community-built, curated map of the world\'s music genres, licensed under CC BY-NC-SA 4.0.'
   })
 ])
+
+/**
+ * Full-bleed routes (the globe landing page) render edge to edge: no page
+ * padding, no in-flow footer, and no page scroll.
+ *
+ * This is a flag on the existing layout rather than a second layout on purpose
+ * — all the OAuth callback handling and modal wiring below lives here, and
+ * duplicating it would be a real regression risk.
+ */
+const route = useRoute()
+const fullBleed = computed(() => route.meta.fullBleed === true)
+
+// Bound to route meta so Nuxt removes the class on navigation. A manual
+// document.body.style toggle would leak the scroll lock onto other routes if a
+// navigation were interrupted.
+useHead({
+  bodyAttrs: {
+    class: computed(() => (fullBleed.value ? 'is-full-bleed' : ''))
+  }
+})
 
 const { fetchUser, user } = useAuth()
 
@@ -167,10 +187,15 @@ onMounted(async () => {
     />
 
     <!-- Page -->
-    <main class="page-content">
+    <main
+      class="page-content"
+      :class="{ 'page-content--full-bleed': fullBleed }"
+    >
       <slot />
     </main>
 
+    <!-- Already position:fixed, so it overlays rather than adding page height —
+         licence attribution stays visible on the globe without causing scroll. -->
     <Footer />
   </div>
 </template>
@@ -179,5 +204,10 @@ onMounted(async () => {
 .page-content {
   padding-top: 5rem;
   padding-bottom: 2.5rem;
+}
+
+.page-content--full-bleed {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 </style>

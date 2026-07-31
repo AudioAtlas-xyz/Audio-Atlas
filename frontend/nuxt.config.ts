@@ -62,7 +62,10 @@ export default defineNuxtConfig({
     '/privacy-policy': { prerender: true },
     '/about': { prerender: true },
     '/contribution-guidelines': { prerender: true },
-    '/explore': { prerender: true },
+    // '/explore' is now a redirect to '/', handled by a 301 in
+    // staticwebapp.config.json before it ever reaches Nuxt. Prerendering it
+    // would only emit a stub page for a route that should never render.
+    '/explore': { redirect: '/' },
     '/genres': { ssr: true },
     '/auth/callback': { ssr: false }
   },

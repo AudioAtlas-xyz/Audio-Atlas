@@ -19,7 +19,7 @@ defineEmits<{ (e: 'submit-another'): void }>()
     </p>
 
     <div :class="$style.actions">
-      <NuxtLink to="/explore" class="block">
+      <NuxtLink to="/" class="block">
         <UButton
           block
           class="justify-center"

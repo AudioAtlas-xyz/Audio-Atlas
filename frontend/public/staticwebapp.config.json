@@ -4,6 +4,11 @@
       "route": "/admin/index",
       "redirect": "/admin",
       "statusCode": 301
+    },
+    {
+      "route": "/explore",
+      "redirect": "/",
+      "statusCode": 301
     }
   ],
   "navigationFallback": {

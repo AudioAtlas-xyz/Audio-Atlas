@@ -3,8 +3,6 @@ import { computed, ref, onMounted } from 'vue'
 import Globe from '@/components/Globe.vue'
 import CountryPanel from '@/components/CountryPanel.vue'
 
-import { useScrollIntro } from '@/composables/useScrollIntro'
-
 useSeoMeta({
   title: 'Audio Atlas — A living map of the world\'s music',
   description: 'Spin an interactive globe to explore music genres by country. Discover the origins, connections and cultural context of hundreds of genres worldwide.',
@@ -16,16 +14,59 @@ useSeoMeta({
   twitterImage: 'https://audioatlas.xyz/og-image.png'
 })
 
-const viewportHeight = ref(0)
+// Renders edge to edge with no in-flow footer, so the globe is usable without
+// scrolling. `default.vue` reads this to drop its page padding and lock scroll.
+definePageMeta({ fullBleed: true })
+
+/**
+ * Globe — settled and interactive from the first frame. `introEase` only
+ * animates the arrival; it never gates input.
+ */
+const settledPov = { lat: 54, lng: 12, altitude: 2.2 }
+const arrivalPov = { lat: 16, lng: 0, altitude: 2.9 }
+
+/**
+ * Country panel, driven by the URL so a selection is shareable and the browser
+ * Back button closes it.
+ */
+const route = useRoute()
+const router = useRouter()
+
+// The value arrives from the address bar, so treat it as untrusted: only a
+// three-letter ISO A3 code is allowed to reach the panel or the API.
+const ISO_A3 = /^[A-Za-z]{3}$/
+
+const selectedCountryId = computed<string | null>(() => {
+  const raw = route.query.country
+  const value = Array.isArray(raw) ? raw[0] : raw
+
+  return typeof value === 'string' && ISO_A3.test(value)
+    ? value.toUpperCase()
+    : null
+})
+
+const handleCountryClick = (country: { isoA3: string } | string) => {
+  const iso = typeof country === 'string' ? country : country?.isoA3
+  if (!iso) return
+
+  router.push({ query: { ...route.query, country: iso } })
+}
+
+const closeCountryPanel = () => {
+  const query = { ...route.query }
+  delete query.country
+
+  router.push({ query })
+}
+
+/**
+ * Onboarding — shown once per browser, and re-openable from the globe chrome.
+ * With the hero gone this modal is the only place the site explains itself, so
+ * it needs a way back in.
+ */
 const showOnboarding = ref(false)
 
 onMounted(() => {
-  viewportHeight.value = window.innerHeight
-
-  window.addEventListener('resize', () => {
-    viewportHeight.value = window.innerHeight
-  })
-
   if (!localStorage.getItem('audio_atlas_onboarded')) {
     showOnboarding.value = true
   }
@@ -34,106 +75,57 @@ onMounted(() => {
 function startExploring() {
   localStorage.setItem('audio_atlas_onboarded', '1')
   showOnboarding.value = false
-  lock()
-}
-
-/**
- * Scroll intro
- */
-const { progress, finished, lock } = useScrollIntro()
-
-/**
- * Globe setup
- */
-const landingPov = { lat: 16, lng: 0, altitude: 1.55 }
-const settledPov = { lat: 54, lng: 12, altitude: 2.2 }
-const introSpinSpeed = 0.4
-
-const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
-
-const eased = computed(() => {
-  const t = finished.value ? 1 : progress.value
-  return easeOut(easeOut(t))
-})
-
-const globeOffset = computed<[number, number]>(() => {
-  // positive Y moves globe down, negative moves it up
-  const y = Math.round((1 - eased.value) * 260)
-
-  return [0, y]
-})
-
-const globePov = computed(() =>
-  finished.value ? settledPov : landingPov
-)
-
-const pageStyle = computed(() => {
-  const p = finished.value ? 1 : progress.value
-  const globeY = Math.round((1 - eased.value) * viewportHeight.value * 0.3)
-
-  return {
-    '--title-opacity': Math.max(0, 1 - p * 1.55),
-    '--title-lift': `${Math.round(p * -88)}px`,
-    '--globe-y': `${globeY}px`
-  }
-})
-
-/**
- * Country panel
- */
-const selectedCountryId = ref<string | null>(null)
-
-const handleCountryClick = (country: { isoA3: string } | string) => {
-  selectedCountryId.value
-    = typeof country === 'string' ? country : country.isoA3
-}
-
-const closeCountryPanel = () => {
-  selectedCountryId.value = null
 }
 </script>
 
 <template>
-  <main
-    class="landing-page"
-    :style="pageStyle"
-  >
-    <!-- Hero -->
-    <div class="hero-title">
-      <p class="eyebrow">
-        A living map of the world's music
-      </p>
-      <h1>Audio Atlas</h1>
-    </div>
+  <div class="globe-page">
+    <!-- Crawlable heading and copy. Visually hidden because the globe is the
+         interface, but the page still needs an h1 and a description. -->
+    <h1 class="sr-only">
+      Audio Atlas
+    </h1>
+    <p class="sr-only">
+      A living map of the world's music. Explore music genres by country on an
+      interactive globe, or browse by continent and region.
+    </p>
 
     <!-- Globe -->
     <div class="globe-layer">
       <ClientOnly>
-        <div class="globe-motion">
-          <Globe
-            :intro-complete="finished"
-            :initial-point-of-view="landingPov"
-            :point-of-view="globePov"
-            :globe-offset="globeOffset"
-            :intro-spin-speed="introSpinSpeed"
-            @country-click="handleCountryClick"
-          />
-        </div>
+        <Globe
+          :intro-complete="true"
+          :initial-point-of-view="settledPov"
+          :point-of-view="settledPov"
+          :intro-ease="arrivalPov"
+          :globe-offset="[0, 0]"
+          @country-click="handleCountryClick"
+        />
+
+        <!-- Without JS there is no globe at all, so this must never be blank. -->
+        <template #fallback>
+          <div class="globe-fallback">
+            <p>Loading the globe…</p>
+            <p class="globe-fallback__links">
+              <NuxtLink to="/browse/Africa">Browse by continent</NuxtLink>
+            </p>
+          </div>
+        </template>
       </ClientOnly>
     </div>
 
-    <!-- Scroll cue -->
-    <div
-      v-if="!finished"
-      class="scroll-cue"
-      :style="{ opacity: Math.max(0, 1 - progress * 6) }"
+    <!-- Re-open the explainer; the modal is otherwise first-visit only. -->
+    <button
+      type="button"
+      class="how-it-works"
+      @click="showOnboarding = true"
     >
-      <span class="scroll-cue__label">scroll to explore</span>
       <UIcon
-        name="i-heroicons-chevron-down-20-solid"
-        class="scroll-cue__chevron"
+        name="i-heroicons-question-mark-circle"
+        class="how-it-works__icon"
       />
-    </div>
+      How it works
+    </button>
 
     <!-- Country panel -->
     <CountryPanel
@@ -143,8 +135,6 @@ const closeCountryPanel = () => {
       @close="closeCountryPanel"
     />
 
-    <div class="scroll-spacer" />
-
     <!-- Onboarding modal — client-side only, shown once per browser -->
     <ClientOnly>
       <OnboardingModal
@@ -152,32 +142,23 @@ const closeCountryPanel = () => {
         @start="startExploring"
       />
     </ClientOnly>
-  </main>
+  </div>
 </template>
 
-<style>
-html,
-body,
-#__nuxt {
-  width: 100%;
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  background: #02070a;
-}
-</style>
-
 <style scoped>
-.landing-page {
-  min-height: 185vh;
+.globe-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  /* dvh tracks mobile browser chrome collapsing; vh above is the fallback. */
+  height: 100dvh;
+  overflow: hidden;
   color: #eefcf8;
   background: #02070a;
 }
 
 .globe-layer {
   position: fixed;
-  z-index: 1;
   inset: 0;
   overflow: hidden;
   pointer-events: auto;
@@ -187,75 +168,55 @@ body,
     linear-gradient(180deg, #02070a 0%, #071512 100%);
 }
 
-.globe-motion {
-  width: 100%;
-  height: 100%;
-}
-
-.hero-title {
-  position: fixed;
-  z-index: 3;
-  top: 17vh;
-  left: 50%;
-  width: min(42rem, calc(100% - 3rem));
-  transform: translate3d(-50%, var(--title-lift), 0);
-  opacity: var(--title-opacity);
-  pointer-events: none;
-  text-align: center;
-}
-
-.eyebrow {
-  margin: 0 0 0.9rem;
-  color: #8ddbe6;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-h1 {
-  margin: 0;
-  color: #f6fffb;
-  font-size: clamp(2.8rem, 15vw, 6.5rem);
-  font-weight: 850;
-  line-height: 0.88;
-}
-
-.scroll-spacer {
-  height: 185vh;
-}
-
-.scroll-cue {
-  position: fixed;
-  z-index: 3;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
+.globe-fallback {
   display: flex;
   flex-direction: column;
+  gap: 0.75rem;
   align-items: center;
-  gap: 0.35rem;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-label);
+  font-size: 0.9rem;
 }
 
-.scroll-cue__label {
-  color: #8ddbe6;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+.globe-fallback__links a {
+  color: var(--color-aurora);
+  text-decoration: underline;
 }
 
-.scroll-cue__chevron {
-  width: 1.25rem;
-  height: 1.25rem;
-  color: #8ddbe6;
-  animation: cue-bounce 1.4s ease-in-out infinite;
+.how-it-works {
+  position: fixed;
+  z-index: 4;
+  bottom: 3.25rem;
+  left: 1.5rem;
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(141, 219, 230, 0.28);
+  border-radius: 999px;
+  background: rgba(2, 7, 10, 0.62);
+  color: var(--color-label);
+  font-size: 0.75rem;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-@keyframes cue-bounce {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(6px); }
+.how-it-works:hover {
+  border-color: rgba(141, 219, 230, 0.6);
+  color: #eefcf8;
+}
+
+.how-it-works__icon {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+@media (max-width: 640px) {
+  .how-it-works {
+    bottom: 3.75rem;
+    left: 1rem;
+  }
 }
 </style>

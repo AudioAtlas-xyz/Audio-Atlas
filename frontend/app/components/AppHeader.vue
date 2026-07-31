@@ -56,7 +56,7 @@ onBeforeUnmount(() => {
 
       <!-- Desktop nav -->
       <nav class="nav-links">
-        <NuxtLink to="/explore">Explore</NuxtLink>
+        <NuxtLink to="/">Explore</NuxtLink>
         <NuxtLink v-if="isAdmin" to="/admin" class="nav-admin">Admin</NuxtLink>
         <NuxtLink v-if="user" to="/submission-form" class="nav-contribute">Contribute</NuxtLink>
         <button v-else class="nav-contribute" @click="emit('login')">Contribute</button>
@@ -108,7 +108,7 @@ onBeforeUnmount(() => {
 
         <!-- Nav links -->
         <nav class="drawer-nav">
-          <NuxtLink to="/explore" class="drawer-link" @click="menuOpen = false">
+          <NuxtLink to="/" class="drawer-link" @click="menuOpen = false">
             <UIcon name="i-lucide-globe" class="drawer-link__icon" />
             Explore
           </NuxtLink>
