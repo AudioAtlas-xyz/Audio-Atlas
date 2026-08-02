@@ -65,13 +65,13 @@ function formatGenreCount(count: number) {
             class="ring-1 ring-aurora"
           />
 
+          <!-- Not a link: there is no contributor profile page, and no API
+               endpoint behind one. This previously pointed at /contributors/:id,
+               which 404s for users and fails the static prerender build. -->
           <div class="min-w-0">
-            <ULink
-              :to="`/contributors/${contributor.id}`"
-              class="truncate font-mono text-[11px] tracking-[0.12em] text-aurora"
-            >
+            <span class="truncate font-mono text-[11px] tracking-[0.12em] text-space-50">
               @{{ contributor.username }}
-            </ULink>
+            </span>
           </div>
         </div>
 
