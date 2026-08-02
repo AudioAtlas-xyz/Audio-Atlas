@@ -38,10 +38,13 @@
   padding: 0 1.5rem;
 }
 
+/* Was #4a6070, which is 3.0:1 on the page background — below AA, and now more
+   visible since the footer sits directly over the globe on the landing page.
+   --color-meta is 4.6:1 against the same background. */
 .footer-license {
   font-family: 'Space Mono', monospace;
   font-size: 0.65rem;
-  color: #4a6070;
+  color: var(--color-meta);
 }
 
 .footer-links {
@@ -52,7 +55,7 @@
 
 .footer-links a {
   font-size: 0.7rem;
-  color: #4a6070;
+  color: var(--color-meta);
   text-decoration: none;
   transition: color 0.15s ease;
 }

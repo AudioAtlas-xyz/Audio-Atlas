@@ -70,4 +70,25 @@
     #__nuxt {
       font-family: var(--font-body);
     }
+
+    /* Page shell. This used to live in an unscoped <style> block on the landing
+       page, which meant a single route was setting the background for the whole
+       site — and would have taken it away when that block was removed. */
+    html,
+    body,
+    #__nuxt {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background: #02070a;
+    }
+
+    /* Set by `default.vue` while a full-bleed route (the globe) is active, and
+       removed automatically on navigation. Prevents the landing page from
+       scrolling without leaking a manual style toggle onto other routes. */
+    body.is-full-bleed {
+      overflow: hidden;
+    }
 }

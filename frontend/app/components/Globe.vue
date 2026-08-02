@@ -46,10 +46,82 @@ const props = defineProps({
   introSpinSpeed: {
     type: Number,
     default: 0.4
+  },
+  /**
+   * Optional wide point of view to arrive from. When set, the globe mounts at
+   * this POV and eases to its settled one — but stays fully interactive the
+   * whole time, and the tween is abandoned the moment the user touches it.
+   *
+   * This is deliberately NOT a gate: the landing page previously blocked all
+   * interaction until a scroll intro completed, which is exactly the friction
+   * this replaces.
+   */
+  introEase: {
+    type: Object,
+    default: null
   }
 })
 
 const emit = defineEmits(['country-click'])
+
+const INTRO_EASE_MS = 900
+
+// Teardown for the intro-ease listeners; null when no ease is pending.
+let endIntroEase = null
+
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined'
+  && window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches === true
+
+/**
+ * Eases the camera from `fromPov` to `toPov` without ever disabling input.
+ *
+ * Cancellation has to live here rather than in the page: aborting means
+ * freezing the camera wherever it currently is, and only this component can
+ * read that from the globe instance.
+ */
+const runIntroEase = (fromPov, toPov) => {
+  if (!globeInstance) return
+
+  // Respect reduced motion — jump straight to the settled view.
+  if (prefersReducedMotion()) {
+    globeInstance.pointOfView(toPov, 0)
+    return
+  }
+
+  globeInstance.pointOfView(fromPov, 0)
+
+  const abort = () => {
+    endIntroEase?.()
+
+    // Freeze wherever the camera got to, so the tween doesn't fight the user.
+    const current = globeInstance?.pointOfView?.()
+    if (current) {
+      globeInstance.pointOfView(current, 0)
+      lastPovKey = povKey(current)
+    }
+  }
+
+  endIntroEase = () => {
+    endIntroEase = null
+    globeDiv.value?.removeEventListener('pointerdown', abort)
+    globeDiv.value?.removeEventListener('wheel', abort)
+    window.removeEventListener('keydown', abort)
+  }
+
+  globeDiv.value?.addEventListener('pointerdown', abort, { once: true, passive: true })
+  globeDiv.value?.addEventListener('wheel', abort, { once: true, passive: true })
+  window.addEventListener('keydown', abort, { once: true })
+
+  // One frame so the starting POV is applied before the tween begins.
+  requestAnimationFrame(() => {
+    if (!globeInstance || !endIntroEase) return
+    globeInstance.pointOfView(toPov, INTRO_EASE_MS)
+
+    // Stop listening once the tween has finished on its own.
+    setTimeout(() => endIntroEase?.(), INTRO_EASE_MS)
+  })
+}
 
 const setInteractionEnabled = (enabled) => {
   const controls = globeInstance?.controls?.()
@@ -139,8 +211,11 @@ onMounted(async () => {
     )
   })
 
-  const initialPov = props.pointOfView ?? props.initialPointOfView
-  lastPovKey = povKey(initialPov)
+  // Where the globe should end up, and where it should arrive from. Without an
+  // introEase these are the same, so the globe simply starts settled.
+  const settlePov = props.pointOfView ?? props.initialPointOfView
+  const mountPov = props.introEase ?? settlePov
+  lastPovKey = povKey(settlePov)
 
   const emitCountryClick = (country) => {
     emit('country-click', country)
@@ -194,10 +269,14 @@ onMounted(async () => {
     })
     .polygonsTransitionDuration(250)
     .pointsTransitionDuration(0)
-    .pointOfView(initialPov)
+    .pointOfView(mountPov)
     .globeOffset(props.globeOffset)
 
   setInteractionEnabled(props.introComplete)
+
+  if (props.introEase) {
+    runIntroEase(mountPov, settlePov)
+  }
 
   const globeMaterial = globeInstance.globeMaterial()
   globeMaterial.color = new THREE.Color('#b7f3ff')
@@ -238,6 +317,7 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(() => {
+  endIntroEase?.()
   resizeObserver?.disconnect()
   globeInstance?.pauseAnimation?.()
 })
