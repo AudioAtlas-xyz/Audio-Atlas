@@ -36,6 +36,8 @@ Audio-Atlas/
 |-- Backend/     # ASP.NET Core API, domain/application/infrastructure projects, tests
 |-- frontend/    # Nuxt 4 app, public assets, frontend tests
 |-- docs/        # Architecture, ERD, and setup notes
+|-- .github/     # CI/CD workflows (path-filtered: Backend/** and frontend/**)
+|-- CLAUDE.md    # Project context and conventions for AI coding assistants
 `-- README.md
 ```
 
@@ -52,8 +54,18 @@ At a high level:
 2. Start the Nuxt development server from `frontend/`.
 3. Use the frontend local URL printed by Nuxt, usually `http://localhost:3000`.
 
-The frontend expects the backend at `http://localhost:5085` by default. Override
-the Nuxt runtime configuration in `frontend/.env` when using a different API URL.
+The frontend expects the backend at `http://localhost:5000` by default (set in
+`frontend/nuxt.config.ts`). In development the frontend calls `/api`, which Nuxt
+proxies to that address, so a backend that is not running shows up as `502` on
+every request.
+
+Override with environment variables in `frontend/.env`:
+
+| Variable | Purpose |
+|----------|---------|
+| `NUXT_API_PROXY_TARGET` | Where the dev server proxies `/api`. Point it at the deployed API to run the frontend without a local backend. |
+| `NUXT_PUBLIC_BACKEND_BASE_URL` | Backend origin used to build absolute URLs. |
+| `NUXT_PUBLIC_API_BASE` | Overrides the API base directly. Note that pointing the browser at the deployed API from `localhost` fails CORS - prefer `NUXT_API_PROXY_TARGET`. |
 
 ## Checks
 
@@ -73,9 +85,14 @@ cd frontend
 npm ci
 npm run lint
 npm run typecheck
+npm run check:contrast   # WCAG AA gate - also enforced in CI
 npm run test
-npm run build
+npm run build            # also prerenders, so it fails on any dead internal link
 ```
+
+`npm run typecheck` and `npm run lint` both carry a small number of pre-existing
+findings. Compare against the current state of `main` before treating one as a
+regression - see [CLAUDE.md](CLAUDE.md) for the known-good baselines.
 
 ## Licensing
 
@@ -94,23 +111,15 @@ For commercial licensing enquiries, contact the maintainers.
 We welcome contributions. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before
 getting started.
 
+If you are working with an AI coding assistant, [CLAUDE.md](CLAUDE.md) documents
+the architecture, conventions and the non-obvious behaviours that have caused
+problems before - notably the two separate database seeders and the fact that
+migrations run at application startup.
+
 ## Maintainers
 
 - **Jed Anang** - Product owner, strategy
 - **Christophe Berbec** - Design, interaction
-
-## Team 14
-
-- **Alexander Olsen** - Scrum Master
-- **Camilla Froekjaer Joergensen** - Developer
-- **Camille Holmskov Larsen** - Developer
-- **Anna Rasmussen** - Developer
-- **Ditte Astof Hansen** - Developer
-- **Alfred Oersted Damgaard** - Developer
-- **Noah Leerbeck Van Wagenen** - Developer
-- **Andreas John-Holaus** - Developer
-- **Philip Bay Quorning** - Developer
-- **Freja Skakke Joergensen** - Developer
 
 ## Links
 
